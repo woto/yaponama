@@ -1,6 +1,4 @@
 Yaponama::Application.routes.draw do
-  resources :tests
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
