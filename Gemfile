@@ -32,3 +32,6 @@ gem 'jquery-rails'
 # gem 'ruby-debug'
 
 gem 'bootstrap-sass'
+gem 'compass'
+gem 'formtastic'
+gem 'formtastic-bootstrap'
