@@ -29,10 +29,13 @@ gem 'jquery-rails'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'ruby-debug'
+gem 'ruby-debug'
 
 gem 'bootstrap-sass'
 gem 'compass'
-gem 'formtastic'
-gem 'formtastic-bootstrap'
+#gem 'formtastic'
+#gem 'formtastic-bootstrap'
 gem 'devise'
+gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
+gem 'rails-i18n'
+gem 'humanizer', :git => 'git@github.com:woto/humanizer.git'

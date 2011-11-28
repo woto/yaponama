@@ -8,7 +8,65 @@
 </head>
 <body>
 
-<%= yield %>
+
+  <% if notice %>
+    <div class="alert-message success fade in" data-alert="alert">
+      <a class="close" href="#">×</a>
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert-message fails fade in" data-alert="alert">
+      <a class="close" href="#">×</a>
+      <p><%= alert %></p>
+    </div>
+  <% end %>
+	
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="container-fluid">
+      <a class="brand" href="#">Yaponama</a>
+      <ul class="nav">
+        <li class="active"><a href="#">Главная</a></li>
+        <li><a href="#contact">Контакты</a></li>
+      </ul>
+			<p class="pull-right">
+      	<% if user_signed_in? %>
+					<%= link_to "Выход", destroy_user_session_path, :method => :delete %>
+				<% else %>
+      		<%= link_to "Вход", new_user_session_path %> или <%= link_to "Регистрация", new_user_registration_path %></p>
+				<% end %>	  	
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+
+  <div class="sidebar">
+
+    <div class="well"> 
+		В вашей корзине X товаров на сумму X XXX руб.
+    </div>
+
+    <div class="well"> 
+		<p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
+      <ul>
+        <li> Стрим <a href="#">http://123.456.789.000</a></li>
+        <li> Норком <a href="#">http://123.456.789.000</a></li>
+        <li> и в Интернете <a href="#">http://www.yaponama.ru</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="content">
+	<%= yield %>
+    <footer>
+      <p>&copy; Yaponama 2011</p>
+    </footer>
+  </div>
+</div>
 
 </body>
 </html>

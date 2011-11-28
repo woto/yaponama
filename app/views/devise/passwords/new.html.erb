@@ -1,0 +1,34 @@
+<ul class="breadcrumb">
+  <li><a href="#">Главная</a> <span class="divider">/</span></li>
+  <li class="active">Забыли пароль?</li>
+</ul>
+
+<h1>Забыли пароль?</h1>
+
+<p><span class="label notice">К сведению</span> Забыли пароль? Не отчаивайтесь, укажите номер телефона и мы вышлем вам код для сброса пароля.</p>
+
+<hr>
+
+<%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+
+<% if f.error_notification %> 
+  <div class="alert-message warning fade in" data-alert="alert"> 
+    <a class="close" href="#">×</a> 
+    <p><%= f.error_notification %></p> 
+  </div> 
+<% end %>
+
+  <%= devise_error_messages! %>
+  <div class="inputs">
+	
+    <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
+      <%= content_tag :span, "+7", :class => "add-on" %>
+      <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
+    <% end %>
+
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Выслать код сброса" %> <%= render :partial => "devise/shared/links" %>
+  </div>
+<% end %>

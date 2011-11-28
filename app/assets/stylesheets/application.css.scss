@@ -1,0 +1,45 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require bootstrap
+ *= require_self
+ *= require_tree . 
+*/
+
+/* TODO вот это не понятно надо или нет */
+@import "bootstrap";
+
+/* Опустить всю страницу. С офф. мануала */
+body {
+  padding-top: 60px;
+}
+
+/* Сдвинуть приветсвтие на главной */
+.hero-unit {
+  h1 {
+    padding-bottom: 5px;
+  }
+}
+
+/* Для страницы регистрации */
+
+/* Для укорачивания поля для ввода номера телефона */
+.margin-hack {
+  margin-bottom: 0 !important;
+  div {
+    margin-left:0;
+    input.phone-hack {
+      width: 245px;
+    }
+  }
+}
+
+/* Для скрытия дополнительного поля с ошибкой (для +7) */
+.hint-hack > div > .help-inline {
+  display: none;
+}
+
+input {
+	width: 270px;
+}
