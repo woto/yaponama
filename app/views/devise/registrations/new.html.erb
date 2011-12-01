@@ -1,43 +1,15 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Регистрация</li>
-</ul>
+<h2>Sign up</h2>
 
-<h1> Регистрация </h1>
-
-<p><span class="label notice">К сведению</span> Для регистрации на нашем сайте вам не нужно наличие e-mail или чего-то еще, требующего подключения к Интернет. Указав номер своего телефона мы сможем сообщать вам информацию о состоянии заказа или ответе менеджера посредством смс максимально быстро. После того как вы заполните все поля и перейдёте по ссылке "Регистрация" вам будет выслано смс с кодом подтверждения.</p>
-<hr>
-<%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-
-<% if f.error_notification %> 
-  <div class="alert-message warning fade in" data-alert="alert"> 
-    <a class="close" href="#">×</a> 
-    <p><%= f.error_notification %></p> 
-  </div> 
-<% end %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
 
   <div class="inputs">
-
-
-    <%= f.input :name, :required => true, :autofocus => true, :hint => "Как нам к вам обращаться?" %>
-
-    <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
-      <%= content_tag :span, "+7", :class => "add-on" %>
-      <%= f.input :phone, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
-    <% end %>
-
-    <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов' %>
-
-    <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль' %>
-
-    <%= f.input :humanizer_answer, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'}, :label => "Ответьте на вопрос"  do %>
-      <%= f.input :humanizer_answer, :hint => resource.humanizer_question, :label => false, :wrapper_html => {:class => 'margin-hack'} %>
-      <%= f.hidden_field :humanizer_question_id %>
-    <% end %>
-
+    <%= f.input :email, :required => true, :autofocus => true %>
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Регистрация" %> <%= render :partial => "devise/shared/links" %>
+    <%= f.button :submit, "Sign up" %>
   </div>
 <% end %>
+
+<%= render :partial => "devise/shared/links" %>

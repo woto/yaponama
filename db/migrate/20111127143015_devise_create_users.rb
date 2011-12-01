@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.trackable
 
       # t.encryptable
-      # t.confirmable
+      t.confirmable
       # t.lockable :lock_strategy => :failed_attempts, :unlock_strategy => :both
       # t.token_authenticatable
 
@@ -19,7 +19,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
 
     add_index :users, :phone, :unique => true
     add_index :users, :reset_password_token, :unique => true
-    # add_index :users, :confirmation_token,   :unique => true
+    add_index :users, :confirmation_token,   :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
   end

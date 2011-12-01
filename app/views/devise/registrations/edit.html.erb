@@ -1,13 +1,7 @@
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-
-<% if f.error_notification %> 
-  <div class="alert-message warning fade in" data-alert="alert"> 
-    <a class="close" href="#">×</a> 
-    <p><%= f.error_notification %></p> 
-  </div> 
-<% end %>
+  <%= f.error_notification %>
 
   <div class="inputs">
     <%= f.input :email, :required => true, :autofocus => true %>

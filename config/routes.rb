@@ -1,6 +1,9 @@
 Yaponama::Application.routes.draw do
-
-  devise_for :users
+  as :user do
+        match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
+  end
+  devise_for :users, :controllers => { :confirmations => "confirmations" }
+  #devise_for :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
