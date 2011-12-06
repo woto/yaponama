@@ -5,6 +5,31 @@ class ConfirmationsController < Devise::PasswordsController
   skip_before_filter :require_no_authentication
   skip_before_filter :authenticate_user!
 
+  def create
+
+    self.resource = resource_class.send_confirmation_instructions(params[resource_name])
+    #self.resource = resource_class.send_reset_password_instructions(params[resource_name])
+    #
+    #if successfully_sent?(resource)
+    #  respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
+    #else
+    #  respond_with_navigational(resource){ render_with_scope :new }
+    #end
+    if successfully_sent?(resource)
+      set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
+      expire_session_data_after_sign_in!
+      respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+    else
+      respond_with_navigational(resource){ render_with_scope :new }
+    end
+  end
+
+  # The path used after sign up for inactive accounts. You need to overwrite
+  # this method in your own RegistrationsController.
+  def after_inactive_sign_up_path_for(resource)
+    root_path
+  end
+
   # PUT /resource/confirmation
   def update
     with_unconfirmed_confirmable do
@@ -41,6 +66,12 @@ class ConfirmationsController < Devise::PasswordsController
   end
   
   protected
+
+  # Returns the inactive reason translated.
+  def inactive_reason(resource)
+    reason = "bla"
+    I18n.t("devise.registrations.reasons.#{reason}", :default => reason)
+  end
 
   def with_unconfirmed_confirmable
     @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, params[:confirmation_token])
