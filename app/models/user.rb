@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email
 
+  validates :phone, :uniqueness => true
+
   # new function to set the password without knowing the current password used in our confirmation controller. 
   def attempt_set_password(params)
     p = {}
@@ -31,6 +33,10 @@ class User < ActiveRecord::Base
     else
       !password.nil? || !password_confirmation.nil?
     end
+  end
+
+  def email_required?
+    false
   end
 
 end
