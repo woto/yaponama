@@ -20,7 +20,7 @@
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :phone, :required => true, :autofocus => true %>
+    <%= f.input :user_name, :required => true, :autofocus => true %>
     <%= f.input :password, :hint => "leave it blank if you don't want to change it", :required => false %>
     <%= f.input :password_confirmation, :required => false %>
     <%= hidden_field_tag :confirmation_token, @confirmation_token %>
