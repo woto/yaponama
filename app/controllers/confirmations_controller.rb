@@ -92,4 +92,5 @@ class ConfirmationsController < Devise::PasswordsController
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
   end
+
 end

@@ -32,4 +32,11 @@ class User < ActiveRecord::Base
     false
   end
 
+  def self.generate_token(column)
+  loop do
+    token = Devise.friendly_token[0,5].upcase
+    break token unless to_adapter.find_first({ column => token })
+  end
+    end
+
 end
