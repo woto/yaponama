@@ -1,12 +1,14 @@
 Yaponama::Application.routes.draw do
 
   as :user do
-    match '/users/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
+    match '/users/confirmation' => 'confirmations#update', :via => :put, :as => :update_confirmation
+    match '/users/confirmation/insert' => 'confirmations#insert', :as => :insert_confirmation
+    match '/users/confirmation' =>'confirmations#show', :via => :post, :as => :show_confirmation
   end
 
   devise_for :users, :controllers => {
-          :confirmations => "confirmations"
-  #        :registrations => "registrations"
+          :confirmations => "confirmations",
+          :registrations => "registrations"
   }
   #devise_for :users
 

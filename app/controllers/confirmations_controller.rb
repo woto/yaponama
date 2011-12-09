@@ -53,6 +53,7 @@ class ConfirmationsController < Devise::PasswordsController
 
   # GET /resource/confirmation?confirmation_token=abcdef
   def show
+
     with_unconfirmed_confirmable do
       if @confirmable.has_no_password?
         do_show
@@ -61,7 +62,7 @@ class ConfirmationsController < Devise::PasswordsController
       end
     end
     if !@confirmable.errors.empty?
-      render_with_scope :new
+      render_with_scope :insert
     end
   end
   
@@ -91,6 +92,14 @@ class ConfirmationsController < Devise::PasswordsController
     @confirmable.confirm!
     set_flash_message :notice, :confirmed
     sign_in_and_redirect(resource_name, @confirmable)
+  end
+
+  def after_confirmation_path_for
+    puts 1
+  end
+
+  def insert
+    build_resource({})
   end
 
 end

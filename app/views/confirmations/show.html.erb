@@ -1,6 +1,6 @@
 <h2>Account Activation</h2>
 
-<%= form_for resource, :as => resource_name, :url => update_user_confirmation_path, :html => {:method => 'put'}, :id => 'activation-form' do |f| %>
+<%= form_for resource, :as => resource_name, :url => update_confirmation_path(resource_name), :html => {:method => 'put'}, :id => 'activation-form' do |f| %>
   <%= devise_error_messages! %>
   <fieldset>
     <legend>Account Activation<% if resource.name %> for <%= resource.name %><% end %></legend>
@@ -16,7 +16,7 @@
 
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= simple_form_for(resource, :as => resource_name, :url => update_user_confirmation_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => update_confirmation_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">

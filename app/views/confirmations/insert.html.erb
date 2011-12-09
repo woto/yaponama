@@ -1,0 +1,11 @@
+<h2>Insert SMS Token</h2>
+
+<%= simple_form_for("", :as => resource_name, :url => show_confirmation_path, :html => { :method => :post }) do |f| %>
+
+  <p><%=label_tag :confirmation_token %><br />
+  <%=text_field_tag :confirmation_token, "", :maxlength => 5%></p>
+ 
+  <p><%= f.submit "Activate" %></p>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>
