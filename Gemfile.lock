@@ -7,8 +7,8 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: git@github.com:woto/humanizer.git
-  revision: 7d4278c4ff3d674460d466e54f5e33d374bfeb3d
+  remote: https://github.com/kiskolabs/humanizer.git
+  revision: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
   specs:
     humanizer (2.4.3)
 

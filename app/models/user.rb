@@ -6,8 +6,12 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name
+  attr_accessible :humanizer_question_id, :humanizer_answer
 
-  validates :phone, :uniqueness => true
+  validates :phone, :numericality => { :only_integer => true }, :length => {:is => 10}, :uniqueness => true
+
+  include Humanizer
+  require_human_on :create
 
   # new function to return whether a password has been set
   def has_no_password?
