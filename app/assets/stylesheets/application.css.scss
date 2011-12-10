@@ -48,3 +48,8 @@ input {
 label {
   width: 140px;
 }
+
+/* Понадобилось для того чтобы сместить левый сайдбар до размера верхнего notice/error */
+.container-fluid > .sidebar {
+  top: auto !important;
+}

@@ -8,21 +8,6 @@
 </head>
 <body>
 
-
-  <% if notice %>
-    <div class="alert-message success fade in" data-alert="alert">
-      <a class="close" href="#">×</a>
-      <p><%= notice %></p>
-    </div>
-  <% end %>
-
-  <% if alert %>
-    <div class="alert-message fails fade in" data-alert="alert">
-      <a class="close" href="#">×</a>
-      <p><%= alert %></p>
-    </div>
-  <% end %>
-	
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container-fluid">
@@ -42,6 +27,20 @@
 </div>
 
 <div class="container-fluid">
+
+  <% if notice %>
+    <div class="alert-message success fade in" data-alert="alert">
+      <a class="close" href="#">×</a>
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert-message fails fade in" data-alert="alert">
+      <a class="close" href="#">×</a>
+      <p><%= alert %></p>
+    </div>
+  <% end %>
 
   <div class="sidebar">
 
