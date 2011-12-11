@@ -1,27 +1,25 @@
 <ul class="breadcrumb">
   <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Регистрация</li>
+  <li class="active">Обновление профиля</li>
 </ul>
 
-<h1> Обновление вашего профиля </h1>
+<h1> Обновление профиля </h1>
 
-<%= simple_form_for(resource, :as => resource_name, :url => update_confirmation_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => update_confirmation_path, :html => { :method => :put }) do |f| %>
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
 
   <div class="inputs">
     <%= f.input :user_name, :required => true, :autofocus => true %>
-    <%= f.input :password, :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
+    <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов' %>
+    <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль' %>
     <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Update" %>
+    <%= f.button :submit, "Обновить" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>

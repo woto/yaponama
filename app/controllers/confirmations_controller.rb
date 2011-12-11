@@ -32,37 +32,47 @@ class ConfirmationsController < Devise::PasswordsController
 
   # PUT /resource/confirmation
   def update
+    flag = false
     with_unconfirmed_confirmable do
-      if self.resource.has_no_password?
-        self.resource.update_attributes(params[:user])
+      flag = true
+      #if self.resource.has_no_password?
+      params_for_update = params[:user].clone
+      params_for_update.delete(:confirmation_token)
+        self.resource.update_attributes(params_for_update)
         if self.resource.valid?
           do_confirm
         else
           do_show
           self.resource.errors.clear #so that we wont render :new
         end
-      else
-        self.class.add_error_on(self, :email, :password_allready_set)
-      end
+      #else
+      #  do_confirm
+      #  #self.class.add_error_on(self, :email, :password_allready_set)
+      #end
     end
-
-    if !self.resource.errors.empty?
-      render_with_scope :insert
+    unless flag
+      if !self.resource.errors.empty?
+        render_with_scope :insert
+      end
     end
   end
 
   # GET /resource/confirmation?confirmation_token=abcdef
   def show
 
+    flag = false
     with_unconfirmed_confirmable do
-      if self.resource.has_no_password?
+      flag = true
+      if self.resource.has_no_password? || params[:user][:confirmation_token]
         do_show
       else
         do_confirm
       end
     end
-    if !self.resource.errors.empty?
-      render_with_scope :insert
+    unless flag
+      if !self.resource.errors.empty?
+        render_with_scope :insert
+      end
     end
   end
 
@@ -102,7 +112,8 @@ class ConfirmationsController < Devise::PasswordsController
 
   def do_confirm
     self.resource.confirm!
-    set_flash_message :notice, :confirmed
+    self.resource.reset_password!(params[:user][:password], params[:user][:password_confirmation])
+    set_flash_message :notice, :signed_in
     sign_in_and_redirect(resource_name, self.resource)
   end
 
@@ -112,9 +123,6 @@ class ConfirmationsController < Devise::PasswordsController
 
   def insert
     build_resource({})
-    puts 1
-    puts 1
-
   end
 
 end

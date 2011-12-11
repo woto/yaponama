@@ -5,27 +5,21 @@
 
 <h1> Регистрация </h1>
 
-<p><span class="label notice">К сведению</span> Для регистрации на нашем сайте просто укажите номер своего телефона. Благодаря этому мы сможем сообщать вам информацию о состоянии заказа или ответе менеджера посредством смс, максимально быстро. После того как вы заполните форму и перейдёте по ссылке "Регистрация" вам будет выслано смс с кодом подтверждения.</p>
+<p><span class="label">К сведению</span> Для регистрации на нашем сайте просто укажите номер своего телефона.</p>
 <hr>
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
-<% if f.error_notification %> 
-  <div class="alert-message warning fade in" data-alert="alert"> 
-    <a class="close" href="#">×</a> 
-    <p><%= f.error_notification %></p>
-  </div> 
-<% end %>
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
 
   <div class="inputs">
 
     <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
       <%= content_tag :span, "+7", :class => "add-on" %>
-      <%= f.input :phone, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
-    <% end %>
-
-    <%= f.input :humanizer_answer, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'}, :label => "Ответьте на вопрос"  do %>
-      <%= f.input :humanizer_answer, :hint => resource.humanizer_question, :label => false, :wrapper_html => {:class => 'margin-hack'} %>
-      <%= f.hidden_field :humanizer_question_id %>
+      <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
 
   </div>

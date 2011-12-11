@@ -16,7 +16,9 @@ ru:
       password_confirmation: Подтверждение
       remember_me: Запомнить
       email: E-mail
-      name: Имя
+      user_name: Имя
+    hints:
+      user_name: Как лучше к Вам обращаться?
     # Labels and hints examples
     # labels:
     #   password: 'Password'

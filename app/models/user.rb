@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
 
   validates :phone, :numericality => { :only_integer => true }, :length => {:is => 10}, :uniqueness => true
 
-  include Humanizer
-  require_human_on :create
-
   # new function to return whether a password has been set
   def has_no_password?
     self.encrypted_password.blank?
@@ -21,7 +18,7 @@ class User < ActiveRecord::Base
 
   # new function to provide access to protected method unless_confirmed
   def only_if_unconfirmed
-    unless_confirmed {yield}
+    yield
   end
 
   def password_required?
@@ -33,14 +30,25 @@ class User < ActiveRecord::Base
     end
   end
 
+  def update_with_password(params={})
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    update_attributes(params)
+  end
+
   def email_required?
     false
   end
 
   def self.generate_token(column)
     loop do
-      token = Devise.friendly_token[0,5].upcase
-      break token unless to_adapter.find_first({ column => token })
+      token = SecureRandom.base64(15).tr('+/=lIO0Lio', 'pqrsxyztuv')[0,5].upcase
+      unless (to_adapter.find_first({ "confirmation_token" => token }) || to_adapter.find_first({ "reset_password_token" => token }) )
+        break token
+      end
     end
   end
 

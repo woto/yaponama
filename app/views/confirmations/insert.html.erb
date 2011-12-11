@@ -1,25 +1,24 @@
 <ul class="breadcrumb">
   <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Регистрация</li>
+  <li class="active">Ввод кода подтверждения</li>
 </ul>
 
 <h1> Ввод кода подтверждения </h1>
 
-<p><span class="label notice">К сведению</span> Мы отправили вам смс с кодом подтверждения, пройдет 1-3 мин. прежде чем вы её получите. После получения пожалуйста введите полученный код в поле ниже. Если вы не получили смс, то воспользуйтесь ссылкой "Восстановление пароля или повторная отправка кода подтверждения"</p>
+<p><span class="label">К сведению</span> Если вы не получили sms, то воспользуйтесь ссылкой "Забыли пароль?".</p>
 <hr>
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => confirmation_path(resource_name)) do |f| %>
 
-<% if f.error_notification %>
-  <div class="alert-message warning fade in" data-alert="alert">
-    <a class="close" href="#">×</a>
-    <p><%= f.error_notification %></p>
-  </div>
-<% end %>
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
 
   <div class="inputs">
 
     <%= f.input :confirmation_token, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'}, :label => "Код подтверждения"  do %>
-      <%= f.input :confirmation_token, :autofocus => true, :label => false, :input_html => {:maxlength => 5}, :wrapper_html => {:class => 'margin-hack'} %>
+      <%= f.input :confirmation_token, :autofocus => true, :label => false, :input_html => {:maxlength => 5}, :wrapper_html => {:class => 'margin-hack'}, :hint => "Регистр букв не важен" %>
     <% end %>
 
   </div>

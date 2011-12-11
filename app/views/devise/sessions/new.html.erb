@@ -5,7 +5,7 @@
 
 <h1> Вход </h1>
 
-<p><span class="label notice">К сведению</span> Если вы уже регистрировались на этом сайте, то укажите ваш номер телефона и пароль, иначе можете <%= link_to "зарегистрироваться прямо сейчас", new_registration_path(resource) %>, это не займет более 5-и минут.</p>
+<p><span class="label">К сведению</span> Если вы уже регистрировались на этом сайте, то укажите ваш номер телефона и пароль.</p>
 
 <hr>
 
@@ -30,7 +30,7 @@
     <%= f.input :password, :required => true, :hint => "Пароль от этого сайта" %>
 
     <%= f.input :remember_me, :as => :boolean do %>
-      <%= check_box_tag :remember_me, '1', false, :style => 'margin-top:8px;' %>
+      <%= f.input :remember_me, :input_html => { :value => '1', :style => 'margin-top:8px;'}, :label => false, :as => :boolean, :wrapper_html => {:class => 'margin-hack'} %>
     <% end %>
   </div>
 

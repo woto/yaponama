@@ -1,22 +1,25 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<ul class="breadcrumb">
+  <li><a href="#">Главная</a> <span class="divider">/</span></li>
+  <li class="active">Обновление профиля</li>
+</ul>
 
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<h1> Обновление профиля </h1>
+
+<p><span class="label">К сведению</span> Не заполняйте поля "Пароль" и "Подтверждение пароля", если не хотите их менять.</p>
+<hr>
+
+<%= simple_form_for(resource, :as => resource_name, :wrapper => :inline, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :email, :required => true, :autofocus => true %>
-    <%= f.input :password, :hint => "leave it blank if you don't want to change it", :required => false %>
-    <%= f.input :password_confirmation, :required => false %>
-    <%= f.input :current_password, :hint => "we need your current password to confirm your changes", :required => true %>
+    <%= f.input :user_name, :required => true, :autofocus => true %>
+    <%= f.input :password, :hint => "Придумайте себе новый пароль не менее 6-и символов", :required => false %>
+    <%= f.input :password_confirmation, :hint => "Повторите введенный пароль", :required => false %>
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Update" %>
+    <%= f.button :submit, "Обновить" %>
   </div>
 <% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+<hr />
+<p>Вы можете удалить свой аккаунт, если больше не хотите быть зарегистрированным на нашем сайте. Внимание, эта процедура не обратима, вся история связанная с вашим аккаунтом (скидки, история покупок, история переписки) будут стёрты. <%= link_to "Удалить мой аккаунт.", registration_path(resource_name), :confirm => "Вы уверены, что вы хотите удалить свой аккаунт на этом сайте?", :method => :delete %></p>
