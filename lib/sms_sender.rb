@@ -10,6 +10,7 @@ class SmsSender
       puts '------------------------------------------'
       puts record.phone
       puts record.confirmation_token
+      puts record.reset_password_token
       puts '------------------------------------------'
       Fake.new
       #devise_mail(record, :confirmation_instructions)
@@ -19,6 +20,7 @@ class SmsSender
       puts '------------------------------------------'
       puts record.phone
       puts record.confirmation_token
+      puts record.reset_password_token
       puts '------------------------------------------'
       Fake.new
       #devise_mail(record, :reset_password_instructions)
@@ -28,6 +30,7 @@ class SmsSender
       puts '------------------------------------------'
       puts record.phone
       puts record.confirmation_token
+      puts record.reset_password_token
       puts '------------------------------------------'
       Fake.new
       #devise_mail(record, :unlock_instructions)

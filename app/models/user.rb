@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name
   attr_accessible :humanizer_question_id, :humanizer_answer
+  attr_accessible :confirmation_token
 
   validates :phone, :numericality => { :only_integer => true }, :length => {:is => 10}, :uniqueness => true
 
@@ -37,10 +38,10 @@ class User < ActiveRecord::Base
   end
 
   def self.generate_token(column)
-  loop do
-    token = Devise.friendly_token[0,5].upcase
-    break token unless to_adapter.find_first({ column => token })
-  end
+    loop do
+      token = Devise.friendly_token[0,5].upcase
+      break token unless to_adapter.find_first({ column => token })
     end
+  end
 
 end

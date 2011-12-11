@@ -1,15 +1,40 @@
-<h2>Sign in</h2>
+<ul class="breadcrumb">
+  <li><a href="#">Главная</a> <span class="divider">/</span></li>
+  <li class="active">Вход</li>
+</ul>
 
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+<h1> Вход </h1>
+
+<p><span class="label notice">К сведению</span> Если вы уже регистрировались на этом сайте, то укажите ваш номер телефона и пароль, иначе можете <%= link_to "зарегистрироваться прямо сейчас", new_registration_path(resource) %>, это не займет более 5-и минут.</p>
+
+<hr>
+
+<%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+	<% if f.error_notification %>
+	  <div class="alert-message warning fade in" data-alert="alert">
+	    <a class="close" href="#">×</a>
+	    <p><%= f.error_notification %></p>
+	  </div>
+	<% end %>
+
+  <%= devise_error_messages! %>
+
   <div class="inputs">
-    <%= f.input :phone, :required => false, :autofocus => true %>
-    <%= f.input :password, :required => false %>
-    <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
+
+    <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
+      <%= content_tag :span, "+7", :class => "add-on" %>
+      <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
+    <% end %>
+
+    <%= f.input :password, :required => true, :hint => "Пароль от этого сайта" %>
+
+    <%= f.input :remember_me, :as => :boolean do %>
+      <%= check_box_tag :remember_me, '1', false, :style => 'margin-top:8px;' %>
+    <% end %>
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Sign in" %>
+    <%= f.button :submit, "Вход" %> <%= render :partial => "devise/shared/links" %>
   </div>
 <% end %>
-
-<%= render :partial => "devise/shared/links" %>

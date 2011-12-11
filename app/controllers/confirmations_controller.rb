@@ -33,21 +33,21 @@ class ConfirmationsController < Devise::PasswordsController
   # PUT /resource/confirmation
   def update
     with_unconfirmed_confirmable do
-      if @confirmable.has_no_password?
-        @confirmable.update_attributes(params[:user])
-        if @confirmable.valid?
+      if self.resource.has_no_password?
+        self.resource.update_attributes(params[:user])
+        if self.resource.valid?
           do_confirm
         else
           do_show
-          @confirmable.errors.clear #so that we wont render :new
+          self.resource.errors.clear #so that we wont render :new
         end
       else
         self.class.add_error_on(self, :email, :password_allready_set)
       end
     end
 
-    if !@confirmable.errors.empty?
-      render_with_scope :new
+    if !self.resource.errors.empty?
+      render_with_scope :insert
     end
   end
 
@@ -55,18 +55,17 @@ class ConfirmationsController < Devise::PasswordsController
   def show
 
     with_unconfirmed_confirmable do
-      if @confirmable.has_no_password?
+      if self.resource.has_no_password?
         do_show
       else
         do_confirm
       end
     end
-    if !@confirmable.errors.empty?
+    if !self.resource.errors.empty?
       render_with_scope :insert
     end
   end
-  
-  protected
+
 
   # Returns the inactive reason translated.
   def inactive_reason(resource)
@@ -75,23 +74,36 @@ class ConfirmationsController < Devise::PasswordsController
   end
 
   def with_unconfirmed_confirmable
-    @confirmable = User.find_or_initialize_with_error_by(:confirmation_token, params[:confirmation_token])
-    if !@confirmable.new_record?
-      @confirmable.only_if_unconfirmed {yield}
+    user1 = User.find_or_initialize_with_error_by(:confirmation_token, params[:user][:confirmation_token])
+    user2 = User.find_or_initialize_with_error_by(:reset_password_token, params[:user][:confirmation_token])
+    self.resource = user1.id ? user1 : user2
+    if !self.resource.new_record?
+      self.resource.only_if_unconfirmed {yield}
+    else
+      if resource.errors.present?
+        self.resource.errors.clear
+        self.resource.confirmation_token = params[:user][:confirmation_token]
+        self.resource.reset_password_token = params[:user][:confirmation_token]
+        if params[:user][:confirmation_token].blank?
+          self.resource.errors.add(:confirmation_token, "Код подтверждения не может быть пустым")
+        else
+          self.resource.errors.add(:confirmation_token, "Введен не верный код подтверждения")
+        end
+      end
     end
   end
 
   def do_show
-    @confirmation_token = params[:confirmation_token]
+    @confirmation_token = params[:user][:confirmation_token]
     @requires_password = true
-    self.resource = @confirmable
+    #self.resource = @confirmable
     render_with_scope :show
   end
 
   def do_confirm
-    @confirmable.confirm!
+    self.resource.confirm!
     set_flash_message :notice, :confirmed
-    sign_in_and_redirect(resource_name, @confirmable)
+    sign_in_and_redirect(resource_name, self.resource)
   end
 
   def after_confirmation_path_for
@@ -100,6 +112,9 @@ class ConfirmationsController < Devise::PasswordsController
 
   def insert
     build_resource({})
+    puts 1
+    puts 1
+
   end
 
 end
