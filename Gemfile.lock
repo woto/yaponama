@@ -120,6 +120,7 @@ GEM
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
+    ruby-growl (3.0)
     sass (3.1.10)
     sass-rails (3.1.5)
       actionpack (~> 3.1.0)
@@ -157,6 +158,7 @@ DEPENDENCIES
   rails (= 3.1.3)
   rails-i18n
   ruby-debug
+  ruby-growl
   sass-rails (~> 3.1.5)
   simple_form!
   sqlite3
