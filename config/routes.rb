@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  resources :cars
+
   as :user do
     match '/users/confirmation' => 'confirmations#update', :via => :put, :as => :update_confirmation
     match '/users/confirmation/insert' => 'confirmations#insert', :as => :insert_confirmation

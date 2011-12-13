@@ -1,5 +1,6 @@
 $ ->
   $(".alert-message").alert()
+  $('.dropdown').dropdown()
 
   delay = (->
     timer = 0

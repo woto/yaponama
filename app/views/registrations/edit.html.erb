@@ -1,9 +1,9 @@
 <ul class="breadcrumb">
   <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Обновление профиля</li>
+  <li class="active">Редактирование профиля</li>
 </ul>
 
-<h1> Обновление профиля </h1>
+<h1> Редактирование профиля </h1>
 
 <p><span class="label">К сведению</span> Не заполняйте поля "Пароль" и "Подтверждение пароля", если не хотите их менять.</p>
 <hr>
@@ -12,7 +12,7 @@
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :user_name, :required => true, :autofocus => true %>
+    <%= f.input :user_name, :required => true %>
     <%= f.input :password, :hint => "Придумайте себе новый пароль не менее 6-и символов", :required => false %>
     <%= f.input :password_confirmation, :hint => "Повторите введенный пароль", :required => false %>
   </div>

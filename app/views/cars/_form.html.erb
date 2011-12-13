@@ -1,0 +1,73 @@
+<p><span class="label">К сведению</span> Для подбора и консультации пожалуйста заполните информацию о своем автомобиле. Нам крайне важно знать <a href="#" for="vin" rel="popover" title="VIN код" data-content="ИДЕНТИФИКАЦИОННЫЙ НОМЕР ТРАНСПОРТНОГО СРЕДСТВА состоит из 17 символов. Наносится на неразъемных составляющих кузова или шасси и на специально изготовленных номерных табличках (шильдиках). VIN код также указан в свидетельстве о регистрации транспортного средства.">VIN код</a> или <a href="#" for="frame" rel="popover" title="FRAME (CHASSIS) код" data-content="ИДЕНТИФИКАЦИОННЫЙ НОМЕР РАМЫ (ШАССИ). Является аналогом VIN кода и используется только на автомобилях предназначенных для внутреннего рынка Японии (с правым рулём). Может содержать разное количество символов. FRAME (CHASSIS) код также указан в свидетельстве о регистрации транспортного средства.">FRAME (CHASSIS) код</a> вашего автомобиля. Они указаны в свидетельстве о регистрации транспортного средства. В противном случае старайтесь максимально подробно указать характеристики автомобиля.</p>
+<br />
+
+<script>
+  $(function () {
+    
+    $("a[rel=popover][for=vin]")
+    .popover({
+      offset: 10,
+      placement: "left"
+    })
+    .click(function(e) {
+      e.preventDefault()
+    })
+    
+    $("a[rel=popover][for=frame]")
+    .popover({
+      offset: 10,
+      placement: "right"
+    })
+    .click(function(e) {
+      e.preventDefault()
+    })
+    
+    
+  })
+</script>
+
+<%= simple_form_for(@car, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+  
+  <ul data-tabs="tabs" class="tabs">
+    <li class="active"><a href="#home">Ввод Идентификатора автомобиля</a></li>
+    <li class=""><a href="#profile">Ввод характеристик автомобиля</a></li>
+  </ul>
+  
+  <div class="tab-content" id="my-tab-content">
+    <div id="home" class="tab-pane active">  
+      <div class="inputs">
+        <%= f.input :vin %>
+        <p style="margin: 0 0 10px 270px; top: -10px; position: relative; font-size: 150%">или</p>
+        <%= f.input :frame %>
+      </div>
+    </div>
+    <div id="profile" class="tab-pane">  
+      <div class="inputs">
+        <%= f.input :god %>
+        <%= f.input :marka %>
+        <%= f.input :model %>
+        <%= f.input :dvigatel %>
+        <%= f.input :tip %>
+        <%= f.input :moschnost %>
+        <%= f.input :privod %>
+        <%= f.input :tip_kuzova %>
+        <%= f.input :kpp %>
+        <%= f.input :kod_kuzova %>
+        <%= f.input :kod_dvigatelya %>
+        <%= f.input :rinok %>
+        <%= f.input :komplektaciya %>
+      </div>
+    </div>
+  </div>            
+
+  <script>
+    $(function () {
+      $('.tabs').tabs()
+    })
+  </script>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

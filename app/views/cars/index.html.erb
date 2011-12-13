@@ -1,0 +1,56 @@
+<ul class="breadcrumb">
+  <li><a href="#">Главная</a> <span class="divider">/</span></li>
+  <li class="active">Автомобиль</li>
+</ul>
+
+<h1>Список автомобилей</h1>
+
+<table>
+  <tr>
+    <th>God</th>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Dvigatel</th>
+    <th>Tip</th>
+    <th>Moschnost</th>
+    <th>Privod</th>
+    <th>Tip kuzova</th>
+    <th>Kpp</th>
+    <th>Kod kuzova</th>
+    <th>Kod dvigatelya</th>
+    <th>Rinok</th>
+    <th>Vin</th>
+    <th>Frame</th>
+    <th>Komplektaciya</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @cars.each do |car| %>
+  <tr>
+    <td><%= car.god %></td>
+    <td><%= car.marka %></td>
+    <td><%= car.model %></td>
+    <td><%= car.dvigatel %></td>
+    <td><%= car.tip %></td>
+    <td><%= car.moschnost %></td>
+    <td><%= car.privod %></td>
+    <td><%= car.tip_kuzova %></td>
+    <td><%= car.kpp %></td>
+    <td><%= car.kod_kuzova %></td>
+    <td><%= car.kod_dvigatelya %></td>
+    <td><%= car.rinok %></td>
+    <td><%= car.vin %></td>
+    <td><%= car.frame %></td>
+    <td><%= car.komplektaciya %></td>
+    <td><%= link_to 'Show', car %></td>
+    <td><%= link_to 'Edit', edit_car_path(car) %></td>
+    <td><%= link_to 'Destroy', car, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Car', new_car_path %>

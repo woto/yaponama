@@ -14,14 +14,29 @@
       <a class="brand" href="#">Yaponama</a>
       <ul class="nav">
         <li class="active"><a href="#">Главная</a></li>
-        <li><a href="#contact">Контакты</a></li>
+        <li><a href="#">Контакты</a></li>
+        <li><%= link_to "Автомобили", cars_path %></li>
       </ul>
-			<p class="pull-right">
-      	<% if user_signed_in? %>
-					<%= link_to "Вы вошли как " + current_user.user_name, edit_user_registration_path %> или <%= link_to "Выход", destroy_user_session_path, :method => :delete %>
-				<% else %>
-      		<%= link_to "Вход", new_user_session_path %> или <%= link_to "Регистрация", new_user_registration_path %> или <%= link_to "Забыли пароль?", new_user_password_path %></p>
-				<% end %>	  	
+      <ul class="nav secondary-nav">
+        <li class="dropdown">
+          <% if user_signed_in? %>
+            <%= link_to "Вы вошли как " + current_user.user_name, "#", :class => "dropdown-toggle" %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Выход", destroy_user_session_path, :method => :delete %></li>
+            </ul>
+          <% else %>
+            <%= link_to "Вход", "#", :class => "dropdown-toggle" %>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Вход на сайт", new_user_session_path %></li>
+              <li><%= link_to "Регистрация", new_user_registration_path %></li>
+              <li class="divider"></li>
+              <li><%= link_to "Забыли пароль?", new_user_password_path %></li>
+            </ul>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

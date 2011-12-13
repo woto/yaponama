@@ -1,9 +1,9 @@
 <ul class="breadcrumb">
   <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Обновление профиля</li>
+  <li class="active">Один шаг до входа</li>
 </ul>
 
-<h1> Обновление профиля </h1>
+<h1> Один шаг до входа </h1>
 
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => update_confirmation_path, :html => { :method => :put }) do |f| %>
   <% content_for :form_error do %>
@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="inputs">
-    <%= f.input :user_name, :required => true, :autofocus => true %>
+    <%= f.input :user_name, :required => true %>
     <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов' %>
     <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль' %>
     <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>
