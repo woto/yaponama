@@ -5,7 +5,7 @@ class RequestsController < ApplicationController
     @requests = Request.all
 
     unless @requests.present?
-      redirect_to new_request_path and return
+      redirect_to cars_path and return
     end
 
     respond_to do |format|

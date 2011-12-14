@@ -1,10 +1,10 @@
 Yaponama::Application.routes.draw do
 
-  resources :requests
-
   resources :messages
-
-  resources :cars
+  resources :requests
+  resources :cars, :except => :show do
+    resources :requests
+  end
 
   as :user do
     match '/users/confirmation' => 'confirmations#update', :via => :put, :as => :update_confirmation

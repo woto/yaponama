@@ -10,17 +10,6 @@ class CarsController < ApplicationController
     end
   end
 
-  # GET /cars/1
-  # GET /cars/1.json
-  def show
-    @car = Car.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @car }
-    end
-  end
-
   # GET /cars/new
   # GET /cars/new.json
   def new
@@ -44,11 +33,9 @@ class CarsController < ApplicationController
 
     respond_to do |format|
       if @car.save
-        format.html { redirect_to @car, :notice => 'Car was successfully created.' }
-        format.json { render :json => @car, :status => :created, :location => @car }
+        format.html { redirect_to new_car_request_path(@car), :notice => 'Вы успешно добавили новый автомобиль.' }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @car.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +47,9 @@ class CarsController < ApplicationController
 
     respond_to do |format|
       if @car.update_attributes(params[:car])
-        format.html { redirect_to @car, :notice => 'Car was successfully updated.' }
-        format.json { head :ok }
+        format.html { redirect_to new_car_request_path(@car), :notice => 'Вы успешно обновили свойства автомобиля.' }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @car.errors, :status => :unprocessable_entity }
       end
     end
   end
