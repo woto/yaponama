@@ -3,17 +3,29 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  domModal = $("#modal-from-dom").modal(
+	
+
+  frameModal = $("#vin-modal").modal(
     backdrop: true
     modal: true
   )
-  $("#modal-from-element").click ->
+
+  $(".vin-link").click ->
     domModal.toggle()
 
-  $("#btnPrimary").live "click", ->
-    alert "btnPrimary clicked!"
-    domModal.close()
+  $("#vin-close").live "click", ->
+    frameModal.modal('hide')	
+	
+	
+	
+	
+  vinModal = $("#frame-modal").modal(
+    backdrop: true
+    modal: true
+  )
 
-  $("#btnSecondary").live "click", ->
-    alert "btnSecondary clicked!"
-    domModal.close()
+  $(".frame-link").click ->
+    domModal.toggle()
+
+  $("#frame-close").live "click", ->
+    vinModal.modal('hide')	
