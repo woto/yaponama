@@ -1,0 +1,7 @@
+<%= form.fields_for :messages do |f| %>
+  <%= f.input :message %>
+  <% unless f.object.nil? || f.object.new_record? %>
+      <%= f.label :_destroy, 'Remove:' %>
+      <%= f.check_box :_destroy %>
+  <% end %>
+<% end %>

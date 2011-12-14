@@ -20,7 +20,7 @@ ru:
       god: Год выпуска
       marka: Марка
       model: Модель
-      dvigatel: Объем двигателя (куб.&nbsp;см.)
+      dvigatel: Объем двигателя<br />(л.)
       tip: Тип
       moschnost: Мощность двигателя (л.&nbsp;с.)
       privod: Привод

@@ -1,0 +1,15 @@
+<% @request.messages.build %>
+
+<%= simple_form_for(@request, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.association :car %>
+    <%= render :partial => 'messages/nested_form',
+               :locals => {:form => f} %>    
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

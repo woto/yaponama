@@ -1,5 +1,9 @@
 Yaponama::Application.routes.draw do
 
+  resources :requests
+
+  resources :messages
+
   resources :cars
 
   as :user do
