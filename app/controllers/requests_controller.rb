@@ -30,7 +30,7 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     messages = @request.messages.build
-    message_assets = message_assets.new
+    message_assets = messages.message_assets.build
     @car = Car.find(params[:car_id]) if params[:car_id]   
 
     respond_to do |format|

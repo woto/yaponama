@@ -1,9 +1,11 @@
-<%= simple_nested_form_for(@request, :wrapper => :inline, :html => {:multipart => true}) do |f| %>
+<%= simple_form_for(@request, :wrapper => :inline, :html => {:multipart => true}) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= render :partial => 'messages/nested_form',
-               :locals => {:form => f} %>    
+    <%= f.simple_fields_for :messages do |message| %>
+      <%= render :partial => 'message_fields',
+      :locals => {:f => message} %>
+    <% end %>
   </div>
 
   <div class="actions">

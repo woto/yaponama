@@ -1,0 +1,12 @@
+<div class="nested-fields">
+  <%= f.input :message_assets, :label => false, :wrapper_html => {:style => "position: relative"} do %>
+
+      <%= link_to_remove_association "<div class='icons icons-sprite icons-delete'></div>".html_safe, f, :style => "position: absolute; margin: -5px 0 0 0;" %>
+        <% unless f.object.new_record? %>
+          <%= image_tag(f.object.file.url, :style => "margin-left: 5px") if f.object.file? %>
+        <% end %>
+        <% if f.object.new_record? %>
+          <%= f.file_field :file, :style => "margin-left: 5px" %>
+      <% end %>
+  <% end %>
+</div>

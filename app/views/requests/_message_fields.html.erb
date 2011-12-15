@@ -1,0 +1,14 @@
+<%= f.input :message, :input_html => {:rows => 10, :style => "width: 80%"}, :label => "Текст запроса", :hint => "Не забывайте, что «Правильно заданный вопрос – половина ответа»" %>
+
+<%= f.label "Загрузить файл", :style => "line-height: 12px; margin-top: 2px" %>
+
+<%= f.simple_fields_for :message_assets do |message_asset|  %>
+  <%= render :partial => 'message_asset_fields',
+              :locals => {:f => message_asset} 
+  %>
+<% end %>
+ 
+<%= f.input :message_assets, :label => false do %>
+  <%= link_to_add_association "Добавить поле для файла...", f, :message_assets, :style => "display: block" %>
+  <%= f.hint "По желанию можете вложить фотографию детали, упаковки и т.д." %>
+<% end %>
