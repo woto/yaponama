@@ -36,7 +36,7 @@
 </div>
 
 
-<%= simple_form_for(@car, :wrapper => :inline) do |f| %>
+<%= simple_form_for(@car, :wrapper => :inline, :html => {:multipart => true}  ) do |f| %>
   <%= f.error_notification %>
   
   <ul data-tabs="tabs" class="tabs">
@@ -48,8 +48,24 @@
     <div id="home" class="tab-pane active">  
       <div class="inputs">
         <%= f.input :vin %>
-        <p style="margin: 0 0 10px 270px; top: -10px; position: relative; font-size: 150%">или</p>
+        <p style="margin: 0 0 10px 270px; top: -7px; position: relative; font-size: 150%">или</p>
+        
         <%= f.input :frame %>
+        <p style="margin: 0 0 10px 270px; top: -7px; position: relative; font-size: 150%">или</p>
+        
+        <%= f.input :car_asset, :label => 'Файл', :hint => 'По желанию можете вложить фотографию документа ПТС или номерной таблички, если испытываете трудности с нужным номером. Файлы, отмеченные галочкой будут удалены.' do %>
+        	<%= f.simple_fields_for :car_assets do |asset_fields| %>
+          	<% if asset_fields.object.new_record? %>
+        			<%= asset_fields.input :car_asset, :as => :file, :label => false, :input_html => {:class => "unmargin"} %>
+        		<% else %>
+        		    <%= link_to image_tag(asset_fields.object.car_asset.url(:thumb)), asset_fields.object.car_asset.url(:original) %>      			  
+      			    <%= asset_fields.check_box :_destroy, :style=>"top: -28px; position: relative; margin-right: 10px; margin-bottom: 20px" %>
+
+        		<% end %>
+        	<% end %>
+        <% end %>
+        
+       
       </div>
     </div>
     <div id="profile" class="tab-pane">  

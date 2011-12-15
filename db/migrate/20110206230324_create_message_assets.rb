@@ -5,8 +5,8 @@ class CreateMessageAssets < ActiveRecord::Migration
       t.string :asset_content_type
       t.integer :asset_file_size
       t.datetime :asset_updated_at
-      t.references :message_id
-      t.references :user_id
+      t.references :message
+      t.references :user
 
       t.timestamps
     end

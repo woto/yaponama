@@ -4,6 +4,7 @@
 
 $ ->
 	
+	# Табличка VIN
 
   frameModal = $("#vin-modal").modal(
     backdrop: true
@@ -17,6 +18,7 @@ $ ->
     frameModal.modal('hide')	
 	
 	
+	# Табличка FRAME
 	
 	
   vinModal = $("#frame-modal").modal(
@@ -28,4 +30,4 @@ $ ->
     domModal.toggle()
 
   $("#frame-close").live "click", ->
-    vinModal.modal('hide')	
+    vinModal.modal('hide')

@@ -12,6 +12,17 @@
 
 ActiveRecord::Schema.define(:version => 20111213172309) do
 
+  create_table "car_assets", :force => true do |t|
+    t.string   "car_asset_file_name"
+    t.string   "car_asset_content_type"
+    t.integer  "car_asset_file_size"
+    t.datetime "car_asset_updated_at"
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "cars", :force => true do |t|
     t.string   "god"
     t.string   "marka"
@@ -38,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20111213172309) do
     t.string   "asset_content_type"
     t.integer  "asset_file_size"
     t.datetime "asset_updated_at"
-    t.integer  "message_id_id"
-    t.integer  "user_id_id"
+    t.integer  "message_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
