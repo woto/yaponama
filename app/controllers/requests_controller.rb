@@ -51,7 +51,7 @@ class RequestsController < ApplicationController
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to @request, :notice => 'Request was successfully created.' }
+        format.html { redirect_to requests_path, :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { render :json => @request, :status => :created, :location => @request }
       else
         format.html { render :action => "new" }
