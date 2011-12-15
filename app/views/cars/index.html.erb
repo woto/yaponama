@@ -11,22 +11,24 @@
 <% if @cars.count > 0 %>
   <table class="zebra-striped">
     <tr>
+      <th>Идентификационный номер</th>
       <th>Марка</th>
       <th>Модель</th>
       <th>Год</th>  
-      <th></th>
-      <th></th>
       <th></th>
     </tr>
 
   <% @cars.each do |car| %>
     <tr>
+      <td><%= car.vin + " " + car.frame %></td>
       <td><%= car.marka %></td>
       <td><%= car.model %></td>
-      <td><%= car.god %></td>    
-      <td><%= link_to 'Редактировать', edit_car_path(car) %></td>
-      <td><%= link_to 'Удалить', car, :confirm => 'Are you sure?', :method => :delete %></td>
-      <td><%= link_to 'Создать заявку по этому авто', new_car_request_path(car) %></a></td>
+      <td><%= car.god %></td>
+      <td>
+        <%= link_to "<p class='icons icons-sprite icons-add'>Создать&nbsp;по&nbsp;нему&nbsp;заявку</p>".html_safe, new_car_request_path(car) %>        
+        <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;авто</p>".html_safe, edit_car_path(car) %>
+        <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Вся история переписки по этому авто будет удалена.', :method => :delete %>
+      </td>
     </tr>
   <% end %>
   </table>

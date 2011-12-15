@@ -32,7 +32,7 @@ gem 'jquery-rails'
 gem 'ruby-debug'
 
 gem 'bootstrap-sass'
-gem 'compass'
+gem 'compass', '~> 0.12.alpha'
 #gem 'formtastic'
 #gem 'formtastic-bootstrap'
 gem 'devise'

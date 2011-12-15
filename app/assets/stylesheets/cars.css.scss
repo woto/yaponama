@@ -1,0 +1,14 @@
+@import "icons/*.png";
+
+@include all-icons-sprites;
+
+.icons-sprite {
+  width: 16px;
+  height: 16px;
+  padding-left: 24px;
+  margin-bottom: 5px;
+}
+
+.icons {
+	width: auto;
+}
