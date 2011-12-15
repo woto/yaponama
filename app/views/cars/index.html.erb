@@ -5,29 +5,34 @@
 
 <h1>Список автомобилей</h1>
 
-<table>
-  <tr>
-    <th>Марка</th>
-    <th>Модель</th>
-    <th>Год</th>  
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @cars.each do |car| %>
-  <tr>
-    <td><%= car.marka %></td>
-    <td><%= car.model %></td>
-    <td><%= car.god %></td>    
-    <td><%= link_to 'Редактировать', edit_car_path(car) %></td>
-    <td><%= link_to 'Удалить', car, :confirm => 'Are you sure?', :method => :delete %></td>
-    <td><%= link_to 'Создать заявку по этому авто', new_car_request_path(car) %></a></td>
-  </tr>
-<% end %>
-</table>
-
+<p><span class="label">К сведению</span> Если вам не известен артикул (каталожный номер) запчасти, то вы можете добавить автомобиль, относительно которого пойдет речь и создать заявку на поиск подходящей детали. Иначе вы можете не добавлять автомобиль и сразу перейти к созданию заявки.</p>
 <br />
+
+<% if @cars.count > 0 %>
+  <table class="zebra-striped">
+    <tr>
+      <th>Марка</th>
+      <th>Модель</th>
+      <th>Год</th>  
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @cars.each do |car| %>
+    <tr>
+      <td><%= car.marka %></td>
+      <td><%= car.model %></td>
+      <td><%= car.god %></td>    
+      <td><%= link_to 'Редактировать', edit_car_path(car) %></td>
+      <td><%= link_to 'Удалить', car, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to 'Создать заявку по этому авто', new_car_request_path(car) %></a></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <br />
+<% end%>
 
 <%= link_to "Создать заявку без указания авто", new_request_path %> <br />
 <%= link_to 'Добавить авто и создать по нему заявку', new_car_path %>

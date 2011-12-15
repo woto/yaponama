@@ -37,7 +37,12 @@
 
 
 <%= simple_form_for(@car, :wrapper => :inline, :html => {:multipart => true}  ) do |f| %>
-  <%= f.error_notification %>
+
+<% content_for :form_error do %>
+  <% if f.error_notification %>
+      <p><%= f.error_notification %></p>
+  <% end %>
+<% end %>
   
   <ul data-tabs="tabs" class="tabs">
     <li class="active"><a href="#home">Ввод Идентификатора автомобиля</a></li>
@@ -94,6 +99,6 @@
   </script>
 
   <div class="actions">
-    <%= f.button :submit, "Сохранить автомобиль" %>
+    <%= f.button :submit, "Сохранить автомобиль" %> или назад к <%= link_to 'списку автомобилей', cars_path %>
   </div>
 <% end %>
