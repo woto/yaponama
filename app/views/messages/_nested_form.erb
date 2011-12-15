@@ -1,7 +1,19 @@
-<%= form.fields_for :messages do |f| %>
-  <%= f.input :message, :input_html => {:class => "unmargin"} %>
+<%= form.simple_fields_for :messages do |f| %>
+  <%= f.input :message, :input_html => {:cols => 190, :rows => 10}, :label => "Текст запроса", :hint => "Пожалуйста не используйте сокращения и аббревиатуры" %>
   <% unless f.object.nil? || f.object.new_record? %>
       <%= f.label :_destroy, 'Remove:' %>
       <%= f.check_box :_destroy %>
   <% end %>
+  
+  <%= f.input :message_asset, :label => 'Файл', :hint => 'По желанию можете вложить фотографию детали, упаковки и т.д. Файлы, отмеченные галочкой будут удалены.' do %>
+  	<%= f.simple_fields_for :message_assets do |asset_fields| %>
+    	<% if asset_fields.object.new_record? %>
+  			<%= asset_fields.input :message_asset, :as => :file, :label => false, :input_html => {:class => "unmargin"} %>
+  		<% else %>
+  		    <%= link_to image_tag(asset_fields.object.message_asset.url(:thumb)), asset_fields.object.message_asset.url(:original) %>      			  
+  		    <%= asset_fields.check_box :_destroy, :style=>"top: -28px; position: relative; margin-right: 10px; margin-bottom: 20px" %>
+  		<% end %>
+  	<% end %>
+  <% end %>
+  
 <% end %>

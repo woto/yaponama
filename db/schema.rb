@@ -45,10 +45,10 @@ ActiveRecord::Schema.define(:version => 20111213172309) do
   end
 
   create_table "message_assets", :force => true do |t|
-    t.string   "asset_file_name"
-    t.string   "asset_content_type"
-    t.integer  "asset_file_size"
-    t.datetime "asset_updated_at"
+    t.string   "message_asset_file_name"
+    t.string   "message_asset_content_type"
+    t.integer  "message_asset_file_size"
+    t.datetime "message_asset_updated_at"
     t.integer  "message_id"
     t.integer  "user_id"
     t.datetime "created_at"

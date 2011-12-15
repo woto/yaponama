@@ -1,8 +1,3 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Ввод кода подтверждения</li>
-</ul>
-
 <h1> Ввод кода подтверждения </h1>
 
 <p><span class="label">К сведению</span> Если вы не получили sms, то воспользуйтесь ссылкой "Забыли пароль?".</p>
@@ -24,6 +19,6 @@
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Подтвердить" %> <%= render :partial => "devise/shared/links" %>
+    <%= f.button :submit, "Подтвердить", :class => "primary" %> <%= render :partial => "devise/shared/links" %>
   </div>
 <% end %>

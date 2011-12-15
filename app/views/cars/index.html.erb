@@ -1,11 +1,6 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Список автомобилей</li>
-</ul>
+<h1>ШАГ 1 из 2 <small>Указание автомобиля</small></h1>
 
-<h1>Список автомобилей</h1>
-
-<p><span class="label">К сведению</span> Если вам не известен артикул (каталожный номер) запчасти, то вы можете добавить автомобиль, относительно которого пойдет речь и создать заявку на поиск подходящей детали. Иначе вы можете не добавлять автомобиль и сразу перейти к созданию заявки.</p>
+<p><span class="label">К сведению</span> Если вам не известен артикул (каталожный номер) запчасти, то вы можете добавить автомобиль, относительно которого пойдет речь и создать запрос на поиск подходящей детали. Иначе вы можете не добавлять автомобиль и сразу перейти к созданию запроса.</p>
 <br />
 
 <% if @cars.count > 0 %>
@@ -20,14 +15,14 @@
 
   <% @cars.each do |car| %>
     <tr>
-      <td><%= car.vin + " " + car.frame %></td>
+      <td><%= car.vin + car.frame %></td>
       <td><%= car.marka %></td>
       <td><%= car.model %></td>
       <td><%= car.god %></td>
       <td>
-        <%= link_to "<p class='icons icons-sprite icons-add'>Создать&nbsp;по&nbsp;нему&nbsp;заявку</p>".html_safe, new_car_request_path(car) %>        
+        <%= link_to "<p class='icons icons-sprite icons-add'>Создать&nbsp;по&nbsp;нему&nbsp;запрос</p>".html_safe, new_car_request_path(car) %>        
         <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;авто</p>".html_safe, edit_car_path(car) %>
-        <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Вся история переписки по этому авто будет удалена.', :method => :delete %>
+        <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Все запросы, связанные с этим авто будут удалены.', :method => :delete %>
       </td>
     </tr>
   <% end %>
@@ -36,5 +31,4 @@
   <br />
 <% end%>
 
-<%= link_to "Создать заявку без указания авто", new_request_path %> <br />
-<%= link_to 'Добавить авто и создать по нему заявку', new_car_path %>
+<%= link_to 'Добавить авто и создать по нему запрос', new_car_path, :class => "btn primary" %> или <%= link_to "Создать запрос без указания авто", new_request_path, :class => "btn" %>

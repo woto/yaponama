@@ -1,8 +1,3 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Один шаг до входа</li>
-</ul>
-
 <h1> Один шаг до входа </h1>
 
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => update_confirmation_path, :html => { :method => :put }) do |f| %>
@@ -20,6 +15,6 @@
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Обновить" %>
+    <%= f.button :submit, "Сохранить", :class => "primary" %>
   </div>
 <% end %>

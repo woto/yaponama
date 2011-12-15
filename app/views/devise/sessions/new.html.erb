@@ -1,8 +1,3 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Вход</li>
-</ul>
-
 <h1> Вход </h1>
 
 <p><span class="label">К сведению</span> Если вы уже регистрировались на этом сайте, то укажите ваш номер телефона и пароль.</p>
@@ -35,6 +30,6 @@
   </div>
 
   <div class="actions">
-    <%= f.button :submit, "Вход" %> <%= render :partial => "devise/shared/links" %>
+    <%= f.button :submit, "Вход", :class => "primary" %> <%= render :partial => "devise/shared/links" %>
   </div>
 <% end %>

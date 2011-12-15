@@ -49,7 +49,7 @@ class CarsController < ApplicationController
 
     respond_to do |format|
       if @car.update_attributes(params[:car])
-        format.html { redirect_to new_car_request_path(@car), :notice => 'Вы успешно обновили свойства автомобиля.' }
+        format.html { redirect_to cars_path, :notice => 'Вы успешно обновили свойства автомобиля.' }
       else
         format.html { render :action => "edit" }
       end

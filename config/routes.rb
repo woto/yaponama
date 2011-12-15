@@ -2,7 +2,7 @@ Yaponama::Application.routes.draw do
 
   resources :messages
   resources :requests
-  resources :cars, :except => :show do
+  resources :cars do
     resources :requests
   end
 

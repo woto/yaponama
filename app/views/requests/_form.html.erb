@@ -1,4 +1,5 @@
-<% @request.messages.build %>
+<% message = @request.messages.build %>
+<% 3.times { message.message_assets.build } %>
 
 <%= simple_form_for(@request, :wrapper => :inline) do |f| %>
   <%= f.error_notification %>

@@ -1,8 +1,3 @@
-<ul class="breadcrumb">
-  <li><a href="#">Главная</a> <span class="divider">/</span></li>
-  <li class="active">Забыли пароль?</li>
-</ul>
-
 <h1> Забыли пароль? </h1>
 
 <p><span class="label">К сведению</span> Забыли пароль? Не закончили регистрацию? Не получили sms с кодом подтверждения? Не отчаивайтесь, просто введите номер телефона и мы вышлем вам код подтверждения, с помощью которого вы сможете войти под своим профилем.</p>
@@ -28,7 +23,7 @@
 
 
   <div class="actions">
-    <%= f.button :submit, "Получить код подтверждения" %> <%= render :partial => "devise/shared/links" %>
+    <%= f.button :submit, "Получить код подтверждения", :class => "primary" %> <%= render :partial => "devise/shared/links" %>
   </div>
 
 <% end %>
