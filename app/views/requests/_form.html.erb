@@ -1,16 +1,12 @@
-<% message = @request.messages.build %>
-<% 3.times { message.message_assets.build } %>
-
-<%= simple_form_for(@request, :wrapper => :inline) do |f| %>
+<%= simple_nested_form_for(@request, :wrapper => :inline, :html => {:multipart => true}) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.association :car %>
     <%= render :partial => 'messages/nested_form',
                :locals => {:form => f} %>    
   </div>
 
   <div class="actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Создать запрос", :class => "primary" %> или назад к <%= link_to 'списку автомобилей', cars_path %>
   </div>
 <% end %>

@@ -1,5 +1,7 @@
 class MessageAsset < ActiveRecord::Base
   belongs_to :message
   belongs_to :user
-  has_attached_file :message_asset, :styles => { :large => "640x480", :medium => "300x300>", :thumb => "100x100>" }
+
+  belongs_to :attachable, :polymorphic => true
+  mount_uploader :file, CommonAssetUploader
 end

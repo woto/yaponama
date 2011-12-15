@@ -29,6 +29,9 @@ class RequestsController < ApplicationController
   # GET /requests/new.json
   def new
     @request = Request.new
+    messages = @request.messages.build
+    message_assets = message_assets.new
+    @car = Car.find(params[:car_id]) if params[:car_id]   
 
     respond_to do |format|
       format.html # new.html.erb

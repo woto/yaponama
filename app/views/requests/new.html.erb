@@ -1,8 +1,11 @@
 <h1>ШАГ 2 из 2 <small>Составление запроса менеджеру</small></h1>
 
-<p><span class="label">К сведению</span> Sed a lacus nisl. Nullam non sollicitudin magna. Donec imperdiet ullamcorper purus at rhoncus. Nullam tempus aliquet libero vel varius. In hac habitasse platea dictumst.</p>
-<br />
+<% if @car.present? %>
+  <p><span class="label notice">К сведению</span> Вы делаете запрос на поиск автозапчасти связанный с автомобилем <strong>"<%= @car.vin + " " + @car.frame + " " + @car.marka + " " + @car.model + " " + @car.god %>"</strong>, если это не этот автомобиль, то вернитесь на предыдущий шаг.</p>
+  <br />
+<% else %>
+  <p><span class="label notice">К сведению</span> Вы делаете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>, если вы забыли его указать, то вернитесь на предыдущий шаг.</p>
+  <br />
+<% end %>
 
 <%= render 'form' %>
-
-<%= link_to 'Back', requests_path %>

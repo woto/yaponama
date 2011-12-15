@@ -58,16 +58,16 @@
         <%= f.input :frame %>
         <p style="margin: 0 0 10px 270px; top: -7px; position: relative; font-size: 150%">или</p>
         
-        <%= f.label "Загрузить файл", :style => "margin: 0; padding: 0; line-height: 12px;" %>
+        <%= f.label "Загрузить файл", :style => "line-height: 12px;" %>
         
         <%= f.simple_fields_for :car_assets do |attachment_form|  %>
           <%= f.input :car_assets, :label => false, :wrapper_html => {:style => "position: relative"} do %>
-              <%= attachment_form.link_to_remove "<div class='icons icons-sprite icons-delete'></div>".html_safe, :style => "position: absolute; margin: -5px 0 0 5px;" %>
+              <%= attachment_form.link_to_remove "<div class='icons icons-sprite icons-delete'></div>".html_safe, :style => "position: absolute; margin: -5px 0 0 0;" %>
               <% unless attachment_form.object.new_record? %>
-                <%= image_tag(attachment_form.object.file.url, :style => "margin-left: 10px") if attachment_form.object.file? %>
+                <%= image_tag(attachment_form.object.file.url, :style => "margin-left: 5px") if attachment_form.object.file? %>
               <% end %>
               <% if attachment_form.object.new_record? %>
-                <%= attachment_form.file_field :file, :style => "margin-left: 10px" %>
+                <%= attachment_form.file_field :file, :style => "margin-left: 5px" %>
               <% end %>
           <% end %>
         <% end %>
