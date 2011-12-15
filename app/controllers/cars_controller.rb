@@ -14,7 +14,7 @@ class CarsController < ApplicationController
   # GET /cars/new.json
   def new
     @car = Car.new
-    3.times { @car.car_assets.build }    
+    @car.car_assets.build
     
     respond_to do |format|
       format.html # new.html.erb
@@ -25,7 +25,7 @@ class CarsController < ApplicationController
   # GET /cars/1/edit
   def edit
     @car = Car.find(params[:id])
-    3.times { @car.car_assets.build }    
+    @car.car_assets.build    
   end
 
   # POST /cars

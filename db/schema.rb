@@ -13,10 +13,9 @@
 ActiveRecord::Schema.define(:version => 20111213172309) do
 
   create_table "car_assets", :force => true do |t|
-    t.string   "car_asset_file_name"
-    t.string   "car_asset_content_type"
-    t.integer  "car_asset_file_size"
-    t.datetime "car_asset_updated_at"
+    t.string   "file"
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
     t.integer  "user_id"
     t.integer  "car_id"
     t.datetime "created_at"

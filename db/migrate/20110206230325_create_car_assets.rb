@@ -1,10 +1,8 @@
 class CreateCarAssets < ActiveRecord::Migration
   def self.up
     create_table :car_assets do |t|
-      t.string :car_asset_file_name
-      t.string :car_asset_content_type
-      t.integer :car_asset_file_size
-      t.datetime :car_asset_updated_at
+      t.string :file
+      t.references :attachable, :polymorphic => true
       t.references :user
       t.references :car
 

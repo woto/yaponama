@@ -36,7 +36,7 @@
 </div>
 
 
-<%= simple_form_for(@car, :wrapper => :inline, :html => {:multipart => true}  ) do |f| %>
+<%= simple_nested_form_for(@car, :wrapper => :inline, :html => {:multipart => true}  ) do |f| %>
 
 <% content_for :form_error do %>
   <% if f.error_notification %>
@@ -58,16 +58,25 @@
         <%= f.input :frame %>
         <p style="margin: 0 0 10px 270px; top: -7px; position: relative; font-size: 150%">или</p>
         
-        <%= f.input :car_asset, :label => 'Файл', :hint => 'По желанию можете вложить фотографию документа ПТС или номерной таблички, если испытываете трудности с вводом нужного номера. Файлы, отмеченные галочкой будут удалены.' do %>
-        	<%= f.simple_fields_for :car_assets do |asset_fields| %>
-          	<% if asset_fields.object.new_record? %>
-        			<%= asset_fields.input :car_asset, :as => :file, :label => false, :input_html => {:class => "unmargin"} %>
-        		<% else %>
-        		    <%= link_to image_tag(asset_fields.object.car_asset.url(:thumb)), asset_fields.object.car_asset.url(:original) %>      			  
-      			    <%= asset_fields.check_box :_destroy, :style=>"top: -28px; position: relative; margin-right: 10px; margin-bottom: 20px" %>
-        		<% end %>
-        	<% end %>
+        <%= f.label "Загрузить файл", :style => "margin: 0; padding: 0; line-height: 12px;" %>
+        
+        <%= f.simple_fields_for :car_assets do |attachment_form|  %>
+          <%= f.input :car_assets, :label => false, :wrapper_html => {:style => "position: relative"} do %>
+              <%= attachment_form.link_to_remove "<div class='icons icons-sprite icons-delete'></div>".html_safe, :style => "position: absolute; margin: -5px 0 0 5px;" %>
+              <% unless attachment_form.object.new_record? %>
+                <%= image_tag(attachment_form.object.file.url, :style => "margin-left: 10px") if attachment_form.object.file? %>
+              <% end %>
+              <% if attachment_form.object.new_record? %>
+                <%= attachment_form.file_field :file, :style => "margin-left: 10px" %>
+              <% end %>
+          <% end %>
         <% end %>
+        <%= f.link_to_add "Добавить поле для файла...", :car_assets, :style => "display: block" %>
+        <%= f.input :car_assets, :label => false do %>
+          <%= f.hint "По желанию можете вложить фотографию документа ПТС или номерной таблички, если испытываете трудности с вводом нужного номера." %>
+       <% end %>
+       
+       
         
        
       </div>
