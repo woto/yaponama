@@ -4,7 +4,12 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
-    @cars = Car.where(:user_id => current_user)
+    scope = Car
+    unless current_user.admin?
+      scope = scope.where(:user_id => current_user)
+    end
+    scope = scope.order('updated_at DESC')
+    @cars = scope.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,7 +31,12 @@ class CarsController < ApplicationController
 
   # GET /cars/1/edit
   def edit
-    @car = Car.find(params[:id])
+    scope = Car
+    unless current_user.admin?
+      scope = scope.where(:user_id => current_user.id)
+    end
+
+    @car = scope.find(params[:id])
     @car.car_assets.build    
   end
 
@@ -35,6 +45,7 @@ class CarsController < ApplicationController
   def create
     set_user_on_nested_fields @car
     @car = Car.new(params[:car])
+    @car.user = current_user
 
     respond_to do |format|
       if @car.save
@@ -48,11 +59,18 @@ class CarsController < ApplicationController
   # PUT /cars/1
   # PUT /cars/1.json
   def update
-    @car = Car.find(params[:id])
+    debugger
+    scope = Car
+    unless current_user.admin?
+      scope = scope.where(:user_id => current_user)
+    end
+
+    @car = scope.find(params[:id])
     set_user_on_nested_fields @car
 
     respond_to do |format|
       if @car.update_attributes(params[:car])
+        @car.touch
         format.html { redirect_to cars_path, :notice => 'Вы успешно обновили свойства автомобиля.' }
       else
         format.html { render :action => "edit" }
@@ -63,7 +81,12 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   # DELETE /cars/1.json
   def destroy
-    @car = Car.find(params[:id])
+    scope = Car
+    unless current_user.admin?
+      scope = scope.where(:user_id => current_user)
+    end
+
+    @car = scope.find(params[:id])
     @car.destroy
 
     respond_to do |format|
@@ -75,9 +98,10 @@ class CarsController < ApplicationController
   private
 
   def set_user_on_nested_fields(car)
-    params[:car][:user_id] = current_user.id
-    params[:car][:car_assets_attributes].each do |key, car_asset|
-      car_asset[:user_id] = current_user.id
+    if params[:car][:car_assets_attributes]
+      params[:car][:car_assets_attributes].each do |key, car_asset|
+        car_asset[:user_id] = current_user.id
+      end
     end
   end
 end

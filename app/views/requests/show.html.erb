@@ -1,9 +1,3 @@
-<ul class="breadcrumb">
-  <li><a href="/">Главная</a> <span class="divider">/</span></li>
-  <li><%= link_to "Список запросов", requests_path %> <span class="divider">/</span></li>
-  <li class="active">Просмотр запроса</li>
-</ul>
-
 <h1>Просмотр запроса</h1>
 
 <% if @request.car.present? %>
@@ -14,19 +8,24 @@
 
 <br />
 
-<table class="zebra-striped">
+<table class="zebra-striped bordered-table">
 <% @request.messages.each do |message| %>
-    <tr><td><%= message.user.user_name %> писал:</td></tr>
+  <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
   <tr><td>
     <%= message.message %>
+      <% once = true %>
       <% message.message_assets.each do |message_asset| %>
+          <% if once %>
+            <br /><br />
+            <% once = false %>
+          <% end %>
           <%= image_tag(message_asset.file.url) if message_asset.file? %>
       <% end %>
   </td></tr>
 <% end %>
 </table>
 
-<hr /><br />
+<br />
 
 <%= render :partial => 'form', :locals => {:save_text => "Отправить",
                                            :return_text => "списку запросов",
