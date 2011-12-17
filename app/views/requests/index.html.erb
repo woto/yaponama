@@ -1,6 +1,9 @@
 <h1>Список запросов</h1>
 
-<table class="zebra-striped bordered-table">
+<%= paginate @requests %>
+<br />
+
+<table class="zebra-striped">
   <tr>
     <th>Авто</th>
     <th>Статус</th>
@@ -8,23 +11,26 @@
     <th></th>
   </tr>
 
-<% @requests.each do |request| %>
-  <tr>
-    <% # избавиться от N+1 TODO %>
-    <td><%= car_identity(request) if request.car.present? %></td>
-    <% if request.messages.last.user == current_user %>
-      <td><p class='icons icons-sprite icons-message-dirty-light' style="left: 43%; display: block; position: relative"></p></td>
-    <% else %>
-      <td><p class='icons icons-sprite icons-message-dirty-dark' style="left: 43%; display: block; position: relative"></p></td>
-    <% end %>
-    <td><%= truncate(request.messages.last.message, :length => 320) %></td>
-    <td>
-      <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Перейти&nbsp;к&nbsp;диалогу</div>".html_safe, request_path(request, :anchor => "reply") %>
-      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос? Весь диалог, связанный с ним будет удален.', :method => :delete %>
-    </td>
-  </tr>
-<% end %>
+  <% @requests.each do |request| %>
+    <tr>
+      <td><%= car_identity(request) if request.car.present? %></td>
+      <td>
+        <% if request.messages.last.user == current_user %>
+          <p class='icons icons-sprite icons-message-dirty-light'></p>
+        <% else %>
+          <p class='icons icons-sprite icons-message-dirty-dark'</p>
+        <% end %>
+      </td>
+      <td><%= truncate(request.messages.last.message, :length => 320) %></td>
+      <td>
+        <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Перейти&nbsp;к&nbsp;диалогу</div>".html_safe, request_path(request, :anchor => "reply") %>
+        <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос? Весь диалог, связанный с ним будет удален.', :method => :delete %>
+      </td>
+    </tr>
+  <% end %>
 </table>
+
+<%= paginate @requests %>
 
 <br />
 

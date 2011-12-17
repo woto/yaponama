@@ -11,8 +11,8 @@
 
   <div class="inputs">
     <%= f.input :user_name, :required => true %>
-    <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов' %>
-    <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль' %>
+    <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов', :input_html => {:autocomplete => "off"} %>
+    <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль', :input_html => {:autocomplete => "off"} %>
     <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>
   </div>
 

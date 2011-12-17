@@ -9,7 +9,7 @@ class CarsController < ApplicationController
       scope = scope.where(:user_id => current_user)
     end
     scope = scope.order('updated_at DESC')
-    @cars = scope.all
+    @cars = scope.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb

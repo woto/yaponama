@@ -5,7 +5,7 @@ gem 'rails', '3.1.3'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'mysql2'
 
 gem 'json'
 
@@ -43,3 +43,4 @@ gem 'ruby-growl'
 gem 'carrierwave'
 gem 'cocoon'
 gem 'mini_magick'
+gem 'kaminari'

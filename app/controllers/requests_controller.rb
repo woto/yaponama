@@ -9,9 +9,7 @@ class RequestsController < ApplicationController
       scope = scope.where(:user_id => current_user)
     end
     scope = scope.order('updated_at DESC')
-    # добавить поля и использовать здесь
-    # TODO
-    @requests = scope.includes(:messages)
+    @requests = scope.includes(:car).includes(:messages => :user).page params[:page]
 
     unless @requests.present?
       flash.keep

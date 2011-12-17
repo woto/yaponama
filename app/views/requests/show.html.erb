@@ -8,7 +8,7 @@
 
 <br />
 
-<table class="zebra-striped bordered-table">
+<table class="zebra-striped">
 <% @request.messages.each do |message| %>
   <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
   <tr><td>
@@ -25,7 +25,7 @@
 <% end %>
 </table>
 
-<br />
+<br /><br />
 
 <%= render :partial => 'form', :locals => {:save_text => "Отправить",
                                            :return_text => "списку запросов",
