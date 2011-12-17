@@ -1,0 +1,65 @@
+ru:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Вы не можете продолжить, т.к. форма содержит ошибки:"
+    labels:
+      captcha: Введите код
+      phone: Сотовый телефон
+      password: Пароль
+      password_confirmation: Подтверждение
+      remember_me: Запомнить
+      email: E-mail
+      user_name: Имя
+      god: Год выпуска
+      marka: Марка
+      model: Модель
+      dvigatel: Объем двигателя<br />(л.)
+      tip: Тип
+      moschnost: Мощность двигателя (л.&nbsp;с.)
+      privod: Привод
+      tip_kuzova: Тип кузова
+      kpp: Тип КПП
+      kod_kuzova: Код кузова
+      kod_dvigatelya: Код двигателя
+      rinok: Рынок
+      vin: <a class="vin-link" href="#" data-controls-modal="vin-modal">VIN код</a>
+      frame: <a class="frame-link" href="#" data-controls-modal="frame-modal">FRAME код</a>
+      komplektaciya: Комплектация
+
+    hints:
+      user_name: Как лучше к вам обращаться?
+      god: Год выпуска
+      marka: Toyota, Lexus, Nissan, Mitubishi, Chrysler и т.д.
+      model: Tiida, Corolla, X-Trail, X5, Accord, ix35, Solaris и т.д.
+      dvigatel: 1.6, 2.0, 2.4, 4.0, 4.3 и т.д.
+      tip: Дизель, Бензин, Гибрид и т.д.
+      moschnost: 61, 84, 150, 218, 485 и т.д.
+      privod: Передний, Задний, Полный и т.д.
+      tip_kuzova: Купе, Внедорожник, Хэтчбэк, Седан  и т.д.
+      kpp: Механика, Автомат, Вариатор и т.д.
+      kod_kuzova: Код кузова
+      kod_dvigatelya: Код двигателя
+      rinok: США, Япония, Европа, Великобритания и т.д.
+      vin: Например WAUZZZ8E93A346108
+      frame: Например EE101L-AEMDKW
+      komplektaciya: Комплектация
+    # Labels and hints examples
+    # labels:
+    #   password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail para efetuar o sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   username: 'User name to sign in.'
+    #   password: 'No special characters, please.'
+

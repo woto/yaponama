@@ -1,0 +1,5 @@
+ru:
+  simple_captcha:
+    message:
+      user:
+        Неверный код

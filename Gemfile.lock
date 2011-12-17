@@ -7,6 +7,12 @@ GIT
       activemodel (~> 3.0)
 
 GIT
+  remote: https://github.com/galetahub/simple-captcha.git
+  revision: a2a3119aaff1f328fda35f965f382d9a77873064
+  specs:
+    galetahub-simple_captcha (0.1.2)
+
+GIT
   remote: https://github.com/kiskolabs/humanizer.git
   revision: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
   specs:
@@ -162,6 +168,7 @@ DEPENDENCIES
   coffee-rails (~> 3.1.1)
   compass (~> 0.12.alpha)
   devise
+  galetahub-simple_captcha!
   humanizer!
   jquery-rails
   json

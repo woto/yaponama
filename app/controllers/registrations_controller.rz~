@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
       resource.admin = true
     end
 
+    debugger
     if resource.save_with_captcha
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?

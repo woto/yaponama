@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name
   attr_accessible :humanizer_question_id, :humanizer_answer
   attr_accessible :confirmation_token
+
+  #TODO!
+  attr_accessible :captcha, :captcha_key
   
   # Проверка телефона
   validates :phone, :numericality => { :only_integer => true }, :length => { :within => 10..10 }, :uniqueness => true
@@ -15,6 +18,9 @@ class User < ActiveRecord::Base
   # Проверка имени пользователя, только в случае если он не находится на 
   # первом шаге регистрации (другими словами confirmation_token уже установлен)
   validates :user_name, :presence => true, :if => :confirmation_token_setted
+
+  # Капча
+  apply_simple_captcha
   
   has_many :cars
 

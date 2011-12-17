@@ -16,6 +16,7 @@
       <%= content_tag :span, "+7", :class => "add-on" %>
       <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
+    <%= f.input :captcha, :as => :simple_captcha, :hint => "Мы должны убедиться, что вы человек", :label => "Код с картинки *" %>
 
   </div>
 

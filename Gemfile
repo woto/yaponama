@@ -44,3 +44,5 @@ gem 'carrierwave'
 gem 'cocoon'
 gem 'mini_magick'
 gem 'kaminari'
+gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'https://github.com/galetahub/simple-captcha.git'
+
