@@ -1,11 +1,19 @@
+<ul class="breadcrumb">
+  <li><a href="/">Главная</a> <span class="divider">/</span></li>
+  <li><%= link_to "Список авто", cars_path %> <span class="divider">/</span></li>
+  <li class="active">Составление запроса менеджеру</li>
+</ul>
+
 <h1>ШАГ 2 из 2 <small>Составление запроса менеджеру</small></h1>
 
-<% if @car.present? %>
-  <p><span class="label notice">К сведению</span> Вы делаете запрос на поиск автозапчасти связанный с автомобилем <strong>"<%= @car.vin + " " + @car.frame + " " + @car.marka + " " + @car.model + " " + @car.god %>"</strong>, если это не этот автомобиль, то вернитесь на предыдущий шаг.</p>
-  <br />
+<% if @request.car.present? %>
+  <p><span class="label">К сведению</span> Вы составляете запрос на поиск автозапчасти связанный с автомобилем <strong>"<%= car_identity(@request) %>"</strong></p>
 <% else %>
-  <p><span class="label notice">К сведению</span> Вы делаете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>, если вы забыли его указать, то вернитесь на предыдущий шаг.</p>
-  <br />
+  <p><span class="label">К сведению</span> Вы составляете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>.</p>
 <% end %>
 
-<%= render 'form' %>
+<hr /><br />
+
+<%= render :partial => 'form', :locals => {:save_text => "Отправить",
+                               :return_text => "списку авто",
+                               :return_path => cars_path} %>

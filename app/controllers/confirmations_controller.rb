@@ -8,6 +8,7 @@ class ConfirmationsController < Devise::PasswordsController
   def create
 
     self.resource = resource_class.send_confirmation_instructions(params[resource_name])
+
     #self.resource = resource_class.send_reset_password_instructions(params[resource_name])
     #
     #if successfully_sent?(resource)

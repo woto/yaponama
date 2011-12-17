@@ -1,4 +1,9 @@
-<h1>Запросы</h1>
+<ul class="breadcrumb">
+  <li><a href="/">Главная</a> <span class="divider">/</span></li>
+  <li class="active">Список запросов</li>
+</ul>
+
+<h1>Список запросов</h1>
 
 <table class="zebra-striped">
   <tr>
@@ -10,12 +15,12 @@
 
 <% @requests.each do |request| %>
   <tr>
-    <td><%= request.car %></td>
+    <td><%= car_identity(request) if request.car.present? %></td>
     <td>!</td>
-    <td>Подскажите пожалуйста, у вас есть сливной бачок для моей машины? И не могли бы вы достать контрактную запчасть?</td>
+    <td><%= truncate(request.messages.last.message, :length => 320) %></td>
     <td>
-      <%= link_to "<p class='icons icons-sprite icons-edit'>Перейти&nbsp;к&nbsp;диалогу</p>".html_safe, edit_request_path(request) %>
-      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос?', :method => :delete %>
+      <%= link_to "<p class='icons icons-sprite icons-edit'>Перейти&nbsp;к&nbsp;диалогу</p>".html_safe, request_path(request, :anchor => "reply") %>
+      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос? Весь диалог, связанный с ним будет удален.', :method => :delete %>
     </td>
   </tr>
 <% end %>

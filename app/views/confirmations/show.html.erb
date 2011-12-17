@@ -1,4 +1,6 @@
 <h1> Один шаг до входа </h1>
+<p><span class="label">К сведению</span> Вы почти вошли, укажите ваше имя и придумайте себе новый пароль.</p>
+<hr>
 
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => update_confirmation_path, :html => { :method => :put }) do |f| %>
   <% content_for :form_error do %>

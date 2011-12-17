@@ -1,0 +1,33 @@
+<ul class="breadcrumb">
+  <li><a href="/">Главная</a> <span class="divider">/</span></li>
+  <li><%= link_to "Список запросов", requests_path %> <span class="divider">/</span></li>
+  <li class="active">Просмотр запроса</li>
+</ul>
+
+<h1>Просмотр запроса</h1>
+
+<% if @request.car.present? %>
+  <p><span class="label notice">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>
+<% else %>
+  <p><span class="label notice">К сведению</span> Диалог ведется <strong>без указания автомобиля</strong>.</p>
+<% end %>
+
+<br />
+
+<table class="zebra-striped">
+<% @request.messages.each do |message| %>
+    <tr><td><%= message.user.user_name %> писал:</td></tr>
+  <tr><td>
+    <%= message.message %>
+      <% message.message_assets.each do |message_asset| %>
+          <%= image_tag(message_asset.file.url) if message_asset.file? %>
+      <% end %>
+  </td></tr>
+<% end %>
+</table>
+
+<hr /><br />
+
+<%= render :partial => 'form', :locals => {:save_text => "Отправить",
+                                           :return_text => "списку запросов",
+                                           :return_path => requests_path} %>

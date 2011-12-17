@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111213172309) do
+ActiveRecord::Schema.define(:version => 20111217030041) do
 
   create_table "car_assets", :force => true do |t|
     t.string   "file"
@@ -68,6 +68,11 @@ ActiveRecord::Schema.define(:version => 20111213172309) do
     t.datetime "updated_at"
   end
 
+  create_table "searches", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -97,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20111213172309) do
     t.string   "phone"
     t.string   "name"
     t.string   "user_name"
+    t.boolean  "admin"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

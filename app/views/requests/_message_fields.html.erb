@@ -2,7 +2,7 @@
 
 <%= f.label "Загрузить файл", :style => "line-height: 12px; margin-top: 2px" %>
 
-<%= f.simple_fields_for :message_assets do |message_asset|  %>
+<%= f.simple_fields_for :message_assets, params[:id] ? f.object.message_assets.build : nil do |message_asset|  %>
   <%= render :partial => 'message_asset_fields',
               :locals => {:f => message_asset} 
   %>

@@ -1,3 +1,8 @@
+<ul class="breadcrumb">
+  <li><a href="/">Главная</a> <span class="divider">/</span></li>
+  <li>Список авто</li>
+</ul>
+
 <h1>ШАГ 1 из 2 <small>Указание автомобиля</small></h1>
 
 <p><span class="label">К сведению</span> Если вам не известен артикул (каталожный номер) запчасти, то вы можете добавить автомобиль, относительно которого пойдет речь и создать запрос на поиск подходящей детали. Иначе вы можете не добавлять автомобиль и сразу перейти к созданию запроса.</p>
@@ -20,7 +25,7 @@
       <td><%= car.model %></td>
       <td><%= car.god %></td>
       <td>
-        <%= link_to "<p class='icons icons-sprite icons-add'>Создать&nbsp;по&nbsp;нему&nbsp;запрос</p>".html_safe, new_car_request_path(car) %>        
+        <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 10px'>Создать&nbsp;по&nbsp;нему&nbsp;запрос</div>".html_safe, new_car_request_path(car) %>
         <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;авто</p>".html_safe, edit_car_path(car) %>
         <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Все запросы, связанные с этим авто будут удалены.', :method => :delete %>
       </td>
@@ -31,4 +36,4 @@
   <br />
 <% end%>
 
-<%= link_to 'Добавить авто и создать по нему запрос', new_car_path, :class => "btn primary" %> или <%= link_to "Создать запрос без указания авто", new_request_path, :class => "btn" %>
+<%= link_to 'Добавить авто и создать по нему запрос', new_car_path, :class => "btn primary" %> или <%= link_to "Создать запрос без указания авто", new_request_path %>

@@ -1,8 +1,10 @@
 class CarsController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /cars
   # GET /cars.json
   def index
-    @cars = Car.all
+    @cars = Car.where(:user_id => current_user)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -31,6 +33,7 @@ class CarsController < ApplicationController
   # POST /cars
   # POST /cars.json
   def create
+    set_user_on_nested_fields @car
     @car = Car.new(params[:car])
 
     respond_to do |format|
@@ -46,6 +49,7 @@ class CarsController < ApplicationController
   # PUT /cars/1.json
   def update
     @car = Car.find(params[:id])
+    set_user_on_nested_fields @car
 
     respond_to do |format|
       if @car.update_attributes(params[:car])
@@ -65,6 +69,15 @@ class CarsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cars_url }
       format.json { head :ok }
+    end
+  end
+
+  private
+
+  def set_user_on_nested_fields(car)
+    params[:car][:user_id] = current_user.id
+    params[:car][:car_assets_attributes].each do |key, car_asset|
+      car_asset[:user_id] = current_user.id
     end
   end
 end

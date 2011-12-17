@@ -2,7 +2,7 @@
 <div class="hero-unit">
   <h1>Добро пожаловать!</h1>
   <p>Рады, что вы посетили наш магазин автозапчастей, надеемся вам понравятся наш ассортимент и цены. Если вы знаете артикул автозапчасти, то можете приступить к поиску прямо сейчас или связаться с нашим менеджером, для консультации и подбора.</p>
-  <p><a class="btn primary large">Искать &raquo;</a> <%= link_to "Связаться с менеджером &raquo;".html_safe, requests_path, :class => "btn primary large" %></p>
+  <p><%= link_to "Искать &raquo;".html_safe, searches_path, :class => "btn primary large" %> <%= link_to "Связаться с менеджером &raquo;".html_safe, requests_path, :class => "btn primary large" %></p>
 </div>
 
 <ul class="media-grid" style="margin-left: 0">

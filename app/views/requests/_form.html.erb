@@ -1,14 +1,16 @@
-<%= simple_form_for(@request, :wrapper => :inline, :html => {:multipart => true}) do |f| %>
+<%= simple_form_for(@request, :wrapper => :inline, :html => {:multipart => true, :id => "reply"}) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.simple_fields_for :messages do |message| %>
+    <%= f.simple_fields_for :messages, params[:id] ? @request.messages.build : nil do |message| %>
       <%= render :partial => 'message_fields',
       :locals => {:f => message} %>
     <% end %>
   </div>
 
+  <%= f.input :car_id, :as => :hidden %>
+
   <div class="actions">
-    <%= f.button :submit, "Создать запрос", :class => "primary" %> или назад к <%= link_to 'списку автомобилей', cars_path %>
+    <%= f.button :submit, save_text, :class => "primary" %> или назад к <%= link_to return_text, return_path %>
   </div>
 <% end %>

@@ -25,7 +25,7 @@
     <%= f.input :password, :required => true, :hint => "Пароль от этого сайта" %>
 
     <%= f.input :remember_me, :as => :boolean do %>
-      <%= f.input :remember_me, :input_html => { :value => '1', :style => 'margin-top:8px;'}, :label => false, :as => :boolean, :wrapper_html => {:class => 'margin-hack'} %>
+      <%= f.input :remember_me, :input_html => { :value => '1', :checked => true,  :style => 'margin-top:8px;'}, :label => false, :as => :boolean, :wrapper_html => {:class => 'margin-hack'} %>
     <% end %>
   </div>
 
@@ -33,3 +33,4 @@
     <%= f.button :submit, "Вход", :class => "primary" %> <%= render :partial => "devise/shared/links" %>
   </div>
 <% end %>
+

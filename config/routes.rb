@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  resources :searches
+
   resources :messages
   resources :requests
   resources :cars do

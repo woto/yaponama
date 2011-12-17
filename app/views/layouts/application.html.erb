@@ -15,6 +15,8 @@
       <ul class="nav">
         <li class="active"><a href="#">Контакты</a></li>
         <li><%= link_to "Запросы", requests_path %></li>
+        <li><%= link_to "Авто", cars_path %></li>
+        <li><%= link_to "Поиск автозапчастей", searches_path %></li>
       </ul>
       <ul class="nav secondary-nav">
         <li class="dropdown">
@@ -67,6 +69,7 @@
 
     <div class="well"> 
 		В вашей корзине X товаров на сумму X XXX руб.
+      <%= current_user.try(:admin?) %>
     </div>
 
     <div class="well"> 
