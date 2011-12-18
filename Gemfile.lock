@@ -7,8 +7,8 @@ GIT
       activemodel (~> 3.0)
 
 GIT
-  remote: https://github.com/galetahub/simple-captcha.git
-  revision: a2a3119aaff1f328fda35f965f382d9a77873064
+  remote: git@github.com:woto/simple-captcha.git
+  revision: e0d7df3c2b8413657531a50ed543c02f1d59ad35
   specs:
     galetahub-simple_captcha (0.1.2)
 
