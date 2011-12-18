@@ -59,7 +59,6 @@ class CarsController < ApplicationController
   # PUT /cars/1
   # PUT /cars/1.json
   def update
-    debugger
     scope = Car
     unless current_user.admin?
       scope = scope.where(:user_id => current_user)

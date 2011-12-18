@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
   # первом шаге регистрации (другими словами confirmation_token уже установлен)
   validates :user_name, :presence => true, :if => :confirmation_token_setted
 
-  # Капча
   apply_simple_captcha
   
   has_many :cars

@@ -12,7 +12,7 @@
 <% @request.messages.each do |message| %>
   <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
   <tr><td>
-    <%= message.message %>
+    <%= simple_format(message.message) %>
       <% once = true %>
       <% message.message_assets.each do |message_asset| %>
           <% if once %>

@@ -19,7 +19,15 @@
       <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
 
-    <%= f.input :captcha, :as => :simple_captcha, :hint => "Мы должны убедиться, что вы человек", :label => "Код с картинки *" %>
+    <div class="clearfix required <%= resource.errors[:captcha].present? ? "error" : "" %>">
+      <%= f.label "Введите код", :required => true %>
+      <div class="input">
+        <%= show_simple_captcha %>
+        <%= f.error :captcha %>
+        <%= f.hint "Мы должны убедиться, что вы человек" %>        
+      </div>
+    </div>
+
 
   </div>
 
