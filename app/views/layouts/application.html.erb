@@ -16,10 +16,8 @@
         <li><a href="#">Контакты</a></li>
         <li<%= params[:controller] == 'cars' ? ' class="active"'.html_safe : ''%>><%= link_to "Ваши Авто", cars_path %></li>
         <li<%= params[:controller] == 'requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Ваши Запросы", requests_path %></li>
+        <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск запчастей", searches_path %></li>
       </ul>
-      <%= form_tag searches_path, :method => :get, :class => 'pull-left' do |f| %>
-        <% text_field_tag :catalog_number, params[:catalog_number], :placeholder => "Введите каталожный номер запчасти" %>
-      <% end %>
       <ul class="nav secondary-nav">
         <li class="dropdown">
           <% if user_signed_in? %>

@@ -9,13 +9,13 @@ class PasswordsController < Devise::PasswordsController
       self.resource = resource_class.send_reset_password_instructions(params[resource_name])
       unless simple_captcha_valid?
         self.resource.errors[:phone].clear
-        self.resource.errors.add(:captcha, "Не верно введен код")
+        self.resource.errors.add(:captcha, "Неверно введен код")
         try_again and return
       end
     else
       unless simple_captcha_valid?
         self.resource.errors[:phone].clear
-        self.resource.errors.add(:captcha, "Не верно введен код")
+        self.resource.errors.add(:captcha, "Неверно введен код")
         try_again and return
       else
         self.resource = resource_class.send_reset_password_instructions(params[resource_name])

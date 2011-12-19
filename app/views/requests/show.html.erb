@@ -13,12 +13,7 @@
   <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
   <tr><td>
     <%= simple_format(message.message) %>
-      <% once = true %>
       <% message.message_assets.each do |message_asset| %>
-          <% if once %>
-            <br /><br />
-            <% once = false %>
-          <% end %>
           <%= image_tag(message_asset.file.url) if message_asset.file? %>
       <% end %>
   </td></tr>

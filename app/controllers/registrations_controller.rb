@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
       end
       
     else      
-      self.resource.errors.add(:captcha, "Не верно введен код")
+      self.resource.errors.add(:captcha, "Неверно введен код")
       self.resource.errors[:phone].clear
       
       try_again
