@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111218001123) do
+ActiveRecord::Schema.define(:version => 20111220150930) do
 
   create_table "car_assets", :force => true do |t|
     t.string   "file"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(:version => 20111218001123) do
   create_table "requests", :force => true do |t|
     t.integer  "car_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "search_histories", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "catalog_number"
+    t.string   "manufacturer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

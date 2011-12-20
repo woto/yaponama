@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @search_history.user_id %>
+</p>
+
+<p>
+  <b>Catalog number:</b>
+  <%= @search_history.catalog_number %>
+</p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @search_history.manufacturer %>
+</p>
+
+
+<%= link_to 'Edit', edit_search_history_path(@search_history) %> |
+<%= link_to 'Back', search_histories_path %>

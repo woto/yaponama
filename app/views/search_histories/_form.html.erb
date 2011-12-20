@@ -1,0 +1,13 @@
+<%= simple_form_for(@search_history) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :user_id %>
+    <%= f.input :catalog_number %>
+    <%= f.input :manufacturer %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

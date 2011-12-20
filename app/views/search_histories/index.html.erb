@@ -1,0 +1,27 @@
+<h1>Listing search_histories</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Catalog number</th>
+    <th>Manufacturer</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @search_histories.each do |search_history| %>
+  <tr>
+    <td><%= search_history.user_id %></td>
+    <td><%= search_history.catalog_number %></td>
+    <td><%= search_history.manufacturer %></td>
+    <td><%= link_to 'Show', search_history %></td>
+    <td><%= link_to 'Edit', edit_search_history_path(search_history) %></td>
+    <td><%= link_to 'Destroy', search_history, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Search history', new_search_history_path %>

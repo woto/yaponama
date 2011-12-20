@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  resources :search_histories
+
   resources :searches
 
   resources :messages
