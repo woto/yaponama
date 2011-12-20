@@ -17,7 +17,7 @@ class SearchesController < ApplicationController
         counter[h] = 0
       end
 
-      if counter[h] <= 5
+      if counter[h] < 3
         new_array << item
       end
     end

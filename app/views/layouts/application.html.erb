@@ -19,7 +19,7 @@
         <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск запчастей", searches_path %></li>
       </ul>
       <ul class="nav secondary-nav">
-        <li class="dropdown">
+        <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "Вы вошли как " + current_user.user_name, "#", :class => "dropdown-toggle" %>
             <ul class="dropdown-menu">
@@ -65,23 +65,25 @@
     </div>
   <% end %>
 
-  <div class="sidebar">
+  <% if params[:controller] != "searches" %>
+    <div class="sidebar">
 
-    <div class="well"> 
-		В вашей корзине X товаров на сумму X XXX руб.
-      <%= current_user.try(:admin?) %>
+      <div class="well"> 
+      В вашей корзине X товаров на сумму X XXX руб.
+        <%= current_user.try(:admin?) %>
+      </div>
+
+      <div class="well"> 
+      <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
+        <ul>
+          <li> Стрим <a href="#">http://123.456.789.000</a></li>
+          <li> Норком <a href="#">http://123.456.789.000</a></li>
+        </ul>
+      <p> И в Интернете <a href="#">http://www.yaponama.ru</a></p>
+      </div>
+
     </div>
-
-    <div class="well"> 
-		<p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
-      <ul>
-        <li> Стрим <a href="#">http://123.456.789.000</a></li>
-        <li> Норком <a href="#">http://123.456.789.000</a></li>
-      </ul>
-    <p> И в Интернете <a href="#">http://www.yaponama.ru</a></p>
-    </div>
-
-  </div>
+  <% end %>
 
   <div class="content">
 	<%= yield %>

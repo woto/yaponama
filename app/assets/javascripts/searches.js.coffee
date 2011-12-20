@@ -6,3 +6,17 @@ $(document).ready ->
     widthFixed: true
     widgets: [ "zebra" ]
   ).tablesorterPager container: $("#pager")
+
+
+	# Табличка Советы по поиску 
+
+  frameModal = $("#searches-modal").modal(
+    backdrop: true
+    modal: true
+  )
+
+  $(".searches-link").click ->
+    domModal.toggle()
+
+  $("#searches-close").live "click", ->
+    frameModal.modal('hide')	

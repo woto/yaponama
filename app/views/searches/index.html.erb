@@ -1,6 +1,44 @@
+<style>
+  .container-fluid > .content {
+    margin: 0;
+  }
+</style>
+
 <h1>Поиск запчастей</h1>
 
-<%= form_tag searches_path, :method => :get do |f| %>
+<p><span class="label">К сведению</span> Если вы здесь впервые, то ознакомьтесь пожалуйста с <a href="#" class="searches-link"data-controls-modal="searches-modal">советами по поиску</a>.</p>
+
+<hr />
+
+
+<!-- The Modal Dialog  -->
+<div id="searches-modal" class="modal hide fade">
+  <div class="modal-header">
+    <h3>Советы по поиску</h3>
+   <a href="#" class="close">&times;</a>
+  </div>
+  <div class="modal-body">
+    <div style="overflow: hidden">
+      <ul>
+        <li><p>Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы.</p></li>
+        <li><p>Бывает так, что разные производители выпускают детали под одним и тем же каталожным номером. Эти детали могут являться заменами друг другу, как впрочем и нет. Например можете поискать каталожный номер <a href="searches?utf8=✓&catalog_number=1517&manufacturer=&replacements=1&commit=Искать">1517 без производителя</a> или <a href="searches?utf8=✓&catalog_number=1517&manufacturer=JOBBER&replacements=1&commit=Искать">1517 - JOBBER</a> и <a href="searches?utf8=✓&catalog_number=1517&manufacturer=FEBI&replacements=1&commit=Искать">1517 - FEBI </a>. Поэтому для отображения более точных результатов замен щелкните на ссылке в полученном списке для указания искомого производителя и замен только по этому типу деталей.</p></li>
+        <li>
+          Описание столбцов
+          <ul>
+            <li>Произв.:  Производитель
+            <li>Кат. ном.: Каталожный номер детали</li>
+            <li>Нал.: В наличии у поставщика. Если не указано, то неизвестно, но не означает что отсутствует у поставщика</li>
+            <li>От: Среднее количество дней</li>
+            <li>До: Гарантированное количество дней</li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+   <a href="#" id="searches-close" class="btn primary">Ок</a>
+  </div>
+</div>
+
+<%= form_tag(searches_path, :method => :get) %>
   <div class="inputs">
 
     <div class="clearfix string optional">
@@ -36,20 +74,21 @@
       <%= submit_tag "Искать", :class => "primary btn" %>
     </div>
   </div>
-<% end %>
+
 
 </style>
 <% if @parsed_json["result_prices"].count > 0 %>
   <table id="result-prices" class="zebra-striped">
     <thead>
       <tr>
-        <th class="yellow {sorter: 'text'}"> Произв. </th>
-        <th class="magenta {sorter: 'text'}">Кат.&nbsp;ном. </th>
-        <th class="blue {sorter: 'text'}"> Название </th>
-        <th class="green"> Шт. </th>
-        <th class="cyan"> Заявл. </th>
-        <th class="cyan"> Гар.  </th>
-        <th class="red"> Цена </th>
+        <th class="{sorter: 'text'}" style="width: 80px">  Произв. </th>
+        <th  class="{sorter: 'text'}" style="width: 80px"> Кат.&nbsp;ном. </th>
+        <th class="{sorter: 'text'}">  Название </th>
+        <th class="{sorter: 'digit'}" style="width: 50px">  Нал. </th>
+        <th class="{sorter: 'digit'}" style="width: 50px">  От </th>
+        <th class="{sorter: 'digit'}" style="width: 50px">  До  </th>
+        <th class="{sorter: 'text'}" style="width: 50px">  Расп.  </th>
+        <th class="{sorter: 'digit'}" style="width: 50px">  Цена </th>
       </tr>
     </thead>
     <tbody>
@@ -57,25 +96,26 @@
         <tr>
           <td> <%= result_price["manufacturer"] %> </td>
           <td> <%= result_price["catalog_number"] %> </td>
-          <td> <%= result_price["title"] %><br /><%= result_price["title_en"] %> </td>
-          <td> <%= ((count = result_price["count"].to_s.gsub(/\D/, '').to_i) > 1) ? count : '*' %> </td>
+          <td> <%= ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 ') %> </td>
+          <td> <%= ((count = result_price["count"].to_s.gsub(/\D/, '').to_i) > 1) ? count : '' %> </td>
           <td> <%= result_price["job_import_job_delivery_days_declared"] %> </td>
           <td> <%= result_price["job_import_job_delivery_days_average"] %> </td>
+          <td> <%= result_price["job_import_job_country_short"] %> </td>
           <td> <a class="btn primary" style="width: 40px" href="#"><%= (result_price["income_cost"] * 1.07).to_i %></a></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-<% end %>
 
-<div style="clear: both">
-  <div id="pager" class="pager" style="position: relative">
+  <div id="pager" class="pager" style="color: red">
+    ДОРАБОТАТЬ TODO!
+
     <form>
-      <div class="first"/>Первая</div>
-      <div class="prev">Предыдущая</div>
+      <span class="first"/>Первая</span>
+      <span class="prev">Предыдущая</span>
       <input type="text" class="pagedisplay"/>
-      <div class="next"/>Вперед</div>
-      <div class="last">Последняя</div>
+      <span class="next"/>Вперед</span>
+      <span class="last">Последняя</span>
       <select class="pagesize">
         <option selected="selected"  value="10">10</option>
         <option value="20">20</option>
@@ -84,11 +124,16 @@
       </select>
     </form>
   </div>
-</div>                                                            
 <br />
 <br />
 <br />
 <br />
 <br />
 <br />
-<p><span class="label">К сведению</span> Бывает так, что разные производители выпускают детали под одним и тем же каталожным номером. Эти детали могут являться заменами друг другу, как впрочем и нет. Например можете поискать каталожный номер <a href="searches?utf8=✓&catalog_number=1517&manufacturer=&replacements=1&commit=Искать">1517 без производителя</a> или <a href="searches?utf8=✓&catalog_number=1517&manufacturer=JOBBER&replacements=1&commit=Искать">1517 - JOBBER</a> и <a href="searches?utf8=✓&catalog_number=1517&manufacturer=FEBI&replacements=1&commit=Искать">1517 - FEBI </a>. Поэтому для отображения более точных результатов замен щелкните на ссылке в полученном списке для указания искомого производителя и замен только по этому типу деталей.</p>
+<br />
+<br />
+<br />
+<br />
+<br />
+<% end %>
+
