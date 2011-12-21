@@ -14,26 +14,39 @@
       <%= link_to "Yaponama", root_path, :class => 'brand' %>
       <ul class="nav">
         <li><a href="#">Контакты</a></li>
-        <li<%= params[:controller] == 'cars' ? ' class="active"'.html_safe : ''%>><%= link_to "Ваши Авто", cars_path %></li>
-        <li<%= params[:controller] == 'requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Ваши Запросы", requests_path %></li>
-        <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск запчастей", searches_path %></li>
+        <li class="dropdown <%= (['cars', 'requests'].include? params[:controller]) ? 'active' : '' %>">
+          <a href="#" class="dropdown-toggle">Консультация</a>
+          <ul class="dropdown-menu">
+            <li<%= params[:controller] == 'cars' ? ' class="active"'.html_safe : ''%>><%= link_to "Автомобили", cars_path %></li>
+            <li<%= params[:controller] == 'requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Запросы", requests_path %></li>
+          </ul>
+        </li>
+        <li class="dropdown <%= (['searches', 'wishes', 'search_histories'].include? params[:controller]) ? 'active' : '' %>">
+          <a href="#" class="dropdown-toggle">Магазин</a>
+          <ul class="dropdown-menu">
+            <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск", searches_path %></li>
+            <li<%= params[:controller] == 'search_histories' ? ' class="active"'.html_safe : ''%>><%= link_to "История поиска", search_histories_path %></li>
+            <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path %></li>
+            <li><a href="#">Заказы</a>
+          </ul>
+        </li>
       </ul>
       <ul class="nav secondary-nav">
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "Вы вошли как " + current_user.user_name, "#", :class => "dropdown-toggle" %>
             <ul class="dropdown-menu">
-              <li><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
+              <li<%= params[:controller] == 'registrations' && params[:action] == 'edit' ? ' class="active"'.html_safe : ''%>><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path, :method => :delete %></li>
             </ul>
           <% else %>
             <%= link_to "Вход", "#", :class => "dropdown-toggle" %>
             <ul class="dropdown-menu">
-              <li><%= link_to "Вход на сайт", new_user_session_path %></li>
-              <li><%= link_to "Регистрация", new_user_registration_path %></li>
+              <li<%= params[:controller] == 'devise/sessions' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Вход на сайт", new_user_session_path %></li>
+              <li<%= params[:controller] == 'registrations' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Регистрация", new_user_registration_path %></li>
               <li class="divider"></li>
-              <li><%= link_to "Забыли пароль?", new_user_password_path %></li>
+              <li<%= params[:controller] == 'passwords' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Забыли пароль?", new_user_password_path %></li>
             </ul>
           <% end %>
         </li>

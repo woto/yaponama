@@ -1,27 +1,19 @@
-<h1>Listing search_histories</h1>
+<h1>История поиска</h1>
 
-<table>
+<table class="zebra-striped">
   <tr>
-    <th>User</th>
-    <th>Catalog number</th>
-    <th>Manufacturer</th>
-    <th></th>
-    <th></th>
+    <th>Дата</th>
+    <th>Каталожный номер</th>
+    <th>Производитель</th>
     <th></th>
   </tr>
 
 <% @search_histories.each do |search_history| %>
   <tr>
-    <td><%= search_history.user_id %></td>
+    <td><%= l(search_history.created_at, :format => :short) %></td>
     <td><%= search_history.catalog_number %></td>
-    <td><%= search_history.manufacturer %></td>
-    <td><%= link_to 'Show', search_history %></td>
-    <td><%= link_to 'Edit', edit_search_history_path(search_history) %></td>
-    <td><%= link_to 'Destroy', search_history, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= (manufacturer = search_history.manufacturer?) ? manufacturer : "Не указан" %></td>
+    <td><%= link_to "Искать еще раз", search_searches_path(search_history.catalog_number, search_history.manufacturer) %>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Search history', new_search_history_path %>

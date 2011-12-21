@@ -7,27 +7,28 @@
 
 <% if @cars.count > 0 %>
   <table class="zebra-striped">
-    <tr>
-      <th>Идентификационный номер</th>
-      <th>Марка</th>
-      <th>Модель</th>
-      <th>Год</th>  
-      <th></th>
-    </tr>
-
-  <% @cars.each do |car| %>
-    <tr>
-      <td><%= car.vin + " " + car.frame %></td>
-      <td><%= car.marka %></td>
-      <td><%= car.model %></td>
-      <td><%= car.god %></td>
-      <td>
-        <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Создать&nbsp;по&nbsp;нему&nbsp;запрос</div>".html_safe, new_car_request_path(car) %>
-        <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;авто</p>".html_safe, edit_car_path(car) %>
-        <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Все запросы, связанные с этим авто будут удалены.', :method => :delete %>
-      </td>
-    </tr>
-  <% end %>
+    <tbody>
+      <tr>
+        <th>Идентификационный номер</th>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>Год</th>  
+        <th></th>
+      </tr>
+      <% @cars.each do |car| %>
+        <tr>
+          <td><%= car.vin + " " + car.frame %></td>
+          <td><%= car.marka %></td>
+          <td><%= car.model %></td>
+          <td><%= car.god %></td>
+          <td>
+            <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Создать&nbsp;по&nbsp;нему&nbsp;запрос</div>".html_safe, new_car_request_path(car) %>
+            <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;авто</p>".html_safe, edit_car_path(car) %>
+            <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;авто</p>".html_safe, car, :confirm => 'Вы действительно хотите удалить авто из списка? Все запросы, связанные с этим авто будут удалены.', :method => :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
 
   <br />

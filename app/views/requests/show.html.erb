@@ -9,15 +9,17 @@
 <br />
 
 <table class="zebra-striped">
-<% @request.messages.each do |message| %>
-  <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
-  <tr><td>
-    <%= simple_format(message.message) %>
-      <% message.message_assets.each do |message_asset| %>
-          <%= image_tag(message_asset.file.url) if message_asset.file? %>
-      <% end %>
-  </td></tr>
-<% end %>
+  <tbody>
+    <% @request.messages.each do |message| %>
+      <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
+      <tr><td>
+        <%= simple_format(message.message) %>
+          <% message.message_assets.each do |message_asset| %>
+              <%= image_tag(message_asset.file.url) if message_asset.file? %>
+          <% end %>
+      </td></tr>
+    <% end %>
+  </tbody>
 </table>
 
 <br /><br />

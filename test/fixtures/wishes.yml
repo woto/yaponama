@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  cost: 1
+  catalog_number: MyString
+  manufacturer: MyString
+  title: MyString
+  count: MyString
+  declared: 1
+  average: 1
+  country: MyString
+  session_id: MyString
+
+two:
+  user_id: 1
+  cost: 1
+  catalog_number: MyString
+  manufacturer: MyString
+  title: MyString
+  count: MyString
+  declared: 1
+  average: 1
+  country: MyString
+  session_id: MyString

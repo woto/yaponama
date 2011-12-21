@@ -2,7 +2,8 @@ class SearchHistoriesController < ApplicationController
   # GET /search_histories
   # GET /search_histories.json
   def index
-    @search_histories = SearchHistory.all
+
+    @search_histories = user_search_histories
 
     respond_to do |format|
       format.html # index.html.erb

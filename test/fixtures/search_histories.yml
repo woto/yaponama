@@ -2,10 +2,12 @@
 
 one:
   user_id: 1
+  session_id: MyString
   catalog_number: MyString
   manufacturer: MyString
 
 two:
   user_id: 1
+  session_id: MyString
   catalog_number: MyString
   manufacturer: MyString

@@ -2,7 +2,11 @@ Yaponama::Application.routes.draw do
 
   resources :search_histories
 
-  resources :searches
+  resources :wishes
+
+  resources :searches do 
+    match '/:catalog_number(/:manufacturer)' => "searches#index", :on => :collection, :as => :search
+  end
 
   resources :messages
   resources :requests

@@ -6,39 +6,7 @@
 
 <h1>Поиск запчастей</h1>
 
-<p><span class="label">К сведению</span> Если вы здесь впервые, то ознакомьтесь пожалуйста с <a href="#" class="searches-link"data-controls-modal="searches-modal">советами по поиску</a>.</p>
-
-<hr />
-
-
-<!-- The Modal Dialog  -->
-<div id="searches-modal" class="modal hide fade">
-  <div class="modal-header">
-    <h3>Советы по поиску</h3>
-   <a href="#" class="close">&times;</a>
-  </div>
-  <div class="modal-body">
-    <div style="overflow: hidden">
-      <ul>
-        <li><p>Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы.</p></li>
-        <li><p>Бывает так, что разные производители выпускают детали под одним и тем же каталожным номером. Эти детали могут являться заменами друг другу, как впрочем и нет. Например можете поискать каталожный номер <a href="searches?utf8=✓&catalog_number=1517&manufacturer=&replacements=1&commit=Искать">1517 без производителя</a> или <a href="searches?utf8=✓&catalog_number=1517&manufacturer=JOBBER&replacements=1&commit=Искать">1517 - JOBBER</a> и <a href="searches?utf8=✓&catalog_number=1517&manufacturer=FEBI&replacements=1&commit=Искать">1517 - FEBI </a>. Поэтому для отображения более точных результатов замен щелкните на ссылке в полученном списке для указания искомого производителя и замен только по этому типу деталей.</p></li>
-        <li>
-          Описание столбцов
-          <ul>
-            <li>Произв.:  Производитель
-            <li>Кат. ном.: Каталожный номер детали</li>
-            <li>Нал.: В наличии у поставщика. Если не указано, то неизвестно, но не означает что отсутствует у поставщика</li>
-            <li>От: Среднее количество дней</li>
-            <li>До: Гарантированное количество дней</li>
-      </ul>
-    </div>
-  </div>
-  <div class="modal-footer">
-   <a href="#" id="searches-close" class="btn primary">Ок</a>
-  </div>
-</div>
-
-<%= form_tag(searches_path, :method => :get) %>
+<%= form_tag(searches_path(:anchor => "jump"), :method => :get) do %>
   <div class="inputs">
 
     <div class="clearfix string optional">
@@ -72,37 +40,61 @@
 
     <div class="actions">
 
-      <%= submit_tag "Искать", :class => "primary btn", :disable_with => "Пожалуйста ожидайте..." %>
+      <%= submit_tag "Искать", :class => "primary btn" %>&nbsp;&nbsp;
+      <% if user_search_histories.limit(3).size > 0 %>
+        <% user_search_histories.limit(3).each do |ush| %>
+          <%= link_to(ush.catalog_number + (ush.manufacturer? ?  " - " + ush.manufacturer : ""), search_searches_path(ush.catalog_number, ush.manufacturer)) + ", " %>
+        <% end %>
+        <%= link_to "вся история поиска...", search_histories_path %>
+      <% end %>
     </div>
   </div>
+<% end %>
 
-
-</style>
 <% if @parsed_json["result_prices"].count > 0 %>
-  <table id="result-prices" class="zebra-striped">
+  <br />
+
+  <p id="jump"><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена.</p>
+
+  <br />
+
+  <table id="result-prices" class="bordered-table zebra-striped">
     <thead>
       <tr>
-        <th class="{sorter: 'text'}" style="width: 80px">  Произв. </th>
-        <th  class="{sorter: 'text'}" style="width: 80px"> Кат.&nbsp;ном. </th>
-        <th class="{sorter: 'text'}">  Название </th>
-        <th class="{sorter: 'digit'}" style="width: 50px">  Нал. </th>
-        <th class="{sorter: 'digit'}" style="width: 50px">  От </th>
-        <th class="{sorter: 'digit'}" style="width: 50px">  До  </th>
-        <th class="{sorter: 'text'}" style="width: 50px">  Расп.  </th>
-        <th class="{sorter: 'digit'}" style="width: 50px">  Цена </th>
+        <th style="width: 80px">  Произв. </th>
+        <th style="width: 80px"> Кат.&nbsp;ном. </th>
+        <th> Название </th>
+        <th style="width: 50px">  Нал. </th>
+        <th style="width: 50px">  От </th>
+        <th style="width: 50px">  До  </th>
+        <th style="width: 50px">  Расп.  </th>
+        <th style="width: 50px">  Цена </th>
       </tr>
     </thead>
     <tbody>
       <% @parsed_json["result_prices"].each do |result_price| %>
         <tr>
-          <td> <%= result_price["manufacturer"] %> </td>
-          <td> <%= result_price["catalog_number"] %> </td>
-          <td> <%= ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 ') %> </td>
-          <td> <%= ((count = result_price["count"].to_s.gsub(/\D/, '').to_i) > 1) ? count : '' %> </td>
-          <td> <%= result_price["job_import_job_delivery_days_declared"] %> </td>
-          <td> <%= result_price["job_import_job_delivery_days_average"] %> </td>
-          <td> <%= result_price["job_import_job_country_short"] %> </td>
-          <td> <a class="btn primary" style="width: 40px" href="#"><%= (result_price["income_cost"] * 1.07).to_i %></a></td>
+          <td> <%= manufacturer = result_price["manufacturer"] %> </td>
+          <td> <%= catalog_number = result_price["catalog_number"] %> </td>
+          <td> <%= title = (("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 ')) %> </td>
+          <td> <%= count = ((count = (result_price["count"].to_s.gsub(/\D/, '').to_i)) > 1) ? count : '*' %> шт.</td>
+          <td> <%= declared = (( declared = (result_price["job_import_job_delivery_days_declared"].to_i)) > 0) ? declared : '*' %> дн.</td>
+          <td> <%= average = (( average = (result_price["job_import_job_delivery_days_average"].to_i)) > 0) ? average : '*'  %> дн.</td>
+          <td> <%= country = result_price["job_import_job_country_short"] %> </td>
+          <td>
+            <span style="visibility: hidden; display:none"><%= income_cost = (result_price["income_cost"] * 1.07).to_i.to_s %></span>
+            <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>
+              <%= f.hidden_field :cost, :value => income_cost %>
+              <%= f.hidden_field :catalog_number, :value => catalog_number %>
+              <%= f.hidden_field :manufacturer, :value => manufacturer %>
+              <%= f.hidden_field :title, :value => title %>
+              <%= f.hidden_field :count, :value => count %>
+              <%= f.hidden_field :declared, :value => declared %>
+              <%= f.hidden_field :average, :value => average %>
+              <%= f.hidden_field :country, :value => country %>
+              <%= f.submit "#{income_cost} руб.", :class => "btn primary", :style=>"width: 90px" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -125,12 +117,6 @@
       </select>
     </form>
   </div>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 <br />
 <br />
 <br />
