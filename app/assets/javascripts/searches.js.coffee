@@ -9,9 +9,7 @@ $(document).ready ->
       false
 
     format: (s) ->
-      # s.toLowerCase().replace(/good/, 2).replace(/medium/, 1).replace /bad/, 0
       a = parseInt(s, 10)
-      #console.log(a)
       if a >= 0 
         a
       else
@@ -30,6 +28,13 @@ $(document).ready ->
         sorter: "clipper"
       7:
         sorter: "clipper"
-      
     widthFixed: true
-  ).tablesorterPager container: $("#pager")
+  ).tablesorterPager 
+    container: $("#pager")
+
+  # Кнопки очистки полей ввода
+  $("#clear-manufacturer").click ->
+    $("#manufacturer").val('')
+
+  $("#clear-catalog-number").click ->
+    $("#catalog-number").val('')

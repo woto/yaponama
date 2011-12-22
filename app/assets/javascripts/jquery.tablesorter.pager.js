@@ -3,7 +3,18 @@
 		tablesorterPager: new function() {
 			
 			function updatePageDisplay(c) {
-				var s = $(c.cssPageDisplay,c.container).val((c.page+1) + c.seperator + c.totalPages);	
+        $("#pager-list").empty();
+        $("#pager-list").append('<li class="prev"><a href="#">← Пред.</a></li>');
+        $("#pager-list").append('<li class="next"><a href="#">След. →</a></li>');
+        
+        for( i=c.totalPages; i>0; i--) {
+          cls = ''
+          if(parseInt(c.page, 10)  == parseInt(i, 10) - 1)
+            cls = " class='active'";
+          $(".prev").after('<li' + cls + '><a id="relative-' + (parseInt(i, 10) + 1) + '" class="relative" href="#">' + parseInt(i, 10) + '</a></li>');
+        }
+
+				var s = $(c.cssPageDisplay,c.container).val((c.page+1) + c.seperator + c.totalPages);
 			}
 			
 			function setPageSize(table,size) {
@@ -21,7 +32,7 @@
 					var c = table.config, o = $(table);
 					if(o.offset) {
 						c.container.css({
-							top: o.offset().top + o.height() + 'px',
+							top: o.offset().top + o.height() - 35 + 'px',
 							position: 'absolute'
 						});
 					}
@@ -50,6 +61,13 @@
 				moveToPage(table);
 			}
 			
+			function moveToRelativePage(relative, table) {
+				var c = table.config;
+				c.page = parseInt($(relative).attr("id").replace(/\D/g, ''), 10) - 2;
+        console.log(c.page)
+				moveToPage(table);
+			}
+
 			function moveToPrevPage(table) {
 				var c = table.config;
 				c.page--;
@@ -132,6 +150,7 @@
 				cssPrev: '.prev',
 				cssFirst: '.first',
 				cssLast: '.last',
+        relative: '.relative',
 				cssPageDisplay: '.pagedisplay',
 				cssPageSize: '.pagesize',
 				seperator: "/",
@@ -151,26 +170,31 @@
 					
 					config.size = parseInt($(".pagesize",pager).val());
 					
-					$(config.cssFirst,pager).click(function() {
+					$(config.cssFirst,pager).live("click", (function() {
 						moveToFirstPage(table);
 						return false;
-					});
-					$(config.cssNext,pager).click(function() {
+					}));
+          
+					$(config.relative,pager).live("click", (function() {
+						moveToRelativePage(this, table);
+						return false;
+					}));
+					$(config.cssNext,pager).live("click", (function() {
 						moveToNextPage(table);
 						return false;
-					});
-					$(config.cssPrev,pager).click(function() {
+					}));
+					$(config.cssPrev,pager).live("click", (function() {
 						moveToPrevPage(table);
 						return false;
-					});
-					$(config.cssLast,pager).click(function() {
+					}));
+					$(config.cssLast,pager).live("click", (function() {
 						moveToLastPage(table);
 						return false;
-					});
-					$(config.cssPageSize,pager).change(function() {
+					}));
+					$(config.cssPageSize,pager).live("change", (function() {
 						setPageSize(table,parseInt($(this).val()));
 						return false;
-					});
+					}));
 				});
 			};
 			

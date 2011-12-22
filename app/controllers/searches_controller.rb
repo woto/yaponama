@@ -8,19 +8,19 @@ class SearchesController < ApplicationController
       params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '')
 
       if current_user.present?
-        condition = { :user_id => current_user }
+        condition = { :user_id => current_user.id }
       else
         condition = { :session_id => request.session_options[:id] }
       end
 
-      last_by_detail = SearchHistory.where(condition.merge( :catalog_number => params[:catalog_number], :manufacturer => params[:manufacturer]) ).order("created_at DESC").limit(1)
+      last_by_detail = SearchHistory.where(condition.merge( :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present?) ? manufacturer : nil ) ).order("created_at DESC").limit(1)
       last_by_user = SearchHistory.where(condition).order("created_at DESC").limit(1)
 
       if !( last_by_detail.present? && last_by_user.present? ) || ( last_by_detail.first.id  != last_by_user.first.id)
-        SearchHistory.create(:user_id => current_user, :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => params[:manufacturer])
+        SearchHistory.create(:user_id => current_user.try(:id), :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present? ? manufacturer : nil))
       end
 
-      url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{params[:manufacturer]}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_shop=1")
+      url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_shop=1")
       resp = Net::HTTP.get_response(url)
       @parsed_json = ActiveSupport::JSON.decode(resp.body)
       #@parsed_json["result_prices"].shuffle!

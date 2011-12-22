@@ -1,11 +1,13 @@
 Yaponama::Application.routes.draw do
 
+  post 'screen_width' => "screen_width#index"
+
   resources :search_histories
 
   resources :wishes
 
   resources :searches do 
-    match '/:catalog_number(/:manufacturer)' => "searches#index", :on => :collection, :as => :search
+    match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search
   end
 
   resources :messages

@@ -14,7 +14,7 @@
         Каталожный номер
       </label>
       <div class="input">
-        <%= text_field_tag :catalog_number, params[:catalog_number] %> <br />
+        <%= text_field_tag :catalog_number, params[:catalog_number], :id => "catalog-number" %> <div id="clear-catalog-number" class='icons icons-sprite icons-delete'></div> 
       </div>
     </div>
     
@@ -24,7 +24,7 @@
         Производитель
       </label>
       <div class="input">
-        <%= text_field_tag :manufacturer, params[:manufacturer] %> <br />
+        <%= text_field_tag :manufacturer, params[:manufacturer], :id => "manufacturer" %> <div id="clear-manufacturer" class='icons icons-sprite icons-delete'></div>
       </div>
     </div>
 
@@ -34,16 +34,17 @@
         Замены и аналоги
       </label>
       <div class="input" style="margin-top: 6px">
-        <%= check_box_tag :replacements, "1", params[:replacements] %> <br />
+        <%= check_box_tag :replacements, "1", params[:replacements].to_i > 0 ? true : false %> <br />
       </div>
     </div>
 
-    <div class="actions">
+    <%= hidden_field_tag :rnd, rand() %>
 
-      <%= submit_tag "Искать", :class => "primary btn" %>&nbsp;&nbsp;
+    <div class="actions">
+      <%= submit_tag "Искать", :class => "primary btn", :disable_with => "Пожалуйста ожидайте..." %>&nbsp;&nbsp;
       <% if user_search_histories.limit(3).size > 0 %>
         <% user_search_histories.limit(3).each do |ush| %>
-          <%= link_to(ush.catalog_number + (ush.manufacturer? ?  " - " + ush.manufacturer : ""), search_searches_path(ush.catalog_number, ush.manufacturer)) + ", " %>
+          <%= link_to(ush.catalog_number + (ush.manufacturer? ?  " - " + ush.manufacturer : ""), search_searches_path(ush.catalog_number, ush.manufacturer, :anchor => "jump")) + ", " %>
         <% end %>
         <%= link_to "вся история поиска...", search_histories_path %>
       <% end %>
@@ -54,11 +55,11 @@
 <% if @parsed_json["result_prices"].count > 0 %>
   <br />
 
-  <p id="jump"><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена.</p>
+  <p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого щелкните по каталожному номеру в списке результатов, либо введите название производителя самостоятельно<span id="jump">.</span></p>
 
   <br />
 
-  <table id="result-prices" class="bordered-table zebra-striped">
+  <table id="result-prices" class="zebra-striped">
     <thead>
       <tr>
         <th style="width: 80px">  Произв. </th>
@@ -75,8 +76,8 @@
       <% @parsed_json["result_prices"].each do |result_price| %>
         <tr>
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
-          <td> <%= catalog_number = result_price["catalog_number"] %> </td>
-          <td> <%= title = (("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 ')) %> </td>
+          <td> <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
+          <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) %> </td>
           <td> <%= count = ((count = (result_price["count"].to_s.gsub(/\D/, '').to_i)) > 1) ? count : '*' %> шт.</td>
           <td> <%= declared = (( declared = (result_price["job_import_job_delivery_days_declared"].to_i)) > 0) ? declared : '*' %> дн.</td>
           <td> <%= average = (( average = (result_price["job_import_job_delivery_days_average"].to_i)) > 0) ? average : '*'  %> дн.</td>
@@ -100,27 +101,24 @@
     </tbody>
   </table>
 
-  <div id="pager" class="pager" style="color: red">
-    ДОРАБОТАТЬ TODO!
+  <div class="pagination pager" id="pager" style="height: 60px">
+    <ul id="pager-list">
+      <li class="prev"><a href="#">← Пред. </a></li>
+      <li class="next"><a href="#">След. →</a></li>
+    </ul>
 
-    <form>
-      <span class="first"/>Первая</span>
-      <span class="prev">Предыдущая</span>
-      <input type="text" class="pagedisplay"/>
-      <span class="next"/>Вперед</span>
-      <span class="last">Последняя</span>
-      <select class="pagesize">
-        <option selected="selected"  value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option  value="40">40</option>
-      </select>
-    </form>
+    <select class="pagesize" style="display: none">
+      <option selected="selected"  value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option  value="40">40</option>
+    </select>
+
+    <input type="text" class="pagedisplay" style="display: none" />
   </div>
-<br />
-<br />
-<br />
-<br />
-<br />
+
+  <br />
+  <br />
+  <br />
 <% end %>
 

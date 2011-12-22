@@ -12,8 +12,8 @@
   <tr>
     <td><%= l(search_history.created_at, :format => :short) %></td>
     <td><%= search_history.catalog_number %></td>
-    <td><%= (manufacturer = search_history.manufacturer?) ? manufacturer : "Не указан" %></td>
-    <td><%= link_to "Искать еще раз", search_searches_path(search_history.catalog_number, search_history.manufacturer) %>
+    <td><%= (manufacturer = search_history.manufacturer).present? ? manufacturer : "Не указан" %></td>
+    <td><%= link_to "Искать снова", search_searches_path(search_history.catalog_number, search_history.manufacturer, :anchor => "jump") %>
   </tr>
 <% end %>
 </table>

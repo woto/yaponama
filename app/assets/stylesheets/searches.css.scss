@@ -1,3 +1,7 @@
-// Place all the styles related to the Searches controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#clear-catalog-number, #clear-manufacturer {
+  display: inline-block;
+  position: relative; 
+  top: 8px;
+  left: 5px;
+  cursor: pointer;
+}

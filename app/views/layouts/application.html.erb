@@ -12,25 +12,17 @@
   <div class="topbar-inner">
     <div class="container-fluid">
       <%= link_to "Yaponama", root_path, :class => 'brand' %>
+
       <ul class="nav">
         <li><a href="#">Контакты</a></li>
-        <li class="dropdown <%= (['cars', 'requests'].include? params[:controller]) ? 'active' : '' %>">
-          <a href="#" class="dropdown-toggle">Консультация</a>
-          <ul class="dropdown-menu">
-            <li<%= params[:controller] == 'cars' ? ' class="active"'.html_safe : ''%>><%= link_to "Автомобили", cars_path %></li>
-            <li<%= params[:controller] == 'requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Запросы", requests_path %></li>
-          </ul>
-        </li>
+        <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Запросы", requests_path %></li>
         <li class="dropdown <%= (['searches', 'wishes', 'search_histories'].include? params[:controller]) ? 'active' : '' %>">
-          <a href="#" class="dropdown-toggle">Магазин</a>
-          <ul class="dropdown-menu">
-            <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск", searches_path %></li>
-            <li<%= params[:controller] == 'search_histories' ? ' class="active"'.html_safe : ''%>><%= link_to "История поиска", search_histories_path %></li>
-            <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path %></li>
-            <li><a href="#">Заказы</a>
-          </ul>
-        </li>
+        <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path %></li>
+        <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", searches_path %></li>
       </ul>
+      <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do |f| %>
+        <%= text_field_tag :catalog_number, nil, :placeholder => "Введите каталожный номер запчасти" %>
+      <% end %>
       <ul class="nav secondary-nav">
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
@@ -100,11 +92,15 @@
 
   <div class="content">
 	<%= yield %>
-    <footer>
-      <p>&copy; Yaponama 2011</p>
-    </footer>
+    <% if params[:controller] != 'searches' %>
+      <footer>
+        <p>&copy; Yaponama 2011</p>
+      </footer>
+    <% end %>
   </div>
 </div>
+
+<div style="display: none" id="screen-width"><%= session[:screen_width] %></div>
 
 </body>
 </html>
