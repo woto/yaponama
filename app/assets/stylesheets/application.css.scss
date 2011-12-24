@@ -8,7 +8,7 @@
 */
 
 /* TODO вот это не понятно надо или нет */
-@import "bootstrap";
+/* @import "bootstrap"; */
 
 /* Опустить всю страницу. С офф. мануала */
 body {
@@ -59,4 +59,43 @@ label {
 
 .unmargin {
   margin-left: -150px;
+}
+
+/* Для рюшечки с кнопки Купить */
+.topbar {
+  z-index: 11
+}
+
+#poisk.btn {
+  // TODO тут наверняка что-то лишнее :))
+  // text-decoration: none !important;
+  // background-color: #0064CD !important;
+  // background-position: 0 -15px !important;
+  -moz-border-bottom-colors: none !important;
+  -moz-border-image: none !important;
+  -moz-border-left-colors: none !important;
+  -moz-border-right-colors: none !important;
+  -moz-border-top-colors: none !important;
+  -moz-transition: all 0.1s linear 0s !important;
+  background-color: #E6E6E6 !important;
+  background-image: -moz-linear-gradient(center top , white, white 25%, #E6E6E6) !important;
+  background-repeat: no-repeat !important;
+  border-color: #CCCCCC #CCCCCC #BBBBBB !important;
+  border-radius: 4px 4px 4px 4px !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  color: #333333 !important;
+  cursor: pointer !important;
+  display: inline-block !important;
+  font-size: 13px !important;
+  line-height: normal !important;
+  padding: 5px 14px 6px !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75) !important;
+  background-color: #0064CD !important;
+  background-image: -moz-linear-gradient(center top , #049CDB, #0064CD) !important;
+  background-repeat: repeat-x !important;
+  border-color: #0064CD #0064CD #003F81 !important;
+  color: white !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
 }

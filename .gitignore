@@ -17,3 +17,6 @@
 .idea/*
 /public/uploads
 .DS_Store
+*~
+*.swp
+*.swo

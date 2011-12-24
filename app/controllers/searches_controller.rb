@@ -4,7 +4,7 @@ class SearchesController < ApplicationController
   def index
     @parsed_json = { "result_prices" => [] }
 
-    if params[:catalog_number]
+    if params[:catalog_number].present?
       params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '')
 
       if current_user.present?

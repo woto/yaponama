@@ -38,3 +38,39 @@ $(document).ready ->
 
   $("#clear-catalog-number").click ->
     $("#catalog-number").val('')
+
+		$(".buy-button").live "click", ->
+		  $("#wishes-logo").css(
+		    left: $(this).offset().left + 30
+		    top: $(this).offset().top - 57
+		    display: 'block'
+		    opacity: 0.2
+		  ).animate(
+				    opacity: 1
+				  ,
+				    queue: false
+				  , 
+				    "slow"
+				).animate(
+		    path: new $.path.bezier(
+  		    start:
+	  	      x: $(this).offset().left - 20
+		        y: $(this).offset().top - 57
+		        angle: 0
+		        length: 0
+
+  		    end:
+	  	      x: $("#wishes-link").offset().left + 25
+		        y: $("#wishes-link").offset().top - 50
+		        angle: 98
+		        length: 0.4
+  		  )
+      ,  
+        1000
+      , ->
+  	    $(this).animate(
+          opacity: "hide"
+        ,
+          1000
+        )
+      )

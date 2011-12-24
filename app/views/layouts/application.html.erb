@@ -17,11 +17,12 @@
         <li><a href="#">Контакты</a></li>
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Запросы", requests_path %></li>
         <li class="dropdown <%= (['searches', 'wishes', 'search_histories'].include? params[:controller]) ? 'active' : '' %>">
-        <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path %></li>
+        <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path, :id => "wishes-link" %></li>
         <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", searches_path %></li>
       </ul>
       <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do |f| %>
-        <%= text_field_tag :catalog_number, nil, :placeholder => "Введите каталожный номер запчасти" %>
+        <%= text_field_tag :catalog_number, nil, :placeholder => "Введите каталожный номер", :style => "width: 200px" %>
+        <%= submit_tag "Поиск", :class => "btn primary", :id => "poisk" %>
       <% end %>
       <ul class="nav secondary-nav">
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
