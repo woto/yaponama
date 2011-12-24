@@ -38,6 +38,7 @@
       </div>
     </div>
 
+
     <%= hidden_field_tag :rnd, rand() %>
 
     <div class="actions">
@@ -55,7 +56,7 @@
 <% if @parsed_json["result_prices"].count > 0 %>
   <br />
 
-  <p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов<span id="jump">.</span></p>
+  <p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов<span id="jump">.</span> <em>[fast: 0-1000, show: 0/1]</em></p>
 
   <br />
 
@@ -74,7 +75,7 @@
     </thead>
     <tbody>
       <% @parsed_json["result_prices"].each do |result_price| %>
-        <tr>
+        <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
           <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{25})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) %> </td>
@@ -125,4 +126,3 @@
 <% else %>
   <h3>Ничего не найдено</h3>
 <% end %>
-
