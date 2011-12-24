@@ -52,12 +52,12 @@ $ ->
     $("#catalog-number").val('')
 
 		$(".buy-button").live "click", ->
-		  $("#wishes-logo").css(
-		    left: $(this).offset().left + 30
-		    top: $(this).offset().top - 57
-		    display: 'block'
+		  cloned = $("#wishes-logo").clone()
+		
+		  cloned.css(
+		    display: "block"
 		    opacity: 0.2
-		  ).animate(
+		  ).appendTo('body').animate(
 				    opacity: 1
 				  ,
 				    queue: false
@@ -66,14 +66,14 @@ $ ->
 				).animate(
 		    path: new $.path.bezier(
   		    start:
-	  	      x: $(this).offset().left - 20
-		        y: $(this).offset().top - 57
+	  	      x: $(this).offset().left
+		        y: $(this).offset().top
 		        angle: 0
 		        length: 0
 
   		    end:
-	  	      x: $("#wishes-link").offset().left + 25
-		        y: $("#wishes-link").offset().top - 50
+	  	      x: $("#wishes-link").offset().left + 20
+		        y: $("#wishes-link").offset().top + 5
 		        angle: 98
 		        length: 0.4
   		  )

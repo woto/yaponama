@@ -84,7 +84,7 @@
           <td> <%= average = (( average = (result_price["job_import_job_delivery_days_average"].to_i)) > 0) ? average : '*'  %> дн.</td>
           <td> <%= country = result_price["job_import_job_country_short"] %> </td>
           <td>
-            <span style="visibility: hidden; display:none"><%= income_cost = (result_price["income_cost"] * 1.07).to_i.to_s %></span>
+            <span style="visibility: hidden; display:none"><%= income_cost = (result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? 1.07 : 1.08)).to_i.to_s %></span>
             <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>
               <%= f.hidden_field :cost, :value => income_cost %>
               <%= f.hidden_field :catalog_number, :value => catalog_number %>
@@ -122,7 +122,7 @@
   <br />
   <br />
 
-  <%= image_tag "wishes.png", :style => "z-index: 11; position: absolute; display: none", :id => "wishes-logo" %>
+  <%= image_tag "spare_parts.png", :style => "z-index: 11; position: absolute; display: none", :id => "wishes-logo" %>
 <% else %>
   <h3>Ничего не найдено</h3>
 <% end %>

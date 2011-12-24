@@ -7,6 +7,10 @@ end
 class SmsSender
   class << self
 
+    def send_sms(record)
+      notify_by_growl record
+    end
+    
     def notify_by_growl record
       g = Growl.new "127.0.0.1", "ruby-growl", ["ruby-growl Notification"]
       phone = record.phone.gsub(/^(\d{3})(\d{3})(\d{2})/, '+7 (\1) \2-\3-')
@@ -14,17 +18,17 @@ class SmsSender
     end
 
     def confirmation_instructions(record)
-      notify_by_growl record
+      send_sms record
       Fake.new
     end
 
     def reset_password_instructions(record)
-      notify_by_growl record
+      send_sms record
       Fake.new
     end
 
     def unlock_instructions(record)
-      notify_by_growl record
+      send_sms record      
       Fake.new
     end
   end
