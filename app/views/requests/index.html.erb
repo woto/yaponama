@@ -21,7 +21,7 @@
             <p class='icons icons-sprite icons-message-dirty-dark'</p>
           <% end %>
         </td>
-        <td><%= truncate(request.messages.last.message, :length => 320) %></td>
+        <td><%= simple_format(truncate(request.messages.last.message, :length => 320)) %></td>
         <td>
           <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Перейти&nbsp;к&nbsp;диалогу</div>".html_safe, request_path(request, :anchor => "reply") %>
           <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос? Весь диалог, связанный с ним будет удален.', :method => :delete %>

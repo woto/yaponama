@@ -14,7 +14,6 @@
       <%= link_to "Yaponama", root_path, :class => 'brand' %>
 
       <ul class="nav">
-        <li><a href="#">Контакты</a></li>
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Запросы", requests_path %></li>
         <li class="dropdown <%= (['searches', 'wishes', 'search_histories'].include? params[:controller]) ? 'active' : '' %>">
         <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path, :id => "wishes-link" %></li>
@@ -25,6 +24,7 @@
         <%= submit_tag "Поиск", :class => "btn primary", :id => "poisk" %>
       <% end %>
       <ul class="nav secondary-nav">
+        <li><a href="#">О Магазине</a></li>                
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "Вы вошли как " + current_user.user_name, "#", :class => "dropdown-toggle" %>
