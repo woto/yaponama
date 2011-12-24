@@ -1,7 +1,17 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-$(document).ready ->
+$ ->
+  $("#slider").slider();	
+  $.tablesorter.addParser
+    id: "from_link_extractor"
+    is: (s) ->
+      false
+
+    format: (s) ->
+      s 
+
+    type: "text"
 
   $.tablesorter.addParser
     id: "clipper"
@@ -20,6 +30,8 @@ $(document).ready ->
 
   $("table#result-prices").tablesorter(
     headers:
+      1:
+        sorter: "from_link_extractor"
       3:
         sorter: "clipper"
       4:
