@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  get 'about' => "about#index"
+  
   post 'screen_width' => "screen_width#index"
 
   resources :search_histories
@@ -7,7 +9,8 @@ Yaponama::Application.routes.draw do
   resources :wishes
 
   resources :searches do 
-    match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search
+    match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search, :via => :get
+    match '?skip' => "searches#index", :on => :collection, :as => :skip_search, :via => :get
   end
 
   resources :messages

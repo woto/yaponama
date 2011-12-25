@@ -86,3 +86,36 @@ $ ->
           1000
         )
       )
+
+	
+	# Табличка Каталожный номер
+	
+	
+  vinModal = $("#catalog-number-modal").modal(
+    backdrop: true
+    modal: true
+  )
+
+  $(".catalog-number-link").click ->
+    domModal.toggle()
+
+  $("#catalog-number-close").live "click", ->
+    vinModal.modal('hide')
+
+	
+	# Табличка Замены
+	
+	
+  vinModal = $("#replacements-modal").modal(
+    backdrop: true
+    modal: true
+  )
+
+  $(".replacements-link").click ->
+    domModal.toggle()
+
+  $("#replacements-close").live "click", ->
+    vinModal.modal('hide')
+
+
+

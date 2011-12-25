@@ -24,7 +24,7 @@
         <%= submit_tag "Поиск", :class => "btn primary", :id => "poisk" %>
       <% end %>
       <ul class="nav secondary-nav">
-        <li><a href="#">О Магазине</a></li>                
+        <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О Магазине", about_path %></li>                
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "Вы вошли как " + current_user.user_name, "#", :class => "dropdown-toggle" %>
@@ -95,7 +95,7 @@
 	<%= yield %>
     <% if params[:controller] != 'searches' %>
       <footer>
-        <p>&copy; Yaponama 2011</p>
+        <p><%= link_to "&copy; Yaponama 2011".html_safe, about_path %></p>
       </footer>
     <% end %>
   </div>
