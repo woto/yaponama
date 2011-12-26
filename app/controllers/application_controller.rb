@@ -12,26 +12,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Будет выполняться после входа пользователя (регистрация, вход, восстановление пароля)
   def after_sign_in_path_for(resource)
-    SearchHistory.where(:session_id => request.session_options[:id]).update_all(:user_id => current_user.id)
-    Wish.where(:session_id => request.session_options[:id]).update_all(:user_id => current_user.id)
+    SearchHistory.where(:session_id => request.session_options[:id]).update_all(:user_id => current_user.id, :session_id => nil)
+    Wish.where(:session_id => request.session_options[:id]).update_all(:user_id => current_user.id, :session_id => nil)
     super
   end
 
   def user_search_histories
-    if current_user
-      SearchHistory.where(:user_id => current_user.id).order("created_at DESC")
-    else
-      SearchHistory.where(:session_id => request.session_options[:id]).order("created_at DESC")
-    end
+      SearchHistory.get_for(current_user, request.session_options[:id]).order("created_at DESC")
   end
 
   def user_wishes
-    if current_user
-      Wish.where(:user_id => current_user.id).order("created_at DESC")
-    else
-      Wish.where(:session_id => request.session_options[:id]).order("created_at DESC")
-    end
+    Wish.get_for(current_user, request.session_options[:id]).order("created_at DESC")
   end
 
 end

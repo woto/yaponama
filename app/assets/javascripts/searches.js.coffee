@@ -43,6 +43,8 @@ $ ->
     widthFixed: true
   ).tablesorterPager 
     container: $("#pager")
+		# Не забыть, что это в 2-х местах
+    size: 10
 
   # Кнопки очистки полей ввода
   $("#clear-manufacturer").click ->
@@ -83,7 +85,7 @@ $ ->
   	    $(this).animate(
           opacity: "hide"
         ,
-          1000
+          500
         )
       )
 

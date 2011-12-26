@@ -6,6 +6,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
 
+    # Первый зарегистрированный пользователь будет администратором
     if resource.class.count_by_sql("SELECT COUNT(id) FROM users") == 0
       resource.admin = true
     end

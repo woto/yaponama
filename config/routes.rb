@@ -1,12 +1,16 @@
 Yaponama::Application.routes.draw do
 
+  resources :orders
+
   get 'about' => "about#index"
   
   post 'screen_width' => "screen_width#index"
 
   resources :search_histories
 
-  resources :wishes
+  resources :wishes do
+    match 'multiple_update', :on => :collection, :via => :put, :as => :multiple_update
+  end
 
   resources :searches do 
     match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search, :via => :get

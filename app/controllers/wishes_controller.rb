@@ -22,25 +22,27 @@ class WishesController < ApplicationController
     end
   end
 
-  # GET /wishes/new
-  # GET /wishes/new.json
-  def new
-    @wish = Wish.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @wish }
-    end
-  end
-
-  # GET /wishes/1/edit
-  def edit
-    @wish = Wish.find(params[:id])
-  end
+  # # GET /wishes/new
+  # # GET /wishes/new.json
+  # def new
+  #   @wish = Wish.new
+  # 
+  #   respond_to do |format|
+  #     format.html # new.html.erb
+  #     format.json { render :json => @wish }
+  #   end
+  # end
+  # 
+  # # GET /wishes/1/edit
+  # def edit
+  #   @wish = Wish.find(params[:id])
+  # end
 
   # POST /wishes
   # POST /wishes.json
   def create
+    #debugger
+    print '1'
     @wish = Wish.new(params[:wish])
     @wish.user = current_user
     @wish.session_id = request.session_options[:id]
@@ -59,21 +61,28 @@ class WishesController < ApplicationController
     end
   end
 
-  # PUT /wishes/1
-  # PUT /wishes/1.json
-  def update
-    @wish = Wish.find(params[:id])
-
-    respond_to do |format|
-      if @wish.update_attributes(params[:wish])
-        format.html { redirect_to @wish, :notice => 'Wish was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @wish.errors, :status => :unprocessable_entity }
-      end
-    end
+  def multiple_update
+    debugger
+    puts '1'
+    Wish.get_for(current_user, request.session_options[:id]).update(params[:wishes].keys, params[:wishes].values)
+    redirect_to wishes_path
   end
+  
+  # # PUT /wishes/1
+  # # PUT /wishes/1.json
+  # def update
+  #   @wish = Wish.find(params[:id])
+  # 
+  #   respond_to do |format|
+  #     if @wish.update_attributes(params[:wish])
+  #       format.html { redirect_to @wish, :notice => 'Wish was successfully updated.' }
+  #       format.json { head :ok }
+  #     else
+  #       format.html { render :action => "edit" }
+  #       format.json { render :json => @wish.errors, :status => :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # DELETE /wishes/1
   # DELETE /wishes/1.json

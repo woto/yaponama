@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
   apply_simple_captcha
   
   has_many :cars
-  has_many :wishes
+  has_many :wishes  
 
   def confirmation_token_setted
     confirmation_token.present?
