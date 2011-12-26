@@ -11,17 +11,17 @@ class WishesController < ApplicationController
     end
   end
 
-  # GET /wishes/1
-  # GET /wishes/1.json
-  def show
-    @wish = Wish.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @wish }
-    end
-  end
-
+  # # GET /wishes/1
+  #   # GET /wishes/1.json
+  #   def show
+  #     @wish = Wish.find(params[:id])
+  # 
+  #     respond_to do |format|
+  #       format.html # show.html.erb
+  #       format.json { render :json => @wish }
+  #     end
+  #   end
+  #
   # # GET /wishes/new
   # # GET /wishes/new.json
   # def new
@@ -37,19 +37,17 @@ class WishesController < ApplicationController
   # def edit
   #   @wish = Wish.find(params[:id])
   # end
-
+  
   # POST /wishes
   # POST /wishes.json
   def create
-    #debugger
-    print '1'
     @wish = Wish.new(params[:wish])
     @wish.user = current_user
     @wish.session_id = request.session_options[:id]
 
     respond_to do |format|
       if @wish.save
-        format.html { redirect_to @wish, :notice => 'Wish was successfully created.' }
+        format.html { redirect_to search_searches_path(@wish.catalog_number, @wish.manufacturer, :anchor => "jump"), :notice => 'Товар успешно добавлен в корзину.' }
         #format.json { render :json => @wish, :status => :created, :location => @wish }
         #if request.xhr?
         #  @wishes = Wish.all
@@ -61,9 +59,12 @@ class WishesController < ApplicationController
     end
   end
 
+  def multiple_delete
+      Wish.get_for(current_user, request.session_options[:id]).destroy_all(:id => params[:wishes_ids])
+      redirect_to wishes_path
+  end
+  
   def multiple_update
-    debugger
-    puts '1'
     Wish.get_for(current_user, request.session_options[:id]).update(params[:wishes].keys, params[:wishes].values)
     redirect_to wishes_path
   end

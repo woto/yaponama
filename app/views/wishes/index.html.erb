@@ -6,7 +6,7 @@
   }
 </style>
 
-<% @sum = 0 %>
+<% sum = 0 %>
 
 <% if @wishes.count > 0 %>
   <p><span class="label">К сведению</span> Не забывайте обновлять корзину после изменения количества товаров в ней.</p>
@@ -19,7 +19,7 @@
             
   <div class="tab-content" id="my-tab-content">
     <div id="active" class="active tab-pane">
-      <%= form_tag multiple_update_wishes_path, :style => "overflow: hidden", :method => :put do %>
+      <%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
         <table class="zebra-striped">
           <tr>
             <th><input type="checkbox" id="select-all" /></th>
@@ -40,7 +40,7 @@
         <% @wishes.each do |wish| %>
           <%= fields_for "wishes[]", wish do |f| %>
             <tr>
-              <td><%= f.check_box :active %></td>
+              <td><%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %></td>
               <td><%= wish.manufacturer %></td>    
               <td><%= wish.catalog_number %></td>
               <td><%= wish.title %></td>
@@ -52,18 +52,17 @@
               <td>x</td>    
               <td><%= f.text_field :count_in_wishes, { :size => "4", :style => "width: auto !important", :type => "number" } %></td>        
               <td>=</td>   
-               <% @sum += (multiply = wish.cost * wish.count_in_wishes) %>
+               <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
               <td><%= cost_decorator(multiply) %></td>
             </tr>
           <% end %>
         <% end %>
         <tr>
           <td colspan="7">
-            <a href="#">Удалить выделенные</a> или 
-            <a href="#">Отложить выделенные</a>
+            <%= submit_tag "Удалить выделенные", :class => "btn" %> </a> <span> или </span> <%= submit_tag "Отложить выделенные", :class => "btn" %></a>
           </td>
           <td colspan="7" style="text-align: right">
-            <strong>Итого: <%= number_to_currency(@sum).gsub(' ', '&nbsp;').html_safe %></strong>
+            <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong>
           </td>
         </tr>
         </table>

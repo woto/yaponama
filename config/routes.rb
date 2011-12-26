@@ -9,7 +9,12 @@ Yaponama::Application.routes.draw do
   resources :search_histories
 
   resources :wishes do
-    match 'multiple_update', :on => :collection, :via => :put, :as => :multiple_update
+    collection do
+      post 'multiple_update' => "wishes#multiple_update", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Пересчитать цену/ }
+      post 'multiple_update' => "wishes#multiple_delete", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Удалить выделенные/ }
+      post 'multiple_update' => "wishes#multiple_inactivate", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отложить выделенные/ }      
+      post 'multiple_update' => "wishes#multiple_activate", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Вернуть в корзину выделенные / }            
+    end
   end
 
   resources :searches do 
