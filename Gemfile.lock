@@ -72,6 +72,12 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     daemons (1.1.4)
+    delayed_job (3.0.0.pre)
+      activesupport (~> 3.0)
+      daemons
+    delayed_job_active_record (0.2.1)
+      activerecord (> 2.1.0)
+      delayed_job (~> 3.0.0.pre)
     devise (1.5.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -179,6 +185,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 3.1.1)
   compass (~> 0.12.alpha)
+  delayed_job_active_record
   devise
   galetahub-simple_captcha!
   humanizer!

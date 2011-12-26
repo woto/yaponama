@@ -48,3 +48,5 @@ gem 'kaminari'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'git@github.com:woto/simple-captcha.git'
 gem 'mongrel'
 gem 'therubyracer'
+gem 'delayed_job_active_record'
+

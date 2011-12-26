@@ -9,6 +9,6 @@ module ScopeForUser
           where(:session_id => session_id)
         end
       }
-    }  
+    }
   end
 end
