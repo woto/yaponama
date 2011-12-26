@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111226002308) do
+ActiveRecord::Schema.define(:version => 20111226053621) do
 
   create_table "car_assets", :force => true do |t|
     t.string   "file"
@@ -145,8 +145,9 @@ ActiveRecord::Schema.define(:version => 20111226002308) do
     t.string   "session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "count_in_wishes", :default => 1
-    t.boolean  "active"
+    t.integer  "count_in_wishes", :default => 0
+    t.boolean  "active",          :default => true
+    t.integer  "order_id"
   end
 
 end

@@ -33,12 +33,11 @@
         <%= check_box_tag :replacements, "1", params[:replacements].to_i > 0 ? true : false %> <br />
       </div>
     </div>
-
-
+    
     <%= hidden_field_tag :rnd, rand() %>
 
     <div class="actions">
-      <%= submit_tag "Искать", :class => "primary btn", :disable_with => "Пожалуйста ожидайте..." %>&nbsp;&nbsp;
+      <%= submit_tag "Искать", :class => "primary btn", :disable_with => "Пожалуйста подождите..." %>&nbsp;&nbsp;
       <% if user_search_histories.limit(3).size > 0 %>
         <% user_search_histories.limit(3).each do |ush| %>
           <%= link_to(ush.catalog_number + (ush.manufacturer? ?  " - " + ush.manufacturer : ""), search_searches_path(ush.catalog_number, ush.manufacturer, :anchor => "jump")) + ", " %>
@@ -140,7 +139,7 @@
   </div>
   <div class="modal-body">
     <div style="overflow: hidden">
-      <p>Тут рассказываем что такое каталожный номер, показываем картинки, говорим о важности указания производителя. </p>
+      <p>[TODO] Тут рассказываем что такое каталожный номер, показываем картинки, говорим о важности указания производителя. </p>
     </div>
   </div>
   <div class="modal-footer">
@@ -156,7 +155,7 @@
   </div>
   <div class="modal-body">
     <div style="overflow: hidden">
-      <p>Тут рассказываем что такое замены, аналоги, новый каталожный номер и т.д. </p>
+      <p>[TODO] Тут рассказываем что такое замены, аналоги, новый каталожный номер и т.д. </p>
     </div>
   </div>
   <div class="modal-footer">

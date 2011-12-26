@@ -16,8 +16,9 @@
       <ul class="nav">
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Консультация", requests_path %></li>
         <li><%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do |f| %>
-          <%= text_field_tag :catalog_number, nil, :placeholder => "Введите каталожный номер", :style => "width: 200px" %>
-          <%= submit_tag "Поиск", :class => "btn primary", :id => "poisk" %>
+          <%= text_field_tag :catalog_number, nil, :placeholder => "Каталожный номер", :style => "width: 140px" %>
+          <%= hidden_field_tag :rnd, rand() %>          
+          <%= submit_tag "Искать", :class => "btn primary", :disable_with => "Пожалуйста подождите...", :id => "poisk" %>
         <% end %></li>
         <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path, :id => "wishes-link" %></li>
         <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", orders_path %></li>
@@ -26,7 +27,7 @@
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О Магазине", about_path %></li>                
         <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
-            <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle" %>
+            <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
               <li<%= params[:controller] == 'registrations' && params[:action] == 'edit' ? ' class="active"'.html_safe : ''%>><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
               <li class="divider"></li>
