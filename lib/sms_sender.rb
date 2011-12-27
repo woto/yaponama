@@ -36,14 +36,17 @@ class SmsSender
         end
         
       end
-  end      
-      
-  def send_sms(record)
-    #notify_by_growl record
-    notify_by_sms record
   end
   
-  handle_asynchronously :send_sms
+  handle_asynchronously :notify_by_sms        
+      
+  def send_sms(record)
+    if Rails.env.production?
+      notify_by_sms record      
+    else 
+      notify_by_growl record
+    end
+  end
   
     
   class << self

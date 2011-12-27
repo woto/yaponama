@@ -159,11 +159,11 @@ ActiveRecord::Schema.define(:version => 20111226165328) do
     t.string   "average"
     t.string   "country"
     t.string   "session_id"
+    t.string   "status",          :default => "active"
+    t.integer  "order_id"
+    t.integer  "count_in_wishes", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "count_in_wishes", :default => 0
-    t.boolean  "active",          :default => true
-    t.integer  "order_id"
   end
 
 end

@@ -11,6 +11,9 @@ class CreateWishes < ActiveRecord::Migration
       t.string :average
       t.string :country
       t.string :session_id
+      t.enum :status, :default => "active"      
+      t.integer :order_id
+      t.integer :count_in_wishes, :default => 0
 
       t.timestamps
     end

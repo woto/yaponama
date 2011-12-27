@@ -5,6 +5,10 @@ class ConfirmationsController < Devise::PasswordsController
   skip_before_filter :require_no_authentication
   skip_before_filter :authenticate_user!
 
+  def variants
+    build_resource({})
+  end
+  
   def create
 
     self.resource = resource_class.send_confirmation_instructions(params[resource_name])
