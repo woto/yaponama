@@ -57,7 +57,7 @@ class WishesController < ApplicationController
     end
     
     @wish.increment!(:count_in_wishes)    
-    @wish.active = true
+    @wish.status = "active"
     @wish.user = current_user
     @wish.session_id = request.session_options[:id]
 
@@ -86,12 +86,12 @@ class WishesController < ApplicationController
   end
   
   def multiple_inactivate
-    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all("active = false")
+    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "inactive")
     redirect_to wishes_path
   end
   
   def multiple_activate
-    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all("active = true")
+    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "active")
     redirect_to wishes_path
   end  
   

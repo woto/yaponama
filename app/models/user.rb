@@ -22,8 +22,8 @@ class User < ActiveRecord::Base
 
   apply_simple_captcha
   
-  has_many :cars
-  has_many :wishes  
+  has_many :cars, :dependent => :destroy
+  has_many :wishes, :dependent => :destroy
 
   def confirmation_token_setted
     confirmation_token.present?

@@ -1,6 +1,6 @@
 class Request < ActiveRecord::Base
   belongs_to :car
-  has_many :messages
+  has_many :messages, :dependent => :destroy
   belongs_to :user
   accepts_nested_attributes_for :messages,
                                 :allow_destroy => :true,

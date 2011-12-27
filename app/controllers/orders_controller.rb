@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!
+  
   # GET /orders
   # GET /orders.json
   def index
@@ -40,11 +42,13 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(params[:order])
+    @order = Order.create(params[:order])
+    wishes = Wish.get_for(current_user, request.session_options[:id]).where(:status => :active)
+    wishes.update_all(:order_id => @order.id, :status => :inorder)
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, :notice => 'Order was successfully created.' }
+        format.html { redirect_to @order, :notice => 'Ваш заказ успешно создан.' }
         format.json { render :json => @order, :status => :created, :location => @order }
       else
         format.html { render :action => "new" }

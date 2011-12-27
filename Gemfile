@@ -49,4 +49,5 @@ gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'git@githu
 gem 'mongrel'
 gem 'therubyracer'
 gem 'delayed_job_active_record'
+gem 'enumerated_attribute'
 
