@@ -1,9 +1,15 @@
+<style>
+  .inputs {
+    height: 150px !important;
+  }
+</style>
+
 <div id="sign_in" style="float: left; width: 46%; border-right: 1px solid #eee; padding-right: 3%;">
-  <%= render :partial => "devise/sessions/new"%>
+  <%= render :partial => "devise/sessions/new", :locals => {:notice_text => "Если вы уже регистрировались."} %>
 </div>
 
 <div id="sign_up" style="float: right; width: 48%">
-  <%= render :partial => "registrations/new" %>
+  <%= render :partial => "registrations/new", :locals => {:notice_text => "Если вы еще не регистрировались."} %>
 </div>
 
 <div style="clear: both"></div>
