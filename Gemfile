@@ -5,16 +5,24 @@ gem 'rails', '3.1.3'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
+gem 'mysql2', '0.3.10'
 
-gem 'json'
+gem 'json', '1.6.1'
+gem 'execjs', '1.2.9'
+gem 'multi_json', '1.0.3'
+gem 'sass', '3.1.10'
+gem 'rdoc', '3.11'
+gem 'coffee-script-source', '1.1.3'
+gem 'columnize', '0.3.5'
+gem 'daemons', '1.1.4'
+gem 'rack', '1.3.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.1.5'
   gem 'coffee-rails', '~> 3.1.1'
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '1.1.0'
 end
 
 gem 'jquery-rails'
@@ -31,23 +39,24 @@ gem 'jquery-rails'
 # To use debugger
 gem 'ruby-debug'
 
-gem 'bootstrap-sass'
-gem 'compass', '~> 0.12.alpha'
+gem 'bootstrap-sass', '1.4.0'
+gem 'compass', '0.12.alpha.0'
 #gem 'formtastic'
 #gem 'formtastic-bootstrap'
-gem 'devise'
+gem 'devise', '1.5.1'
 gem 'simple_form', :git => 'git://github.com/plataformatec/simple_form.git'
-gem 'rails-i18n'
+gem 'rails-i18n', '0.1.11'
 gem 'humanizer', :git => 'https://github.com/kiskolabs/humanizer.git'
 gem 'ruby-growl'
-gem 'carrierwave'
-gem 'cocoon'
+gem 'carrierwave', '0.5.7'
+gem 'cocoon', '1.0.14'
 gem 'mini_magick'
-gem 'kaminari'
+gem 'kaminari', '0.12.4'
 #gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'https://github.com/galetahub/simple-captcha.git'
 gem 'galetahub-simple_captcha', :require => 'simple_captcha', :git => 'git@github.com:woto/simple-captcha.git'
 gem 'mongrel'
 gem 'therubyracer'
+gem 'delayed_job', '3.0.0.pre'
 gem 'delayed_job_active_record'
 gem 'enumerated_attribute'
 
