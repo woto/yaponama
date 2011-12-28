@@ -1,6 +1,7 @@
 GIT
   remote: git://github.com/plataformatec/simple_form.git
-  revision: 2296d25ce36d41f31b72638d9f0fdb92ffc3d513
+  revision: 41ac5b21273f81fe4f8c6994bb9195f88bf4142e
+  ref: 41ac5b21273f81fe4f8c6994bb9195f88bf4142e
   specs:
     simple_form (2.0.0.dev)
       actionpack (~> 3.0)
@@ -9,12 +10,14 @@ GIT
 GIT
   remote: git@github.com:woto/simple-captcha.git
   revision: e0d7df3c2b8413657531a50ed543c02f1d59ad35
+  ref: e0d7df3c2b8413657531a50ed543c02f1d59ad35
   specs:
     galetahub-simple_captcha (0.1.2)
 
 GIT
   remote: https://github.com/kiskolabs/humanizer.git
   revision: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
+  ref: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
   specs:
     humanizer (2.4.3)
 
