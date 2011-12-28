@@ -50,7 +50,7 @@ class WishesController < ApplicationController
       :declared => params[:wish][:declared],
       :average => params[:wish][:average],
       :country => params[:wish][:country]
-    ).first
+    ).where("status = 'active' OR status = 'inactive'").first
     
     unless @wish.present?
       @wish = Wish.new(params[:wish])
@@ -63,8 +63,8 @@ class WishesController < ApplicationController
 
     respond_to do |format|
       if @wish.save
-        format.html { redirect_to search_searches_path(@wish.catalog_number, @wish.manufacturer, :anchor => "jump"), :notice => 'Товар успешно добавлен в корзину.' }
-        #format.json { render :json => @wish, :status => :created, :location => @wish }
+        # format.html { redirect_to search_searches_path(@wish.catalog_number, @wish.manufacturer, :anchor => "jump"), :notice => 'Товар успешно добавлен в корзину.' }
+        format.json { render :json => @wish, :status => :created, :location => @wish }
         #if request.xhr?
         #  @wishes = Wish.all
         #end
