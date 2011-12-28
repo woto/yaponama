@@ -89,13 +89,20 @@ label {
   cursor: pointer !important;
   display: inline-block !important;
   font-size: 13px !important;
-  line-height: normal !important;
-  padding: 5px 14px 6px !important;
+  line-height: 0px !important;
+  padding: 3px 14px 4px 13px !important;
+  margin: 0 0 0 0 !important;
+  #padding: 0 0 0 0 !important;
+  top: 0px !important;
+  valign: bottom;
+  position: static !important;
   text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75) !important;
   background-color: #0064CD !important;
   background-image: -moz-linear-gradient(center top , #049CDB, #0064CD) !important;
+  height: 28px !important;
   background-repeat: repeat-x !important;
   border-color: #0064CD #0064CD #003F81 !important;
   color: white !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  vertical-align: bottom;
 }
