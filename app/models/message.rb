@@ -6,4 +6,29 @@ class Message < ActiveRecord::Base
                                 :allow_destroy => true,
                                 :reject_if => lambda { |attrs| attrs['file'].blank? }
   scope :last_message, lambda { |request_id| joins(:request).order("messages.id DESC").where(:requests => { :id => request_id }).limit(1) }                                
+
+  after_create :notify
+  
+  def notify
+    # Отправить уведомление топикстартеру если он не админ
+    if user.admin? && !request.user.admin?
+      data = {
+        :destinationAddress => request.user.phone,
+        :messageData => "Поступил ответ на ваш запрос № #{request.id}"
+      }      
+      SmsSender.new.notify(data)
+    # Иначе менеджеру
+    elsif !user.admin?
+      User.where(:admin => true).each do |user|
+        data = {
+          :destinationAddress => user.phone,
+          :messageData => "Пользователь #{request.user.user_name} с тел. +7#{request.user.phone}, запросе №#{request.id}"
+        }
+        SmsSender.new.notify(data)
+      end
+    end
+
+  end
+
+
 end

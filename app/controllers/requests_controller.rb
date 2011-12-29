@@ -65,25 +65,12 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    @request = Request.new(params[:request])
-    @request.user = current_user    
     set_user_on_nested_fields @request
+    @request = Request.new(params[:request])    
+    @request.user = current_user    
 
     respond_to do |format|
-      if @request.save
-        
-        # Уведомить менеджера о создании нового запроса, 
-        # если конечно создатель нового запроса не менеджер
-        unless @request.user.admin?
-          User.where(:admin => true).each do |user|
-            data = {
-              :destinationAddress => user.phone,
-              :messageData => "Пользователь #{@request.user.user_name} с тел. +7#{@request.user.phone} создал запрос №#{@request.id}"
-            }
-            SmsSender.new.notify(data)
-          end
-        end
-        
+      if @request.save        
         format.html { redirect_to request_path(@request), :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { render :json => @request, :status => :created, :location => @request }
       else
@@ -110,27 +97,6 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if @request.update_attributes(params[:request])
         @request.touch
-        
-        last_message = Message.last_message(params[:id]).first
-        
-        # Отправить уведомление топикстартеру если он не админ
-        if last_message.user.admin? && !@request.user.admin?
-          data = {
-            :destinationAddress => @request.user.phone,
-            :messageData => "Поступил ответ на ваш запрос № #{@request.id}"
-          }      
-          SmsSender.new.notify(data)
-        # Иначе менеджеру
-        elsif !last_message.user.admin?
-          User.where(:admin => true).each do |user|
-            data = {
-              :destinationAddress => user.phone,
-              :messageData => "Пользователь #{last_message.user.user_name} с тел. +7#{last_message.user.phone} написал ответ по запросу №#{@request.id}"
-            }
-            SmsSender.new.notify(data)
-          end
-        end
-
         format.html { redirect_to @request, :notice => 'Ответ был успешно отправлен, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { head :ok }
       else
