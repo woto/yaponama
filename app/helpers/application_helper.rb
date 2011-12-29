@@ -1,6 +1,6 @@
 module ApplicationHelper
   def car_identity(request)
-    request.car.vin + " " + request.car.frame + " " + request.car.marka + " " + request.car.model + " " + request.car.god
+    (request.car.vin + " " + request.car.frame + " " + request.car.marka + " " + request.car.model + " " + request.car.god).strip
   end
   
   def days_decorator value

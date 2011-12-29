@@ -1,4 +1,6 @@
 class Car < ActiveRecord::Base
+  include UserOrAdmin
+  
   belongs_to :user
   has_many :requests, :dependent => :destroy
   validates :vin, :length => { :within => 17..17 }, :allow_blank => true

@@ -41,11 +41,11 @@ class ApplicationController < ActionController::Base
   end
 
   def user_search_histories
-      SearchHistory.get_for(current_user, request.session_options[:id]).order("created_at DESC")
+    SearchHistory.guest_or_user(current_user, request.session_options[:id]).order("created_at DESC")
   end
 
   def user_wishes
-    Wish.get_for(current_user, request.session_options[:id]).order("created_at DESC")
+    Wish.guest_or_user(current_user, request.session_options[:id]).order("created_at DESC")
   end
 
 end

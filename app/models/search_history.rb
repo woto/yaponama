@@ -1,3 +1,3 @@
 class SearchHistory < ActiveRecord::Base
-  include ScopeForUser  
+  include GuestOrUser  
 end

@@ -1,6 +1,6 @@
 class Wish < ActiveRecord::Base
   
-  include ScopeForUser
+  include GuestOrUser
   
   belongs_to :user
   belongs_to :wish

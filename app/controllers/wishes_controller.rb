@@ -41,7 +41,7 @@ class WishesController < ApplicationController
   # POST /wishes
   # POST /wishes.json
   def create
-    @wish = Wish.get_for(current_user, request.session_options[:id]).where(
+    @wish = Wish.guest_or_user(current_user, request.session_options[:id]).where(
       :cost => params[:wish][:cost],
       :catalog_number => params[:wish][:catalog_number],
       :manufacturer => params[:wish][:manufacturer],
@@ -76,22 +76,22 @@ class WishesController < ApplicationController
   end
 
   def multiple_delete
-    Wish.get_for(current_user, request.session_options[:id]).destroy_all(:id => params[:wishes_ids])
+    Wish.guest_or_user(current_user, request.session_options[:id]).destroy_all(:id => params[:wishes_ids])
     redirect_to wishes_path
   end
   
   def multiple_update
-    Wish.get_for(current_user, request.session_options[:id]).update(params[:wishes].keys, params[:wishes].values)
+    Wish.guest_or_user(current_user, request.session_options[:id]).update(params[:wishes].keys, params[:wishes].values)
     redirect_to wishes_path
   end
   
   def multiple_inactivate
-    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "inactive")
+    Wish.guest_or_user(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "inactive")
     redirect_to wishes_path
   end
   
   def multiple_activate
-    Wish.get_for(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "active")
+    Wish.guest_or_user(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "active")
     redirect_to wishes_path
   end  
   

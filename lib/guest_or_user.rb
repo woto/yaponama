@@ -1,8 +1,8 @@
-module ScopeForUser
+module GuestOrUser
   def self.included(base)
     base.class_eval {
       # Для выборки из корзины и т.д. Другими словами где не требуется регистрация
-      scope :get_for, lambda { |user, session_id|
+      scope :guest_or_user, lambda { |user, session_id|
         unless user.nil?
           where(:user_id => user.id)
         else

@@ -1,4 +1,6 @@
 class Request < ActiveRecord::Base
+  include UserOrAdmin
+  
   belongs_to :car
   has_many :messages, :dependent => :destroy
   belongs_to :user

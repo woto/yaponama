@@ -4,13 +4,13 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    scope = Request
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Request.user_or_admin(current_user)
     scope = scope.order('updated_at DESC')
+    
     @requests = scope.includes(:car).includes(:messages => :user).page params[:page]
 
+    # Если нет ни одного запроса, то перекидываем 
+    # к машинам с сохранением флэша
     unless @requests.present?
       flash.keep
       redirect_to cars_path and return
@@ -25,10 +25,7 @@ class RequestsController < ApplicationController
   # GET /requests/1
   # GET /requests/1.json
   def show
-    scope = Request
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Request.user_or_admin(current_user)    
     @request = scope.where(:id => params[:id]).includes(:messages => [:user, :message_assets]).first
 
     unless @request.present?
@@ -47,10 +44,7 @@ class RequestsController < ApplicationController
     @request = Request.new
 
     if params[:car_id]
-      scope = Car
-      unless current_user.admin?
-        scope = scope.where(:user_id => current_user.id)
-      end
+      scope = Car.user_or_admin(current_user)
       car = scope.where(:id => params[:car_id]).first
       if car.present?
         @request.car = car
@@ -71,13 +65,26 @@ class RequestsController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    set_user_on_nested_fields @request
     @request = Request.new(params[:request])
-    @request.user = current_user
+    @request.user = current_user    
+    set_user_on_nested_fields @request
 
     respond_to do |format|
       if @request.save
-        format.html { redirect_to requests_path, :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
+        
+        # Уведомить менеджера о создании нового запроса, 
+        # если конечно создатель нового запроса не менеджер
+        unless @request.user.admin?
+          User.where(:admin => true).each do |user|
+            data = {
+              :destinationAddress => user.phone,
+              :messageData => "Пользователь #{@request.user.user_name} с тел. +7#{@request.user.phone} создал запрос №#{@request.id}"
+            }
+            SmsSender.new.notify(data)
+          end
+        end
+        
+        format.html { redirect_to request_path(@request), :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { render :json => @request, :status => :created, :location => @request }
       else
         format.html { render :action => "new" }
@@ -88,26 +95,42 @@ class RequestsController < ApplicationController
   
   def edit
     scope = Request
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user.id)
-    end
+    scope = Request.user_or_admin(current_user)
     @request = scope.find(params[:id])
   end
 
   # PUT /requests/1
   # PUT /requests/1.json
   def update
-    scope = Request
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Request.user_or_admin(current_user)
 
     @request = scope.find(params[:id])
     set_user_on_nested_fields @request
-
+    
     respond_to do |format|
       if @request.update_attributes(params[:request])
         @request.touch
+        
+        last_message = Message.last_message(params[:id]).first
+        
+        # Отправить уведомление топикстартеру если он не админ
+        if last_message.user.admin? && !@request.user.admin?
+          data = {
+            :destinationAddress => @request.user.phone,
+            :messageData => "Поступил ответ на ваш запрос № #{@request.id}"
+          }      
+          SmsSender.new.notify(data)
+        # Иначе менеджеру
+        elsif !last_message.user.admin?
+          User.where(:admin => true).each do |user|
+            data = {
+              :destinationAddress => user.phone,
+              :messageData => "Пользователь #{last_message.user.user_name} с тел. +7#{last_message.user.phone} написал ответ по запросу №#{@request.id}"
+            }
+            SmsSender.new.notify(data)
+          end
+        end
+
         format.html { redirect_to @request, :notice => 'Ответ был успешно отправлен, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { head :ok }
       else
@@ -120,10 +143,7 @@ class RequestsController < ApplicationController
   # DELETE /requests/1
   # DELETE /requests/1.json
   def destroy
-    scope = Request
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Request.user_or_admin(current_user)
 
     @request = scope.find(params[:id])
     @request.destroy

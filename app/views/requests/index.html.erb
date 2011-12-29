@@ -12,12 +12,13 @@
       <th>Предпросмотр</th>
       <th style="width: 1%"></th>
     </tr>
+    <% admins_array = User.where(:admin => true).all.collect(&:id) %>
     <% @requests.each do |request| %>
       <tr>
         <td><%= request.id %>
         <td><%= car_identity(request) if request.car.present? %></td>
         <td>
-          <% if request.messages.last.user == current_user %>
+          <% unless admins_array.include?(request.messages.last.user.id) %>
             <p class='icons-24 icons-24-sprite icons-24-awating'></p>
           <% else %>
             <p class='icons-24 icons-24-sprite icons-24-response-light'</p>
