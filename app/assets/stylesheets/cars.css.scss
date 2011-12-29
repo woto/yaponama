@@ -4,7 +4,7 @@
 
 .icons-sprite {
   width: 16px;
-  height: 16px;
+
   padding-left: 24px;
   margin-bottom: 5px;
 }
@@ -15,4 +15,20 @@
 
 .add_nested_fields {
 	margin-left: 150px;
+}
+
+@import "icons-24/*.png";
+
+@include all-icons-24-sprites;
+
+.icons-24-sprite {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  margin-bottom: 5px;
+   margin-left: 10px;
+}
+
+.icons-24 {
+	width: auto;
 }

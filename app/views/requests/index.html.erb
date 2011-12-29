@@ -6,6 +6,7 @@
 <table class="zebra-striped">
   <tbody>
     <tr>
+      <th>№</th>
       <th>Авто</th>
       <th>Статус</th>
       <th>Предпросмотр</th>
@@ -13,12 +14,13 @@
     </tr>
     <% @requests.each do |request| %>
       <tr>
+        <td><%= request.id %>
         <td><%= car_identity(request) if request.car.present? %></td>
         <td>
           <% if request.messages.last.user == current_user %>
-            <p class='icons icons-sprite icons-message-dirty-light'></p>
+            <p class='icons-24 icons-24-sprite icons-24-awating'></p>
           <% else %>
-            <p class='icons icons-sprite icons-message-dirty-dark'</p>
+            <p class='icons-24 icons-24-sprite icons-24-response-light'</p>
           <% end %>
         </td>
         <td><%= simple_format(truncate(request.messages.last.message, :length => 320)) %></td>
