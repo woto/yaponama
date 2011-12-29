@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.create(params[:order])
-    wishes = Wish.get_for(current_user, request.session_options[:id]).where(:status => :active)
+    wishes = Wish.guest_or_user(current_user, request.session_options[:id]).where(:status => :active)
     wishes.update_all(:order_id => @order.id, :status => :inorder)
 
     respond_to do |format|
