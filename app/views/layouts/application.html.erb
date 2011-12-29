@@ -73,7 +73,7 @@
     </div>
   <% end %>
   
-  <% if !(["searches", "wishes"].include? params[:controller]) && !(params[:controller] == "confirmations" && params[:action] == "variants") %>
+  <% if @show_sidebar || !(["searches", "wishes"].include? params[:controller]) && !(params[:controller] == "confirmations" && params[:action] == "variants") %>
     <div class="sidebar">
 
       <div class="well"> 
