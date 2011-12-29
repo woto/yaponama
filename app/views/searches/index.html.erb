@@ -9,7 +9,7 @@
       </label>
       <div class="input">
         <%= text_field_tag :catalog_number, params[:catalog_number], :id => "catalog-number" %> <div id="clear-catalog-number" class='icons icons-sprite icons-delete'></div>
-        <span class="help-block">Например: 42305−48010</span>
+        <span class="help-block">Например: <%= TemplateData::CATALOG_NUMBERS.sample %></span>
       </div>
     </div>
     
@@ -20,7 +20,7 @@
       </label>
       <div class="input">
         <%= text_field_tag :manufacturer, params[:manufacturer], :id => "manufacturer" %> <div id="clear-manufacturer" class='icons icons-sprite icons-delete'></div>
-        <span class="help-block">Например: Toyota</span>        
+        <span class="help-block">Например: <%= TemplateData::MANUFACTURERS.sample %></span>        
       </div>
     </div>
 
