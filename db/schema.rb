@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20111226165328) do
   end
 
   create_table "orders", :force => true do |t|
+    t.string   "status",     :default => "awating"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20111226165328) do
     t.boolean  "admin"
   end
 
+  add_index "users", ["admin"], :name => "index_users_on_admin"
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

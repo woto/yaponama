@@ -73,13 +73,10 @@
     </div>
   <% end %>
   
-  <% if @show_sidebar || !(["searches", "wishes"].include? params[:controller]) && !(params[:controller] == "confirmations" && params[:action] == "variants") %>
+  <% if @show_sidebar || !(["searches", "wishes"].include? params[:controller]) && 
+      !(params[:controller] == "confirmations" && params[:action] == "variants") &&
+      !(params[:controller] == "orders" && params[:action] == "show") %>
     <div class="sidebar">
-
-      <div class="well"> 
-      В вашей корзине X товаров на сумму X XXX руб.
-        <%= current_user.try(:admin?) %>
-      </div>
 
       <div class="well">
       <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
@@ -89,6 +86,11 @@
         </ul>
       <p> И в Интернете <a href="#">http://www.yaponama.ru</a></p>
       </div>
+      
+      <div class="well"> 
+      Вы администратор?
+        <%= current_user.try(:admin?) %>
+      </div>      
 
     </div>
   <% else %>

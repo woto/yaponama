@@ -19,9 +19,12 @@ Yaponama::Application.routes.draw do
       post 'wishes' => "wishes#multiple_delete", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Удалить выделенные/ }
       post 'wishes' => "wishes#multiple_inactivate", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отложить выделенные/ }
       post 'wishes' => "wishes#multiple_activate", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Вернуть выделенные в корзину/ }
-      post 'wishes' => "orders#create", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Оформить заказ/ }
     end
   end
+  
+  #post 'wishes' => "orders#create", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Оформить заказ/ }
+  #post 'wishes' => "orders#destroy", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отменить заказ и вернуть товары в корзину/ }
+  
 
   resources :searches do 
     match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search, :via => :get

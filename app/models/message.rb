@@ -15,14 +15,14 @@ class Message < ActiveRecord::Base
       data = {
         :destinationAddress => request.user.phone,
         :messageData => "Поступил ответ на ваш запрос № #{request.id}"
-      }      
+      }
       SmsSender.new.notify(data)
     # Иначе менеджеру
     elsif !user.admin?
       User.where(:admin => true).each do |user|
         data = {
           :destinationAddress => user.phone,
-          :messageData => "Пользователь #{request.user.user_name} с тел. +7#{request.user.phone}, запросе №#{request.id}"
+          :messageData => "#{request.user.user_name} с тел. +7#{request.user.phone}, запрос №#{request.id}"
         }
         SmsSender.new.notify(data)
       end

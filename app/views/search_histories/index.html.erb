@@ -2,17 +2,17 @@
 
 <table class="zebra-striped">
   <tr>
-    <th>Дата</th>
     <th>Каталожный номер</th>
     <th>Производитель</th>
+    <th>Дата</th>    
     <th></th>
   </tr>
 
 <% @search_histories.each do |search_history| %>
   <tr>
-    <td><%= l(search_history.created_at, :format => :short) %></td>
     <td><%= search_history.catalog_number %></td>
     <td><%= (manufacturer = search_history.manufacturer).present? ? manufacturer : "Не указан" %></td>
+    <td><%= l(search_history.created_at, :format => :short) %></td>    
     <td><%= link_to "Искать снова", search_searches_path(search_history.catalog_number, search_history.manufacturer, :anchor => "jump") %>
   </tr>
 <% end %>

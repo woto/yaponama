@@ -1,9 +1,9 @@
 <h1>Просмотр запроса №<%= @request.id%></h1>
 
 <% if @request.car.present? %>
-  <p><span class="label notice">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>
+  <p><span class="label important">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>
 <% else %>
-  <p><span class="label notice">К сведению</span> Диалог ведется <strong>без указания автомобиля</strong>.</p>
+  <p><span class="label important">К сведению</span> Диалог ведется <strong>без указания автомобиля</strong>.</p>
 <% end %>
 
 <br />
@@ -11,7 +11,7 @@
 <table class="zebra-striped">
   <tbody>
     <% @request.messages.each do |message| %>
-      <tr><td><em><%= message.user.user_name %> <%= l(message.user.created_at, :format => :short) %>  писал:</em></td></tr>
+      <tr><td><em><%= message.user.user_name %> <%= l(message.created_at, :format => :short) %>  писал:</em></td></tr>
       <tr><td>
         <%= simple_format(message.message) %>
           <% message.message_assets.each do |message_asset| %>

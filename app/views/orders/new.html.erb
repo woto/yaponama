@@ -1,5 +1,2 @@
-<h1>New order</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', orders_path %>
+<h1>Оформление заказа</h1>
+<%= render :partial => 'wishes/table_ordered', :locals => {:wishes => @wishes} %>

@@ -50,7 +50,7 @@ class WishesController < ApplicationController
       :declared => params[:wish][:declared],
       :average => params[:wish][:average],
       :country => params[:wish][:country]
-    ).where("status = 'active' OR status = 'inactive'").first
+    ).where("status = 'active'").first
     
     unless @wish.present?
       @wish = Wish.new(params[:wish])

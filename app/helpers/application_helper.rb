@@ -13,5 +13,6 @@ module ApplicationHelper
   
   def cost_decorator value
     html_escape("#{(value).round.to_s}") + "&nbsp;руб.".html_safe
-  end
+  end  
+  
 end

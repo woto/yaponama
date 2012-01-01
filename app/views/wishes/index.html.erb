@@ -6,151 +6,36 @@
   }
 </style>
 
-
-
-<% sum = 0 %>
-
-
-
-<% if @wishes.count > 0 %>
-  <p><span class="label">К сведению</span> [TODO] Тут описать что будет после нажатия на "Оформить заказ".</p>
+<% if @wishes.select{ |wish| wish.status == :active || wish.status == :inactive }.count > 0 %>
+  <p><span class="label important">К сведению</span> После нажатия на "Отправить на обработку" ваш заказ отправится на обработку менеджеру, который примет решение и сообщит о дальнейших действиях посредством телефонного звонка. Если на данном этапе у вас имеются вопросы по совместимости и подходимости автозапчасти, то воспользуйтесь <%= link_to "Консультацией", requests_path %>. В зависимости от возможности осуществления ваш заказ будет выполнен без предоплаты, с предоплатой электронными деньгами, выставлен счет на оплату или наличными в нашем офисе с заключением договора. Аналогично в зависимости от массы и объема заказа, ваш заказ будет доступен для самовывоза, отправлен почтой или транспортной компанией, или передан вам в удобном для вас месте.</p>
   <br />
-  
-  
   
   <ul data-tabs="tabs" class="tabs" style="margin-bottom: 0">
     <li class="active"><a href="#active">В корзине</a></li>
     <li><a href="#inactive">Отложенные</a></li>
-  </ul>
-            
-            
-            
+  </ul>         
+ 
   <div class="tab-content" id="my-tab-content">
+    
     <div id="active" class="active tab-pane">
-      
-      <% if(active_wishes = @wishes.select{ |wish| wish.status == :active }).size > 0 %>
-      
-        <%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
-          <table class="zebra-striped">
-            <tr>
-              <th><input type="checkbox" class="check-all" /></th>
-              <th>Произв.</th>    
-              <th>Кат.&nbsp;ном.</th>
-              <th>Название</th>
-              <th>Нал.</th>
-              <th>От</th>
-              <th>До</th>
-              <th>Расп.</th>
-              <th>Цена</th>      
-              <th></th>
-              <th>Штук</th>
-              <th></th>
-              <th>Сумма</th>
-            </tr>
-
-          <% active_wishes.each do |wish| %>
-        
-            <%= fields_for "wishes[]", wish do |f| %>
-              <tr>
-                <td><%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %></td>
-                <td><%= wish.manufacturer %></td>    
-                <td><%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %></td>
-                <td><%= wish.title %></td>
-                <td><%= count_decorator(wish.count) %></td>
-                <td><%= days_decorator(wish.declared) %></td>
-                <td><%= days_decorator(wish.average) %></td>
-                <td><%= wish.country %></td>
-                <td><%= cost_decorator(wish.cost) %></td>
-                <td>x</td>    
-                <td><%= f.text_field :count_in_wishes, { :size => "4", :style => "width: auto !important", :type => "number" } %></td>        
-                <td>=</td>   
-                 <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
-                <td><%= cost_decorator(multiply) %></td>
-              </tr>
-            <% end %>
-          <% end %>
-          <tr>
-            <td colspan="7">
-              <%= submit_tag "Удалить выделенные", :class => "btn" %> </a> <span> или </span> <%= submit_tag "Отложить выделенные", :class => "btn" %></a>
-            </td>
-            <td colspan="7" style="text-align: right">
-              <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong>
-            </td>
-          </tr>
-          </table>
-          <div style="float: right">
-            <%= submit_tag "Пересчитать цену", :class => "btn clearfix" %> 
-            &nbsp;&nbsp;&nbsp;&nbsp; 
-            <%= submit_tag "Оформить заказ", :class => "btn primary" %>
-          </div>
-        <% end %>
+      <% if(active_wishes = @wishes.select{ |wish| wish.status == :active }).size > 0 %>      
+        <%= render :partial => "table_active", :locals => {:wishes => active_wishes} %>
       <% else %>
         <br />
-        <p>Товары в корзине не найдены, зато у вас имеются отложенные товары.</p>
+        <p>Товары в корзине отсутствуют, зато у вас имеются отложенные товары.</p>
       <% end %>
     </div>
     
-    
-    
-    <% sum = 0 %>
-    
     <div id="inactive" class="tab-pane">
       <% if(inactive_wishes = @wishes.select{ |wish| wish.status == :inactive }).size > 0 %>
-      
-        <%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
-          <table class="zebra-striped">
-            <tr>
-              <th><input type="checkbox" class="check-all" /></th>
-              <th>Произв.</th>    
-              <th>Кат.&nbsp;ном.</th>
-              <th>Название</th>
-              <th>Нал.</th>
-              <th>От</th>
-              <th>До</th>
-              <th>Расп.</th>
-              <th>Цена</th>
-              <th></th>
-              <th>Штук</th>
-              <th></th>
-              <th>Сумма</th>                    
-            </tr>
-
-          <% inactive_wishes.each do |wish| %>
-        
-            <%= fields_for "wishes[]", wish do |f| %>
-              <tr>
-                <td><%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %></td>
-                <td><%= wish.manufacturer %></td>    
-                <td><%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %></td>
-                <td><%= wish.title %></td>
-                <td><%= count_decorator(wish.count) %></td>
-                <td><%= days_decorator(wish.declared) %></td>
-                <td><%= days_decorator(wish.average) %></td>
-                <td><%= wish.country %></td>
-                <td><%= cost_decorator(wish.cost) %></td>
-                <td>x</td>    
-                <td><%= wish.count_in_wishes %></td>        
-                <td>=</td>
-                 <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
-                <td><%= cost_decorator(multiply) %></td>                
-              </tr>
-            <% end %>
-          <% end %>
-          <tr>
-            <td colspan="14">
-              <%= submit_tag "Удалить выделенные", :class => "btn" %> </a> <span> или </span> <%= submit_tag "Вернуть выделенные в корзину", :class => "btn" %></a>
-            </td>
-          </tr>
-          </table>
-        <% end %>
+        <%= render :partial => "table_inactive", :locals => {:wishes => inactive_wishes}%>
       <% else %>
         <br />
         <p>Отложенные товары отсутствуют.</p>
       <% end %>
     </div>
+    
   </div>
-  
-  
   
 <% else %>
   Ваша корзина пуста.

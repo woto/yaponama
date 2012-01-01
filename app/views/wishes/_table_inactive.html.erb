@@ -1,0 +1,48 @@
+<% sum = 0 %>
+
+<%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
+  <table class="zebra-striped">
+    <tr>
+      <th><input type="checkbox" class="check-all" /></th>
+      <th>Произв.</th>    
+      <th>Кат.&nbsp;ном.</th>
+      <th>Название</th>
+      <th>Нал.</th>
+      <th>От</th>
+      <th>До</th>
+      <th>Расп.</th>
+      <th>Цена</th>
+      <th></th>
+      <th>Штук</th>
+      <th></th>
+      <th>Сумма</th>                        
+    </tr>
+
+  <% wishes.each do |wish| %>
+
+    <%= fields_for "wishes[]", wish do |f| %>
+      <tr>
+        <td><%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %></td>
+        <td><%= wish.manufacturer %></td>    
+        <td><%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %></td>
+        <td><%= wish.title %></td>
+        <td><%= count_decorator(wish.count) %></td>
+        <td><%= days_decorator(wish.declared) %></td>
+        <td><%= days_decorator(wish.average) %></td>
+        <td><%= wish.country %></td>
+        <td><%= cost_decorator(wish.cost) %></td>
+        <td>x</td>    
+        <td><%= wish.count_in_wishes %></td>        
+        <td>=</td>
+         <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
+        <td><%= cost_decorator(multiply) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <tr>
+    <td colspan="14">
+      <%= submit_tag "Удалить выделенные", :class => "btn" %> </a> <span> или </span> <%= submit_tag "Вернуть выделенные в корзину", :class => "btn" %></a>
+    </td>
+  </tr>
+  </table>
+<% end %>

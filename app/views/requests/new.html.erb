@@ -1,9 +1,9 @@
 <h1>ШАГ 2 из 2 <small>Составление запроса менеджеру</small></h1>
 
 <% if @request.car.present? %>
-  <p><span class="label">К сведению</span> Вы составляете запрос на поиск автозапчасти для <strong>"<%= car_identity(@request) %>"</strong></p>
+  <p><span class="label important">К сведению</span> Вы составляете запрос на поиск автозапчасти для <strong>"<%= car_identity(@request) %>"</strong></p>
 <% else %>
-  <p><span class="label">К сведению</span> Вы составляете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>.</p>
+  <p><span class="label important">К сведению</span> Вы составляете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>.</p>
 <% end %>
 
 <br /><br />

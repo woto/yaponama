@@ -1,0 +1,49 @@
+<% sum = 0 %>
+
+<%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
+  <table class="zebra-striped">
+    <tr>
+      <th>Произв.</th>    
+      <th>Кат.&nbsp;ном.</th>
+      <th>Название</th>
+      <th>Нал.</th>
+      <th>От</th>
+      <th>До</th>
+      <th>Расп.</th>       
+      <th>Цена</th>
+      <th></th>
+      <th>Штук</th>
+      <th></th>
+      <th>Сумма</th>                    
+    </tr>
+
+  <% wishes.each do |wish| %>
+
+    <%= fields_for "wishes[]", wish do |f| %>
+      <tr>
+        <td><%= wish.manufacturer %></td>    
+        <td><%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %></td>
+        <td><%= wish.title %></td>
+        <td><%= count_decorator(wish.count) %></td>
+        <td><%= days_decorator(wish.declared) %></td>
+        <td><%= days_decorator(wish.average) %></td>
+        <td><%= wish.country %></td>
+        <td><%= cost_decorator(wish.cost) %></td>
+        <td>x</td>    
+        <td><%= wish.count_in_wishes %></td>        
+        <td>=</td>
+         <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
+        <td><%= cost_decorator(multiply) %></td> 
+      </tr>
+    <% end %>
+  <% end %>
+  <tr>
+    <td colspan="7">
+      <%= link_to "Отменить заказ и вернуть товары в корзину", @order, :class => "btn", :confirm => "Вы уверены, что хотите отменить заказ? Все товары из заказа переместятся в корзину.", :method => :delete %>
+    </td>
+    <td colspan="7" style="text-align: right">
+      <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong>
+    </td>
+  </tr>
+  </table>
+<% end %>

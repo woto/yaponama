@@ -1,2 +1,4 @@
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<h1>Просмотр заказа №<%= @order.id %></h1>
+<p><span class="label">К сведению</span> Вы можете отменить и отредактировать заказ, если ошиблись при выборе товара.</p>
+<br />
+<%= render :partial => 'wishes/table_ordered', :locals => {:wishes => @wishes} %>
