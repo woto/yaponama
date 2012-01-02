@@ -37,7 +37,7 @@ class PasswordsController < Devise::PasswordsController
     
     # The path used after sending reset password instructions
     def after_sending_reset_password_instructions_path_for(resource_name)
-      insert_confirmation_path
+      insert_confirmation_path(:anchor => "jump")
     end
 
 end

@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
+  
+  before_filter :force_change_mobile
+  
+  # ActionController::Responder.class_eval do
+  #   alias :to_mobile :to_html
+  # end  
+  
   protect_from_forgery
 
+  #mobylette
+  respond_to_mobile_requests
+  
   before_filter :upcase_token
 
   helper_method :user_search_histories
@@ -49,14 +59,13 @@ class ApplicationController < ActionController::Base
     Wish.guest_or_user(current_user, request.session_options[:id]).order("created_at DESC")
   end
   
-  before_filter :handle_mobile
 
-  def handle_mobile
-    request.format = :mobile if mobile_user_agent?
-  end
   
-  def mobile_user_agent?
-    @mobile_user_agent ||= ( request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(Mobile.+Safari)/] )
-  end    
-
+  def force_change_mobile
+    if params[:skip_mobile] == 'false'
+      session[:mobylette_override] = :force_mobile
+    elsif params[:skip_mobile] == 'true'
+      session[:mobylette_override] = :ignore_mobile
+    end
+  end
 end

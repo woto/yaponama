@@ -14,16 +14,15 @@ Yaponama::Application.routes.draw do
       #post 'multiple_update' => "wishes#multiple_delete", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Удалить выделенные/ } 
       #post 'multiple_update' => "wishes#multiple_inactivate", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отложить выделенные/ }    
       #post 'multiple_update' => "wishes#multiple_activate", :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Вернуть выделенные в корзину/ }
-              
+
       post 'wishes' => "wishes#multiple_update", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Пересчитать цену/ }
       post 'wishes' => "wishes#multiple_delete", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Удалить выделенные/ }
       post 'wishes' => "wishes#multiple_inactivate", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отложить выделенные/ }
       post 'wishes' => "wishes#multiple_activate", :as => 'multiple_update', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Вернуть выделенные в корзину/ }
+      post 'wishes' => "orders#create", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отправить на обработку/ }
+      post 'wishes' => "orders#destroy", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отменить заказ и вернуть товары в корзину/ }      
     end
   end
-  
-  #post 'wishes' => "orders#create", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Оформить заказ/ }
-  #post 'wishes' => "orders#destroy", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отменить заказ и вернуть товары в корзину/ }
   
 
   resources :searches do 
@@ -47,7 +46,8 @@ Yaponama::Application.routes.draw do
   devise_for :users, :controllers => {
           :confirmations => "confirmations",
           :registrations => "registrations",
-          :passwords => "passwords"
+          :passwords => "passwords",
+          :sessions => "sessions"
   }
   #devise_for :users
 

@@ -18,7 +18,7 @@
       <%= content_tag :span, "+7", :class => "add-on" %>
       <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
-
+    
     <div class="clearfix required <%= resource.errors[:captcha].present? ? "error" : "" %>">
       <%= f.label "Введите код", :required => true %>
       <div class="input">

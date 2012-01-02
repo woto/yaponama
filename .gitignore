@@ -21,3 +21,4 @@
 *.swp
 *.swo
 vendor/cache
+/public/assets

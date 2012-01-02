@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Yaponama</title>
+  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Yaponama</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -27,18 +27,18 @@
       </ul>
       <ul class="nav secondary-nav">
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О Магазине", about_path %></li>                
-        <li class="dropdown <%= (['devise/sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
+        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
               <li<%= params[:controller] == 'registrations' && params[:action] == 'edit' ? ' class="active"'.html_safe : ''%>><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
               <li class="divider"></li>
-              <li><%= link_to "Выход", destroy_user_session_path, :method => :delete %></li>
+              <li><%= link_to "Выход", destroy_user_session_path %></li>
             </ul>
           <% else %>
             <%= link_to "Вход", "#", :class => "dropdown-toggle" %>
             <ul class="dropdown-menu">
-              <li<%= params[:controller] == 'devise/sessions' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Вход на сайт", new_user_session_path %></li>
+              <li<%= params[:controller] == 'sessions' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Вход на сайт", new_user_session_path %></li>
               <li<%= params[:controller] == 'registrations' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Регистрация", new_user_registration_path %></li>
               <li class="divider"></li>
               <li<%= params[:controller] == 'passwords' && params[:action] == 'new' ? ' class="active"'.html_safe : ''%>><%= link_to "Забыли пароль?", new_user_password_path %></li>
@@ -80,12 +80,15 @@
     <div class="sidebar">
 
       <div class="well">
-      <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
-        <ul>
-          <li> Стрим <a href="#">http://123.456.789.000</a></li>
-          <li> Норком <a href="#">http://123.456.789.000</a></li>
-        </ul>
-      <p> И в Интернете <a href="#">http://www.yaponama.ru</a></p>
+        <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
+          <ul>
+            <li> Стрим <a href="#">http://123.456.789.000</a></li>
+            <li> Норком <a href="#">http://123.456.789.000</a></li>
+          </ul>
+        <p> 
+          И в Интернете <a href="#">http://www.yaponama.ru</a>
+          <%= render :partial => 'layouts/mobile_switch' %>
+        </p>
       </div>
       
       <div class="well"> 

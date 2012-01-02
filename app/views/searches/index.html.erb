@@ -73,7 +73,7 @@
         <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
-          <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) %> </td>
+          <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) %> <%= (weight = result_price["weight_grams"].to_f) > 0 ? "#{(weight / 1000).round(1)}&nbsp;кг".html_safe : "" %> </td>
           <td> <%= count_decorator(result_price["count"]) %></td>
           <td> <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %></td>
           <td> <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %></td>

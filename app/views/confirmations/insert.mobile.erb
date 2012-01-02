@@ -1,0 +1,15 @@
+<h1>Ввод кода подтверждения</h1>
+<br />
+<%= simple_form_for(resource, :wrapper => :append, :as => resource_name, :url => confirmation_path(resource_name, :anchor => "jump")) do |f| %>
+
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
+
+  <%= f.input :confirmation_token, :label => "Код подтверждения", :input_html => {:maxlength => 5, :size => 20} %>
+  <br />
+  <%= f.button :submit, "Подтвердить", :class => "primary" %>
+
+<% end %>

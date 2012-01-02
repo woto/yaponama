@@ -51,10 +51,11 @@ class OrdersController < ApplicationController
       if @order.save
         wishes = Wish.where(:user_id => current_user).where(:status => :active)
         wishes.update_all(:order_id => @order.id, :status => :ordered)
-                
+        format.mobile { redirect_to order_path(@order, :anchor => :jump), :notice => 'Ваш заказ успешно создан.' }
         format.html { redirect_to @order, :notice => 'Ваш заказ успешно создан.' }
         format.json { render :json => @order, :status => :created, :location => @order }
       else
+        format.mobile { render :action => "new" }        
         format.html { render :action => "new" }
         format.json { render :json => @order.errors, :status => :unprocessable_entity }
       end
@@ -85,6 +86,7 @@ class OrdersController < ApplicationController
     @order.destroy
 
     respond_to do |format|
+      format.mobile {redirect_to wishes_path(:anchor => "jump"), :notice => "Заказ успешно отменен."}
       format.html { redirect_to wishes_path }
       format.json { head :ok }
     end

@@ -32,7 +32,7 @@ class ConfirmationsController < Devise::PasswordsController
   # The path used after sign up for inactive accounts. You need to overwrite
   # this method in your own RegistrationsController.
   def after_inactive_sign_up_path_for(resource)
-    root_path
+    root_path(:anchor => "jump")
   end
 
   # PUT /resource/confirmation

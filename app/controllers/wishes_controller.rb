@@ -63,11 +63,11 @@ class WishesController < ApplicationController
 
     respond_to do |format|
       if @wish.save
-        # format.html { redirect_to search_searches_path(@wish.catalog_number, @wish.manufacturer, :anchor => "jump"), :notice => 'Товар успешно добавлен в корзину.' }
         format.json { render :json => @wish, :status => :created, :location => @wish }
-        #if request.xhr?
-        #  @wishes = Wish.all
-        #end
+        # Если с мобильной версии сайта
+        unless request.xhr?
+          redirect_to search_searches_path(:skip => true, :anchor => "jump"), :notice => 'Товар успешно добавлен в корзину.' and return        
+        end
       else
         format.html { render :action => "new" }
         format.json { render :json => @wish.errors, :status => :unprocessable_entity }
@@ -77,22 +77,22 @@ class WishesController < ApplicationController
 
   def multiple_delete
     Wish.guest_or_user(current_user, request.session_options[:id]).destroy_all(:id => params[:wishes_ids])
-    redirect_to wishes_path
+    redirect_to wishes_path(:anchor => "jump")
   end
   
   def multiple_update
     Wish.guest_or_user(current_user, request.session_options[:id]).update(params[:wishes].keys, params[:wishes].values)
-    redirect_to wishes_path
+    redirect_to wishes_path(:anchor => "jump")
   end
   
   def multiple_inactivate
     Wish.guest_or_user(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "inactive")
-    redirect_to wishes_path
+    redirect_to wishes_path(:anchor => "jump")
   end
   
   def multiple_activate
     Wish.guest_or_user(current_user, request.session_options[:id]).where(:id => params[:wishes_ids]).update_all(:status => "active")
-    redirect_to wishes_path
+    redirect_to wishes_path(:anchor => "jump")
   end  
   
   # # PUT /wishes/1
@@ -118,7 +118,7 @@ class WishesController < ApplicationController
     @wish.destroy
 
     respond_to do |format|
-      format.html { redirect_to wishes_url }
+      format.html { redirect_to wishes_url(:anchor => "jump") }
       format.json { head :ok }
     end
   end

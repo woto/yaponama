@@ -1,0 +1,24 @@
+<h1>Корзина</h1>
+
+<% if @wishes.select{ |wish| wish.status == :active || wish.status == :inactive }.count > 0 %>
+      <hr />
+      <h2>Активные товары</h2>
+      <% if(active_wishes = @wishes.select{ |wish| wish.status == :active }).size > 0 %>      
+        <%= render :partial => "table_active", :locals => {:wishes => active_wishes} %>
+      <% else %>
+        <br />
+        <p>Товары в корзине отсутствуют, зато у вас имеются отложенные товары.</p>
+      <% end %>
+      <br />
+      <hr />
+      <h2>Отложенные товары</h2>
+      <% if(inactive_wishes = @wishes.select{ |wish| wish.status == :inactive }).size > 0 %>
+        <%= render :partial => "table_inactive", :locals => {:wishes => inactive_wishes}%>
+      <% else %>
+        <br />
+        <p>Отложенные товары отсутствуют.</p>
+      <% end %>
+  
+<% else %>
+  Ваша корзина пуста.
+<% end %>

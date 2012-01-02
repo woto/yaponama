@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   has_many :wishes, :dependent => :destroy
 
   def confirmation_token_setted
-    confirmation_token.present?
+    confirmation_token? || confirmed_at?
   end
 
   # new function to return whether a password has been set

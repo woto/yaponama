@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <head>
-  <title>Yaponama</title>
+  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Yaponama</title>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<style>
-
+  <style>
+  * {
+    font: 16px Verdana;
+    text-align: center;
+  	}		
 	
-</style>
-
-  <h1>Yaponama</h1>
-  <%= link_to "Консультация", requests_path %> <br />
-  <%= link_to "Корзина", wishes_path, :id => "wishes-link" %> <br />
-  <%= link_to "Заказы", orders_path %> <br />
-  <%= link_to "О Магазине", about_path %> <br />
-  <% if user_signed_in? %>
-    <%= link_to "Редактирование профиля", edit_user_registration_path %> <br />
-    <%= link_to "Выход", destroy_user_session_path, :method => :delete %> <br />
+  	h1 {
+  	  font-size: 24px;
+  	}
+	
+  	h2 {
+  	  font-size: 22px;
+  	}
+	
+  	h3 {
+  	  font-size: 20px;
+  	}
+  </style>
+  
+  Yaponama
+  <p><%= link_to "Поиск запчастей", searches_path(:skip => true, :anchor => "jump") %></p>
+  <p><%= link_to "Корзина", wishes_path(:anchor => "jump"), :id => "wishes-link" %></p>
+  <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
+  <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
+  <p><% if user_signed_in? %>
+    <%= link_to "Выход", destroy_user_session_path(:anchor => "jump"), :method => :delete %></p>
   <% else %>
-    <%= link_to "Вход на сайт", new_user_session_path %> <br />
-    <%= link_to "Регистрация", new_user_registration_path %> <br />
-    <%= link_to "Забыли пароль?", new_user_password_path %> <br />
+    <p><%= link_to "Вход на сайт", new_user_session_path(:anchor => "jump") %></p>
+    <p><%= link_to "Регистрация", new_user_registration_path(:anchor => "jump") %></p>
+    <p><%= link_to "Забыли пароль?", new_user_password_path(:anchor => "jump") %></p>
+  <% end %>
+  
+  <br id="jump" />
+  
+  <% if notice %>
+      <p><%= notice %></p>
   <% end %>
 
-    <% if notice %>
-      <div class="alert-message success fade in" data-alert="alert">
-        <a class="close" href="#">×</a>
-        <p><%= notice %></p>
-      </div>
-    <% end %>
+  <% if alert %>
+      <p><%= alert %></p>
+  <% end %>
 
-    <% if alert %>
-      <div class="alert-message fails fade in" data-alert="alert">
-        <a class="close" href="#">×</a>
-        <p><%= alert %></p>
-      </div>
-    <% end %>
+  <% if content_for?(:form_error) %>
+      <p><%= yield :form_error %></p>
+  <% end %>
 
-    <% if content_for?(:form_error) %>
-      <div class="alert-message fails fade in" data-alert="alert">
-        <a class="close" href="#">×</a>
-        <p><%= yield :form_error %></p>
-      </div>
-    <% end %>
-  
-    <div class="content">
-  	  <%= yield %>
-    </div>
-  </div>
+	  <%= yield %><br /><br /><br />
+
+<%= render :partial => 'layouts/mobile_switch.html.erb' %>
+
+
 
 </body>
 </html>

@@ -60,3 +60,5 @@ gem 'delayed_job_active_record'
 gem 'enumerated_attribute'
 gem 'execjs', '1.2.9'
 gem 'whenever'
+gem 'mobylette', '1.5.0'
+

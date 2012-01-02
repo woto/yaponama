@@ -1,0 +1,24 @@
+<h1> Забыли пароль? </h1>
+<br />
+
+<%= simple_form_for(resource, :wrapper => :append, :as => resource_name, :url => password_path(resource_name, :anchor => "jump"), :html => { :method => :post }) do |f| %>
+
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
+  
+  <%= f.input :phone, :required => true do  %>
+    <%= content_tag :span, "+7" %>
+    <%= f.text_field :phone, :size => "18", :style => "margin-right: 20px" %>
+  <% end %><br />
+  
+  <%= f.label "Введите код", :required => true %><br />
+  <%= show_simple_captcha %><br />
+  <%= f.error :captcha %><br /><br />
+
+
+  <%= f.button :submit, "Получить код подтверждения", :class => "primary" %>
+
+<% end %>

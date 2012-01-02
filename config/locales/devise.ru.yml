@@ -101,7 +101,7 @@ ru:
         remember_me: "Запомнить"
         sign_in: "Войти"
         username: "Имя пользователя"
-      signed_in: "Вы успешно вошли най сайт."
+      signed_in: "Вы успешно вошли на сайт."
       signed_out: "Вы успешно вышли."
     shared:
       links:
