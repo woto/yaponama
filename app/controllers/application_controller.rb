@@ -2,13 +2,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :force_change_mobile
   
-  # ActionController::Responder.class_eval do
-  #   alias :to_mobile :to_html
-  # end  
-  
   protect_from_forgery
 
-  #mobylette
   respond_to_mobile_requests
   
   before_filter :upcase_token

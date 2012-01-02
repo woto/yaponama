@@ -4,23 +4,23 @@
   <% wishes.each do |wish| %>
 
     <%= fields_for "wishes[]", wish do |f| %>
-        <%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %>
-        Производитель: <%= wish.manufacturer %> <br />
-        Кат. номер: <%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %><br />
-        Название: <%= wish.title %> <br />
-        В наличии: <%= count_decorator(wish.count) %> <br />
-        (От <%= days_decorator(wish.declared) %>
-        До <%= days_decorator(wish.average) %>) <br />
-        Расположение: <%= wish.country %> <br />
-        Цена: <%= cost_decorator(wish.cost) %>
-        x
-        <%= wish.count_in_wishes %>
-        =
-        Сумма: <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
-        <%= cost_decorator(multiply) %>
-        <br /><br /><br />        
+      <%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %>
+      Производитель: <%= wish.manufacturer %> <br />
+      Кат. номер: <%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %><br />
+      Название: <%= wish.title %> <br />
+      В наличии: <%= count_decorator(wish.count) %> <br />
+      (От <%= days_decorator(wish.declared) %>
+      До <%= days_decorator(wish.average) %>) <br />
+      Расположение: <%= wish.country %> <br />
+      Цена: <%= cost_decorator(wish.cost) %>
+      x
+      <%= wish.count_in_wishes %>
+      =
+      Сумма: <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
+      <%= cost_decorator(multiply) %>
+      <br /><br /><br />        
     <% end %>
   <% end %>
-      <%= submit_tag "Удалить выделенные", :class => "btn" %><br /><br />
-      <%= submit_tag "Вернуть выделенные в корзину", :class => "btn" %>
+  <%= submit_tag "Удалить выделенные", :class => "btn" %><br /><br />
+  <%= submit_tag "Вернуть выделенные в корзину", :class => "btn" %>
 <% end %>

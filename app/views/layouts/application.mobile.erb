@@ -31,8 +31,8 @@
   <p><%= link_to "Корзина", wishes_path(:anchor => "jump"), :id => "wishes-link" %></p>
   <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
   <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
-  <p><% if user_signed_in? %>
-    <%= link_to "Выход", destroy_user_session_path(:anchor => "jump"), :method => :delete %></p>
+  <% if user_signed_in? %>
+    <p><%= link_to "Выход", destroy_user_session_path(:anchor => "jump"), :method => :delete %></p>
   <% else %>
     <p><%= link_to "Вход на сайт", new_user_session_path(:anchor => "jump") %></p>
     <p><%= link_to "Регистрация", new_user_registration_path(:anchor => "jump") %></p>
@@ -42,15 +42,15 @@
   <br id="jump" />
   
   <% if notice %>
-      <p><%= notice %></p>
+    <p><%= notice %></p>
   <% end %>
 
   <% if alert %>
-      <p><%= alert %></p>
+    <p><%= alert %></p>
   <% end %>
 
   <% if content_for?(:form_error) %>
-      <p><%= yield :form_error %></p>
+    <p><%= yield :form_error %></p>
   <% end %>
 
 	  <%= yield %><br /><br /><br />

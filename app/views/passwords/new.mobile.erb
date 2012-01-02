@@ -5,7 +5,7 @@
 
   <% content_for :form_error do %>
     <% if f.error_notification %>
-        <p><%= f.error_notification %></p>
+      <p><%= f.error_notification %></p>
     <% end %>
   <% end %>
   
@@ -17,7 +17,6 @@
   <%= f.label "Введите код", :required => true %><br />
   <%= show_simple_captcha %><br />
   <%= f.error :captcha %><br /><br />
-
 
   <%= f.button :submit, "Получить код подтверждения", :class => "primary" %>
 

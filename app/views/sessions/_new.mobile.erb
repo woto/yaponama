@@ -1,7 +1,7 @@
 <h1> Вход </h1>
 <br />
 
-<%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => session_path(resource_name, :anchor => "jump")) do |f| %>
+<%= simple_form_for(resource, :wrapper => :append, :as => resource_name, :url => session_path(resource_name, :anchor => "jump")) do |f| %>
 
 	<% if f.error_notification %>
     <p><%= f.error_notification %></p>
@@ -14,21 +14,20 @@
     <%= f.text_field :phone, :size => "18", :style => "margin-right: 20px", :maxlength => 10 %>
   <% end %><br />
 
-    <%= f.input :password, :required => true, :input_html => {:size => "20"} %> <br />
+  <%= f.input :password, :required => true, :input_html => {:size => "20"} %> <br />
 
-    <%= f.input :remember_me, :label => false, :as => :boolean do %>
-      <% 
-        begin
-          remember_me = params[:user][:remember_me].to_i > 0
-        rescue
-          remember_me = true
-        end
-      %>
-      
-      <%= f.check_box :remember_me, :input_html => { :value => '1', :checked => remember_me} %> Запомнить
-    <% end %>
-   <br />
-   
-    <%= f.button :submit, "Вход", :class => "primary" %>
-  
+  <%= f.input :remember_me, :label => false, :as => :boolean do %>
+
+    <% 
+      begin
+        remember_me = params[:user][:remember_me].to_i > 0
+      rescue
+        remember_me = true
+      end
+    %>
+    
+    <%= f.check_box :remember_me, :input_html => { :value => '1', :checked => remember_me} %> Запомнить
+  <% end %>
+  <br />
+  <%= f.button :submit, "Вход", :class => "primary" %>
 <% end %>

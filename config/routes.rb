@@ -24,7 +24,6 @@ Yaponama::Application.routes.draw do
     end
   end
   
-
   resources :searches do 
     match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search, :via => :get
     match '?skip' => "searches#index", :on => :collection, :as => :skip_search, :via => :get
