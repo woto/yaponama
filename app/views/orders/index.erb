@@ -14,9 +14,9 @@
       <td><%= l(order.created_at, :format => :short) %></td>
       <td>
         <% if order.status == :awating %>
-          <p class='icons-24 icons-24-sprite icons-24-awating'></p>
+          <p class='icons-24 icons-24-sprite icons-24-awating'>Ожидает обработки</p>
         <% else %>
-          <p class='icons-24 icons-24-sprite icons-24-response-light'</p>
+          <p class='icons-24 icons-24-sprite icons-24-response-light'>Обработан</p>
         <% end %>        
       </td>
       <td><%= link_to 'Просмотр', order %></td>

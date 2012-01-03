@@ -11,7 +11,7 @@
 
   <%= f.input :phone, :required => true do  %>
     <%= content_tag :span, "+7" %>
-    <%= f.text_field :phone, :size => "18", :style => "margin-right: 20px", :maxlength => 10 %>
+    <%= f.text_field :phone, :type => "tel",  :size => "18", :style => "margin-right: 20px", :maxlength => 10 %>
   <% end %><br />
 
   <%= f.input :password, :required => true, :input_html => {:size => "20"} %> <br />

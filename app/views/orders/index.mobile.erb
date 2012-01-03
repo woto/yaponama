@@ -1,0 +1,23 @@
+<h1>Список заказов</h1>
+
+<% if @orders.size > 0 %>
+
+  <% @orders.each do |order| %>
+    <br />
+    №<%= order.id %>,
+    От: <%= l(order.created_at, :format => :short) %><br />
+
+    Статус: 
+    <% if order.status == :awating %>
+      Ожидает обработки
+    <% else %>
+      Обработан
+    <% end %> 
+    <br />
+    <%= link_to 'Просмотр', order_path(order, :anchor => "jump") %>
+    <br /><br />
+  <% end %>
+
+  <% else %>
+    У вас нет ни одного заказа.
+  <% end %>

@@ -19,12 +19,12 @@
         <td><%= car_identity(request) if request.car.present? %></td>
         <td>
           <% unless admins_array.include?(request.messages.last.user.id) %>
-            <p class='icons-24 icons-24-sprite icons-24-awating'></p>
+            <p class='icons-24 icons-24-sprite icons-24-awating'>Ожидает обрабоки</p>
           <% else %>
-            <p class='icons-24 icons-24-sprite icons-24-response-light'</p>
+            <p class='icons-24 icons-24-sprite icons-24-response-light'>Обработан</p>
           <% end %>
         </td>
-        <td><%= simple_format(truncate(request.messages.last.message, :length => 320)) %></td>
+        <td><%= simple_format(truncate(request.messages.last.message, :length => 160)) %></td>
         <td>
           <%= link_to "<div href='#' class='btn primary' style='margin-bottom: 7px'>Перейти&nbsp;к&nbsp;диалогу</div>".html_safe, request_path(request, :anchor => "reply") %>
           <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить&nbsp;запрос</p>".html_safe, request, :confirm => 'Вы действительно хотите удалить запрос? Весь диалог, связанный с ним будет удален.', :method => :delete %>

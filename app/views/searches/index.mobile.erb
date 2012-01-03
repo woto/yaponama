@@ -16,7 +16,7 @@
       <%= form_for(:wish, :url => wishes_path, :anchor => "jump", :method => :post) do |f| %>
         <%= manufacturer = result_price["manufacturer"] %> -
         <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> -
-        <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') %> <%= (weight = result_price["weight_grams"].to_f) > 0 ? "#{(weight / 1000).round(1)}&nbsp;кг".html_safe : "" %> -
+        <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{(weight / 1000).round(1)}кг" : "") %> -
         <%= count_decorator(result_price["count"]) %> (От <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %> До <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %>)
         <%= country = result_price["job_import_job_country_short"] %>
         <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? 1.07 : 1.08)) %></span>            

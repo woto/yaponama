@@ -51,7 +51,7 @@
 <% if @parsed_json["result_prices"].count > 0 %>
   <br />
 
-  <p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов<span id="jump">.</span> <em>[fast: 0-1000, show: 0/1]</em></p>
+  <p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов. <em id="jump">Служебные ссылки: <%= link_to "Дешево", request.url + "&fast=1000#jump" %> <%= link_to "Быстро", request.url + "&fast=1#jump" %> <%= link_to "Все", request.url + "&show=1#jump" %></em></p>
 
   <br />
 
@@ -73,7 +73,7 @@
         <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
-          <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) %> <%= (weight = result_price["weight_grams"].to_f) > 0 ? "#{(weight / 1000).round(1)}&nbsp;кг".html_safe : "" %> </td>
+          <td> <%= title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{(weight / 1000).round(1)}кг" : "") %> </td>
           <td> <%= count_decorator(result_price["count"]) %></td>
           <td> <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %></td>
           <td> <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %></td>
@@ -105,7 +105,7 @@
 
     <select class="pagesize" style="display: none">
       <!-- Не забыть, что это в 2-х местах -->
-      <option selected="selected"  value="10">10</option>
+      <option selected="selected"  value="9">9</option>
       <option value="20">20</option>
       <option value="30">30</option>
       <option  value="40">40</option>

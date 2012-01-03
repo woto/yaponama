@@ -44,7 +44,7 @@ $ ->
   ).tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах
-    size: 10
+    size: 9
 
   # Кнопки очистки полей ввода
   $("#clear-manufacturer").click ->
