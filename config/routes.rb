@@ -1,6 +1,8 @@
 Yaponama::Application.routes.draw do
 
-  resources :orders
+  resources :orders do
+    get 'page/:page', :action => :index, :on => :collection
+  end
 
   get 'about' => "about#index"
   
@@ -40,6 +42,8 @@ Yaponama::Application.routes.draw do
     match '/users/confirmation/insert' => 'confirmations#insert', :as => :insert_confirmation
     match '/users/confirmation' =>'confirmations#show', :via => :post, :as => :show_confirmation
     match '/users/variants' => "confirmations#variants", :as => :variants
+    match '/users/become(/:id)' => 'sessions#become', :as => :become, :via => :get
+    match '/users/show_become(/:id)' => 'sessions#show_become', :as => :show_become, :via => :get
   end
 
   devise_for :users, :controllers => {

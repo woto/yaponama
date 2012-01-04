@@ -7,6 +7,11 @@
   <%= f.error_notification %>
 
   <div class="inputs">
+    
+    <div class="input">
+      Номер телефона: +7<%= f.object.phone %> <br /> <br /> <br />    
+    </div>
+    
     <%= f.input :user_name, :required => true %>
     <%= f.input :password, :hint => "Придумайте себе новый пароль не менее 6-и символов", :required => false, :input_html => {:autocomplete => "off"} %>
     <%= f.input :password_confirmation, :hint => "Повторите введенный пароль", :required => false, :input_html => {:autocomplete => "off"} %>

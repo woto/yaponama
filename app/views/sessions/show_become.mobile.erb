@@ -1,0 +1,8 @@
+<h1>Имперсонализация</h1>
+<p><%= @user.user_name %></p>
+<p><%= "+7#{@user.phone}" %></p>
+
+<%= form_tag(become_path(params[:id]), :method => :get) do %>
+  <%= submit_tag "Стать пользователем", :class => "btn primary" %>
+  <%= hidden_field_tag :referer, url_for(Rails.application.routes.recognize_path(request.referer.to_s).merge(:anchor => "jump", :page => nil)) %>
+<% end %>

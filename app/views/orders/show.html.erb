@@ -1,4 +1,9 @@
 <h1>Просмотр заказа №<%= @order.id %></h1>
 <p><span class="label">К сведению</span> Вы можете отменить и отредактировать заказ, если ошиблись при выборе товара.</p>
 <br />
+
+<% if current_user.admin? %>
+  <%= link_to h(@order.user.user_name) + "<br />".html_safe + "+7" + @order.user.phone, show_become_path(@order.user_id, :anchor => "jump") %><br /><br />
+<% end %>
+
 <%= render :partial => 'wishes/table_ordered', :locals => {:wishes => @wishes} %>

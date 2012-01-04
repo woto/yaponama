@@ -5,11 +5,11 @@
   <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Yaponama</title>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body style='background: url("/assets/mobile-texture.jpg") repeat scroll 0 0 transparent'>
 
   <style>
   * {
-    font: 16px Verdana;
+    font: 18px verdana;
     text-align: center;
   	}		
 	
@@ -32,6 +32,10 @@
   <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
   <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
   <% if user_signed_in? %>
+    <p><%= link_to "Профиль", edit_user_registration_path(:anchor => "jump") %></p>  
+    <% if session[:admin_id] %>
+      <p><%= link_to "Стать администратором", become_path(:referer => url_for(Rails.application.routes.recognize_path(request.url.to_s).merge(:anchor => "jump", :page => nil))) %></p>
+    <% end %>
     <p><%= link_to "Выход", destroy_user_session_path(:anchor => "jump"), :method => :delete %></p>
   <% else %>
     <p><%= link_to "Вход на сайт", new_user_session_path(:anchor => "jump") %></p>

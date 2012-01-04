@@ -6,6 +6,9 @@
 <table class="zebra-striped">
   <tbody>
     <tr>
+      <% if current_user.admin? %>
+        <th>Покупатель</th>
+      <% end %>
       <th>№</th>
       <th>Авто</th>
       <th>Статус</th>
@@ -15,6 +18,9 @@
     <% admins_array = User.where(:admin => true).all.collect(&:id) %>
     <% @requests.each do |request| %>
       <tr>
+        <% if current_user.admin? %>
+          <td><%= link_to h(request.user.user_name) + "<br />".html_safe + "+7" + request.user.phone, show_become_path(request.user_id) %></td>
+        <% end %>
         <td><%= request.id %>
         <td><%= car_identity(request) if request.car.present? %></td>
         <td>
@@ -35,7 +41,6 @@
 </table>
 
 <%= paginate @requests %>
-
 <br />
 
 <%= link_to 'Создать новый запрос', cars_path, :class => "btn primary" %>

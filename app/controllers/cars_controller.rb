@@ -4,10 +4,7 @@ class CarsController < ApplicationController
   # GET /cars
   # GET /cars.json
   def index
-    scope = Car
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Car.user_or_admin(current_user)
     scope = scope.order('updated_at DESC')
     @cars = scope.page params[:page]
 
@@ -31,11 +28,7 @@ class CarsController < ApplicationController
 
   # GET /cars/1/edit
   def edit
-    scope = Car
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user.id)
-    end
-
+    scope = Car.user_or_admin(current_user)
     @car = scope.find(params[:id])
     @car.car_assets.build    
   end
@@ -59,11 +52,7 @@ class CarsController < ApplicationController
   # PUT /cars/1
   # PUT /cars/1.json
   def update
-    scope = Car
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
-
+    scope = Car.user_or_admin(current_user)
     @car = scope.find(params[:id])
     set_user_on_nested_fields @car
 
@@ -80,10 +69,7 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   # DELETE /cars/1.json
   def destroy
-    scope = Car
-    unless current_user.admin?
-      scope = scope.where(:user_id => current_user)
-    end
+    scope = Car.user_or_admin(current_user)
 
     @car = scope.find(params[:id])
     @car.destroy

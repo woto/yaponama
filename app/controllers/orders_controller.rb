@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.user_or_admin(current_user).order("id desc").all
+    @orders = Order.user_or_admin(current_user).order("id desc").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -51,8 +51,8 @@ class OrdersController < ApplicationController
       if @order.save
         wishes = Wish.where(:user_id => current_user).where(:status => :active)
         wishes.update_all(:order_id => @order.id, :status => :ordered)
-        format.mobile { redirect_to order_path(@order, :anchor => :jump), :notice => 'Ваш заказ успешно создан.' }
-        format.html { redirect_to @order, :notice => 'Ваш заказ успешно создан.' }
+        format.mobile { redirect_to order_path(@order, :anchor => :jump), :notice => 'Ваш заказ успешно создан. В ближайшее время с вами свяжется менеджер.' }
+        format.html { redirect_to @order, :notice => 'Ваш заказ успешно создан. В ближайшее время с вами свяжется менеджер.' }
         format.json { render :json => @order, :status => :created, :location => @order }
       else
         format.mobile { render :action => "new" }        
@@ -62,26 +62,24 @@ class OrdersController < ApplicationController
     end
   end
 
-  # # PUT /orders/1
-  # # PUT /orders/1.json
-  # def update
-  #   @order = Order.find(params[:id])
-  # 
-  #   respond_to do |format|
-  #     if @order.update_attributes(params[:order])
-  #       format.html { redirect_to @order, :notice => 'Order was successfully updated.' }
-  #       format.json { head :ok }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.json { render :json => @order.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # PUT /orders/1
+  # PUT /orders/1.json
+  def update
+    @order = Order.find(params[:id])
+  
+    respond_to do |format|
+      @order.status = :processed
+      if @order.update_attributes(params[:order])
+        format.html { redirect_to @order, :notice => 'Заказ успешно обработан' }
+        format.json { head :ok }
+      end
+    end
+  end
 
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order = Order.where(:user_id => current_user.id).find(params[:id])
+    @order = Order.user_or_admin(current_user).find(params[:id])
     @order.wishes.update_all(:order_id => nil, :status => :active)    
     @order.destroy
 

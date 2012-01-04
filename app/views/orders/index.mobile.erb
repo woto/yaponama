@@ -1,23 +1,32 @@
 <h1>Список заказов</h1>
+<br />
 
 <% if @orders.size > 0 %>
 
-  <% @orders.each do |order| %>
-    <br />
-    №<%= order.id %>,
-    От: <%= l(order.created_at, :format => :short) %><br />
-
-    Статус: 
-    <% if order.status == :awating %>
-      Ожидает обработки
-    <% else %>
-      Обработан
-    <% end %> 
-    <br />
-    <%= link_to 'Просмотр', order_path(order, :anchor => "jump") %>
+    <%= paginate @orders %>
     <br /><br />
-  <% end %>
+
+    <% @orders.each do |order| %>
+      <% if current_user.admin? %>
+        <%= link_to h(order.user.user_name) + "<br />".html_safe + "+7" + order.user.phone, show_become_path(order.user_id, :anchor => "jump") %><br />
+      <% end %>
+      №<%= order.id %>,
+      От: <%= l(order.created_at, :format => :short) %><br />
+
+      Статус: 
+      <% if order.status == :awating %>
+        Ожидает обработки
+      <% else %>
+        Обработан
+      <% end %> 
+      <br />
+      <%= link_to 'Просмотр', order_path(order, :anchor => "jump") %>
+      <br /><br />
+    <% end %>
+
+    <%= paginate @orders %>
 
   <% else %>
     У вас нет ни одного заказа.
   <% end %>
+

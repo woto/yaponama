@@ -1,5 +1,6 @@
 <% sum = 0 %>
 
+
 <%= form_tag multiple_update_wishes_path(:anchor => "jump", :id => params[:id]), :style => "overflow: hidden" do %>
   <% wishes.each do |wish| %>
     <%= fields_for "wishes[]", wish do |f| %>

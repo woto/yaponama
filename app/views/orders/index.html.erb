@@ -2,8 +2,14 @@
 
 <% if @orders.size > 0 %>
 
+  <%= paginate @orders %>
+  <br />
+
   <table class="zebra-striped">
     <tr>
+      <% if current_user.admin? %>
+        <th>Покупатель</th>
+      <% end %>
       <th>№</th>
       <th>Дата заказа</th>
       <th>Статус заказа</th>    
@@ -12,6 +18,9 @@
 
     <% @orders.each do |order| %>
       <tr>
+        <% if current_user.admin? %>
+          <td><%= link_to h(order.user.user_name) + "<br />".html_safe + "+7" + order.user.phone, show_become_path(order.user_id) %></td>
+        <% end %>
         <td><%= order.id %></td>
         <td><%= l(order.created_at, :format => :short) %></td>
         <td>
@@ -26,6 +35,9 @@
     <% end %>
   </table>
   
+  <%= paginate @orders %>
+  <br />
+
 <% else %>
   У вас нет ни одного заказа.
 <% end %>

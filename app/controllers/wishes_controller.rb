@@ -113,13 +113,13 @@ class WishesController < ApplicationController
 
   # DELETE /wishes/1
   # DELETE /wishes/1.json
-  def destroy
-    @wish = Wish.find(params[:id])
-    @wish.destroy
+  #def destroy
+  #  @wish = Wish.find(params[:id])
+  #  @wish.destroy
 
-    respond_to do |format|
-      format.html { redirect_to wishes_url(:anchor => "jump") }
-      format.json { head :ok }
-    end
-  end
+  #  respond_to do |format|
+  #    format.html { redirect_to wishes_url(:anchor => "jump") }
+  #    format.json { head :ok }
+  #  end
+  #end
 end

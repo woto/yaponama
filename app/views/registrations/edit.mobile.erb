@@ -1,0 +1,19 @@
+<h1> Редактирование профиля </h1>
+<br />
+<p>Не заполняйте поля "Пароль" и "Подтверждение пароля", если не хотите их менять.</p>
+<br />
+
+<%= simple_form_for(resource, :as => resource_name, :wrapper => :append, :url => registration_path(resource_name, :anchor => "jump"), :html => { :method => :put }) do |f| %>
+  <%= f.error_notification %>
+
+  Номер телефона: +7<%= f.object.phone %> <br /> <br />
+  
+  <%= f.input :user_name, :error => true, :hint => false, :label => "Как к вам обращаться? (Имя)", :input_html => {:size => 20, :autocomplete => "off"}, :required => true %>
+  <br />
+  <%= f.input :password, :required => false, :label => "Придумайте новый пароль", :input_html => {:size => 20, :autocomplete => "off"} %>
+  <br />
+  <%= f.input :password_confirmation, :label => "Повторите введенный пароль", :required => false, :input_html => {:size => 20, :autocomplete => "off"} %>
+  <br />
+  <br />
+  <%= f.button :submit, "Обновить", :class => "primary" %>
+<% end %>

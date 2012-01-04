@@ -2,13 +2,17 @@
 
 <p><span class="label">К сведению</span> Если вам не известен каталожный номер запчасти, то вы можете добавить автомобиль, относительно которого пойдет речь и создать запрос на поиск подходящей детали. В противном случае вы можете не добавлять автомобиль и сразу перейти к созданию запроса.</p>
 
-<%= paginate @cars %>
-<br />
-
 <% if @cars.count > 0 %>
+
+  <%= paginate @cars %>
+  <br />
+
   <table class="zebra-striped">
     <tbody>
       <tr>
+        <% if current_user.admin? %>
+          <th>Пользователь</th>
+        <% end %>
         <th>Идентификационный номер</th>
         <th>Марка</th>
         <th>Модель</th>
@@ -17,6 +21,9 @@
       </tr>
       <% @cars.each do |car| %>
         <tr>
+          <% if current_user.admin? %>
+            <td><%= link_to h(car.user.user_name) + "<br />".html_safe + "+7" + car.user.phone, show_become_path(car.user_id) %></td>
+          <% end %>
           <td><%= car.vin + " " + car.frame %></td>
           <td><%= car.marka %></td>
           <td><%= car.model %></td>
@@ -31,7 +38,9 @@
     </tbody>
   </table>
 
+  <%= paginate @cars %>
   <br />
+
 <% end%>
 
 <%= link_to 'Добавить авто и создать по нему запрос', new_car_path, :class => "btn primary" %> или <%= link_to "Создать запрос без указания авто", new_request_path %>

@@ -7,14 +7,16 @@
         <p><%= f.error_notification %></p>
     <% end %>
   <% end %>
-
+  
+  Номер телефона: +7<%= f.object.phone %> <br /> <br />
+  
   <%= f.input :user_name, :error => true, :hint => false, :label => "Как к вам обращаться? (Имя)", :input_html => {:size => 20, :autocomplete => "off"}, :required => true %>
-    <br />
-    <%= f.input :password, :required => true, :input_html => {:size => 20} %>
-    <br />
-    <%= f.input :password_confirmation, :required => true, :input_html => {:size => 20} %>
-    <br />
-    
-    <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>
-    <%= f.button :submit, "Сохранить", :class => "primary" %>
+  <br />
+  <%= f.input :password, :required => true, :input_html => {:size => 20} %>
+  <br />
+  <%= f.input :password_confirmation, :required => true, :input_html => {:size => 20} %>
+  <br />
+  
+  <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>
+  <%= f.button :submit, "Сохранить", :class => "primary" %>
 <% end %>

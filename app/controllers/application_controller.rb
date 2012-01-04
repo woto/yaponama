@@ -53,9 +53,7 @@ class ApplicationController < ActionController::Base
   def user_wishes
     Wish.guest_or_user(current_user, request.session_options[:id]).order("created_at DESC")
   end
-  
 
-  
   def force_change_mobile
     if params[:skip_mobile] == 'false'
       session[:mobylette_override] = :force_mobile
@@ -63,4 +61,14 @@ class ApplicationController < ActionController::Base
       session[:mobylette_override] = :ignore_mobile
     end
   end
+
+  # Хочу сюда дописать anchor
+  #def after_sign_in_path_for(resource_or_scope)
+  #
+  #end
+
+  def after_sign_out_path_for(resource_or_scope)
+    root_path(:anchor => "jump")
+  end  
+  
 end
