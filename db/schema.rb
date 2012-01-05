@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111226165328) do
+ActiveRecord::Schema.define(:version => 20120105012646) do
 
   create_table "car_assets", :force => true do |t|
     t.string   "file"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20111226165328) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "notified",   :default => false
   end
 
   create_table "orders", :force => true do |t|
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(:version => 20111226165328) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "notified",   :default => false
   end
 
   create_table "requests", :force => true do |t|

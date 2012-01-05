@@ -18,7 +18,7 @@
 # end
 
  every 5.minutes do
-   rake "app:send_messages"
+   rake "app:notify"
  end
 
 # Learn more: http://github.com/javan/whenever
