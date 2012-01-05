@@ -21,5 +21,10 @@
     <% end %>
   <% end %>
   <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong><br /><br />  
-  <%= submit_tag "Отменить заказ и вернуть товары в корзину" %>  
+  <% if current_user.admin? %>
+    <%= link_to "Сменить статус", edit_order_path(@order, :anchor => "jump") %><br /><br /><br />
+  <% end %>
+  <% if @order.status != :processed || current_user.admin? %>
+    <%= submit_tag "Отменить заказ и вернуть товары в корзину" %><br /><br />
+  <% end %>
 <% end %>

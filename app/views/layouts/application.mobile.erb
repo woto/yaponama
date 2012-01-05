@@ -46,15 +46,15 @@
   <br id="jump" />
   
   <% if notice %>
-    <p><%= notice %></p>
+    <p><%= notice %></p><br />
   <% end %>
 
   <% if alert %>
-    <p><%= alert %></p>
+    <p><%= alert %></p><br />
   <% end %>
 
   <% if content_for?(:form_error) %>
-    <p><%= yield :form_error %></p>
+    <p><%= yield :form_error %></p><br />
   <% end %>
 
 	  <%= yield %><br /><br /><br />

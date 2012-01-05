@@ -4,6 +4,6 @@ class Order < ActiveRecord::Base
   has_many :wishes, :dependent => :destroy
   belongs_to :user
   
-  enum_attr :status, %w{awating processed}
+  enum_attr :status, %w{awaiting processed}
   
 end

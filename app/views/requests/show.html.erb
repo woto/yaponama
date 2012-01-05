@@ -1,11 +1,12 @@
 <h1>Просмотр запроса №<%= @request.id%></h1>
-
+<br />
 <% if @request.car.present? %>
   <p><span class="label important">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>
 <% else %>
   <p><span class="label important">К сведению</span> Диалог ведется <strong>без указания автомобиля</strong>.</p>
 <% end %>
 
+<br />
 <br />
 
 <table class="zebra-striped">

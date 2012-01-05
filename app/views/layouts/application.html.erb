@@ -16,7 +16,7 @@
       <ul class="nav">
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Консультация", requests_path %></li>
         <li>
-          <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do |f| %>
+          <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do %>
             <%= text_field_tag :catalog_number, nil, :placeholder => "Каталожный номер", :style => "width: 140px" %>
             <%= hidden_field_tag :rnd, rand() %>          
             <%= submit_tag "Искать", :class => "btn primary", :disable_with => "Пожалуйста подождите...", :id => "poisk" %>

@@ -36,10 +36,10 @@ class OrdersController < ApplicationController
   #   end
   # end
 
-  # # GET /orders/1/edit
-  # def edit
-  #   @order = Order.find(params[:id])
-  # end
+  # GET /orders/1/edit
+  def edit
+    @order = Order.find(params[:id])
+  end
 
   # POST /orders
   # POST /orders.json
@@ -68,9 +68,9 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   
     respond_to do |format|
-      @order.status = :processed
       if @order.update_attributes(params[:order])
-        format.html { redirect_to @order, :notice => 'Заказ успешно обработан' }
+        format.html { redirect_to @order, :notice => 'Изменения по заказу сохранены.' }
+        format.mobile { redirect_to order_path(@order, :anchor => "jump"), :notice => 'Изменения по заказу сохранены.' }
         format.json { head :ok }
       end
     end

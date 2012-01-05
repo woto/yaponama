@@ -3,7 +3,7 @@ namespace :app do
   task :notify => :environment do
 
     # Заказы
-    orders = Order.where(:notified => false).where("created_at < ?", 10.minutes.ago)
+    orders = Order.where(:notified => false).where("created_at < ?", 1.minutes.ago)
     orders.each do |order|
       unless order.user.admin? 
         User.where(:admin => true).each do |admin|
@@ -21,7 +21,7 @@ namespace :app do
     end
 
     # Отправить уведомление топикстартеру если он не админ
-    messages = Message.where(:notified => false).where("created_at < ?", 10.minutes.ago)
+    messages = Message.where(:notified => false).where("created_at < ?", 1.minutes.ago)
     messages.each do |message|
       if message.user.admin? && !message.request.user.admin?
         data = {

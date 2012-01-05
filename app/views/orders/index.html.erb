@@ -24,7 +24,7 @@
         <td><%= order.id %></td>
         <td><%= l(order.created_at, :format => :short) %></td>
         <td>
-          <% if order.status == :awating %>
+          <% if order.status == :awaiting %>
             <p class='icons-24 icons-24-sprite icons-24-awating'>Ожидает обработки</p>
           <% else %>
             <p class='icons-24 icons-24-sprite icons-24-response-light'>Обработан</p>

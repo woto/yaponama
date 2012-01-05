@@ -1,0 +1,14 @@
+<%= simple_form_for(@order, :wrapper => "inline") do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :status, :label => "Статус заказа" do %>
+      <%= enum_select :order, :status %>
+    <% end %>
+    <%= f.input :notes, :label => "Результат обработки", :as => :text, :input_html => {:rows => 10, :style => "width: 80%"} %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Сохранить статус заказа", :class => "primary" %>
+  </div>
+<% end %>

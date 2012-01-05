@@ -1,0 +1,11 @@
+<%= simple_form_for(@order, :wrapper => "append") do |f| %>
+  <%= f.error_notification %>
+
+    <%= f.input :status, :label => "Статус заказа" do %>
+      <%= enum_select :order, :status %>
+    <% end %><br />
+    <%= f.input :notes, :label => "Результат обработки", :as => :text, :input_html => {:rows => 10, :style => "width: 80%"} %>
+
+  <br />
+    <%= f.button :submit, "Сохранить статус заказа", :class => "primary" %>
+<% end %>

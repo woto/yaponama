@@ -1,8 +1,21 @@
 <h1>Просмотр заказа №<%= @order.id %></h1>
 <br />
 
+<h2>Дата заказа:</h2>
+<p><%= l(@order.created_at, :format => :short) %></p><br />
+
+<h2>Статус заказа:</h2>
+<p><%= t(@order.status) %></p><br />
+
+<h2>Результат обработки:</h2>
+<%= simple_format(@order.notes || "Изменится после того, как заказ перейдет в статус \"#{t(:processed)}\"") %> <br />
+
 <% if current_user.admin? %>
-  <%= link_to h(@order.user.user_name) + "<br />".html_safe + "+7" + @order.user.phone, show_become_path(@order.user_id, :anchor => "jump") %><br /><br />
+  <h2>Покупатель:</h2>
+  <p><%= link_to "#{h(@order.user.user_name)}<br />+7#{h(@order.user.phone)}".html_safe, show_become_path(@order.user_id, :anchor => "jump") %></p><br />
 <% end %>
 
+<div style="clear: both"></div>
+
+<h2>Заказанные позиции:</h2>
 <%= render :partial => 'wishes/table_ordered', :locals => {:wishes => @wishes} %>

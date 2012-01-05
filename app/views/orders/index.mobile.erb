@@ -14,7 +14,7 @@
       От: <%= l(order.created_at, :format => :short) %><br />
 
       Статус: 
-      <% if order.status == :awating %>
+      <% if order.status == :awaiting %>
         Ожидает обработки
       <% else %>
         Обработан

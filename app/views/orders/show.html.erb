@@ -1,9 +1,24 @@
 <h1>Просмотр заказа №<%= @order.id %></h1>
-<p><span class="label">К сведению</span> Вы можете отменить и отредактировать заказ, если ошиблись при выборе товара.</p>
 <br />
 
+<p><span class="label">К сведению</span> Вы можете отменить и отредактировать заказ, пока он находится в статусе "<%= t(:awaiting) %>".</p>
+<br />
+
+<h3>Дата заказа:</h3>
+<p><%= l(@order.created_at, :format => :short) %></p><br />
+
+<h3>Статус заказа:</h3>
+<p><%= t(@order.status) %></p><br />
+
+<h3>Результат обработки:</h3>
+<%= simple_format(@order.notes || "Изменится после того, как заказ перейдет в статус \"#{t(:processed)}\"") %> <br />
+
 <% if current_user.admin? %>
-  <%= link_to h(@order.user.user_name) + "<br />".html_safe + "+7" + @order.user.phone, show_become_path(@order.user_id, :anchor => "jump") %><br /><br />
+  <h3>Покупатель:</h3>
+  <p><%= link_to "#{h(@order.user.user_name)}<br />+7#{h(@order.user.phone)}".html_safe, show_become_path(@order.user_id, :anchor => "jump") %></p><br />
 <% end %>
 
+<div style="clear: both"></div>
+
+<h3>Заказанные позиции:</h3>
 <%= render :partial => 'wishes/table_ordered', :locals => {:wishes => @wishes} %>
