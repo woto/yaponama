@@ -29,7 +29,7 @@ class RequestsController < ApplicationController
     @request = scope.where(:id => params[:id]).includes(:messages => [:user, :message_assets]).first
 
     unless @request.present?
-      raise
+      redirect_to root_path(:anchor => "jump"), :notice => "Сообщение было удалено." and return
     end
 
     respond_to do |format|

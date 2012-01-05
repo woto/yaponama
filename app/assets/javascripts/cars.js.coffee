@@ -31,3 +31,14 @@ $ ->
 
   $("#frame-close").live "click", ->
     vinModal.modal('hide')
+
+  groups = []
+  $('a.gallery').each ->
+    groups.push($(this).attr('rel'))
+
+  unique = groups.filter((itm, i, a) ->
+    i is a.indexOf(itm)
+  )
+
+  for rel in unique
+    $('a.gallery[rel=' + rel + ']').colorbox({rel: rel})
