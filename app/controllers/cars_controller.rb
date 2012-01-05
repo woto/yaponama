@@ -69,7 +69,7 @@ class CarsController < ApplicationController
   # DELETE /cars/1
   # DELETE /cars/1.json
   def destroy
-    scope = Car.user_or_admin(current_user)
+    scope = Car.where(:user_id => current_user.id)
 
     @car = scope.find(params[:id])
     @car.destroy

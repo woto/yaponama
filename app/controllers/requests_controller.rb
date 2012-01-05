@@ -109,7 +109,7 @@ class RequestsController < ApplicationController
   # DELETE /requests/1
   # DELETE /requests/1.json
   def destroy
-    scope = Request.user_or_admin(current_user)
+    scope = Request.where(:user_id => current_user.id)
 
     @request = scope.find(params[:id])
     @request.destroy

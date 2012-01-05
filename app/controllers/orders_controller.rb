@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order = Order.user_or_admin(current_user).find(params[:id])
+    @order = Order.where(:user_id => current_user.id).where(:status => :awaiting).find(params[:id])
     @order.wishes.update_all(:order_id => nil, :status => :active)    
     @order.destroy
 
