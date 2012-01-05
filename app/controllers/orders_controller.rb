@@ -68,6 +68,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   
     respond_to do |format|
+      @order.status = :processed
       if @order.update_attributes(params[:order])
         format.html { redirect_to @order, :notice => 'Изменения по заказу сохранены.' }
         format.mobile { redirect_to order_path(@order, :anchor => "jump"), :notice => 'Изменения по заказу сохранены.' }

@@ -40,9 +40,13 @@
   <tr>
     <td colspan="7">
       <% if current_user.admin? %>
-        <%= link_to "Сменить статус", edit_order_path(@order), :class => "btn primary" %> &nbsp;&nbsp;<span>или</span>&nbsp;&nbsp;
+        <%= link_to "Сменить статус", edit_order_path(@order), :class => "btn primary" %>
       <% end %>
-      <% if @order.status != :processed || current_user.admin? %>
+
+      <% if @order.status != :processed %>
+        <% if current_user.admin? %>
+          &nbsp;&nbsp;<span>или</span>&nbsp;&nbsp;
+        <% end %>
         <%= link_to "Отменить заказ и вернуть товары в корзину", @order, :class => "btn", :confirm => "Вы уверены, что хотите отменить заказ? Все товары из заказа переместятся в корзину.", :method => :delete %>
       <% end %>
     </td>
