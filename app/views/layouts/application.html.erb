@@ -90,7 +90,6 @@
           </ul>
         <p> 
           И в Интернете <a href="#">http://www.yaponama.ru</a>
-          <%= render :partial => 'layouts/mobile_switch' %>
         </p>
       </div>
       
@@ -112,7 +111,20 @@
 	<%= yield %>
     <% if params[:controller] != 'searches' %>
       <footer>
-        <p><%= link_to "&copy; Yaponama 2011".html_safe, about_path %></p>
+<div class="row">
+  <div class="span4">
+    <address>
+      <strong>&copy; Yaponama 2011</strong><br />
+      г. Пфффф, Чшацловская ул., д. 7<br>
+      +7 (250) 632-43-32
+    </address>
+  </div>
+  <div class="span4">
+    <address>
+      <%= render :partial => 'layouts/mobile_switch' %>
+    </address>
+  </div>
+</div>
       </footer>
     <% end %>
   </div>
