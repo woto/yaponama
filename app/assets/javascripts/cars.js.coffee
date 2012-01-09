@@ -51,7 +51,7 @@ $ ->
   $('a.gallery').each ->
     groups.push($(this).attr('rel'))
 
-  unique = groups.unique
+  unique = groups.unique()
 
   #unique = groups.filter((itm, i, a) ->
   #  i is a.indexOf(itm)
