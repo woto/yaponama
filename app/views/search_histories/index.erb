@@ -1,5 +1,8 @@
 <h1>История поиска</h1>
 
+<%= paginate @search_histories %>
+<br />
+
 <table class="zebra-striped">
   <tr>
     <th>Каталожный номер</th>
@@ -17,3 +20,7 @@
   </tr>
 <% end %>
 </table>
+
+<%= paginate @search_histories %>
+<br />
+

@@ -3,7 +3,7 @@ class SearchHistoriesController < ApplicationController
   # GET /search_histories.json
   def index
 
-    @search_histories = user_search_histories
+    @search_histories = user_search_histories.page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
