@@ -1,3 +1,9 @@
-development:
+defaults: &defaults
   emex_income_rate: 1.07
   avtorif_income_rate: 1.15
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
