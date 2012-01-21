@@ -19,7 +19,7 @@
         <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "") %> -
         <%= count_decorator(result_price["count"]) %> (От <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %> До <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %>)
         <%= country = result_price["job_import_job_country_short"] %>
-        <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? 1.07 : 1.08)) %></span>            
+        <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) %></span>            
         
         <%= f.hidden_field :cost, :value => income_cost %>
         <%= f.hidden_field :catalog_number, :value => catalog_number %>

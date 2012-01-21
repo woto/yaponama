@@ -80,7 +80,7 @@
           <td> <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %></td>
           <td> <%= country = result_price["job_import_job_country_short"] %></td>
           <td>
-            <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? 1.07 : 1.08)) %></span>
+            <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) %></span>
             <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>
               <%= f.hidden_field :cost, :value => income_cost %>
               <%= f.hidden_field :catalog_number, :value => catalog_number %>
