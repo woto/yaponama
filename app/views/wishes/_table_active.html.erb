@@ -1,6 +1,6 @@
 <% sum = 0 %>
 
-<%= form_tag multiple_update_wishes_path, :style => "overflow: hidden" do %>
+<%= form_tag multiple_update_wishes_path, :style => "overflow: hidden", :method => :post do %>
   <table class="zebra-striped">
     <tr>
       <th><input type="checkbox" class="check-all" /></th>
@@ -51,6 +51,6 @@
   <div style="float: right">
     <%= submit_tag "Пересчитать цену", :class => "btn clearfix" %> 
     &nbsp;&nbsp;&nbsp;&nbsp; 
-    <%= link_to "Отправить на обработку", {:controller => "orders"}, :class => "btn primary", :method => :post, :confirm => "Вы уверены, что хотите отправить заказ на обработку менеджеру?" %>
+    <%= submit_tag "Отправить на обработку", :class => "btn primary", :method => :post, :confirm => "Вы уверены, что хотите отправить заказ на обработку менеджеру?" %>
   </div>
 <% end %>

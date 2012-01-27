@@ -19,9 +19,9 @@
         <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "") %> -
         <%= count_decorator(result_price["count"]) %> (От <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %> До <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %>)
         <%= country = result_price["job_import_job_country_short"] %>
-        <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) %></span>            
+        <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>            
         
-        <%= f.hidden_field :cost, :value => income_cost %>
+        <%= f.hidden_field :cost, :value => retail_cost %>
         <%= f.hidden_field :catalog_number, :value => catalog_number %>
         <%= f.hidden_field :manufacturer, :value => manufacturer %>
         <%= f.hidden_field :title, :value => title %>
@@ -29,7 +29,7 @@
         <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'] %>
         <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"] %>
         <%= f.hidden_field :country, :value => country %>
-        <%= f.submit income_cost %>
+        <%= f.submit retail_cost %>
       <% end %>
    <% end %>
 <% else %>

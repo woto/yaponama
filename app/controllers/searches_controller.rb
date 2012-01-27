@@ -47,10 +47,12 @@ class SearchesController < ApplicationController
           end
         end
 
+        item["retail_cost"] = (item["income_cost"] * (item["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) * APP_CONFIG["retail_rate"]
+
       end
 
       @parsed_json["result_prices"] = new_array
-      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| i["income_cost"].to_i }
+      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| i["retail_cost"].to_i }
     end
   end
 end

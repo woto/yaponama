@@ -80,9 +80,9 @@
           <td> <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %></td>
           <td> <%= country = result_price["job_import_job_country_short"] %></td>
           <td>
-            <span style="visibility: hidden; display:none"><%= income_cost = cost_decorator(income_cost = result_price["income_cost"] * (result_price["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) %></span>
+            <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>
             <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>
-              <%= f.hidden_field :cost, :value => income_cost %>
+              <%= f.hidden_field :cost, :value => retail_cost %>
               <%= f.hidden_field :catalog_number, :value => catalog_number %>
               <%= f.hidden_field :manufacturer, :value => manufacturer %>
               <%= f.hidden_field :title, :value => title %>
@@ -90,7 +90,7 @@
               <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'] %>
               <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"] %>
               <%= f.hidden_field :country, :value => country %>
-              <%= f.submit income_cost, :class => "btn primary buy-button", :style=>"width: 90px" %>
+              <%= f.submit retail_cost, :class => "btn primary buy-button", :style=>"width: 90px" %>
             <% end %>
           </td>
         </tr>
