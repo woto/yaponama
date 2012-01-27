@@ -83,6 +83,7 @@
     <div class="sidebar">
 
       <div class="well">
+        <!--
         <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
           <ul>
             <li> Стрим <a href="#">http://123.456.789.000</a></li>
@@ -91,11 +92,36 @@
         <p> 
           И в Интернете <a href="#">http://www.yaponama.ru</a>
         </p>
+        -->
+        <p> Самые низкие цены на новые автозапчасти для иномарок, дающие фору лидерам рынка автозапчастей Москвы. </p>
+        <p> Не верите? Убедитесь сами </p>
+        <p> <a href="http://top.mail.ru/Rating/Cars-Spare/week/Visitors/1.html">Ссылка на самые посещаемые интернет магазины автозапчастей Москвы по версии mail.ru</a></p>
       </div>
       
       <div class="well"> 
-      Вы администратор?
+        <!--
+        Вы администратор?
         <%= current_user.try(:admin?) %>
+        -->
+
+        <h3>Сравните цены!</h3>
+        <br />
+
+        <p>Подшибник ступицы<br />(Mitsubishi) MR491449</p>
+        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=MR491449&replacements=1&manufacturer=&rnd=0.276929568203138&commit=Искать#jump">yaponama.ru 1878р - 2026р</a><br />
+        <a href="http://exist.ru/price.aspx?pcode=MR491449">exist.ru 2134р - 2831р</a><br />
+        <br />
+        
+        <p>Диск тормозной передний<br />(Toyota) 48830−48010</p>
+        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=43512−60151&replacements=1&manufacturer=&rnd=0.22996301461719&commit=Искать#jump">yaponama.ru 4562р - 4756р</a><br />
+        <a href="http://exist.ru/price.aspx?pid=3AA05737&sr=-4">exist.ru 5349р - 5376р</a><br />
+        <br />
+
+        <p>Тормозной диск<br />(Mitsubishi) MR510741</p>
+        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=MR510741&replacements=1&manufacturer=&rnd=0.954748115790427&commit=Искать#jump">yaponama.ru 3656р - 3768р</a><br />
+        <a href="http://exist.ru/price.aspx?pcode=MR510741">exist.ru 4188р - 5309р</a>
+        <br />
+
       </div>      
 
     </div>
@@ -112,11 +138,11 @@
     <% if params[:controller] != 'searches' %>
       <footer>
 <div class="row">
-  <div class="span4">
+  <div class="span5">
     <address>
-      <strong>&copy; Yaponama 2011</strong><br />
-      г. Город, ул. Улица, д. Д<br>
-      +7 (250) 632-43-32
+      <strong>&copy; Yaponama 2012</strong><br />
+      г. Москва, ул. Красноармейская, д. 8, к. 3<br />
+      +7 (916) 907-27-88
     </address>
   </div>
   <div class="span4">
