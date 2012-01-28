@@ -2,6 +2,8 @@
 <html>
 <head>
   <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Yaponama</title>
+  <%= "<meta name=\"Keywords\" content=\"#{yield(:keywords)}\"/>" if content_for?(:keywords) %>
+  <%= "<meta name=\"Description\" content=\"#{yield(:description)}\"/>" if content_for?(:description) %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -19,6 +21,7 @@
           <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do %>
             <%= text_field_tag :catalog_number, nil, :placeholder => "Каталожный номер", :style => "width: 140px" %>
             <%= hidden_field_tag :rnd, rand() %>          
+            <%= hidden_field_tag :skip, "true" %>          
             <%= submit_tag "Искать", :class => "btn primary", :disable_with => "Пожалуйста подождите...", :id => "poisk" %>
           <% end %>
         </li>
