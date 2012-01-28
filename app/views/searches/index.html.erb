@@ -82,14 +82,14 @@
           <td>
             <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>
             <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>
-              <%= f.hidden_field :cost, :value => retail_cost %>
-              <%= f.hidden_field :catalog_number, :value => catalog_number %>
-              <%= f.hidden_field :manufacturer, :value => manufacturer %>
-              <%= f.hidden_field :title, :value => title %>
-              <%= f.hidden_field :count, :value => result_price["count"] %>
-              <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'] %>
-              <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"] %>
-              <%= f.hidden_field :country, :value => country %>
+              <%= f.hidden_field :cost, :value => retail_cost, :id => nil %>
+              <%= f.hidden_field :catalog_number, :value => catalog_number, :id => nil %>
+              <%= f.hidden_field :manufacturer, :value => manufacturer, :id => nil %>
+              <%= f.hidden_field :title, :value => title, :id => nil %>
+              <%= f.hidden_field :count, :value => result_price["count"], :id => nil %>
+              <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'], :id => nil %>
+              <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"], :id => nil %>
+              <%= f.hidden_field :country, :value => country, :id => nil %>
               <%= f.submit retail_cost, :class => "btn primary buy-button", :style=>"width: 90px" %>
             <% end %>
           </td>
