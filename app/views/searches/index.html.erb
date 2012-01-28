@@ -35,7 +35,7 @@
       </div>
     </div>
     
-    <%= hidden_field_tag :rnd, rand() %>
+    <%= hidden_field_tag :rnd, rand(), :id => nil %>
 
     <div class="actions">
       <%= submit_tag "Искать", :class => "primary btn", :disable_with => "Пожалуйста подождите..." %>&nbsp;&nbsp;
