@@ -1,6 +1,6 @@
 Yaponama::Application.routes.draw do
   # Удалить потом, как проиндексируется в yandex'е
-  get '(/(*path))' => redirect("http://www.yaponama.ru/%{path}"), :constraints => lambda { |req| !req.domain.include? "yaponama.ru" }, :defaults => { :path => '' }
+  get '(/(*path))' => redirect("http://www.yaponama.ru/%{path}"), :constraints => lambda { |req| !req.domain.include?("yaponama.ru") && !req.domain.include?("localhost") }, :defaults => { :path => '' }
 
   resources :orders do
     get 'page/:page', :action => :index, :on => :collection
