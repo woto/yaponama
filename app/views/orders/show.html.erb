@@ -1,4 +1,4 @@
-<h1>Просмотр заказа №<%= @order.id %></h1>
+<h1><%= yield(:title) %></h1>
 
 <h3>Дата заказа:</h3>
 <p><%= l(@order.created_at, :format => :short) %></p><br />

@@ -1,4 +1,4 @@
-<h1>Просмотр запроса №<%= @request.id%></h1>
+<h1><%= yield(:title) %></h1>
 <br />
 <% if @request.car.present? %>
   <p><span class="label important">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>

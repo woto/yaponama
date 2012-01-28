@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Yaponama</title>
+  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Японама</title>
   <%= "<meta name=\"Keywords\" content=\"#{yield(:keywords)}\"/>" if content_for?(:keywords) %>
   <%= "<meta name=\"Description\" content=\"#{yield(:description)}\"/>" if content_for?(:description) %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <% if params[:commit] == "Искать" %>
+    <meta name="robots" content="noindex, follow">
+  <% else %>
+    <meta name="robots" content="index, follow">
+  <% end %>
 </head>
 <body>
 

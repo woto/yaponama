@@ -6,6 +6,8 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.user_or_admin(current_user).order("id desc").page(params[:page])
 
+    content_for :title, "Список заказов"
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @orders }
@@ -17,6 +19,7 @@ class OrdersController < ApplicationController
   def show
     @order = Order.user_or_admin(current_user).find(params[:id])
     @wishes = @order.wishes.where(:status => :ordered)
+    content_for :title, "Просмотр заказа №#{@order.id}"
 
     respond_to do |format|
       format.html # show.html.erb

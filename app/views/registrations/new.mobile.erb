@@ -1,1 +1,3 @@
+<% content_for :title do %> Регистрац! <% end %>
+<h1><%= yield(:title) %></h1>
 <%= render :partial => 'new', :locals => {:notice_text => (defined?(notice_text) ? notice_text : nil) } %>

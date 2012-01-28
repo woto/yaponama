@@ -1,4 +1,4 @@
-<h1>Корзина</h1>
+<h1><%= yield(:title) %></h1>
 
 <% if @wishes.select{ |wish| wish.status == :active || wish.status == :inactive }.count > 0 %>
   <br />

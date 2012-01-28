@@ -47,6 +47,6 @@ class RegistrationsController < Devise::RegistrationsController
   
   def after_update_path_for(resource)
     root_path(:anchor => "jump")
-   end  
+  end  
   
 end

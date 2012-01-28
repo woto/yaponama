@@ -4,6 +4,7 @@ class SessionsController < Devise::SessionsController
     # Если пользователь не администратор или у него не устновлен id администратора
     redirect_to root_path(:anchor => "jump") and return if !current_user.admin? && !session[:admin_id]
     @user = User.find(params[:id])
+    content_for :title, "Имперсонализация"
     respond_with @user
   end
 

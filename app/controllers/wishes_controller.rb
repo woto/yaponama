@@ -4,6 +4,7 @@ class WishesController < ApplicationController
   def index
     
     @wishes = user_wishes
+    content_for :title, "Корзина"
 
     respond_to do |format|
       format.html # index.html.erb

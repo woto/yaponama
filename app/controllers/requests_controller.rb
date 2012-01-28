@@ -16,6 +16,8 @@ class RequestsController < ApplicationController
       redirect_to cars_path and return
     end
 
+    content_for :title, "Список запросов"
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @requests }
@@ -31,6 +33,8 @@ class RequestsController < ApplicationController
     unless @request.present?
       redirect_to root_path(:anchor => "jump"), :notice => "Сообщение было удалено." and return
     end
+
+    content_for :title, "Просмотр запроса №#{@request.id}"
 
     respond_to do |format|
       format.html # show.html.erb

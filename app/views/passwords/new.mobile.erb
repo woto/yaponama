@@ -1,4 +1,5 @@
-<h1> Забыли пароль? </h1>
+<%= content_for :title, "Забыли пароль?" %>
+<h1><%= yield(:title) %></h1>
 <br />
 
 <%= simple_form_for(resource, :wrapper => :append, :as => resource_name, :url => password_path(resource_name, :anchor => "jump"), :html => { :method => :post }) do |f| %>

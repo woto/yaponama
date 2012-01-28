@@ -15,6 +15,13 @@ GIT
     galetahub-simple_captcha (0.1.2)
 
 GIT
+  remote: https://github.com/clmntlxndr/content_for_in_controllers.git
+  revision: 7f652d58475bdf23d89968ad79f0e86ea0f40ef1
+  ref: 7f652d5847
+  specs:
+    content_for_in_controllers (0.0.2)
+
+GIT
   remote: https://github.com/kiskolabs/humanizer.git
   revision: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
   ref: cb8fed08a31c8ed83ce24c7b1d975c7d42af5858
@@ -199,6 +206,7 @@ DEPENDENCIES
   coffee-script-source (= 1.1.3)
   columnize (= 0.3.5)
   compass (= 0.12.alpha.0)
+  content_for_in_controllers!
   daemons (= 1.1.4)
   delayed_job (= 3.0.0.pre)
   delayed_job_active_record
