@@ -2,8 +2,10 @@
 <html>
 <head>
   <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Японама</title>
-  <%= "<meta name=\"Keywords\" content=\"#{yield(:keywords)}\"/>" if content_for?(:keywords) %>
-  <%= "<meta name=\"Description\" content=\"#{yield(:description)}\"/>" if content_for?(:description) %>
+  <% if content_for?(:keywords) %>
+    <meta name="Keywords" content="<%= yield(:keywords)%>"/>
+  <% end %>
+  <meta name="Description" content="купить автозапчасти, запчасти по почте, запчасти транспортной компанией, подобрать запчасть, заказать запчасти, интернет магазин запчастей, запчасти для авто, где купить запчасти, посоветуйте магазин запчастей, запчасти на заказ, приобрести детали, авто детали, стойки"/>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>

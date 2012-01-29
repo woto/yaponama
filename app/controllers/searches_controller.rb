@@ -30,11 +30,16 @@ class SearchesController < ApplicationController
       #tree_block = lambda{|h,k| h[k] = Hash.new(&tree_block) }
       tree_block = lambda{|h,k| h[k] = Hash.new {|h, k| h[k] = 0} }
       seo_counter = Hash.new(&tree_block)
+      seo_keywords = Hash.new{|h, k| h[k] = 0}
       @parsed_json["result_prices"].each do |item|
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
           hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
           seo_counter[hh][item["title"]] += 1
+        end
+
+        item["title"].to_s.split.each do |keyword|
+          seo_keywords[keyword] += 1
         end
 
         counter[h] += 1
@@ -54,7 +59,8 @@ class SearchesController < ApplicationController
         item["retail_cost"] = (item["income_cost"] * (item["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) * APP_CONFIG["retail_rate"]
       end
 
-
+      seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}
+      seo_keywords = seo_keywords[-seo_keywords.size/2, 1000].to_a.collect{|e| e[0].mb_chars.upcase.gsub(',', ' ').to_s if e[0].mb_chars.size > 2}.uniq.compact.reverse.join(', ')
       seo_counter.each{|catalog_number, arr| seo_counter[catalog_number] = arr.sort_by { |k,v| v.to_i  }}
 
       @parsed_json["result_prices"] = new_array
@@ -76,5 +82,6 @@ class SearchesController < ApplicationController
     end
     
     content_for :title, " Поиск запчастей"
+    content_for :keywords, seo_keywords
   end
 end
