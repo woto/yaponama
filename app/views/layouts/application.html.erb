@@ -28,7 +28,6 @@
           <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do %>
             <%= text_field_tag :catalog_number, nil, :placeholder => "Каталожный номер", :style => "width: 140px" %>
             <%= hidden_field_tag :rnd, rand(), :id => nil %>          
-            <%= hidden_field_tag :skip, "true", :id => nil %>          
             <%= submit_tag "Искать", :class => "btn primary", :disable_with => "Пожалуйста подождите...", :id => "poisk" %>
           <% end %>
         </li>
