@@ -62,4 +62,4 @@ gem 'execjs', '1.2.9'
 gem 'whenever'
 gem 'mobylette', '1.5.0'
 gem 'content_for_in_controllers', :git => 'https://github.com/clmntlxndr/content_for_in_controllers.git', :ref => '7f652d5847'
-
+gem 'sitemap_generator'
