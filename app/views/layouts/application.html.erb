@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Японама</title>
+  <% 
+    seo_description_array = ["У нас вы можете купить %s", "Вы можете сделать заказать %s", "Купите %s у нас", "Закажите у нас %s", "Купить %s в москве", "Купите в интернет магазине %s", "Преобретите %s", "Аналоги деталей %s в магазине", "Доставка по россии %s", "Купите в Москве %s", "Замены деталей %s", "Неоригинальные замены %s", "Оригинальные замены %s", "Оригинал %s", "Оригинальные запчасти %s", "Отправим почтой %s", "Отправим почтой России %s", "Отправим в регионы %s", "Проконсультируйтесь по поводу %s", "Консультация по %s", "Китайские аналоги для %s", "Цены на %s", "Цена %s", "Стоимость %s"]
+  %>
+
+    <title> <%= content_for?(:description) ? seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:title).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:title).to_s + " - " : "" %> Японама (Yaponama) </title>
+
   <% if content_for?(:keywords) %>
     <meta name="Keywords" content="<%= yield(:keywords)%>"/>
   <% end %>
-  <meta name="Description" content="купить автозапчасти, запчасти по почте, запчасти транспортной компанией, подобрать запчасть, заказать запчасти, интернет магазин запчастей, запчасти для авто, где купить запчасти, посоветуйте магазин запчастей, запчасти на заказ, приобрести детали, авто детали, стойки"/>
+
+  <% if content_for?(:description) %>
+    <meta name="Description" content="<%= seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:description).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:description).to_s %>"/>
+  <% else %>
+    <meta name="Description" content="Рады, что вы посетили наш магазин автозапчастей Японама (Yaponama), надеемся вам понравятся наш ассортимент и цены. Если вы знаете каталожный номер автозапчасти, то можете приступить к поиску прямо сейчас или связаться с нашим менеджером, для консультации и подбора."/>
+  <% end %>
+
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -117,18 +128,18 @@
         <br />
 
         <p>Подшибник ступицы<br />(Mitsubishi) MR491449</p>
-        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=MR491449&replacements=1&manufacturer=&rnd=0.276929568203138&commit=Искать#jump">yaponama.ru 1878р - 2026р</a><br />
-        <a href="http://exist.ru/price.aspx?pcode=MR491449">exist.ru 2134р - 2831р</a><br />
+        <a href="/searches/MR491449/MITSUBISHI/">yaponama.ru 1853р - 1902р</a><br />
+        <a href="http://exist.ru/price.aspx?pcode=MR491449">exist.ru 1931р - 2102р</a><br />
         <br />
         
-        <p>Диск тормозной передний<br />(Toyota) 48830−48010</p>
-        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=43512−60151&replacements=1&manufacturer=&rnd=0.22996301461719&commit=Искать#jump">yaponama.ru 4562р - 4756р</a><br />
-        <a href="http://exist.ru/price.aspx?pid=3AA05737&sr=-4">exist.ru 5349р - 5376р</a><br />
+        <p>Тяга стабилизатора задняя<br />(Toyota) 48830−48010</p>
+        <a href="/searches/4883048010/TOYOTA">yaponama.ru 1046р - 1170р</a><br />
+        <a href="http://exist.ru/price.aspx?pid=83002B18&sr=-4">exist.ru 1282р - 1469р</a><br />
         <br />
 
         <p>Тормозной диск<br />(Mitsubishi) MR510741</p>
-        <a href="http://www.yaponama.ru/searches?utf8=✓&catalog_number=MR510741&replacements=1&manufacturer=&rnd=0.954748115790427&commit=Искать#jump">yaponama.ru 3656р - 3768р</a><br />
-        <a href="http://exist.ru/price.aspx?pcode=MR510741">exist.ru 4188р - 5309р</a>
+        <a href="/searches/MR510741/MITSUBISHI/">yaponama.ru 3470р - 3539р</a><br />
+        <a href="http://exist.ru/price.aspx?pcode=MR510741">exist.ru 4085р - 5299р</a>
         <br />
 
       </div>      
@@ -151,7 +162,10 @@
     <address>
       <strong>&copy; Yaponama 2012</strong><br />
       г. Москва, ул. Красноармейская, д. 8, к. 3<br />
-      сот: +7 (916) 907-27-88
+      сот: +7 (916) 907-27-88<br />
+      <script>
+        document.write('<a href="mai' + 'lto:info@' + 'yaponama.ru">'+ 'info@' + 'yaponama.ru' + '</a>')
+      </script>
     </address>
   </div>
   <div class="span3">

@@ -17,7 +17,7 @@
 #   runner "AnotherModel.prune_old_records"
 # end
 
- every 1.minutes do
+ every 5.minutes do
    rake "app:notify"
  end
 

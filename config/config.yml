@@ -1,6 +1,9 @@
 defaults: &defaults
+  #emex_income_rate: 1.0
+  #avtorif_income_rate: 1.0
+  #retail_rate: 1.0
   emex_income_rate: 1.07
-  avtorif_income_rate: 1.15
+  avtorif_income_rate: 1.07
   retail_rate: 1.10
 
 development:

@@ -2,6 +2,9 @@ require 'net/http'
 
 class SearchesController < ApplicationController
   def index
+    if params[:fast].present? or params[:show].present?
+      raise ActionController::RoutingError.new('Not Found')
+    end
     @parsed_json = { "result_prices" => [] }
 
     if params[:catalog_number].present? and (params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase).present?
@@ -19,7 +22,7 @@ class SearchesController < ApplicationController
         SearchHistory.create(:user_id => current_user.try(:id), :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present? ? manufacturer : nil))
       end
 
-      url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_shop=1")
+      url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_site=1")
       resp = Net::HTTP.get_response(url)
       @parsed_json = ActiveSupport::JSON.decode(resp.body)
       #@parsed_json["result_prices"].shuffle!
@@ -31,6 +34,9 @@ class SearchesController < ApplicationController
       tree_block = lambda{|h,k| h[k] = Hash.new {|h, k| h[k] = 0} }
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
+      if @parsed_json["result_prices"].size == 0
+        render :status => 404
+      end
       @parsed_json["result_prices"].each do |item|
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
@@ -70,18 +76,25 @@ class SearchesController < ApplicationController
       response.last_modified = Time.now.utc
       header = "".html_safe
       header2 = "".html_safe
+      counter = 0
       seo_counter.each do |catalog_number, arr|
+        counter += 1
         if arr.size > 0
-          header << catalog_number + " " + arr.last[0].to_s + " "
+          header << catalog_number + " " + arr.last[0].to_s
+          if counter != seo_counter.size
+            header << ", "
+          end
           header2 << catalog_number + " " + arr.last[0].to_s
           header2 << "<br />".html_safe 
         end
       end
+
       content_for :title2, header2
       content_for :title, header
+      content_for :description, header
     end
     
-    content_for :title, " Поиск запчастей"
+    #content_for :title, " Поиск запчастей"
     content_for :keywords, seo_keywords
   end
 end

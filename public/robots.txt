@@ -3,3 +3,5 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-Agent: *
 # Disallow: /
+Sitemap: http://yaponama.ru/sitemap1.xml.gz
+Sitemap: http://yaponama.ru/sitemap_index.xml.gz
