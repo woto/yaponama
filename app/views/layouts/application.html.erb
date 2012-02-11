@@ -17,6 +17,10 @@
     <meta name="Description" content="Рады, что вы посетили наш магазин автозапчастей Японама (Yaponama), надеемся вам понравятся наш ассортимент и цены. Если вы знаете каталожный номер автозапчасти, то можете приступить к поиску прямо сейчас или связаться с нашим менеджером, для консультации и подбора."/>
   <% end %>
 
+  <% if content_for? :canonical %>
+    <%= yield :canonical %>
+  <% end %>
+
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -212,7 +216,7 @@
        <!-- //Rating@Mail.ru counter -->
 
       <!-- Yandex ТИЦ -->
-      <a href="http://yandex.ru/cy?base=0&amp;host=yaponama.ru"><img src="http://www.yandex.ru/cycounter?yaponama.ru" width="88" height="31" alt="Яндекс цитирования" border="0" /></a>
+      <a href="http://pr-cy.ru/" target="_blank" title="Счетчик тИЦ и PR"><img src="http://counter.pr-cy.ru/prcy/yaponama.ru" alt="PR-CY.ru" width="88" height="31" border="0" /></a>
       <!-- //Yandex ТИЦ -->
   
     </span>

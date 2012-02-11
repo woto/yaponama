@@ -22,3 +22,4 @@
 *.swo
 vendor/cache
 /public/assets
+.bundler
