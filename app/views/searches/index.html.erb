@@ -97,7 +97,19 @@
               <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'], :id => nil %>
               <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"], :id => nil %>
               <%= f.hidden_field :country, :value => country, :id => nil %>
-              <%= f.submit retail_cost, :class => "btn primary buy-button", :style=>"width: 90px" %>
+
+              <% btn_class = 'primary' %>
+              <% avtorif_data_content = '' %>
+              <% avtorif_rel = '' %>
+              <% avtorif_title = '' %>
+              <% if result_price["supplier_title"] == "АВТОРИФ" %>
+                <% btn_class = 'danger' %>
+                <% avtorif_data_content = "Есть в наличии в магазинах Авториф, тел: +7 (495) 72-706-72. Для получения заявленной цены сообщите код скидки '2201'" %>
+                <% avtorif_rel = 'popover' %>
+                <% avtorif_title = 'Суперпредложение!' %>
+              <% end %>
+
+              <%= f.submit retail_cost, :rel => avtorif_rel, :title => avtorif_title, "data-content" => avtorif_data_content, :class => "btn buy-button #{btn_class}", :style=>"width: 90px" %>
             <% end %>
           </td>
         </tr>

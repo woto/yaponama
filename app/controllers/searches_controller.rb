@@ -38,6 +38,7 @@ class SearchesController < ApplicationController
         render :status => 404
       end
       @parsed_json["result_prices"].each do |item|
+        next if item["job_import_job_country_short"].include?("avtorif.ru")
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
           hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
@@ -62,7 +63,14 @@ class SearchesController < ApplicationController
           end
         end
 
-        item["retail_cost"] = (item["income_cost"] * (item["supplier_title"] == "emex" ? APP_CONFIG["emex_income_rate"] : APP_CONFIG["avtorif_income_rate"])) * APP_CONFIG["retail_rate"]
+        item["retail_cost"] = APP_CONFIG["retail_rate"] * item["income_cost"] * case
+          when item["supplier_title"] == "emex" 
+            APP_CONFIG["emex_income_rate"]
+          when item["supplier_title"] == "АВТОРИФ"
+            1
+          else
+            APP_CONFIG["avtorif_income_rate"]
+          end
       end
 
       seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}

@@ -3,6 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
 
+  $("input[rel=popover]").popover(placement: "left").click (e) ->
+    //e.preventDefault()
+    //e.stopImmediatePropagation()
+ 
+
   $.tablesorter.addParser
     id: "from_link_extractor"
     is: (s) ->

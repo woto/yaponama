@@ -2,10 +2,21 @@
 <html>
 <head>
   <% 
-    seo_description_array = ["У нас вы можете купить %s", "Вы можете сделать заказать %s", "Купите %s у нас", "Закажите у нас %s", "Купить %s в москве", "Купите в интернет магазине %s", "Преобретите %s", "Аналоги деталей %s в магазине", "Доставка по россии %s", "Купите в Москве %s", "Замены деталей %s", "Неоригинальные замены %s", "Оригинальные замены %s", "Оригинал %s", "Оригинальные запчасти %s", "Отправим почтой %s", "Отправим почтой России %s", "Отправим в регионы %s", "Проконсультируйтесь по поводу %s", "Консультация по %s", "Китайские аналоги для %s", "Цены на %s", "Цена %s", "Стоимость %s"]
+    seo_description_array = ["У нас вы можете купить %s", "Вы можете сделать заказать %s", "Купите %s у нас", "Закажите у нас %s", "Купить %s в москве", "Купите в интернет магазине %s", "Приобретите %s", "Аналоги деталей %s в магазине", "Замены детали %s", "У нас есть не дорогие замены детали %s", "Кроссы детали %s", "Доставка по россии %s", "Купите в Москве %s", "Замены деталей %s", "Неоригинальные замены %s", "Оригинальные замены %s", "Оригинал %s", "Оригинальные запчасти %s", "Отправим почтой %s", "Отправим почтой России %s", "Отправим в регионы %s", "Проконсультируйтесь по поводу %s", "Консультация по %s", "Китайские аналоги для %s", "Цены на %s", "Цена %s", "Стоимость %s"]
   %>
+  <title>
+    <% if content_for? :title %>
+      <% if content_for? :description %>
+        <% md5_desc_hash = Digest::MD5.hexdigest(yield(:title)).to_s %>
+        <%= seo_description_array[md5_desc_hash[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:title).to_s + " - " %> 
+      <% else %>
+        <%= yield(:title).to_s + " - " %>
+      <% end %>
+    <% end %>
+    Японама (Yaponama)
+  </title>
 
-    <title> <%= content_for?(:description) ? seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:title).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:title).to_s + " - " : "" %> Японама (Yaponama) </title>
+  <link rel="shortcut icon" href="http://www.yaponama.ru/favicon.ico" />
 
   <% if content_for?(:keywords) %>
     <meta name="Keywords" content="<%= yield(:keywords)%>"/>
