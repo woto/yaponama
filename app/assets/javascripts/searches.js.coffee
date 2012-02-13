@@ -4,8 +4,8 @@
 $ ->
 
   $("input[rel=popover]").popover(placement: "left").click (e) ->
-    //e.preventDefault()
-    //e.stopImmediatePropagation()
+    #e.preventDefault()
+    #e.stopImmediatePropagation()
  
 
   $.tablesorter.addParser
