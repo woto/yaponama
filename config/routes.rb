@@ -5,8 +5,7 @@ Yaponama::Application.routes.draw do
   #  match '/*path', :to => redirect {|params| "http://www.yaponama.ru/#{params[:path]}"}
   #end
   
-  # Удалить потом, как проиндексируется в yandex'е
-  get '(/(*path))' => redirect{ |params| debugger; "http://www.yaponama.ru/#{params[:path].gsub(' ', '%20')}"}, :constraints => lambda { |req| !req.host.include?("www.yaponama.ru") && !req.host.include?("localhost") }, :defaults => { :path => '' }
+  match '(/(*path))' => redirect{ |params| "http://www.yaponama.ru/#{params[:path].gsub(' ', '%20')}"}, :constraints => lambda { |req| !req.host.include?("www.yaponama.ru") && !req.host.include?("localhost") }, :defaults => { :path => '' }
 
   resources :orders do
     get 'page/:page', :action => :index, :on => :collection
