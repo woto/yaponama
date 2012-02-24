@@ -57,7 +57,7 @@
 
   <h4><%= content_for?(:title2) ? "#{yield(:title2)}".html_safe : "" %></h4>
 
-  <br />
+  <br id="jump"/>
 
   <noindex><p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов.</p></noindex>
 
@@ -117,7 +117,7 @@
     </tbody>
   </table>
 
-  <div class="pagination pager" id="pager" style="height: 60px">
+  <div class="pagination pager" id="pager">
     <ul id="pager-list">
       <li class="prev"><a href="#">← Пред. </a></li>
       <li class="next"><a href="#">След. →</a></li>
@@ -133,10 +133,6 @@
 
     <input type="text" class="pagedisplay" style="display: none" />
   </div>
-
-  <br />
-  <br />
-  <br />
 
   <%= image_tag "spare_parts.png", :style => "z-index: 11; position: absolute; display: none", :id => "wishes-logo" %>
 <% else %>

@@ -27,7 +27,7 @@ class SearchesController < ApplicationController
       @parsed_json = ActiveSupport::JSON.decode(resp.body)
       #@parsed_json["result_prices"].shuffle!
       
-      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
+      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + (a["job_import_job_delivery_days_declared"].to_f + a["job_import_job_delivery_days_declared"].to_f / 100 * 30))/2/( (fast = params[:fast]).present? ? fast.to_f : (a["retail_cost"].to_i**1.3)/500) ) +  a["price_goodness"].to_f }
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
       #tree_block = lambda{|h,k| h[k] = Hash.new(&tree_block) }

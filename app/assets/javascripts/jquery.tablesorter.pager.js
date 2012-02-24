@@ -33,7 +33,7 @@
 					if(o.offset) {
 						c.container.css({
 							top: o.offset().top + o.height() - 35 + 'px',
-							position: 'absolute'
+							position: 'static'
 						});
 					}
 					c.pagerPositionSet = true;
