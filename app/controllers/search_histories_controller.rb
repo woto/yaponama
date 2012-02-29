@@ -9,6 +9,8 @@ class SearchHistoriesController < ApplicationController
       format.html # index.html.erb
       format.json { render :json => @search_histories }
     end
+
+    content_for :title, "История поиска"
   end
 
   # GET /search_histories/1
