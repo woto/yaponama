@@ -4,7 +4,7 @@
 # User-Agent: *
 # Disallow: /
 
-#Sitemap: http://yaponama.ru/sitemap1.xml.gz
-#Sitemap: http://yaponama.ru/sitemap_index.xml.gz
+Sitemap: http://yaponama.ru/sitemap1.xml.gz
+Sitemap: http://yaponama.ru/sitemap_index.xml.gz
 
 Host: www.yaponama.ru
