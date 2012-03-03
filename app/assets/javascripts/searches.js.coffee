@@ -37,19 +37,19 @@ $ ->
     headers:
       1:
         sorter: "from_link_extractor"
-      3:
-        sorter: "clipper"
       4:
         sorter: "clipper"
       5:
         sorter: "clipper"
-      7:
+      6:
+        sorter: "clipper"
+      8:
         sorter: "clipper"
     widthFixed: true
   ).tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах
-    size: 9
+    size: 8
 
   # Кнопки очистки полей ввода
   $("#clear-manufacturer").click ->
@@ -104,7 +104,7 @@ $ ->
   )
 
   $(".catalog-number-link").click ->
-    domModal.toggle()
+    vinModal.toggle()
 
   $("#catalog-number-close").live "click", ->
     vinModal.modal('hide')
@@ -113,16 +113,16 @@ $ ->
 	# Табличка Замены
 	
 	
-  vinModal = $("#replacements-modal").modal(
+  replacementsModal = $("#replacements-modal").modal(
     backdrop: true
     modal: true
   )
 
   $(".replacements-link").click ->
-    domModal.toggle()
+    replacementsModal.toggle()
 
   $("#replacements-close").live "click", ->
-    vinModal.modal('hide')
+    replacementsModal.modal('hide')
 
 
 

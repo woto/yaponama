@@ -57,9 +57,9 @@
 
   <h4><%= content_for?(:title2) ? "#{yield(:title2)}".html_safe : "" %></h4>
 
-  <br id="jump"/>
+  <br />
 
-  <noindex><p><span class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов.</p></noindex>
+  <noindex><p><span id="jump" class="label notice">Подсказка</span> Используйте сортировку по нескольким полям зажав клавишу Shift и щелкая мышью по заголовку таблицы. Например нажмите на заголовке Производитель, зажмите Shift и щелкните по заголовку Цена. А так же вы можете уточнить замену по конкретной детали указав в поиске производителя, для этого введите название производителя самостоятельно либо просто  щелкните по каталожному номеру в списке результатов.</p></noindex>
 
   <br />
 
@@ -68,6 +68,7 @@
       <tr>
         <th style="width: 80px">  <a href="#">Произв.</a> </th>
         <th style="width: 80px"> <a href="#">Кат.&nbsp;ном.</a> </th>
+        <th style="width: 55px">  <a href="#">Инфо</a> </th>
         <th> <a href="#">Название</a> </th>
         <th style="width: 60px">  <a href="#">Нал.</a> </th>
         <th style="width: 50px">  <a href="#">От</a> </th>
@@ -80,8 +81,18 @@
       <% @parsed_json["result_prices"].each do |result_price| %>
         <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
-          <td> <%= catalog_number = result_price["catalog_number"] %> </td>
-          <td> <%= link_to (title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{18})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 40) + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "")), search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
+          <td> <%= link_to (catalog_number = result_price["catalog_number"]), search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
+          <td> 
+            <% rand = rand(4) %>
+            <% if rand == 0 %>
+              <%= link_to '<img src="/assets/information.png" alt="Информация" title="Информация" />'.html_safe, info_path(catalog_number, manufacturer) %>
+            <% elsif (1..2) === rand %>
+              <img src="/assets/loading.gif" alt="Ожидайте" title="Ожидайте" />
+            <% else %>
+              <img src="/assets/empty-32x35.png" alt="Не найдено" title="Не найдено" />
+            <% end %>
+          </td>
+          <td> <%= (title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ,.]{18})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 35) + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "")) %> </td>
           <td> <%= count_decorator(result_price["count"]) %></td>
           <td> <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %></td>
           <td> <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %></td>
@@ -125,7 +136,7 @@
 
     <select class="pagesize" style="display: none">
       <!-- Не забыть, что это в 2-х местах -->
-      <option selected="selected"  value="9">9</option>
+      <option selected="selected"  value="8">8</option>
       <option value="20">20</option>
       <option value="30">30</option>
       <option  value="40">40</option>
@@ -135,6 +146,10 @@
   </div>
 
   <%= image_tag "spare_parts.png", :style => "z-index: 11; position: absolute; display: none", :id => "wishes-logo" %>
+
+  <h3>
+    <%= "Повторить поиск #{ link_to 'с учетом замен', search_searches_path(params[:catalog_number], params[:manufacturer], '1', :anchor => 'jump') } <br />".html_safe if (params[:replacements].to_i != 1) %>
+  </h3>
 <% else %>
   <% unless params.key? :skip %>
     <% if params[:catalog_number].blank? %>

@@ -32,7 +32,7 @@ Yaponama::Application.routes.draw do
       post 'wishes' => "orders#destroy", :as => 'multiple_update_wishes_path', :via => 'put', :constraints => lambda { |req| req.env["rack.request.form_hash"]["commit"] =~ /Отменить заказ и вернуть товары в корзину/ }      
     end
   end
-  
+
   resources :searches do 
     match '(/:catalog_number(/:manufacturer(/:replacements)))' => "searches#index", :on => :collection, :as => :search, :via => :get
     match '?skip' => "searches#index", :on => :collection, :as => :skip_search, :via => :get
@@ -117,4 +117,7 @@ Yaponama::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
+
+  match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
+
 end
