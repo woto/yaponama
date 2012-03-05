@@ -54,8 +54,8 @@ $ ->
 
       element = $(this)
         
-      $.ajax
-        url: "http://192.168.2.9" + $(this).parent().attr("href")
+      $.ajaxq "queue",
+        url: "http://192.168.2.9:5000" + $(this).parent().attr("href")
         crossDomain: true
         dataType: "jsonp"
         cache: true
