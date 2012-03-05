@@ -64,7 +64,6 @@
 			function moveToRelativePage(relative, table) {
 				var c = table.config;
 				c.page = parseInt($(relative).attr("id").replace(/\D/g, ''), 10) - 2;
-        console.log(c.page)
 				moveToPage(table);
 			}
 

@@ -46,10 +46,31 @@ $ ->
       8:
         sorter: "clipper"
     widthFixed: true
-  ).tablesorterPager 
+  )
+
+  # Поехали с запросом информации
+  $("table#result-prices").bind "applyWidgets", -> 
+    $(this).find("tr .info").each ->
+
+      element = $(this)
+        
+      $.ajax
+        url: "http://192.168.2.9" + $(this).parent().attr("href")
+        crossDomain: true
+        dataType: "jsonp"
+        cache: true
+        success: ->
+          element.attr('src', "/assets/information.png")
+        error: ->
+          element.attr('src', "/assets/1x1.gif")
+        beforeSend: ->
+          element.attr('src', "/assets/loading.gif")
+    
+  $("table#result-prices").tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах
     size: 8
+
 
   # Кнопки очистки полей ввода
   $("#clear-manufacturer").click ->
@@ -97,7 +118,6 @@ $ ->
 	
 	# Табличка Каталожный номер
 	
-	
   vinModal = $("#catalog-number-modal").modal(
     backdrop: true
     modal: true
@@ -112,7 +132,6 @@ $ ->
 	
 	# Табличка Замены
 	
-	
   replacementsModal = $("#replacements-modal").modal(
     backdrop: true
     modal: true
@@ -123,6 +142,3 @@ $ ->
 
   $("#replacements-close").live "click", ->
     replacementsModal.modal('hide')
-
-
-

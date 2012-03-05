@@ -78,19 +78,14 @@
       </tr>
     </thead>
     <tbody>
-      <% @parsed_json["result_prices"].each do |result_price| %>
+      <% @parsed_json["result_prices"].each_with_index do |result_price, i| %>
         <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> <%= link_to (catalog_number = result_price["catalog_number"]), search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
-          <td> 
-            <% rand = rand(4) %>
-            <% if rand == 0 %>
-              <%= link_to '<img src="/assets/information.png" alt="Информация" title="Информация" />'.html_safe, info_path(catalog_number, manufacturer) %>
-            <% elsif (1..2) === rand %>
-              <img src="/assets/loading.gif" alt="Ожидайте" title="Ожидайте" />
-            <% else %>
-              <img src="/assets/empty-32x35.png" alt="Не найдено" title="Не найдено" />
-            <% end %>
+          <td>
+            <!-- "http://api.geonames.org/postalCodeLookupJSON" -->
+            <!-- info_path(catalog_number, manufacturer) -->
+            <%= link_to(tag("img", :src => "/assets/1x1.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :alt => "Отсутствует", :title => "Отсутствует"), info_path(catalog_number, manufacturer) ) %>
           </td>
           <td> <%= (title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ,.]{18})/, '\1 '), :length => ( session[:screen_width].to_i > 1024 ) ? 60 : 35) + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "")) %> </td>
           <td> <%= count_decorator(result_price["count"]) %></td>
@@ -117,7 +112,7 @@
                 <% btn_class = 'danger' %>
                 <% avtorif_data_content = "Есть в наличии в магазинах Авториф, тел: +7 (495) 72-706-72. Для получения заявленной цены сообщите код скидки '2201'" %>
                 <% avtorif_rel = 'popover' %>
-                <% avtorif_title = 'Суперпредложение!' %>
+                <% avtorif_title = 'Супер предложение!' %>
               <% end %>
 
               <%= f.submit retail_cost, :rel => avtorif_rel, :title => avtorif_title, "data-content" => avtorif_data_content, :class => "btn buy-button #{btn_class}", :style=>"width: 90px" %>

@@ -11,27 +11,31 @@
 <% end %>
   
 <% if @parsed_json["result_prices"].count > 0 %>
-   <% @parsed_json["result_prices"].each do |result_price| %>
-      <br /><br />    
-      <%= form_for(:wish, :url => wishes_path, :anchor => "jump", :method => :post) do |f| %>
-        <%= manufacturer = result_price["manufacturer"] %> -
-        <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> -
-        <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "") %> -
-        <%= count_decorator(result_price["count"]) %> (От <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %> До <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %>)
-        <%= country = result_price["job_import_job_country_short"] %>
-        <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>            
+  <% @parsed_json["result_prices"].each do |result_price| %>
+    <br /><br />    
+    <%= form_for(:wish, :url => wishes_path, :anchor => "jump", :method => :post) do |f| %>
+      <%= manufacturer = result_price["manufacturer"] %> -
+      <%= link_to catalog_number = result_price["catalog_number"],  search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> -
+      <%= title = ("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ]{15})/, '\1 ') + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "") %> -
+      <%= count_decorator(result_price["count"]) %> (От <%= days_decorator(result_price['job_import_job_delivery_days_declared']) %> До <%= days_decorator(result_price["job_import_job_delivery_days_average"]) %>)
+      <%= country = result_price["job_import_job_country_short"] %>
+      <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>            
         
-        <%= f.hidden_field :cost, :value => retail_cost %>
-        <%= f.hidden_field :catalog_number, :value => catalog_number %>
-        <%= f.hidden_field :manufacturer, :value => manufacturer %>
-        <%= f.hidden_field :title, :value => title %>
-        <%= f.hidden_field :count, :value => result_price["count"] %>
-        <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'] %>
-        <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"] %>
-        <%= f.hidden_field :country, :value => country %>
-        <%= f.submit retail_cost %>
-      <% end %>
-   <% end %>
+      <%= f.hidden_field :cost, :value => retail_cost %>
+      <%= f.hidden_field :catalog_number, :value => catalog_number %>
+      <%= f.hidden_field :manufacturer, :value => manufacturer %>
+      <%= f.hidden_field :title, :value => title %>
+      <%= f.hidden_field :count, :value => result_price["count"] %>
+      <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'] %>
+      <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"] %>
+      <%= f.hidden_field :country, :value => country %>
+      <%= f.submit retail_cost %>
+    <% end %>
+  <% end %>
+  <br />
+  <h3>
+    <%= "Повторить поиск #{ link_to 'с учетом замен', search_searches_path(params[:catalog_number], params[:manufacturer], '1', :anchor => 'jump') } <br />".html_safe if (params[:replacements].to_i != 1) %>
+  </h3>
 <% else %>
   <% unless params.key? :skip %>
     <% if params[:catalog_number].blank? %>
