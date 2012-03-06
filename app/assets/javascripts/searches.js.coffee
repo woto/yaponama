@@ -65,10 +65,12 @@ $ ->
       $.ajaxq "queue_" + id,
         url: "http://192.168.2.9:5000" + $(this).parent().attr("href")
         crossDomain: true
+        timeout: 10000
         dataType: "jsonp"
         cache: true
-        success: ->
+        success: (data, textStatus, jqXHR) ->
           element.attr('src', "/assets/information.png")
+          element.attr('title', data.time)
         error: ->
           element.attr('src', "/assets/1x1.gif")
         beforeSend: ->
