@@ -50,11 +50,19 @@ $ ->
 
   # Поехали с запросом информации
   $("table#result-prices").bind "applyWidgets", -> 
+    id = Math.random()
+
+    $(this).find("tr .info").each ->
+      element = $(this)
+      element.attr('src', "/assets/1x1.gif")
+
+    $.ajaxq.clearQueue()
+
     $(this).find("tr .info").each ->
 
       element = $(this)
         
-      $.ajaxq "queue",
+      $.ajaxq "queue_" + id,
         url: "http://192.168.2.9:5000" + $(this).parent().attr("href")
         crossDomain: true
         dataType: "jsonp"

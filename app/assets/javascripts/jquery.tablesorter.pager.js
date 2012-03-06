@@ -118,13 +118,14 @@
 				
 				fixPosition(table,tableBody);
 				
-				$(table).trigger("applyWidgets");
-				
 				if( c.page >= c.totalPages ) {
         			moveToLastPage(table);
 				}
 				
 				updatePageDisplay(c);
+
+				$(table).trigger("applyWidgets");
+				
 			}
 			
 			this.appender = function(table,rows) {

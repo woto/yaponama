@@ -44,18 +44,19 @@
         // If there is no queue, create an empty one and instantly process this item.
         // Otherwise, just add this item onto it for later processing.
         function enqueue(cb) {
-            if (!queues[qname]) {
-                queues[qname] = [];
-                cb();
-            }
-            else {
-                queues[qname].push(cb);
-            }
+          if (!queues[qname]) {
+              queues[qname] = [];
+              cb();
+          }
+          else {
+              queues[qname].push(cb);
+          }
         }
 
         // Remove the next callback from the queue and fire it off.
         // If the queue was empty (this was the last item), delete it from memory so the next one can be instantly processed.
         function dequeue() {
+          if (queues[qname]) {
             var nextCallback = queues[qname].shift();
             if (nextCallback) {
                 nextCallback();
@@ -63,6 +64,7 @@
             else {
                 delete queues[qname];
             }
+          }
         }
     };
     
@@ -86,6 +88,15 @@
             });
         };
     });
+
+    $.ajaxq.clearQueue = function() {
+        for (var i in queues) {
+            if (queues.hasOwnProperty(i)) {
+                delete queues[i]
+            }
+        }
+        return false;
+    };
 
     $.ajaxq.isRunning = function() {
         for (var i in queues) {
