@@ -23,7 +23,12 @@ class SearchesController < ApplicationController
       end
 
       url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_site=1")
-      resp = Net::HTTP.get_response(url)
+      begin
+        resp = Net::HTTP.get_response(url)
+      rescue Exception => e
+        response.headers["Retry-After"] = (Time.now.utc + 1.day).to_s
+        render :cms_page => "/503", :status => 503 and return
+      end
       @parsed_json = ActiveSupport::JSON.decode(resp.body)
       #@parsed_json["result_prices"].shuffle!
       
