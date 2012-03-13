@@ -2,4 +2,8 @@
 <br />
 Производитель: <%= params[:manufacturer] %>
 <br />
-<img src="http://37.110.44.140/static/<%= params[:catalog_number] %>.png" width="921" height="686" />
+<% if (request.remote_ip == "127.0.0.1") || (request.remote_ip == "37.110.44.140") || (request.remote_ip == "192.168.2.9") %>
+  <img src="http://192.168.2.9:5000/static/<%= params[:catalog_number] %>.png" width="921" height="686" />
+<% else %>
+  <img src="http://37.110.44.140/static/<%= params[:catalog_number] %>.png" width="921" height="686" />
+<% end %>
