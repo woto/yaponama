@@ -118,6 +118,7 @@ Yaponama::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 
-  match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
+  #match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
+  match '/info/:catalog_number(/:manufacturer)' => "info#index", :as => :info, :via => :get
 
 end

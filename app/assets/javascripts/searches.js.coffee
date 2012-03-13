@@ -63,13 +63,13 @@ $ ->
       element = $(this)
         
       $.ajaxq "queue_" + id,
-        url: "http://192.168.2.9:5000" + $(this).parent().attr("href")
+        url: "http://37.110.44.140" + $(this).parent().attr("href")
         crossDomain: true
-        timeout: 10000
+        timeout: 20000
         dataType: "jsonp"
         cache: true
         success: (data, textStatus, jqXHR) ->
-          element.attr('src', "/assets/information.png")
+          element.attr('src', "http://37.110.44.140/static/" + data.time + ".png")
           element.attr('title', data.time)
         error: ->
           element.attr('src', "/assets/1x1.gif")
