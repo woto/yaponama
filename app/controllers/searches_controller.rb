@@ -27,7 +27,9 @@ class SearchesController < ApplicationController
         resp = Net::HTTP.get_response(url)
       rescue Exception => e
         response.headers["Retry-After"] = (Time.now.utc + 1.day).to_s
+        @show_sidebar = true
         render :cms_page => "/503", :status => 503 and return
+
       end
       @parsed_json = ActiveSupport::JSON.decode(resp.body)
       #@parsed_json["result_prices"].shuffle!
