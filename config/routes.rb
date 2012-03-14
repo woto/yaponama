@@ -13,7 +13,7 @@ Yaponama::Application.routes.draw do
 
   get 'about' => "about#index"
   
-  post 'screen_width' => "screen_width#index"
+  post 'data' => 'data#index'
 
   resources :search_histories
 

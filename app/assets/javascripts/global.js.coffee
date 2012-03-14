@@ -25,9 +25,3 @@ $ ->
 
   once(0)
   
-  unless $("#screen-width").html()
-    $.ajax({
-      type: "POST",
-      url: "screen_width",
-      data: "screen_width=" + screen.width
-    });

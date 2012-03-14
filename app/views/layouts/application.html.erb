@@ -200,8 +200,7 @@
   </div>
 </div>
 
-<div style="display: none" id="screen-width"><%= session[:screen_width] %></div>
-<div style="display: none" id="remote-ip"><%= request.remote_ip %></div>
+<%= tag :div, :id => "data", :data => {:sent => session[:sent].to_s, :remote_ip => request.remote_ip, :screen_width => session[:screen_width], :screen_height => session[:screen_height]} %>
 
 <%= render :partial => 'layouts/counters' %>
 

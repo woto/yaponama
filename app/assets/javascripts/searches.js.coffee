@@ -62,7 +62,7 @@ $ ->
 
       element = $(this)
         
-      if($("#remote-ip").html() == "127.0.0.1" || $("#remote-ip").html() == "37.110.44.140" || $("#remote-ip").html() == "192.168.2.9")
+      if $("#data").data("remote-ip") == "127.0.0.1" || $("#data").data("remote-ip") == "37.110.44.140" || $("#data").data("remote-ip") == "192.168.2.9"
         catalog_address = "http://192.168.2.9:5000"
       else
         ccatalog_address = "http://37.110.44.140"
