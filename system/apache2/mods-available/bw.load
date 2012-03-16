@@ -1,0 +1,1 @@
+LoadModule bw_module /usr/lib/apache2/modules/mod_bw.so

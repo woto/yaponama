@@ -1,0 +1,1 @@
+LoadModule evasive20_module /usr/lib/apache2/modules/mod_evasive20.so

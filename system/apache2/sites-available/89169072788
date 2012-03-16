@@ -1,0 +1,40 @@
+<VirtualHost *:80>
+	ServerName www.yaponama.ru
+	ServerAdmin info@yaponama.ru
+
+	DocumentRoot /var/www/yaponama/public
+
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride All
+	</Directory>
+
+	<Directory /var/www/yaponama/public>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ErrorLog /var/log/apache2/yaponama.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /var/log/apache2/yaponama.log combined
+	
+	ProxyPass /json/ http://37.110.44.140/json/
+	ProxyPassReverse /json/ http://37.110.44.140/json/
+
+	ProxyPass /static http://37.110.44.140/static
+	ProxyPassReverse /static http://37.110.44.140/static
+	
+
+	<Proxy http://37.110.44.140>
+		Order deny,allow
+		Allow from all
+	</Proxy>
+
+
+</VirtualHost>
