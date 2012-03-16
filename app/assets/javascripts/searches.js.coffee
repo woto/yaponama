@@ -62,19 +62,14 @@ $ ->
 
       element = $(this)
         
-      if $("#data").data("remote-ip") == "127.0.0.1" || $("#data").data("remote-ip") == "37.110.44.140" || $("#data").data("remote-ip") == "192.168.2.9"
-        catalog_address = "http://192.168.2.9:5000"
-      else
-        ccatalog_address = "http://37.110.44.140"
-
       $.ajaxq "queue_" + id,
-        url:  catalog_address + $(this).parent().attr("href")
+        url:  "/json" + $(this).parent().attr("href")
         crossDomain: true
         timeout: 20000
         dataType: "jsonp"
         cache: true
         success: (data, textStatus, jqXHR) ->
-          element.attr('src', catalog_address + "/static/" + data.time + ".png")
+          element.attr('src', "/static/" + data.time + ".png")
           element.attr('title', data.time)
         error: ->
           element.attr('src', "/assets/1x1.gif")
