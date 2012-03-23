@@ -40,6 +40,7 @@
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+  <script src="http://<%= APP_CONFIG["juggernaut_address"] %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
   <%= csrf_meta_tags %>
   <% if params[:commit] == "Искать" %>
     <meta name="robots" content="noindex, follow">

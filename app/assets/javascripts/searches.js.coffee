@@ -48,34 +48,15 @@ $ ->
     widthFixed: true
   )
 
-  # Поехали с запросом информации
-  $("table#result-prices").bind "applyWidgets", -> 
-    id = Math.random()
-
-    $(this).find("tr .info").each ->
-      element = $(this)
-      element.attr('src', "/assets/1x1.gif")
-
-    $.ajaxq.clearQueue()
-
-    $(this).find("tr .info").each ->
-
-      element = $(this)
-        
-      $.ajaxq "queue_" + id,
-        url:  "/json" + $(this).parent().attr("href")
-        crossDomain: true
-        timeout: 20000
-        dataType: "jsonp"
-        cache: true
-        success: (data, textStatus, jqXHR) ->
-          element.attr('src', "/static/" + data.time + ".png")
-          element.attr('title', data.time)
-        error: ->
-          element.attr('src', "/assets/1x1.gif")
-        beforeSend: ->
-          element.attr('src', "/assets/loading.gif")
+  #element.attr('src', "/assets/1x1.gif")
+  #element.attr('src', "/assets/loading.gif")
     
+  $("table#result-prices").bind "applyWidgets", ->
+    $(this).find("tr .info").each ->
+      jug = new Juggernaut
+      jug.subscribe $(this).parent().attr('href'), (data) ->
+        console.log "Got data: " + data
+
   $("table#result-prices").tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах
