@@ -1,3 +1,22 @@
+# Juggernaut
+
+$ ->
+  window.subscribedChannels = []
+  window.jug = new Juggernaut
+
+window.subscribe = (channelsToSubscribe) -> 
+
+  for idx, subscribedChannel of subscribedChannels
+    jug.unsubscribe(subscribedChannel)
+    
+  i = 0
+
+  for channelToSubscribe of channelsToSubscribe
+    channel = channelToSubscribe + ":" + channelsToSubscribe[channelToSubscribe]
+    subscribedChannels.push(channel)
+    jug.subscribe channel, (data) ->
+      console.log(data)
+
 $ ->
   $(".alert-message").alert()
   $('.dropdown').dropdown()

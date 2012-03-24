@@ -48,14 +48,21 @@ $ ->
     widthFixed: true
   )
 
-  #element.attr('src', "/assets/1x1.gif")
-  #element.attr('src', "/assets/loading.gif")
-    
+  # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
+  # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
+  # его узнавать это по щелчку
+  #
+  
+
   $("table#result-prices").bind "applyWidgets", ->
-    $(this).find("tr .info").each ->
-      jug = new Juggernaut
-      jug.subscribe $(this).parent().attr('href'), (data) ->
-        console.log "Got data: " + data
+    channels = {}
+    for line in $(this).find("tr .info")
+      channel = $(line).parent().attr('href')
+      if typeof channels[channel] is "undefined"
+        channels[channel] = []
+      channels[channel].push $(line).attr("id")
+
+    subscribe(channels)
 
   $("table#result-prices").tablesorterPager 
     container: $("#pager")

@@ -1,3 +1,12 @@
+<script>
+  $(function() {
+    subscribe({"<%= info_path(params[:catalog_number], params[:manufacturer]) %>": "info"});
+  });
+</script>
+
+<div id="info">
+</div>
+
 Каталожный номер: <%= params[:catalog_number] %>
 <br />
 Производитель: <%= params[:manufacturer] %>
