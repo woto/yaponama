@@ -70,6 +70,7 @@ $ ->
       element = "#" + $(line).attr("id")
       Application.publish('info', marker, 50, url, element)
 
+
   $("table#result-prices").tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах

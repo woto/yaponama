@@ -2,16 +2,16 @@ window.Application ||= {}
 
 # Juggernaut
 
-$ ->
+Application.connect = ->
   Application.jug = new Juggernaut
   if $.cookie('stream') == null
     $.cookie('stream', Math.random())
 
-Application.connect = ->
   random = Math.random()
   #jug.meta = {
   #  random: random
   #}
+  
   Application.jug.subscribe random, (data) ->
     console.log data
     # $(interestedElement).after(JSON.stringify(data))

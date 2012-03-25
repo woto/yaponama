@@ -1,23 +1,30 @@
 import redis
 from juggernaut import Juggernaut
 import time	
+import pdb
 
-jug = Juggernaut()
+rs = redis.Redis()
+jug = Juggernaut(rs)
+
 for event, data in jug.subscribe_listen():
   print event
   print data
 
-##import pdb
-#
+  if event == "custom":
+    #pdb.set_trace()
+    if data['data']['command'] == 'info':
+      rs.publish('workers', data)
+  elif event == "subscribe":
+    pass
+  elif event == "unsubscribe":
+    pass
+
 ##msg = {
 ##  "channels": ["channel1"],
 ##  "data": "foo"
 ##}
 ##
 ##r.publish("juggernaut", json.dumps(msg))
-#
-#
-#rc = redis.Redis()
 #ps = rc.pubsub()
 #
 ##ps.subscribe(['chat', 'juggernaut'])
