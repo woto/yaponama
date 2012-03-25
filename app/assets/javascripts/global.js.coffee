@@ -4,6 +4,8 @@ window.Application ||= {}
 
 $ ->
   Application.jug = new Juggernaut
+  if $.cookie('stream') == null
+    $.cookie('stream', Math.random())
 
 Application.connect = ->
   random = Math.random()
@@ -23,8 +25,7 @@ Application.publish = (command, marker, priority, url, element) ->
     marker: marker 
     url: url
     element: element
-    cookie: 'some'
-    #cookie: $.cookie('_session_id')
+    cookie: $.cookie('stream')
   }
 
   Application.jug.write(message)
