@@ -1,23 +1,38 @@
+window.Application ||= {}
+
 # Juggernaut
 
 $ ->
-  window.subscribedChannels = []
-  window.jug = new Juggernaut
+  Application.jug = new Juggernaut
 
-window.subscribe = (channelsToSubscribe) -> 
+Application.connect = ->
+  random = Math.random()
+  #jug.meta = {
+  #  random: random
+  #}
+  Application.jug.subscribe random, (data) ->
+    console.log data
+    # $(interestedElement).after(JSON.stringify(data))
 
-  for idx, subscribedChannel of subscribedChannels
-    jug.unsubscribe(subscribedChannel)
-    
-  i = 0
+Application.publish = (command, marker, priority, url, element) ->
+  message = new Juggernaut.Message
+  message.type = "event"
+  message.data = {
+    command: command
+    priority: priority
+    marker: marker 
+    url: url
+    element: element
+    cookie: 'some'
+    #cookie: $.cookie('_session_id')
+  }
 
-  for channelToSubscribe of channelsToSubscribe
-    channel = channelToSubscribe + ":" + channelsToSubscribe[channelToSubscribe]
-    subscribedChannels.push(channel)
-    jug.subscribe channel, (data) ->
-      console.log(data)
+  Application.jug.write(message)
 
+# end of Juggernaut
+  
 $ ->
+
   $(".alert-message").alert()
   $('.dropdown').dropdown()
 

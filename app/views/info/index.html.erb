@@ -1,6 +1,6 @@
 <script>
   $(function() {
-    subscribe({"<%= info_path(params[:catalog_number], params[:manufacturer]) %>": "info"});
+    subscribe({"<%= info_path(params[:catalog_number], params[:manufacturer]) %>": ["#info"]});
   });
 </script>
 

@@ -1,5 +1,5 @@
 defaults: &defaults
-  juggernaut_address: '192.168.2.3'
+  juggernaut_address: '192.168.2.7'
   #emex_income_rate: 1.0
   #avtorif_income_rate: 1.0
   #retail_rate: 1.0

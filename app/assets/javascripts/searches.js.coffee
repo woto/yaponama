@@ -1,3 +1,5 @@
+window.Application ||= {}
+
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
@@ -51,18 +53,22 @@ $ ->
   # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
   # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
   # его узнавать это по щелчку
-  #
-  
+ 
+  Application.connect()
+  marker = undefined
 
   $("table#result-prices").bind "applyWidgets", ->
-    channels = {}
-    for line in $(this).find("tr .info")
-      channel = $(line).parent().attr('href')
-      if typeof channels[channel] is "undefined"
-        channels[channel] = []
-      channels[channel].push $(line).attr("id")
 
-    subscribe(channels)
+    if marker
+      Application.publish('mark down', marker)
+
+    marker = Math.random()
+    Application.publish('new marker', marker)
+
+    for line in $(this).find("tr .info")
+      url = $(line).parent().attr('href')
+      element = "#" + $(line).attr("id")
+      Application.publish('info', marker, 50, url, element)
 
   $("table#result-prices").tablesorterPager 
     container: $("#pager")
