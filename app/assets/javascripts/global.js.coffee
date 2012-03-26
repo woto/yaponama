@@ -16,14 +16,15 @@ Application.connect = ->
     console.log data
     # $(interestedElement).after(JSON.stringify(data))
 
-Application.publish = (command, marker, priority, url, element) ->
+Application.publish = (command, marker, catalog_number, manufacturer, priority, element) ->
   message = new Juggernaut.Message
   message.type = "event"
   message.data = {
     command: command
     priority: priority
     marker: marker 
-    url: url
+    catalog_number: catalog_number
+    manufacturer: manufacturer
     element: element
     cookie: $.cookie('stream')
   }

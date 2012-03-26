@@ -1,6 +1,7 @@
 <script>
   $(function() {
-    subscribe({"<%= info_path(params[:catalog_number], params[:manufacturer]) %>": ["#info"]});
+    Application.connect()
+    Application.publish('info', Math.random(), "<%= params[:catalog_number] %>", "<%= params[:manufacturer] %>", 100, "#info")
   });
 </script>
 

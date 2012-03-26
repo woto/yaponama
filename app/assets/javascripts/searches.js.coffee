@@ -65,10 +65,12 @@ $ ->
     marker = Math.random()
     Application.publish('new marker', marker)
 
-    for line in $(this).find("tr .info")
-      url = $(line).parent().attr('href')
-      element = "#" + $(line).attr("id")
-      Application.publish('info', marker, 50, url, element)
+    for element in $(this).find("tr .info")
+      #url = $(line).parent().attr('href')
+      id = "#" + $(element).attr("id")
+      catalog_number = $(element).data('catalog-number')
+      manufacturer = $(element).data('manufacturer')
+      Application.publish('info', marker, catalog_number, manufacturer, 50, id)
 
 
   $("table#result-prices").tablesorterPager 
