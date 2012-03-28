@@ -68,8 +68,8 @@ $ ->
     for element in $(this).find("tr .info")
       #url = $(line).parent().attr('href')
       id = "#" + $(element).attr("id")
-      catalog_number = $(element).data('catalog-number')
-      manufacturer = $(element).data('manufacturer')
+      catalog_number = $(element).attr('data-catalog-number')
+      manufacturer = $(element).attr('data-manufacturer')
       Application.publish('info', marker, catalog_number, manufacturer, 50, id)
 
 
