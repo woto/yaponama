@@ -23,7 +23,7 @@ for event, data in jug.subscribe_listen():
       # TOYOTA
       if manufacturer == "TOYOTA":
          for area in ['Europe', 'General', 'USA, Canada', 'Japan']:
-           rs.publish('bee', json.dumps({'caps': 'Toyota EPC', 'data': data}))
+           rs.publish('bee', json.dumps({'caps': 'Toyota EPC', 'area': area, 'command': 'applicability', 'data': data}))
 
       # NISSAN
       elif manufacturer == "NISSAN":
@@ -32,6 +32,7 @@ for event, data in jug.subscribe_listen():
       # MITSUBISHI
       elif manufacturer == "MITSUBISHI":
         pass
+
       rs.publish('bee', json.dumps({'caps': 'Tecdoc', 'data': data}))
 
     # MARK DOWN

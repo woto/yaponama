@@ -4,16 +4,23 @@ window.Application ||= {}
 
 Application.connect = ->
   Application.jug = new Juggernaut
-  if $.cookie('stream') == null
-    $.cookie('stream', Math.random())
+  if $.cookie('cookie') == null
+    $.cookie('cookie', Math.random())
 
-  random = Math.random()
+  # TODO Было ...random(), не помню как хотел здесь сделать
+  #random = Math.random()
+  random = $.cookie('cookie')
+
   #jug.meta = {
   #  random: random
   #}
   
   Application.jug.subscribe random, (data) ->
     console.log data
+    #alert(data)
+    $("#info").append(data)
+    #alert('1')
+    #alert(data)
     # $(interestedElement).after(JSON.stringify(data))
 
 Application.publish = (command, marker, catalog_number, manufacturer, priority, element) ->
@@ -26,7 +33,7 @@ Application.publish = (command, marker, catalog_number, manufacturer, priority, 
     catalog_number: catalog_number
     manufacturer: manufacturer
     element: element
-    cookie: $.cookie('stream')
+    cookie: $.cookie('cookie')
   }
 
   Application.jug.write(message)
