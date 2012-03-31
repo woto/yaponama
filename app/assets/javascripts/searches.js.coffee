@@ -65,7 +65,7 @@ $ ->
       $.ajaxq "queue_" + id,
         url:  "/json" + $(this).parent().attr("href")
         crossDomain: true
-        timeout: 20000
+        timeout: 30000
         dataType: "jsonp"
         cache: true
         success: (data, textStatus, jqXHR) ->

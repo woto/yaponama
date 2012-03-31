@@ -24,14 +24,14 @@
 
 	CustomLog /var/log/apache2/yaponama.log combined
 	
-	ProxyPass /json/ http://37.110.44.140/json/
-	ProxyPassReverse /json/ http://37.110.44.140/json/
+	ProxyPass /json/ http://78.47.225.51:8080/json/
+	ProxyPassReverse /json/ http://78.47.225.51:8080/json/
 
-	ProxyPass /static http://37.110.44.140/static
-	ProxyPassReverse /static http://37.110.44.140/static
+	ProxyPass /static http://78.47.225.51:8080/static
+	ProxyPassReverse /static http://78.47.225.51:8080/static
 	
 
-	<Proxy http://37.110.44.140>
+	<Proxy http://78.47.225.51:8080>
 		Order deny,allow
 		Allow from all
 	</Proxy>
