@@ -55,6 +55,7 @@ $ ->
   # его узнавать это по щелчку
  
   Application.connect()
+
   marker = undefined
 
   $("table#result-prices").bind "applyWidgets", ->

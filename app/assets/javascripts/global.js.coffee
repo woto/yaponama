@@ -4,23 +4,22 @@ window.Application ||= {}
 
 Application.connect = ->
   Application.jug = new Juggernaut
+
   if $.cookie('cookie') == null
     $.cookie('cookie', Math.random())
 
-  # TODO Было ...random(), не помню как хотел здесь сделать
-  #random = Math.random()
-  random = $.cookie('cookie')
+  $.cookie('channel', Math.random())
+  channel = $.cookie('channel')
 
   #jug.meta = {
   #  random: random
   #}
+  # еще есть возможность отправлять получить идентификатор соединения juggernaut в javascript
   
-  Application.jug.subscribe random, (data) ->
+  Application.jug.subscribe channel, (data) ->
     console.log data
     #alert(data)
     $("#info").append(data)
-    #alert('1')
-    #alert(data)
     # $(interestedElement).after(JSON.stringify(data))
 
 Application.publish = (command, marker, catalog_number, manufacturer, priority, element) ->
@@ -34,6 +33,7 @@ Application.publish = (command, marker, catalog_number, manufacturer, priority, 
     manufacturer: manufacturer
     element: element
     cookie: $.cookie('cookie')
+    channel: $.cookie('channel')
   }
 
   Application.jug.write(message)
