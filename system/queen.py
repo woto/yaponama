@@ -10,6 +10,7 @@ jug = Juggernaut(rs)
 for event, data in jug.subscribe_listen():
   print event
   print data
+  print ''
 
   # CUSTOM
   if event == "custom":
@@ -17,23 +18,38 @@ for event, data in jug.subscribe_listen():
 
     # INFO
     if command == 'info':
-      manufacturer = data['data']['manufacturer']
-      catalog_number = data['data']['catalog_number']
 
       # TOYOTA
-      if manufacturer == "TOYOTA":
+      #pdb.set_trace()
+      if data['data']['manufacturer'] == "TOYOTA":
+
          for area in ['Europe', 'General', 'USA, Canada', 'Japan']:
-           rs.publish('bee', json.dumps({'caps': 'Toyota EPC', 'area': area, 'command': 'applicability', 'data': data}))
+           rs.publish('bee', json.dumps({
+             'caps': 'Toyota EPC', 
+             'manufacturer': data['data']['manufacturer'], 
+             'area': area, 
+             'command': 'part_number_application_to_models', 
+             'channel': data['data']['channel'],
+             'catalog_number': data['data']['catalog_number'],
+           }))
+
+         # Тут еще будет Microcat Toyota
 
       # NISSAN
-      elif manufacturer == "NISSAN":
+      elif data['data']['manufacturer'] == "NISSAN":
         pass
 
       # MITSUBISHI
-      elif manufacturer == "MITSUBISHI":
+      elif data['data']['manufacturer'] == "MITSUBISHI":
         pass
 
-      rs.publish('bee', json.dumps({'caps': 'Tecdoc', 'data': data}))
+      rs.publish('bee', json.dumps({
+        'caps': 'Tecdoc', 
+        'manufacturer': data['data']['manufacturer'],
+        'command': 'specifically_number_info',
+        'channel': data['data']['channel'],
+        'catalog_number': data['data']['catalog_number']
+      }))
 
     # MARK DOWN
     elif command == 'mark down':
@@ -50,21 +66,3 @@ for event, data in jug.subscribe_listen():
   # UNSUBSCRIBE
   elif event == "unsubscribe":
     pass
-
-##msg = {
-##  "channels": ["channel1"],
-##  "data": "foo"
-##}
-##
-##r.publish("juggernaut", json.dumps(msg))
-#ps = rc.pubsub()
-#
-##ps.subscribe(['chat', 'juggernaut'])
-##rc.publish('foo', 'hello world')
-#
-#ps.psubscribe("*")
-#for item in ps.listen():
-#    print item
-#    #if item['type'] == 'message':
-#    #    print item['channel']
-#    #    print item['data']
