@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import redis
 from juggernaut import Juggernaut
 import time	
