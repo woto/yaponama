@@ -22,7 +22,13 @@ class SearchesController < ApplicationController
         SearchHistory.create(:user_id => current_user.try(:id), :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present? ? manufacturer : nil))
       end
 
-      url = URI.parse("http://188.64.170.156:85/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}&ext_ws=1&format=json&for_site=1")
+      request_emex = ''
+
+      if APP_CONFIG["request_emex"]
+        request_emex = "&ext_ws=1"
+      end
+
+      url = URI.parse("http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1")
       begin
         resp = Net::HTTP.get_response(url)
       rescue Exception => e
