@@ -1,23 +1,71 @@
 var redis   = require("redis");
+var sub = redis.createClient();
+var pub = redis.createClient();
+//redis.debug_mode = true;
 
-var msg = {
-    "channels": ["channel1", "0.20572326495312154"],
-      "data": "foo"
-};
+sub.on("pmessage", function(channel, msg, data){
 
-var client = redis.createClient();
+  data = JSON.parse(data);
 
-client.on("pmessage", function(channel, msg, data){
-  channel = JSON.stringify(channel);
-  msg = JSON.stringify(msg);
-  data = JSON.stringify(data);
-  console.log(msg);
-  console.log(channel);
-  console.log(data);
-  console.log('')
+  switch(msg) {
+    case "juggernaut:custom":
+      command = data['data']['command']
+      switch(command) {
+        case "info":
+          switch(data["data"]["manufacturer"]) {
+            case "TOYOTA":
+              areas = ['Europe', 'General', 'USA, Canada', 'Japan']
+              for (var i=0; i<areas.length; i++){
+                 pub.publish('bee', JSON.stringify({
+                   'caps': 'Toyota EPC', 
+                   'manufacturer': data['data']['manufacturer'], 
+                   'area': areas[i], 
+                   'command': 'part_number_application_to_models', 
+                   'channel': data['data']['channel'],
+                   'catalog_number': data['data']['catalog_number'],
+                 }))
+              }
+
+              // Тут будет Microcat Toyota
+
+              break;
+            case "NISSAN":
+              break;
+
+            case "MITSUBISHI":
+              break;
+
+          }
+          pub.publish('bee', JSON.stringify({
+            'caps': 'Tecdoc', 
+            'manufacturer': data['data']['manufacturer'],
+            'command': 'specifically_number_info',
+            'channel': data['data']['channel'],
+            'catalog_number': data['data']['catalog_number']
+          }));
+          break;
+        case "mark down":
+          break;
+        case "new marker":
+          break;
+      }
+      break;
+    case "juggernaut:subscribe":
+      console.log('subscribe');
+      break;
+    case "juggernaut:unsubscribe":
+      console.log('unsubscribe');
+      break;
+    // default:
+  }
+  
+  //console.log(msg);
+  //console.log(channel);
+  //console.log(data);
+  //console.log('')
 });
 
-client.psubscribe("juggernaut");
+sub.psubscribe("juggernaut:*");
 
 
 
