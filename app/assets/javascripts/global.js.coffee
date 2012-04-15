@@ -2,6 +2,8 @@ window.Application ||= {}
 
 # Juggernaut
 
+Application.publish_queue = []
+
 Application.connect = ->
   Application.jug = new Juggernaut
 
@@ -22,6 +24,16 @@ Application.connect = ->
     $("#info").append(data)
     # $(interestedElement).after(JSON.stringify(data))
 
+  Application.jug.on 'connect', ->
+    Application.juggernaut_connected = true
+    Application.publish_only_after_connect()
+
+Application.publish_only_after_connect = ->
+  if Application.juggernaut_connected
+    while message = Application.publish_queue.pop()
+      Application.jug.write(message)
+
+
 Application.publish = (command, marker, catalog_number, manufacturer, priority, element) ->
   message = new Juggernaut.Message
   message.type = "event"
@@ -36,7 +48,8 @@ Application.publish = (command, marker, catalog_number, manufacturer, priority, 
     channel: $.cookie('channel')
   }
 
-  Application.jug.write(message)
+  Application.publish_queue.push(message)
+  Application.publish_only_after_connect()
 
 # end of Juggernaut
   
