@@ -18,99 +18,105 @@ sub.on("pmessage", function(channel, msg, data){
 
   switch (msg) {
     case 'queen':
-      switch(data['command']) {
-        case 'part_number_application_to_models':
-          // Получаем список заинетересованных каналов и перенаправляем им "в реальном времени" все, что получили
-          // от клиентов
-          pub.smembers('c:' + data['catalog_number'] + ":" + data['manufacturer'], function(err, channels){
-            var msg = {
-              "channels": channels,
-              "data": data
-            }
-            pub.publish("juggernaut", JSON.stringify(msg));
-          });
+      // Получаем список заинетересованных каналов и перенаправляем им "в реальном времени" все, что получили
+      // от клиентов
+      pub.smembers('c:' + data['catalog_number'] + ":" + data['manufacturer'], function(err, channels){
+        var msg = {
+          "channels": channels,
+          "data": data
+        }
+        pub.publish("juggernaut", JSON.stringify(msg));
+      });
 
-          // По-пути записав в 'i...', чтобы всем новым зашедшим сразу отдать результат в промежутке, когда
-          // данные имеются частично
-          pub.lpush('i:' + data['catalog_number'] + ":" + data['manufacturer'], JSON.stringify(data))
-          break;
-      }
+      // По-пути записав в 'i...', чтобы всем новым зашедшим сразу отдать результат в промежутке, когда
+      // данные имеются частично
+      pub.lpush('i:' + data['catalog_number'] + ":" + data['manufacturer'], JSON.stringify(data))
       break;
     case "juggernaut:custom":
       command = data['data']['command'];
 
       switch(command) {
+
         case "info":
 
           // Добавляем в список получаетелей
           key = 'c:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer']
-          pub.sadd(key, data['data']['channel']);
-
-          // Отдаем, что уже есть на данный момент
-          pub.lrange('i:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], 0, -1, function(err, replies){
-            replies.forEach(function(reply, i){
-              var msg = {
-                "channels": data['data']['channel'],
-                "data": JSON.parse(reply)
-              }
-              pub.publish("juggernaut", JSON.stringify(msg));
-            })
-          });
-
-          // TODO избавиться от l:.... и для c:.... задать ttl
-          // и по-возможности узнать или переделать так чтобы из c:...
-          // я смог удалять каналы
-
-          // Плодим дочерние, если не делали этого
-          pub.incr('l:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], function(err, reply){
-            if (reply == '1') {
-
-              switch(data["data"]["manufacturer"]) {
-                case "TOYOTA":
-                  areas = ['Europe', 'General', 'USA, Canada', 'Japan']
-                  for (var i=0; i<areas.length; i++){
-                    
-                    pub.publish('bee', JSON.stringify({
-                      'caps': 'Toyota EPC', 
-                      'manufacturer': data['data']['manufacturer'], 
-                      'area': areas[i], 
-                      'command': 'part_number_application_to_models', 
-                      'catalog_number': data['data']['catalog_number']
-                    }))
+          pub.sadd(key, data['data']['channel'], function(err, reply){
+            if(reply == 1) {
+              // Отдаем, что уже есть на данный момент
+              pub.lrange('i:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], 0, -1, function(err, replies){
+                replies.forEach(function(reply, i){
+                  var msg = {
+                    "channels": data['data']['channel'],
+                    "data": JSON.parse(reply)
                   }
+                  pub.publish("juggernaut", JSON.stringify(msg));
+                })
+              });
 
-                  // Тут будет Microcat Toyota
+              // TODO избавиться от l:.... и для c:.... задать ttl
+              // и по-возможности узнать или переделать так чтобы из c:...
+              // я смог удалять каналы
 
-                  break;
-                case "NISSAN":
-                  break;
+              // Плодим дочерние, если не делали этого
+              pub.incr('l:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], function(err, reply){
+                if (reply == '1') {
 
-                case "MITSUBISHI":
-                  break;
+                  switch(data["data"]["manufacturer"]) {
+                    case "TOYOTA":
+                      areas = ['Europe', 'General', 'USA, Canada', 'Japan']
+                      for (var i=0; i<areas.length; i++){
+                        
+                        pub.publish('bee', JSON.stringify({
+                          'caps': 'Toyota EPC', 
+                          'manufacturer': data['data']['manufacturer'], 
+                          'area': areas[i], 
+                          'command': 'part_number_application_to_models', 
+                          'catalog_number': data['data']['catalog_number']
+                        }))
+                      }
 
-                case "FEBEST":
+                      pub.publish('bee', JSON.stringify({
+                        'caps': 'Toyota Microcat', 
+                        'manufacturer': data['data']['manufacturer'], 
+                        'command': 'part_number_application_to_models_2', 
+                        'catalog_number': data['data']['catalog_number']
+                      }))
+                      break;
+
+                    case "NISSAN":
+                      break;
+
+                    case "MITSUBISHI":
+                      break;
+
+                    case "FEBEST":
+                      pub.publish('bee', JSON.stringify({
+                        'caps': 'Febest',
+                        'manufacturer': data['data']['manufacturer'],
+                        'command': 'specifically_number_info',
+                        'channel': data['data']['channel'],
+                        'catalog_number': data['data']['catalog_number']
+                      }));
+                      break;
+
+                  }
                   pub.publish('bee', JSON.stringify({
-                    'caps': 'Febest',
+                    'caps': 'Tecdoc', 
                     'manufacturer': data['data']['manufacturer'],
                     'command': 'specifically_number_info',
                     'channel': data['data']['channel'],
                     'catalog_number': data['data']['catalog_number']
                   }));
-                  break;
-
-              }
-              pub.publish('bee', JSON.stringify({
-                'caps': 'Tecdoc', 
-                'manufacturer': data['data']['manufacturer'],
-                'command': 'specifically_number_info',
-                'channel': data['data']['channel'],
-                'catalog_number': data['data']['catalog_number']
-              }));
-            } //
-          }); //
+                } //
+              }); //
+            }
+          });
           break;
+
         case "mark down":
           break;
+
         case "new marker":
           break;
       }
