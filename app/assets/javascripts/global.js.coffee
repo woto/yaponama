@@ -3,6 +3,7 @@ window.Application ||= {}
 # Juggernaut
 
 Application.publish_queue = []
+Application.juggernaut_connected = false
 
 Application.connect = ->
   Application.jug = new Juggernaut
@@ -11,14 +12,13 @@ Application.connect = ->
     $.cookie('cookie', Math.random())
 
   $.cookie('channel', Math.random())
-  channel = $.cookie('channel')
 
   #jug.meta = {
   #  random: random
   #}
   # еще есть возможность отправлять получить идентификатор соединения juggernaut в javascript
   
-  Application.jug.subscribe channel, (data) ->
+  Application.jug.subscribe $.cookie('channel'), (data) ->
     console.log data
     #alert(data)
     $("#info").append(data)
