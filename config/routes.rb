@@ -11,8 +11,6 @@ Yaponama::Application.routes.draw do
     get 'page/:page', :action => :index, :on => :collection
   end
 
-  get 'about' => "about#index"
-  
   post 'data' => 'data#index'
 
   resources :search_histories

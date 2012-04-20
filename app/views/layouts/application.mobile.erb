@@ -31,7 +31,7 @@
   <p><%= link_to "Поиск запчастей", searches_path(:skip => true, :anchor => "jump") %></p>
   <p><%= link_to "Корзина", wishes_path(:anchor => "jump"), :id => "wishes-link" %></p>
   <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
-  <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
+  <p><%= link_to "О Магазине", "/about#jump" %></p>
   <% if user_signed_in? %>
     <p><%= link_to "Профиль", edit_user_registration_path(:anchor => "jump") %></p>  
     <% if session[:admin_id] %>

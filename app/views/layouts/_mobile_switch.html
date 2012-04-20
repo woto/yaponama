@@ -1,5 +1,5 @@
 <% if is_mobile_view? %>
    <%= link_to "Полная версия сайта", :skip_mobile => 'true', :anchor => "jump" %>
 <% else %>
-<%= link_to "Мобильная версия сайта", {:skip_mobile => 'false', :anchor => "jump"}, :rel => "nofollow" %>
+  <%= link_to "Мобильная версия сайта", {:skip_mobile => 'false', :anchor => "jump"}, :rel => "nofollow" %>
 <% end %>
