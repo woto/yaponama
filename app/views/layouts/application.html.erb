@@ -180,20 +180,12 @@
     <div class="row">
       <div class="span5">
         <address>
-          <strong>&copy; Yaponama 2012</strong><br />
-          г. Москва, ул. Красноармейская, д. 8, к. 3<br />
-          сот: +7 (916) 907-27-88<br />
-          e-mail:
-          <script>
-            document.write('<a href="mai' + 'lto:info@' + 'yaponama.ru">'+ 'info@' + 'yaponama.ru' + '</a>')
-          </script>
+          <strong><%= link_to "&copy; Yaponama 2012".html_safe, about_path %></strong> <br />
+          <%= render :partial => 'layouts/mobile_switch' %>
         </address>
       </div>
       <div style="float: right">
-          <br />
-          <br />
-          <a href="/populyarnie-avtozapchasti">Популярные автозапчасти</a><br />
-          <%= render :partial => 'layouts/mobile_switch' %>
+        <%= render :partial => 'layouts/public_counters' %>
       </div>
     </div>
   </footer>
