@@ -43,8 +43,10 @@ class CarsController < ApplicationController
     respond_to do |format|
       if @car.save
         format.html { redirect_to new_car_request_path(@car), :notice => 'Вы успешно добавили новый автомобиль.' }
+        format.mobile { redirect_to new_car_request_path(@car), :notice => 'Вы успешно добавили новый автомобиль.' }
       else
         format.html { render :action => "new" }
+        format.mobile { render :action => "new" }
       end
     end
   end
@@ -60,8 +62,10 @@ class CarsController < ApplicationController
       if @car.update_attributes(params[:car])
         @car.touch
         format.html { redirect_to cars_path, :notice => 'Вы успешно обновили свойства автомобиля.' }
+        format.mobile { redirect_to cars_path, :notice => 'Вы успешно обновили свойства автомобиля.' }
       else
         format.html { render :action => "edit" }
+        format.mobile { render :action => "edit" }
       end
     end
   end

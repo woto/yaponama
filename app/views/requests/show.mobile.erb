@@ -1,0 +1,30 @@
+<h1><%= yield(:title) %></h1>
+<br />
+<% if @request.car.present? %>
+  <p><span class="label important">К сведению</span> Диалог ведется на тему автомобиля <strong>"<%= car_identity(@request) %>"</strong>.</p>
+<% else %>
+  <p><span class="label important">К сведению</span> Диалог ведется <strong>без указания автомобиля</strong>.</p>
+<% end %>
+
+<br />
+<br />
+
+<table class="zebra-striped">
+  <tbody>
+    <% @request.messages.each do |message| %>
+      <tr><td><em><%= message.user.user_name %> <%= l(message.created_at, :format => :short) %>  писал:</em></td></tr>
+      <tr><td>
+        <%= simple_format(message.message) %>
+          <% message.message_assets.each do |message_asset| %>
+            <a class="gallery" rel="gallery_<%= message.id %>" href="<%= message_asset.file.colorbox.url %>"><%= image_tag(message_asset.file.thumb.url) if message_asset.file? %></a>
+          <% end %>
+      </td></tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br /><br />
+
+<%= render :partial => 'form', :locals => {:save_text => "Отправить",
+                                           :return_text => "списку запросов",
+                                           :return_path => requests_path} %>

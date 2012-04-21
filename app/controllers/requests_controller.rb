@@ -76,9 +76,11 @@ class RequestsController < ApplicationController
     respond_to do |format|
       if @request.save        
         format.html { redirect_to request_path(@request), :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
+        format.mobile { redirect_to request_path(@request), :notice => 'Запрос был успешно создан, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { render :json => @request, :status => :created, :location => @request }
       else
         format.html { render :action => "new" }
+        format.mobile { render :action => "new" }
         format.json { render :json => @request.errors, :status => :unprocessable_entity }
       end
     end
@@ -102,9 +104,11 @@ class RequestsController < ApplicationController
       if @request.update_attributes(params[:request])
         @request.touch
         format.html { redirect_to @request, :notice => 'Ответ был успешно отправлен, мы уведомим вас посредством SMS об ответе менеджера.' }
+        format.mobile { redirect_to @request, :notice => 'Ответ был успешно отправлен, мы уведомим вас посредством SMS об ответе менеджера.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
+        format.mobile { render :action => "edit" }
         format.json { render :json => @request.errors, :status => :unprocessable_entity }
       end
     end
