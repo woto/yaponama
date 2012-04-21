@@ -1,7 +1,9 @@
+<% catalog_number = params[:catalog_number] %>
+<% manufacturer = params[:manufacturer] %>
+
 <script>
-  $(function() {
-    Application.publish('info', Math.random(), "<%= params[:catalog_number] %>", "<%= params[:manufacturer] %>", 100, "#info")
-  });
+  Application.catalog_number = "<%= catalog_number %>";
+  Application.manufacturer = "<%= manufacturer %>";
 </script>
 
 <table class="zebra-striped" id="info">
@@ -17,8 +19,10 @@
   </tr>
 </table>
 
-Каталожный номер: <%= params[:catalog_number] %>
+Каталожный номер: <%= catalog_number %>
 <br />
-Производитель: <%= params[:manufacturer] %>
+
+Производитель: <%= manufacturer %>
 <br />
-  <img src="/static/<%= params[:catalog_number] %>.png" alt="<%= "#{params[:catalog_number]} (#{params[:manufacturer]})" %>" width="921" height="686" />
+
+<%= tag("img", :src => "/static/#{params[:catalog_number]}.png", :alt => "#{params[:catalog_number]} (#{params[:manufacturer]})", :width => "921", :height => "686", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer} ) %>

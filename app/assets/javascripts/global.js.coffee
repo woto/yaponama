@@ -31,16 +31,14 @@ Application.connect = ->
 Application.publish_only_after_connect = ->
   if Application.juggernaut_connected
     while message = Application.publish_queue.pop()
+      console.log message
       Application.jug.write(message)
 
-
-Application.publish = (command, marker, catalog_number, manufacturer, priority, element) ->
+Application.publish = (command, catalog_number, manufacturer, element) ->
   message = new Juggernaut.Message
   message.type = "event"
   message.data = {
     command: command
-    priority: priority
-    marker: marker 
     catalog_number: catalog_number
     manufacturer: manufacturer
     element: element
@@ -54,6 +52,8 @@ Application.publish = (command, marker, catalog_number, manufacturer, priority, 
 # end of Juggernaut
   
 $ ->
+  Application.connect()
+
 
   $(".alert-message").alert()
   $('.dropdown').dropdown()

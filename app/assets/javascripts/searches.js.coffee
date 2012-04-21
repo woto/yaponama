@@ -54,24 +54,13 @@ $ ->
   # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
   # его узнавать это по щелчку
  
-  Application.connect()
-
-  marker = undefined
-
   $("table#result-prices").bind "applyWidgets", ->
 
-    if marker
-      Application.publish('mark down', marker)
-
-    marker = Math.random()
-    Application.publish('new marker', marker)
-
     for element in $(this).find("tr .info")
-      #url = $(line).parent().attr('href')
       id = "#" + $(element).attr("id")
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
-      Application.publish('info', marker, catalog_number, manufacturer, 50, id)
+      Application.publish('info', catalog_number, manufacturer, id)
 
 
   $("table#result-prices").tablesorterPager 
