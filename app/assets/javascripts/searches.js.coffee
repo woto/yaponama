@@ -56,11 +56,12 @@ $ ->
  
   $("table#result-prices").bind "applyWidgets", ->
 
+    Application.connect()
+
     for element in $(this).find("tr .info")
-      id = "#" + $(element).attr("id")
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
-      Application.publish('info', catalog_number, manufacturer, id)
+      Application.publish('info', catalog_number, manufacturer)
 
 
   $("table#result-prices").tablesorterPager 

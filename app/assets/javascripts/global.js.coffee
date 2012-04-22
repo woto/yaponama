@@ -8,10 +8,7 @@ Application.juggernaut_connected = false
 Application.connect = ->
   Application.jug = new Juggernaut
 
-  if $.cookie('cookie') == null
-    $.cookie('cookie', Math.random())
-
-  $.cookie('channel', Math.random())
+  $.cookie('channel', Math.random(), {path: '/'})
 
   #jug.meta = {
   #  random: random
@@ -22,7 +19,10 @@ Application.connect = ->
     console.log data
     #alert(data)
     $("#info").append(data)
-    # $(interestedElement).after(JSON.stringify(data))
+
+    $(".info[data-catalog-number='"+data['catalog_number']+"'][data-manufacturer'"+data['manufacturer']+"']").each (i, element) ->
+      $(element).attr('src', '/assets/information.png')
+    #$(interestedElement).after(JSON.stringify(data))
 
   Application.jug.on 'connect', ->
     Application.juggernaut_connected = true
@@ -31,18 +31,15 @@ Application.connect = ->
 Application.publish_only_after_connect = ->
   if Application.juggernaut_connected
     while message = Application.publish_queue.pop()
-      console.log message
       Application.jug.write(message)
 
-Application.publish = (command, catalog_number, manufacturer, element) ->
+Application.publish = (command, catalog_number, manufacturer) ->
   message = new Juggernaut.Message
   message.type = "event"
   message.data = {
     command: command
     catalog_number: catalog_number
     manufacturer: manufacturer
-    element: element
-    cookie: $.cookie('cookie')
     channel: $.cookie('channel')
   }
 
@@ -52,8 +49,6 @@ Application.publish = (command, catalog_number, manufacturer, element) ->
 # end of Juggernaut
   
 $ ->
-  Application.connect()
-
 
   $(".alert-message").alert()
   $('.dropdown').dropdown()

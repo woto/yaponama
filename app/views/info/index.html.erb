@@ -1,9 +1,10 @@
 <% catalog_number = params[:catalog_number] %>
 <% manufacturer = params[:manufacturer] %>
 
+
 <script>
-  Application.catalog_number = "<%= catalog_number %>";
-  Application.manufacturer = "<%= manufacturer %>";
+  Application.connect()
+  Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>")
 </script>
 
 <table class="zebra-striped" id="info">
