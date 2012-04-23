@@ -20,7 +20,7 @@ Application.connect = ->
     #alert(data)
     #$("#info").append(data)
 
-    $(".info[data-catalog-number='"+data['catalog_number']+"'][data-manufacturer'"+data['manufacturer']+"']").each (i, element) ->
+    $(".info[data-catalog-number='"+data['catalog_number']+"'][data-manufacturer='"+data['manufacturer']+"']").each (i, element) ->
       $(element).attr('src', '/assets/information.png')
     
     if ($("#info").length > 0)
