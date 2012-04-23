@@ -82,7 +82,7 @@
 				if(c.page < 0 || c.page > (c.totalPages-1)) {
 					c.page = 0;
 				}
-				
+
 				renderTable(table,c.rowsCopy);
 			}
 			

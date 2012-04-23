@@ -175,20 +175,22 @@
   <% end %>
 
   <div class="content">
-	<%= yield %>
-  <footer>
-    <div class="row">
-      <div class="span5">
-        <address>
-          <strong><%= link_to "&copy; Yaponama 2012".html_safe, about_path %></strong> <br />
-          <%= render :partial => 'layouts/mobile_switch' %>
-        </address>
+    <!-- <article> -->
+    <%= yield %>
+    <!-- </article> -->
+    <footer>
+      <div class="row">
+        <div class="span5">
+          <address>
+            <strong><%= link_to "&copy; Yaponama 2012".html_safe, about_path %></strong> <br />
+            <%= render :partial => 'layouts/mobile_switch' %>
+          </address>
+        </div>
+        <div style="float: right">
+          <%= render :partial => 'layouts/public_counters' %>
+        </div>
       </div>
-      <div style="float: right">
-        <%= render :partial => 'layouts/public_counters' %>
-      </div>
-    </div>
-  </footer>
+    </footer>
   </div>
 </div>
 

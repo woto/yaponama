@@ -113,12 +113,6 @@ sub.on("pmessage", function(channel, msg, data){
             }
           });
           break;
-
-        case "mark down":
-          break;
-
-        case "new marker":
-          break;
       }
       break;
 
