@@ -3,3 +3,4 @@
 //= require_tree .
 //= require bootstrap
 //= require cocoon
+//= require ckeditor/init

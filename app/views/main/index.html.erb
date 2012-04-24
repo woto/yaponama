@@ -39,3 +39,6 @@
     </a>
   </li>
 </ul>
+
+
+<%= cktext_area_tag("content", "Ckeditor", :input_html => {:cols => 10, :rows => 20}, :toolbar => 'Full', :contentsCss => asset_paths.asset_for('application', 'css').to_a.collect{|asset| asset_path(asset, :ext => 'css', :body => true, :protocol => :request, :digest => digest_assets?)}) %>

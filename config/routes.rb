@@ -1,4 +1,6 @@
 Yaponama::Application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
+
   # http://railsdog.com/blog/2010/10/29/redirect-non-www-requests-the-rails3-way/
   #constraints(:host => /^yaponama.ru/) do
   #  root :to => redirect("http://www.yaponama.ru")

@@ -69,8 +69,10 @@ gem 'mail', '2.3.0'
 gem 'mime-types', '1.17.2'
 gem 'mini_magick', '3.3'
 gem 'rbx-require-relative', '0.0.5'
-gem 'orm_adapter', '0.0.5'
+gem 'orm_adapter', '0.0.6'
 gem 'rack-cache', '1.1'
 gem 'subexec', '0.1.0'
 gem 'tzinfo', '0.3.31'
 gem 'warden', '1.1.0'
+gem "ckeditor", "3.7.0.rc3"
+
