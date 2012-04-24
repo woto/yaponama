@@ -1,4 +1,6 @@
 Yaponama::Application.routes.draw do
+  resources :parts
+
   mount Ckeditor::Engine => '/ckeditor'
 
   # http://railsdog.com/blog/2010/10/29/redirect-non-www-requests-the-rails3-way/
