@@ -1,9 +1,13 @@
-<%= simple_form_for(@part) do |f| %>
+<%= simple_form_for(@part, :wrapper => :inline) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
-    <%= f.input :content %>
+      <%= f.input :name %>
+      <div class="unmargin">
+        <%= f.input :content, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Full' } %>
+      </div
   </div>
+  
 
   <div class="actions">
     <%= f.button :submit %>

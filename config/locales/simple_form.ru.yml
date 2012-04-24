@@ -32,6 +32,7 @@ ru:
       vin: <a class="vin-link" href="#" data-controls-modal="vin-modal">VIN код</a>
       frame: <a class="frame-link" href="#" data-controls-modal="frame-modal">FRAME код</a>
       komplektaciya: Комплектация
+      name: Название блока 
 
     hints:
       user_name: Как лучше к вам обращаться?
