@@ -178,7 +178,7 @@ GEM
     sprockets (2.0.3)
       hike (~> 1.2)
       rack (~> 1.0)
-      tilt (~> 1.1, != 1.3.0)
+      tilt (!= 1.3.0, ~> 1.1)
     subexec (0.1.0)
     therubyracer (0.9.9)
       libv8 (~> 3.3.10)
@@ -201,8 +201,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  arel (= 2.2.1)
   bootstrap-sass (= 1.4.0)
   carrierwave (= 0.5.7)
+  chronic (= 0.6.6)
   cocoon (= 1.0.14)
   coffee-rails (~> 3.1.1)
   coffee-script-source (= 1.1.3)
@@ -211,30 +213,39 @@ DEPENDENCIES
   content_for_in_controllers!
   daemons (= 1.1.4)
   delayed_job (= 3.0.0.pre)
-  delayed_job_active_record
+  delayed_job_active_record (= 0.2.1)
   devise (= 1.5.1)
   enumerated_attribute
   execjs (= 1.2.9)
+  fssm (= 0.2.7)
   galetahub-simple_captcha!
   humanizer!
   jquery-rails
   json (= 1.6.1)
   kaminari (= 0.12.4)
-  mini_magick
+  mail (= 2.3.0)
+  mime-types (= 1.17.2)
+  mini_magick (= 3.3)
   mobylette (= 1.5.0)
   mongrel
   multi_json (= 1.0.3)
   mysql2 (= 0.3.10)
+  orm_adapter (= 0.0.5)
   rack (= 1.3.5)
+  rack-cache (= 1.1)
   rails (= 3.1.3)
   rails-i18n (= 0.1.11)
+  rbx-require-relative (= 0.0.5)
   rdoc (= 3.11)
   ruby-debug
-  ruby-growl
+  ruby-growl (= 3.0)
   sass (= 3.1.10)
-  sass-rails (~> 3.1.5)
+  sass-rails (= 3.1.5)
   simple_form!
-  sitemap_generator
-  therubyracer
+  sitemap_generator (= 3.0.0)
+  subexec (= 0.1.0)
+  therubyracer (= 0.9.9)
+  tzinfo (= 0.3.31)
   uglifier (= 1.1.0)
-  whenever
+  warden (= 1.1.0)
+  whenever (= 0.7.0)
