@@ -9,6 +9,11 @@ class SearchesController < ApplicationController
 
     if params[:catalog_number].present? and (params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase).present?
 
+      seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
+      if request.fullpath != seo_url 
+        redirect_to seo_url
+      end
+
       if current_user.present?
         condition = { :user_id => current_user.id }
       else
