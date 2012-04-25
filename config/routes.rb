@@ -1,4 +1,6 @@
 Yaponama::Application.routes.draw do
+
+  match 'admin' => redirect('/blocks')
   resources :blocks, :only => ['edit', 'update', 'index']
 
   mount Ckeditor::Engine => '/ckeditor'
