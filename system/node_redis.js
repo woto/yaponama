@@ -50,6 +50,14 @@ sub.on("pmessage", function(channel, msg, data){
                     "channels": data['data']['channel'],
                     "data": JSON.parse(reply)
                   }
+
+                  var msg2 = {
+                    "channel": '111',
+                    "channels": '111',
+                    "data": '1'
+                  }
+                  pub.publish("juggernaut", JSON.stringify(msg2)); 
+                  pub.publish("juggernaut:custom", JSON.stringify(msg2)); 
                   pub.publish("juggernaut", JSON.stringify(msg));
                 })
               });
@@ -62,8 +70,8 @@ sub.on("pmessage", function(channel, msg, data){
               pub.incr('l:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], function(err, reply){
                 if (reply == '1') {
 
-                  switch(data["data"]["manufacturer"]) {
-                    case "TOYOTA":
+                  switch(true) {
+                    case /TOYOTA/.test(data["data"]["manufacturer"]):
                       areas = ['Europe', 'General', 'USA, Canada', 'Japan']
                       for (var i=0; i<areas.length; i++){
                         
@@ -74,6 +82,7 @@ sub.on("pmessage", function(channel, msg, data){
                           'command': 'part_number_application_to_models', 
                           'catalog_number': data['data']['catalog_number']
                         }))
+
                       }
 
                       pub.publish('bee', JSON.stringify({
@@ -87,10 +96,18 @@ sub.on("pmessage", function(channel, msg, data){
                     case "NISSAN":
                       break;
 
-                    case "MITSUBISHI":
+                    case /HYUNDAI/.test(data["data"]["manufacturer"]):
+                      console.log('got hyundai');
                       break;
 
-                    case "FEBEST":
+                    case /KIA/.test(data["data"]["manufacturer"]):
+                      console.log('got kia');
+                      break;
+
+                    case /MITSUBISHI/.test(data["data"]["manufacturer"]):
+                      break;
+
+                    case /FEBEST/.test(data["data"]["manufacturer"]):
                       pub.publish('bee', JSON.stringify({
                         'caps': 'Febest',
                         'manufacturer': data['data']['manufacturer'],
@@ -101,6 +118,8 @@ sub.on("pmessage", function(channel, msg, data){
                       break;
 
                   }
+
+
                   pub.publish('bee', JSON.stringify({
                     'caps': 'Tecdoc', 
                     'manufacturer': data['data']['manufacturer'],
