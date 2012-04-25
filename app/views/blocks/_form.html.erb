@@ -1,0 +1,19 @@
+<%= simple_form_for(@block, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+      <p>
+        Название: <strong> <%= @block.block_name %> </strong>
+      </p>
+
+      <div class="unmargin" %>
+        <%= f.input :content, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Full' } %>
+      </div>
+  </div>
+
+  <div class="actions">
+      <div class="unmargin" %>
+        <%= f.button :submit, :class => "primary" %> или назад к <%= link_to 'списку блоков', blocks_path %>
+      </div>
+  </div>
+<% end %>

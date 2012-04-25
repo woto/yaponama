@@ -1,0 +1,19 @@
+<h1>Список блоков</h1>
+
+<table class="zebra-striped">
+  <tr>
+    <th>Название блока</th>
+    <th>Действия</th>
+  </tr>
+
+<% @blocks.each do |block| %>
+  <tr>
+    <td><%= block.block_name %></td>
+    <td>
+      <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать&nbsp;блок</p>".html_safe, edit_block_path(block) %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />

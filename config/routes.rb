@@ -1,5 +1,5 @@
 Yaponama::Application.routes.draw do
-  resources :parts
+  resources :blocks, :only => ['edit', 'update', 'index']
 
   mount Ckeditor::Engine => '/ckeditor'
 

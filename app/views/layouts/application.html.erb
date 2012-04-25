@@ -13,7 +13,7 @@
         <%= yield(:title).to_s + " - " %>
       <% end %>
     <% end %>
-    Японама (Yaponama)
+    <%= render(:partial => "blocks/show", :locals => {:block_name => 'title'}) %>
   </title>
 
   <link rel="shortcut icon" href="http://www.yaponama.ru/favicon.ico" />
@@ -52,8 +52,7 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container-fluid">
-      <%= link_to "Yaponama.ru", root_path, :class => 'brand' %>
-
+      <%= link_to render(:partial => "blocks/show", :locals => {:block_name => 'header'}), root_path, :class => 'brand' %>
       <ul class="nav">
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Консультация", requests_path %></li>
         <li>
@@ -124,45 +123,11 @@
     <div class="sidebar">
 
       <div class="well">
-        <!--
-        <p>Наш сайт доступен в локальных сетях г. Норильска по следующим адресам:</p>
-          <ul>
-            <li> Стрим <a href="#">http://123.456.789.000</a></li>
-            <li> Норком <a href="#">http://123.456.789.000</a></li>
-          </ul>
-        <p> 
-          И в Интернете <a href="#">http://www.yaponama.ru</a>
-        </p>
-        -->
-        <p> Самые низкие цены на новые автозапчасти для иномарок, дающие фору лидерам рынка автозапчастей Москвы. </p>
-        <p> Не верите? Убедитесь сами </p>
-        <p> <a href="http://top.mail.ru/Rating/Cars-Spare/week/Visitors/1.html">Ссылка на самые посещаемые интернет магазины автозапчастей Москвы по версии mail.ru</a></p>
+        <%= render :partial => "blocks/show", :locals => {:block_name => 'sideblock_1'}  %>
       </div>
       
       <div class="well"> 
-        <!--
-        Вы администратор?
-        <%= current_user.try(:admin?) %>
-        -->
-
-        <h3>Сравните цены!</h3>
-        <br />
-
-        <p>Подшибник ступицы<br />(Mitsubishi) MR491449</p>
-        <a href="/searches/MR491449/MITSUBISHI/">yaponama.ru 1853р - 1902р</a><br />
-        <a href="http://exist.ru/price.aspx?pcode=MR491449">exist.ru 1931р - 2102р</a><br />
-        <br />
-        
-        <p>Тяга стабилизатора задняя<br />(Toyota) 48830−48010</p>
-        <a href="/searches/4883048010/TOYOTA">yaponama.ru 1046р - 1170р</a><br />
-        <a href="http://exist.ru/price.aspx?pid=83002B18&sr=-4">exist.ru 1282р - 1469р</a><br />
-        <br />
-
-        <p>Тормозной диск<br />(Mitsubishi) MR510741</p>
-        <a href="/searches/MR510741/MITSUBISHI/">yaponama.ru 3470р - 3539р</a><br />
-        <a href="http://exist.ru/price.aspx?pcode=MR510741">exist.ru 4085р - 5299р</a>
-        <br />
-
+        <%= render :partial => "blocks/show", :locals => {:block_name => 'sideblock_2'}  %>
       </div>      
 
     </div>
@@ -182,12 +147,16 @@
       <div class="row">
         <div class="span5">
           <address>
-            <strong><%= link_to "&copy; Yaponama 2012".html_safe, about_path %></strong> <br />
+            <strong><%= link_to(render(:partial => "blocks/show", :locals => {:block_name => 'copyright'}), about_path) %></strong> <br />
+        
             <%= render :partial => 'layouts/mobile_switch' %>
           </address>
         </div>
         <div style="float: right">
-          <%= render :partial => 'layouts/public_counters' %>
+          <%= render(:partial => "blocks/show", :locals => {:block_name => 'rambler_top100'}) %>
+          <%= render(:partial => "blocks/show", :locals => {:block_name => 'openstat'}) %>
+          <%= render(:partial => "blocks/show", :locals => {:block_name => 'mail_raiting'}) %>
+          <%= render(:partial => "blocks/show", :locals => {:block_name => 'live_internet'}) %>
         </div>
       </div>
     </footer>
@@ -196,7 +165,9 @@
 
 <%= tag :div, :id => "data", :data => {:sent => session[:sent].to_s, :remote_ip => request.remote_ip, :screen_width => session[:screen_width], :screen_height => session[:screen_height]} %>
 
-<%= render :partial => 'layouts/counters' %>
+
+<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'google_analytics'}) %>
+<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'yandex_metrika'}) %>
 
 </body>
 </html>

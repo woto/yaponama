@@ -62,7 +62,8 @@
 
 <%= render :partial => 'layouts/mobile_switch.html.erb' %>
 
-<%= render :partial => 'layouts/counters' %>
+<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'google_analytics'}) %>
+<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'yandex_metrika'}) %>
 
 
 </body>

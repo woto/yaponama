@@ -1,11 +1,3 @@
 <h1><%= yield(:title) %></h1>
-Рады, что вы посетили нашу страницу "О магазине"!
-<br />
-<br />
-<h2>Контактная информация</h2><div><div>Skype: woto-ru</div><div>ICQ: 109666888</div><div>e-mail: 
 
-         <script>
-                     document.write('<a href="mai' + 'lto:info@' + 'yaponama.ru">'+ 'info@' + 'yaponama.ru' + '</a>')
-                               </script>
-
-</div><div>МТС: +7 (916) 907-27-88</div></div><h2><br></h2><h2>Доставка и оплата</h2><div>Добавить.</div><h2><br></h2><h2>Банковские реквизиты</h2><div>Добавить.</div><h2><br></h2><h2>Сведения о регистрации</h2><div>И.П. Корнев Руслан Михайлович</div><div>ИНН: 245719329605</div><div>ОГРНИП: 312501203100041</div><div><br></div><div><a href="/assets/documents/inn.jpg"><img src="/assets/documents/inn_thumb.jpg"></a>&nbsp;<img><a href="/assets/documents/ogrnip.jpg"><img src="/assets/documents/ogrnip_thumb.jpg"></a></div><div><br></div><div><a href="http://service.nalog.ru/uwsfind.do">Проверка сведений на сайте Федеральной Налоговой Службы</a>&nbsp;</div><div><br></div><div><a href="/assets/documents/nalog.jpg"><img src="assets/documents/nalog_thumb.jpg"></a></div><div></div>
+<%= render(:partial => "blocks/show", :locals => {:block_name => 'about_mobile'}) %>

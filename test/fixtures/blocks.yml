@@ -2,6 +2,8 @@
 
 one:
   content: MyText
+  block_name: MyString
 
 two:
   content: MyText
+  block_name: MyString
