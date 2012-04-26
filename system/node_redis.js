@@ -86,7 +86,7 @@ sub.on("pmessage", function(channel, msg, data){
                       }))
                       break;
 
-                    case "NISSAN":
+                    case /NISSAN/.test(data["data"]["manufacturer"]):
                       break;
 
                     case /HYUNDAI/.test(data["data"]["manufacturer"]):
