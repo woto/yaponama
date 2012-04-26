@@ -11,7 +11,7 @@ class SearchesController < ApplicationController
 
       seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
       if env['REQUEST_URI'] != seo_url 
-        redirect_to seo_url
+        redirect_to seo_url and return
       end
 
       if current_user.present?
@@ -55,7 +55,7 @@ class SearchesController < ApplicationController
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
       if @parsed_json["result_prices"].size == 0
-        render :status => 404
+        render :status => 404 and return
       end
       @parsed_json["result_prices"].each do |item|
         next if item["job_import_job_country_short"].include?("avtorif.ru")
