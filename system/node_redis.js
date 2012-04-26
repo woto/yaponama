@@ -51,13 +51,6 @@ sub.on("pmessage", function(channel, msg, data){
                     "data": JSON.parse(reply)
                   }
 
-                  var msg2 = {
-                    "channel": '111',
-                    "channels": '111',
-                    "data": '1'
-                  }
-                  pub.publish("juggernaut", JSON.stringify(msg2)); 
-                  pub.publish("juggernaut:custom", JSON.stringify(msg2)); 
                   pub.publish("juggernaut", JSON.stringify(msg));
                 })
               });

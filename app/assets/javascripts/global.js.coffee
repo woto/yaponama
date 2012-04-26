@@ -15,9 +15,6 @@ Application.connect = ->
   #}
   # еще есть возможность отправлять получить идентификатор соединения juggernaut в javascript
   
-  Application.jug.subscribe '111', (data) ->
-    alert('1')
-
   Application.jug.subscribe $.cookie('channel'), (data) ->
     console.log data
     #alert(data)
