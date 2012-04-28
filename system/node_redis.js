@@ -91,7 +91,7 @@ sub.on("pmessage", function(channel, msg, data){
                       pub.pulish('bee', JSON.stringify({
                         'caps': 'Microcat Hyundai',
                         'manufacturer': data['data']['manufacturer'],
-                        'command': 'part_number_application_to_models'
+                        'command': 'part_number_application_to_models',
                         'catalog_number': data['data']['catalog_number']
                       }))
                       break;
@@ -100,7 +100,7 @@ sub.on("pmessage", function(channel, msg, data){
                       pub.pulish('bee', JSON.stringify({
                         'caps': 'Microcat KIA',
                         'manufacturer': data['data']['manufacturer'],
-                        'command': 'part_number_application_to_models'
+                        'command': 'part_number_application_to_models',
                         'catalog_number': data['data']['catalog_number']
                       }))
                       break;
