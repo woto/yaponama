@@ -61,6 +61,8 @@ $ ->
     for element in $(this).find("tr .info")
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
+      #$(".info[data-catalog-number='"+catalog_number+"'][data-manufacturer='"+manufacturer+"']").each (i, element) ->
+      $(element).attr('src', '/assets/loading.gif')
       Application.publish('info', catalog_number, manufacturer)
 
 

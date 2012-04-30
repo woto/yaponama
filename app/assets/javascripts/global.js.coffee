@@ -15,13 +15,59 @@ Application.connect = ->
   #}
   # еще есть возможность отправлять получить идентификатор соединения juggernaut в javascript
   
+
+  Application.toyota_epc_full_response_checker = {}
+
   Application.jug.subscribe $.cookie('channel'), (data) ->
     console.log data
     #alert(data)
     #$("#info").append(data)
+    
+    if(data['caps'] == 'Toyota EPC')
+      unless (Application.toyota_epc_full_response_checker[data['catalog_number']]?)
+        Application.toyota_epc_full_response_checker[data['catalog_number']] = {}
+      if data['data']?
+        Application.toyota_epc_full_response_checker[data['catalog_number']]['Japan'] = true
+        Application.toyota_epc_full_response_checker[data['catalog_number']]['General'] = true
+        Application.toyota_epc_full_response_checker[data['catalog_number']]['USA, Canada'] = true
+        Application.toyota_epc_full_response_checker[data['catalog_number']]['Europe'] = true
+      else
+        # TODO CHECK вот эта проверка возникла после того, как я обнаружил, что при поиске каталожного номера
+        # 0446533340 с учетом замен на странице 3 деталь 0446544140 отобразилась неправильно. Получилось это
+        # из-за того, что я безусловно из bee сначала отправляю пустышку. Конкретно по этому номеру получается,
+        # что эта деталь находится только в Japan и как-то получается так, что пустышка проскакивает позже, чем
+        # уже пришедшие имеющиеся данные, отсюда получается, что весь ассоциативный массив с регионами превращается
+        # в false. Надо проверить смогу ли я точно знать, найдена деталь или нет (на основе lines хотел в bee
+        # поковырять)
+        #if Application.toyota_epc_full_response_checker[data['catalog_number']][data['area']] != true
+        #  Application.toyota_epc_full_response_checker[data['catalog_number']][data['area']] = false
+        #
+        # TODO CHECK проверить предыдущее выражение, по-моему это уже лишнее, т.к. в Toyota EPC сделал так, что
+        # null отправляется только в случае если данные в данном регионе действительно не найдены
+        Application.toyota_epc_full_response_checker[data['catalog_number']][data['area']] = false
 
     $(".info[data-catalog-number='"+data['catalog_number']+"'][data-manufacturer='"+data['manufacturer']+"']").each (i, element) ->
-      $(element).attr('src', '/assets/information.png')
+      # Если не гоню, то правильно будет это делать здесь, т.к. это чисто клиентская забота отображать сведения о том, что найдены или не найдены данные
+        #console.log('1')
+
+      if data['caps'] == 'Toyota EPC'
+        if _.keys(Application.toyota_epc_full_response_checker[data['catalog_number']]).length == 4
+          if $(element).attr('src') != '/assets/information.png'
+            $(element).attr('src', '/assets/1x1.gif')
+
+        for area, value of Application.toyota_epc_full_response_checker[data['catalog_number']]
+          if(value == true)
+            $(element).attr('src', '/assets/information.png')
+            break
+      else
+        if data['data']?
+          $(element).attr('src', '/assets/information.png')
+        else
+          if $(element).attr('src') != '/assets/information.png'
+            $(element).attr('src', '/assets/1x1.gif')
+
+
+        
     
     if ($("#info").length > 0)
       window.common.toyota_epc_part_number_application_to_models(data)
