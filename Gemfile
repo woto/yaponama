@@ -75,4 +75,5 @@ gem 'subexec', '0.1.0'
 gem 'tzinfo', '0.3.31'
 gem 'warden', '1.1.0'
 gem "ckeditor", "3.7.0.rc3"
-
+gem 'rb-fsevent', '0.9.1'
+gem 'backbone-rails', '0.9.2'
