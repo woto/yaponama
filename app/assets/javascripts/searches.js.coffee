@@ -62,7 +62,7 @@ $ ->
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
       #$(".info[data-catalog-number='"+catalog_number+"'][data-manufacturer='"+manufacturer+"']").each (i, element) ->
-      if($(element).attr('src') != '/assets/1x1.gif' && $(element).attr('src') != '/assets/information.png')
+      if($(element).attr('src') == '/assets/init.gif')
         $(element).attr('src', '/assets/loading.gif')
         Application.publish('info', catalog_number, manufacturer)
 
