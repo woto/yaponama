@@ -79,7 +79,7 @@
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> <%= link_to (catalog_number = result_price["catalog_number"]), search_searches_path(catalog_number, manufacturer, '1', :anchor => "jump") %> </td>
           <td>
-            <%= link_to(tag("img", :src => "/assets/1x1.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация"), info_path(catalog_number, manufacturer) ) %>
+            <%= link_to(tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация"), info_path(catalog_number, manufacturer) ) %>
           </td>
           <td> <%= (title = truncate(("#{result_price["title"].to_s} #{result_price["title_en"].to_s}").mb_chars.gsub(/([^ ,.]{18})/, '\1 '), :length => ( session[:screen_width].to_i <= 0 ) ? 4048 : ((session[:screen_width].to_i > 1024 ) ? 60 : 35)) + " " + ((weight = result_price["weight_grams"].to_f) > 0 ? "#{((weight + 100) / 1000).round(1)}кг" : "")) %> </td>
           <td> <%= count_decorator(result_price["count"]) %></td>

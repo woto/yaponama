@@ -62,8 +62,9 @@ $ ->
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
       #$(".info[data-catalog-number='"+catalog_number+"'][data-manufacturer='"+manufacturer+"']").each (i, element) ->
-      $(element).attr('src', '/assets/loading.gif')
-      Application.publish('info', catalog_number, manufacturer)
+      if($(element).attr('src') != '/assets/1x1.gif' && $(element).attr('src') != '/assets/information.png')
+        $(element).attr('src', '/assets/loading.gif')
+        Application.publish('info', catalog_number, manufacturer)
 
 
   $("table#result-prices").tablesorterPager 
