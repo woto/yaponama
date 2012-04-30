@@ -4,3 +4,4 @@
 //= require bootstrap
 //= require cocoon
 //= require ckeditor/init
+//= require backbone-rails
