@@ -23,14 +23,14 @@
           $("#info").append(content)
           
         $("#toyota_epc_part_number_application_to_models").append("<tr>
-          <td>" + data['line'][0] + "</td>
-          <td>" + data['line'][1] + "</td>
-          <td>" + data['line'][2] + "</td>
-          <td>" + data['line'][3] + "</td>
-          <td>" + data['line'][4] + "</td>
-          <td>" + data['line'][5] + "</td>
-          <td>" + data['line'][6] + "</td>
-          <td>" + data['line'][7] + "</td>
+          <td>" + data['data'][0] + "</td>
+          <td>" + data['data'][1] + "</td>
+          <td>" + data['data'][2] + "</td>
+          <td>" + data['data'][3] + "</td>
+          <td>" + data['data'][4] + "</td>
+          <td>" + data['data'][5] + "</td>
+          <td>" + data['data'][6] + "</td>
+          <td>" + data['data'][7] + "</td>
           <td>" + data['area'] + "</td>
           </tr>")
 ) (if (typeof process is "undefined" or not process.versions) then window.common = window.common or {} else exports)
