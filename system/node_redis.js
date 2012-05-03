@@ -76,12 +76,21 @@ sub.on("pmessage", function(channel, msg, data){
                         }))
                       }
 
+                      //pub.publish('bee', JSON.stringify({
+                      //  'caps': 'Microcat Toyota', 
+                      //  'manufacturer': data['data']['manufacturer'], 
+                      //  'command': 'part_number_application_to_models', 
+                      //  'catalog_number': data['data']['catalog_number']
+                      //}))
+
                       pub.publish('bee', JSON.stringify({
-                        'caps': 'Toyota Microcat', 
-                        'manufacturer': data['data']['manufacturer'], 
-                        'command': 'part_number_application_to_models_2', 
+                        'caps': 'Tecdoc', 
+                        'manufacturer': data['data']['manufacturer'],
+                        'command': 'specifically_number_info',
+                        'channel': data['data']['channel'],
                         'catalog_number': data['data']['catalog_number']
-                      }))
+                      }));
+
                       break;
 
                     case "NISSAN":
@@ -118,10 +127,6 @@ sub.on("pmessage", function(channel, msg, data){
                       }));
                       break;
 
-                    // Невозможно передвинуть отсюда, т.к. начнется гонка условий (race confition)
-                    // Надо проработать механизм, чтобы можно было вынести из default в безусловную отправку
-                    // запроса в Tecdoc, а не только в случае если данный производитель не описан.
-                    // В частности с Toyota этот вопрос рассмотрен и обработан
                     default:
                       pub.publish('bee', JSON.stringify({
                         'caps': 'Tecdoc', 
@@ -130,7 +135,7 @@ sub.on("pmessage", function(channel, msg, data){
                         'channel': data['data']['channel'],
                         'catalog_number': data['data']['catalog_number']
                       }));
-                      break
+                      break;
                   }
                 } //
               }); //

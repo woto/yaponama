@@ -61,10 +61,14 @@ $ ->
     for element in $(this).find("tr .info")
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
-      #$(".info[data-catalog-number='"+catalog_number+"'][data-manufacturer='"+manufacturer+"']").each (i, element) ->
-      if($(element).attr('src') == '/assets/init.gif')
-        $(element).attr('src', '/assets/loading.gif')
-        Application.publish('info', catalog_number, manufacturer)
+
+      # TODO потом раскомментировать, т.к. отлаживать не удобно
+      #if($(element).attr('src') == '/assets/init.gif')
+      #  $(element).attr('src', '/assets/loading.gif')
+      #  Application.publish('info', catalog_number, manufacturer)
+
+      $(element).attr('src', '/assets/loading.gif')
+      Application.publish('info', catalog_number, manufacturer)
 
 
   $("table#result-prices").tablesorterPager 
