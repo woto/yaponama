@@ -3,8 +3,10 @@
 
 
 <script>
-  Application.connect()
-  Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>")
+  $(document).ready(function(){
+    Application.connect();
+    Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>");
+  });
 </script>
 
 <div id="info">
