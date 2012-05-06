@@ -24,7 +24,13 @@
   <% if current_user.admin? %>
     <%= link_to "Сменить статус", edit_order_path(@order, :anchor => "jump") %><br /><br /><br />
   <% end %>
+  <% unless @order.status == :processed %>
+    <% data_content = "Кнопка станет доступна после того как мендежер обработает заказ и свяжется с вами." %>
+    <% css_class = "disabled" %>
+  <% end %>
+  <%= link_to "Получить квитанцию", fill_order_path(@order.id), :class => "btn danger bill #{css_class}", "data-content" => data_content, :target => "_blank", :rel => 'popover' %>
   <% if @order.status != :processed %>
+    <br />  <br />  <br />  
     <%= submit_tag "Отменить заказ и вернуть товары в корзину" %><br /><br />
   <% end %>
 <% end %>

@@ -39,16 +39,24 @@
   <% end %>
   <tr>
     <td colspan="7">
+
       <% if current_user.admin? %>
         <%= link_to "Сменить статус", edit_order_path(@order), :class => "btn primary" %>
+        &nbsp;&nbsp;<span>или</span>&nbsp;&nbsp;
       <% end %>
 
+      <% unless @order.status == :processed %>
+        <% data_content = "Кнопка станет доступна после того как мендежер обработает заказ и свяжется с вами." %>
+        <% css_class = "disabled" %>
+      <% end %>
+      
+      <%= link_to "Получить квитанцию", fill_order_path(@order.id), :class => "btn danger bill #{css_class}", "data-content" => data_content, :target => "_blank", :rel => 'popover' %>
+
       <% if @order.status != :processed %>
-        <% if current_user.admin? %>
-          &nbsp;&nbsp;<span>или</span>&nbsp;&nbsp;
-        <% end %>
+        <span>&nbsp;&nbsp;или&nbsp;&nbsp;</span>
         <%= link_to "Отменить заказ и вернуть товары в корзину", @order, :class => "btn", :confirm => "Вы уверены, что хотите отменить заказ? Все товары из заказа переместятся в корзину.", :method => :delete %>
       <% end %>
+
     </td>
     <td colspan="7" style="text-align: right">
       <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong>

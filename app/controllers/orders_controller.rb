@@ -1,6 +1,24 @@
 class OrdersController < ApplicationController
+  respond_to :html, :mobile
   before_filter :authenticate_user!
   
+  def fill
+    @checkout = Checkout.new(params)
+    @order = Order.user_or_admin(current_user).find(params[:id])
+    if @order
+      if @order.status != :processed
+        render :text => 'Статус вашего заказа "Ожидает обработки". Вы сможете распечатать квитанцию только после рассмотрения заказа менеджером и перехода заказа в стаус "Обработан"', :layout => true and return
+      else
+        if request.post?
+          respond_with do |format|
+            format.html { render 'print.erb', :layout => false if @checkout.valid? }
+            format.mobile { render 'print.erb', :layout => false if @checkout.valid? }
+          end
+        end
+      end
+    end
+  end
+
   # GET /orders
   # GET /orders.json
   def index

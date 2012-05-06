@@ -15,6 +15,10 @@ Yaponama::Application.routes.draw do
 
   resources :orders do
     get 'page/:page', :action => :index, :on => :collection
+    member do
+      match 'fill', :path => 'checkout/fill'
+      match 'print', :path => 'checkout/print'
+    end
   end
 
   get 'about' => "about#index"

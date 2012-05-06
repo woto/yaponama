@@ -1,0 +1,21 @@
+<p><span class="label">К сведению</span> Укажите пожалуйста дополнительные данные, необходимые для оплаты. Если у вас отсутствует принтер и вы будете заполнять квитанцию вручную, то можете пропустить этот шаг. </p>
+<hr>
+
+<%= simple_form_for(@checkout, :wrapper => :inline, :url => fill_order_path) do |f| %>
+  
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
+
+  <div class="inputs">
+    <%= f.input :fio, :label => "ФИО плательщика", :required => false %> <br />
+    <%= f.input :address, :label => "Адрес плательщика", :required => false %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Продолжить", :class => "primary" %>
+  </div>
+
+<% end %>
