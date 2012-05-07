@@ -33,16 +33,32 @@ class SearchesController < ApplicationController
         request_emex = "&ext_ws=1"
       end
 
-      url = URI.parse("http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1")
-      begin
-        resp = Net::HTTP.get_response(url)
-      rescue Exception => e
-        response.headers["Retry-After"] = (Time.now + 1.day).httpdate.to_s
-        @show_sidebar = true
-        render :cms_page => "/503", :status => 503 and return
 
+      require 'digest/md5'
+      price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1"
+      file_name = 'system/price_requests/'
+      file_name << Digest::MD5.hexdigest(price_request_url)
+
+      result = ''
+      if(File.exist?(file_name) && (File.ctime(file_name) > Time.now - APP_CONFIG['price_request_cache'].to_i.minutes))
+        result = File.read(file_name)
+      else
+        parsed_price_request_url = URI.parse(price_request_url)
+        begin
+          resp = Net::HTTP.get_response(parsed_price_request_url)
+        rescue Exception => e
+          response.headers["Retry-After"] = (Time.now + 1.day).httpdate.to_s
+          @show_sidebar = true
+          render :cms_page => "/503", :status => 503 and return
+        end
+
+        file = File.new(file_name, "w")
+        result = resp.body
+        file.write(result)
+        file.close
       end
-      @parsed_json = ActiveSupport::JSON.decode(resp.body)
+
+      @parsed_json = ActiveSupport::JSON.decode(result)
       #@parsed_json["result_prices"].shuffle!
       
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
