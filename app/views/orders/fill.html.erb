@@ -10,8 +10,9 @@
   <% end %>
 
   <div class="inputs">
-    <%= f.input :fio, :label => "ФИО плательщика", :required => false %> <br />
+    <%= f.input :fio, :label => "ФИО плательщика", :required => false %>
     <%= f.input :address, :label => "Адрес плательщика", :required => false %>
+    <%= f.input :account, :label => "Номер лицевого счета", :hint => "Заполняйте только если вы будете платить с лицевого счета, открытого в банке", :required => false %>
   </div>
 
   <div class="actions">

@@ -1,4 +1,4 @@
-<p><span class="label">К сведению</span> Укажите пожалуйста дополнительные данные, необходимые для оплаты. Если у вас нет принтера и вы будете заполнять квитанцию вручную, то можете пропустить этот шаг. </p>
+<p>Укажите пожалуйста дополнительные данные, необходимые для оплаты. Если у вас нет принтера и вы будете заполнять квитанцию вручную, то можете пропустить этот шаг. </p>
 <hr>
 
 <%= simple_form_for(@checkout, :wrapper => :inline, :url => fill_order_path) do |f| %>
@@ -11,7 +11,8 @@
 
   <div class="inputs">
     <%= f.input :fio, :label => "ФИО плательщика", :input_html => { :size => "18" }, :required => false %> <br />
-    <%= f.input :address, :label => "Адрес плательщика", :input_html => { :size => "18" }, :required => false %>
+    <%= f.input :address, :label => "Адрес плательщика", :input_html => { :size => "18" }, :required => false %><br />
+    <%= f.input :account, :label => "Номер лицевого счета (Заполняйте только если вы будете платить с лицевого счета, открытого в банке)", :input_html => { :size => "18" }, :required => false %>
   </div>
 
   <br />

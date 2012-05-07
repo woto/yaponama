@@ -67,13 +67,16 @@
       </ul>
       <ul class="nav secondary-nav">
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О Магазине", about_path %></li>                
-        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations'].include? params[:controller])  ? 'active' : ''%>">
+        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
               <li<%= params[:controller] == 'registrations' && params[:action] == 'edit' ? ' class="active"'.html_safe : ''%>><%= link_to "Редактирование профиля", edit_user_registration_path %></li>
               <% if session[:admin_id] %>
                 <li><%= link_to "Стать администратором", become_path(:referer => url_for(Rails.application.routes.recognize_path(request.url.to_s).merge(:page => nil))) %></li>
+              <% end %>
+              <% if current_user.admin? %>
+                <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Переменные", blocks_path %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path %></li>
