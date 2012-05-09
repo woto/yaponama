@@ -4,6 +4,13 @@ class InfoController < ApplicationController
     redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
     @static = redis.get("s:#{params['catalog_number']}:#{params['manufacturer']}")
 
+    Juggernaut.publish(
+    nil, {
+      :command => 'info',
+      :catalog_number => params["catalog_number"],
+      :manufacturer => params["manufacturer"],
+    }, {}, "custom")  
+
     #message = new Juggernaut.Message
     #message.type = "event"
     #message.data = {

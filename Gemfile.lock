@@ -8,6 +8,13 @@ GIT
       activemodel (~> 3.0)
 
 GIT
+  remote: git@github.com:woto/juggernaut.git
+  revision: 4c0e04537f471131adf9ce7e007c6be436569a7a
+  specs:
+    juggernaut (2.1.1)
+      redis
+
+GIT
   remote: git@github.com:woto/simple-captcha.git
   revision: e0d7df3c2b8413657531a50ed543c02f1d59ad35
   ref: e0d7df3c2b8413657531a50ed543c02f1d59ad35
@@ -237,6 +244,7 @@ DEPENDENCIES
   humanizer!
   jquery-rails
   json (= 1.6.1)
+  juggernaut!
   kaminari (= 0.12.4)
   mail (= 2.3.0)
   mime-types (= 1.17.2)
