@@ -18,7 +18,7 @@ sub.on("pmessage", function(channel, msg, data){
 
   switch (msg) {
     case 'queen':
-      // Получаем список заинетересованных каналов и перенаправляем им "в реальном времени" все, что получили
+      // Получаем список заинтересованных каналов и перенаправляем им "в реальном времени" все, что получили
       // от клиентов
       pub.smembers('c:' + data['catalog_number'] + ":" + data['manufacturer'], function(err, channels){
         var msg = {
@@ -61,6 +61,9 @@ sub.on("pmessage", function(channel, msg, data){
               // Плодим дочерние, если не делали этого
               pub.incr('l:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], function(err, reply){
                 if (reply == '1') {
+
+                  // Пишем в ключ время инициализации получения данных чтобы потом записать их статично в html'е
+                  pub.set('t:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], new Date());
 
                   switch(data["data"]["manufacturer"]) {
                     case "TOYOTA":

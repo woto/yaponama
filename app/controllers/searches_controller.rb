@@ -107,6 +107,18 @@ class SearchesController < ApplicationController
           else
             APP_CONFIG["avtorif_income_rate"]
           end
+
+        require 'redis'
+        redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+        if (data_array = redis.lrange("i:#{item['catalog_number']}:#{item['manufacturer']}", 0, -1)).present?
+          if data_array.map{|unparsed| JSON.parse(unparsed)}.any? {|json| json['data']}
+            item['info'] = 'avaliable'
+          else
+            item['info'] = 'unavaliable'
+          end
+        else
+          item['info'] = 'unknown'
+        end
       end
 
       seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}

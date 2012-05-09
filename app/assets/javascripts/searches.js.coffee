@@ -57,13 +57,14 @@ $ ->
       catalog_number = $(element).attr('data-catalog-number')
       manufacturer = $(element).attr('data-manufacturer')
 
-      # TODO потом раскомментировать, т.к. отлаживать не удобно
-      #if($(element).attr('src') == '/assets/init.gif')
-      #  $(element).attr('src', '/assets/loading.gif')
-      #  Application.publish('info', catalog_number, manufacturer)
+      # DEBUG Закомментировать для отладки
+      if($(element).attr('src') == '/assets/init.gif')
+        $(element).attr('src', '/assets/loading.gif')
+        Application.publish('info', catalog_number, manufacturer)
 
-      $(element).attr('src', '/assets/loading.gif')
-      Application.publish('info', catalog_number, manufacturer)
+      # DEBUG Раскомментировать если будет необходимость отлаживать
+      #$(element).attr('src', '/assets/loading.gif')
+      #Application.publish('info', catalog_number, manufacturer)
 
 
   $("table#result-prices").tablesorterPager 

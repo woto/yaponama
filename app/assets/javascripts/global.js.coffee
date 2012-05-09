@@ -22,8 +22,6 @@ Application.connect = ->
 
     key = data['catalog_number'] + " - " + data['manufacturer']
 
-    console.log data
-    
     unless (Application.full_response_checker[key]?)
       switch data['manufacturer']
         when 'TOYOTA'
