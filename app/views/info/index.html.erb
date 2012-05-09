@@ -9,8 +9,8 @@
   });
 </script>
 
-<div id="info">
-</div>
+<%= @static.present? ? "<div id='info' class='static'>#{@static}</div>".html_safe : "<div id='info' class='dynamic'></div>".html_safe %>
+
 
 Каталожный номер: <%= catalog_number %>
 <br />

@@ -65,10 +65,8 @@ Application.connect = ->
       if _.any(_.values(Application.full_response_checker[key]), (value) => (value == true))
         $(element).attr('src', '/assets/information.png')
 
-    if ($("#info").length > 0)
+    if ($("#info").length > 0 && $("#info").attr('class') != 'static')
       window.common.toyota_epc_part_number_application_to_models(data, $)
-
-    #$(interestedElement).after(JSON.stringify(data))
 
   Application.jug.on 'connect', ->
     Application.juggernaut_connected = true
