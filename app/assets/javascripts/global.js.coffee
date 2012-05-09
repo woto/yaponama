@@ -66,7 +66,7 @@ Application.connect = ->
         $(element).attr('src', '/assets/information.png')
 
     if ($("#info").length > 0)
-      window.common.toyota_epc_part_number_application_to_models(data)
+      window.common.toyota_epc_part_number_application_to_models(data, $)
 
     #$(interestedElement).after(JSON.stringify(data))
 
