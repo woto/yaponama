@@ -3,6 +3,7 @@ require 'net/http'
 class SearchesController < ApplicationController
   def index
     if params[:fast].present? or params[:show].present?
+        content_for :meta_robots, '<meta name="robots" content="noindex, nofollow">'.html_safe
       raise ActionController::RoutingError.new('Not Found')
     end
     @parsed_json = { "result_prices" => [] }
@@ -44,6 +45,7 @@ class SearchesController < ApplicationController
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
       if @parsed_json["result_prices"].size == 0
+        content_for :meta_robots, '<meta name="robots" content="noindex, nofollow">'.html_safe
         render :status => 404
       end
       @parsed_json["result_prices"].each do |item|

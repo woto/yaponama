@@ -41,10 +41,14 @@
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <%= csrf_meta_tags %>
-  <% if params[:commit] == "Искать" %>
-    <meta name="robots" content="noindex, follow">
-  <% else %>
-    <meta name="robots" content="index, follow">
+  <% if content_for('meta_robots') %>
+    <%= yield :meta_robots %>
+  <%  else %>
+    <% if params[:commit] == "Искать" %>
+      <meta name="robots" content="noindex, follow">
+    <% else %>
+      <meta name="robots" content="index, follow">
+    <% end %>
   <% end %>
 </head>
 <body>
