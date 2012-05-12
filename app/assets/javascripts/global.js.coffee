@@ -21,6 +21,8 @@ Application.connect = ->
 
   Application.jug.subscribe channel_key, (data) ->
 
+    console.log(data)
+
     key = data['catalog_number'] + " - " + data['manufacturer']
 
     unless (Application.full_response_checker[key]?)

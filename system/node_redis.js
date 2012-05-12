@@ -63,7 +63,7 @@ sub.on("pmessage", function(channel, msg, data){
                 if (reply == '1') {
 
                   // Пишем в ключ время инициализации получения данных чтобы потом записать их статично в html'е
-                  pub.set('t:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], new Date());
+                  pub.set('t:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], (new Date()).getTime().toString());
 
                   switch(data["data"]["manufacturer"]) {
                     case "TOYOTA":
