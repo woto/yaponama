@@ -45,7 +45,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
         diff_date = curr_date - tdata_date;
         console.log('diff_date')
         console.log(diff_date);
-        if(diff_date > 250)
+        if(diff_date > 120000)
         {
           var data_status = 'unavaliable'
           redis.lrange('i:' + key_part, 0, -1, function(err, datas) {
