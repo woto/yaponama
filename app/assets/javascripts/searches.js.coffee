@@ -62,19 +62,19 @@ $ ->
 
       element = $(this)
         
-      $.ajaxq "queue_" + id,
-        url:  "/json" + $(this).parent().attr("href")
-        crossDomain: true
-        timeout: 30000
-        dataType: "jsonp"
-        cache: true
-        success: (data, textStatus, jqXHR) ->
-          element.attr('src', "/static/" + data.time + ".png")
-          element.attr('title', data.time)
-        error: ->
-          element.attr('src', "/assets/1x1.gif")
-        beforeSend: ->
-          element.attr('src', "/assets/loading.gif")
+      #$.ajaxq "queue_" + id,
+      #  url:  "/json" + $(this).parent().attr("href")
+      #  crossDomain: true
+      #  timeout: 30000
+      #  dataType: "jsonp"
+      #  cache: true
+      #  success: (data, textStatus, jqXHR) ->
+      #    element.attr('src', "/static/" + data.time + ".png")
+      #    element.attr('title', data.time)
+      #  error: ->
+      #    element.attr('src', "/assets/1x1.gif")
+      #  beforeSend: ->
+      #    element.attr('src', "/assets/loading.gif")
     
   $("table#result-prices").tablesorterPager 
     container: $("#pager")
