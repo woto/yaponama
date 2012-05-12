@@ -25,3 +25,4 @@ vendor/cache
 .bundler
 node_modules
 price_requests
+parts_info
