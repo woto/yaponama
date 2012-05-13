@@ -3,6 +3,7 @@ class InfoController < ApplicationController
     begin
       file = File.open("#{Rails.root}/system/parts_info/s:#{params['catalog_number']}:#{params['manufacturer']}", "rb")
       @static = file.read
+      content_for :title, "Информация по #{params['catalog_number']} - #{params['manufacturer']}"
     rescue Exception => exc
       if exc.instance_of? Errno::ENOENT
         require 'redis'
