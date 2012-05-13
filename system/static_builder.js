@@ -23,13 +23,13 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
   common = require("../app/assets/javascripts/common.js");
   multi = redis.multi();
   multi.keys("t:*", function(err, keys) {
-    window.$('body').html('<div id="info"></div>');
     console.log('--')
     keys_length = keys.length
     console.log('keys')
     console.log(keys);
     asyncForEach(keys, function(key, next_key) {
       console.log('^^')
+      window.$('body').html('<div id="info"></div>');
       console.log('key')
       console.log(key);
       key_part = key.slice(2);
@@ -45,7 +45,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
         diff_date = curr_date - tdata_date;
         console.log('diff_date')
         console.log(diff_date);
-        if(diff_date > 120000)
+        if(diff_date > 600000)
         {
           var data_status = 'unavaliable'
           redis.lrange('i:' + key_part, 0, -1, function(err, datas) {

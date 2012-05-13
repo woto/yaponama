@@ -1,15 +1,19 @@
 <% catalog_number = params[:catalog_number] %>
 <% manufacturer = params[:manufacturer] %>
 
+<!-- TODO проверять значение f:... -->
 
-<script>
-  $(document).ready(function(){
-    Application.connect();
-    Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>");
-  });
-</script>
-
-<%= @static.present? ? "<div id='info' class='static'>#{@static}</div>".html_safe : "<div id='info' class='dynamic'></div>".html_safe %>
+<% if @static.present? %>
+  <%= "<div id='info' class='static'>#{@static}</div>".html_safe %>
+<% else %>
+  <script>
+    $(document).ready(function(){
+      Application.connect();
+      Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>");
+    });
+  </script>
+  <%= "<div id='info' class='dynamic'></div>".html_safe %>
+<% end %>
 
 
 Каталожный номер: <%= catalog_number %>
@@ -17,5 +21,6 @@
 
 Производитель: <%= manufacturer %>
 <br />
+
 
 <%= tag("img", :src => "/static/#{params[:catalog_number]}.png", :alt => "#{params[:catalog_number]} (#{params[:manufacturer]})", :width => "921", :height => "686", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer} ) %>

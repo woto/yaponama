@@ -21,4 +21,12 @@
    rake "app:notify"
  end
 
+ #every 10.minute do
+ #  command "cd #{path}/system/ && node ./static_builder.js >> #{path}/log/static_builder.log"
+ #end
+
+ every 10.minute do
+   command "cd #{path}/system/ && $(which node) ./static_builder.js >> #{path}/log/static_builder.log"
+ end
+
 # Learn more: http://github.com/javan/whenever
