@@ -4,12 +4,15 @@ window.Application ||= {}
 
 Application.publish_queue = []
 Application.juggernaut_connected = false
-channel_key = Math.random().toString() + "_" + new Date().getTime().toString()
+Application.channel_key = ''
 
 Application.connect = ->
+
+  Application.channel_key = Math.random().toString() + "_" + new Date().getTime().toString()
+
   Application.jug = new Juggernaut
 
-  $.cookie('channel', channel_key, {path: '/'})
+  $.cookie('channel', Application.channel_key, {path: '/'})
 
   #jug.meta = {
   #  random: random
@@ -19,7 +22,7 @@ Application.connect = ->
 
   Application.full_response_checker = {}
 
-  Application.jug.subscribe channel_key, (data) ->
+  Application.jug.subscribe Application.channel_key, (data) ->
 
     console.log(data)
 
@@ -87,7 +90,7 @@ Application.publish = (command, catalog_number, manufacturer) ->
     command: command
     catalog_number: catalog_number
     manufacturer: manufacturer
-    channel: channel_key
+    channel: Application.channel_key
   }
 
   Application.publish_queue.push(message)
