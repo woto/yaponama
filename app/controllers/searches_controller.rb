@@ -78,6 +78,10 @@ class SearchesController < ApplicationController
         # TODO Когда ссылки устаканятся вернуть 404
         render :status => 410 and return
       end
+
+      #require 'redis'
+      #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+
       @parsed_json["result_prices"].each do |item|
         next if item["job_import_job_country_short"].include?("avtorif.ru")
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
@@ -112,6 +116,17 @@ class SearchesController < ApplicationController
           else
             APP_CONFIG["avtorif_income_rate"]
           end
+
+        # Другая техника получения статуса наличия информации о детали
+        #if (data_array = redis.lrange("i:#{item['catalog_number']}:#{item['manufacturer']}", 0, -1)).present?
+        #  if data_array.map{|unparsed| JSON.parse(unparsed)}.any? {|json| json['data']}
+        #    item['info'] = 'avaliable'
+        #  else
+        #    item['info'] = 'unavaliable'
+        #  end
+        #else
+        #  item['info'] = 'unknown'
+        #end
 
         begin
           file = File.open("#{Rails.root}/system/parts_info/f:#{item['catalog_number']}:#{item['manufacturer']}", "rb")
