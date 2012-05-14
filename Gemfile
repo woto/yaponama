@@ -75,11 +75,11 @@ gem 'subexec', '0.1.0'
 gem 'tzinfo', '0.3.31'
 gem 'warden', '1.1.0'
 gem "ckeditor", "3.7.0.rc3"
-gem 'rb-fsevent', '0.9.1'
+#gem 'rb-fsevent', '0.9.1'
 gem 'backbone-rails', '0.9.2'
 gem 'sprockets', '2.0.4'
 gem 'active_attr'
 gem "hiredis", "~> 0.3.1"
 gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
 gem 'juggernaut', :git => 'git@github.com:woto/juggernaut.git'
-gem 'rb-inotify'
+#gem 'rb-inotify'
