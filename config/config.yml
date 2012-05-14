@@ -1,10 +1,11 @@
 defaults: &defaults
   price_request_cache: '10'
-  juggernaut_address: '192.168.2.3'
-  redis_address: 'localhost'
+  juggernaut_address: '5.214.159.2'
+  redis_address: '5.214.159.2'
   redis_port: 6379
   price_address: '188.64.170.156:85'
-  request_emex: false
+  #price_address: 'kaprika.ru:81'
+  request_emex: true
   #emex_income_rate: 1.0
   #avtorif_income_rate: 1.0
   #retail_rate: 1.0

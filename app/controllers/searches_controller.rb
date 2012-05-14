@@ -2,16 +2,18 @@ require 'net/http'
 
 class SearchesController < ApplicationController
   def index
-    if params[:fast].present? or params[:show].present?
-      raise ActionController::RoutingError.new('Not Found')
-    end
+
     @parsed_json = { "result_prices" => [] }
+
+    if params[:fast].present? or params[:show].present?
+      render :status => 410 and return
+    end
 
     if params[:catalog_number].present? and (params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase).present?
 
       seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
       if env['REQUEST_URI'] != seo_url 
-        redirect_to seo_url and return
+        redirect_to seo_url + "#jump" and return
       end
 
       if current_user.present?
@@ -48,8 +50,10 @@ class SearchesController < ApplicationController
           resp = Net::HTTP.get_response(parsed_price_request_url)
         rescue Exception => e
           response.headers["Retry-After"] = (Time.now + 1.day).httpdate.to_s
-          @show_sidebar = true
-          render :cms_page => "/503", :status => 503 and return
+          # @show_sidebar = true
+          # TODO Не знаю почему, но для мобильной версии сделать не удалось (... .erb пробовал)
+          # render :template => "/shared/503", :status => 503 and return
+          render :status => 503 and return
         end
 
         file = File.new(file_name, "w")
@@ -71,7 +75,8 @@ class SearchesController < ApplicationController
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
       if @parsed_json["result_prices"].size == 0
-        render :status => 404 and return
+        # TODO Когда ссылки устаканятся вернуть 404
+        render :status => 410 and return
       end
       @parsed_json["result_prices"].each do |item|
         next if item["job_import_job_country_short"].include?("avtorif.ru")

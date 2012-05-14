@@ -4,6 +4,8 @@ class InfoController < ApplicationController
       file = File.open("#{Rails.root}/system/parts_info/s:#{params['catalog_number']}:#{params['manufacturer']}", "rb")
       @static = file.read
       content_for :title, "Информация по #{params['catalog_number']} - #{params['manufacturer']}"
+      # TODO тут надо как-то понять, что если нет информации, то отдавать 404
+      # иначе давать 200
     rescue Exception => exc
       if exc.instance_of? Errno::ENOENT
         require 'redis'

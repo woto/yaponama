@@ -3,6 +3,9 @@
 
 <!-- TODO проверять значение f:... -->
 
+<% debugger %>
+
+<% # if defined? @static %>
 <% if @static.present? %>
   <%= "<div id='info' class='static'>#{@static}</div>".html_safe %>
 <% else %>
