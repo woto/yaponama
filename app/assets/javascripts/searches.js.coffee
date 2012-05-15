@@ -58,13 +58,21 @@ $ ->
       manufacturer = $(element).attr('data-manufacturer')
 
       # DEBUG Закомментировать для отладки
-      if($(element).attr('src') == '/assets/init.gif')
+      # Этот (оптимальный способ пока не будет работать)
+      # т.к. если быстро пробежаться по всем страницам и прийти на последнюю
+      # то на предыдущих статус не обновится, т.к. в момент получения данных
+      # таблица не содержит этих элементов, которые ищатся в момент получения.
+      # По идее их надо как-то регистрировать для получения просто
+      #if($(element).attr('src') == '/assets/init.gif')
+      #  $(element).attr('src', '/assets/loading.gif')
+      #  Application.publish('info', catalog_number, manufacturer)
+
+      # Отправляем запрос только если статус не (unavaliable) 1x1.gif и не (avaliable) informagion.png
+      # Т.е. либо (unknown) loading.gif либо (unknown) init.gif
+      if($(element).attr('src') == '/assets/init.gif' or 
+      $(element).attr('src') == '/assets/loading.gif')
         $(element).attr('src', '/assets/loading.gif')
         Application.publish('info', catalog_number, manufacturer)
-
-      # DEBUG Раскомментировать если будет необходимость отлаживать
-      #$(element).attr('src', '/assets/loading.gif')
-      #Application.publish('info', catalog_number, manufacturer)
 
 
   $("table#result-prices").tablesorterPager 

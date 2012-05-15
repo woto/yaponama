@@ -25,6 +25,9 @@ sub.on("pmessage", function(channel, msg, data){
           "channels": channels,
           "data": data
         }
+        console.log('publish');
+        console.log(msg);
+        console.log('');
         pub.publish("juggernaut", JSON.stringify(msg));
       });
 
@@ -50,6 +53,9 @@ sub.on("pmessage", function(channel, msg, data){
                     "channels": data['data']['channel'],
                     "data": JSON.parse(reply)
                   }
+                  console.log('publish')
+                  console.log(msg)
+                  console.log('');
                   pub.publish("juggernaut", JSON.stringify(msg));
                 })
               });
@@ -70,13 +76,19 @@ sub.on("pmessage", function(channel, msg, data){
                       areas = ['Europe', 'General', 'USA, Canada', 'Japan']
                       for (var i=0; i<areas.length; i++){
                         
-                        pub.publish('bee', JSON.stringify({
+
+                        tmpadsf = JSON.stringify({
                           'caps': 'Toyota EPC', 
                           'manufacturer': data['data']['manufacturer'], 
                           'area': areas[i], 
                           'command': 'part_number_application_to_models', 
                           'catalog_number': data['data']['catalog_number']
-                        }))
+                        })
+                        console.log('publish')
+                        console.log(tmpadsf)
+                        console.log('');
+                        pub.publish('bee', tmpadsf)
+
                       }
 
                       //pub.publish('bee', JSON.stringify({
@@ -86,58 +98,66 @@ sub.on("pmessage", function(channel, msg, data){
                       //  'catalog_number': data['data']['catalog_number']
                       //}))
 
-                      pub.publish('bee', JSON.stringify({
+                      tmpasdfhkljer = JSON.stringify({
                         'caps': 'Tecdoc', 
                         'manufacturer': data['data']['manufacturer'],
                         'command': 'specifically_number_info',
                         'channel': data['data']['channel'],
                         'catalog_number': data['data']['catalog_number']
-                      }));
+                      });
+                      console.log('publish');
+                      console.log(tmpasdfhkljer);
+                      console.log('');
+                      pub.publish('bee', tmpasdfhkljer);
 
                       break;
 
-                    case "NISSAN":
-                      break;
+                    //case "NISSAN":
+                    //  break;
 
-                    case "HYUNDAI":
-                      pub.publish('bee', JSON.stringify({
-                        'caps': 'Microcat Hyundai',
-                        'manufacturer': data['data']['manufacturer'],
-                        'command': 'part_number_application_to_models',
-                        'catalog_number': data['data']['catalog_number']
-                      }))
-                      break;
+                    //case "HYUNDAI":
+                    //  pub.publish('bee', JSON.stringify({
+                    //    'caps': 'Microcat Hyundai',
+                    //    'manufacturer': data['data']['manufacturer'],
+                    //    'command': 'part_number_application_to_models',
+                    //    'catalog_number': data['data']['catalog_number']
+                    //  }))
+                    //  break;
 
-                    case "KIA":
-                      pub.publish('bee', JSON.stringify({
-                        'caps': 'Microcat KIA',
-                        'manufacturer': data['data']['manufacturer'],
-                        'command': 'part_number_application_to_models',
-                        'catalog_number': data['data']['catalog_number']
-                      }))
-                      break;
+                    //case "KIA":
+                    //  pub.publish('bee', JSON.stringify({
+                    //    'caps': 'Microcat KIA',
+                    //    'manufacturer': data['data']['manufacturer'],
+                    //    'command': 'part_number_application_to_models',
+                    //    'catalog_number': data['data']['catalog_number']
+                    //  }))
+                    //  break;
 
-                    case "MITSUBISHI":
-                      break;
+                    //case "MITSUBISHI":
+                    //  break;
 
-                    case "FEBEST":
-                      pub.publish('bee', JSON.stringify({
-                        'caps': 'Febest',
-                        'manufacturer': data['data']['manufacturer'],
-                        'command': 'specifically_number_info',
-                        'channel': data['data']['channel'],
-                        'catalog_number': data['data']['catalog_number']
-                      }));
-                      break;
+                    //case "FEBEST":
+                    //  pub.publish('bee', JSON.stringify({
+                    //    'caps': 'Febest',
+                    //    'manufacturer': data['data']['manufacturer'],
+                    //    'command': 'specifically_number_info',
+                    //    'channel': data['data']['channel'],
+                    //    'catalog_number': data['data']['catalog_number']
+                    //  }));
+                    //  break;
 
                     default:
-                      pub.publish('bee', JSON.stringify({
+                      tmpjkhsdfg = JSON.stringify({
                         'caps': 'Tecdoc', 
                         'manufacturer': data['data']['manufacturer'],
                         'command': 'specifically_number_info',
                         'channel': data['data']['channel'],
                         'catalog_number': data['data']['catalog_number']
-                      }));
+                      })
+                      console.log('publish')
+                      console.log(tmpjkhsdfg);
+                      console.log('');
+                      pub.publish('bee', tmpjkhsdfg);
                       break;
                   }
                 } //
@@ -162,7 +182,7 @@ sub.on("pmessage", function(channel, msg, data){
   //console.log('')
 });
 
-sub.psubscribe("*");
+sub.psubscribe("juggernaut:custom", "queen");
 
 
 

@@ -13,6 +13,7 @@ Application.connect = ->
   Application.jug = new Juggernaut
 
   $.cookie('channel', Application.channel_key, {path: '/'})
+  console.log(Application.channel_key)
 
   #jug.meta = {
   #  random: random
@@ -38,17 +39,17 @@ Application.connect = ->
             'Toyota EPC - Japan': null
             #'Microcat Toyota': null 
             'Tecdoc': null
-        when 'KIA'
-          Application.full_response_checker[key] =
-            'Microcat KIA': null
-            'Tecdoc': null
-        when 'MITSUBISHI'
-          Application.full_response_checker[key] =
-            'Mitsubishi ASA - Europe' : null
-            'Mitsubishi ASA - Japan': null
-            'Mitsubishi ASA - North America': null
-            'Mitsubishi ASA - General Export': null
-            'Tecdoc': null
+        #when 'KIA'
+        #  Application.full_response_checker[key] =
+        #    'Microcat KIA': null
+        #    'Tecdoc': null
+        #when 'MITSUBISHI'
+        #  Application.full_response_checker[key] =
+        #    'Mitsubishi ASA - Europe' : null
+        #    'Mitsubishi ASA - Japan': null
+        #    'Mitsubishi ASA - North America': null
+        #    'Mitsubishi ASA - General Export': null
+        #    'Tecdoc': null
         else
           Application.full_response_checker[key] =
             'Tecdoc': null

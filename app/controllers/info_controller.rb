@@ -1,26 +1,34 @@
 class InfoController < ApplicationController
   def index
-    begin
-      file = File.open("#{Rails.root}/system/parts_info/s:#{params['catalog_number']}:#{params['manufacturer']}", "rb")
-      @static = file.read
-      content_for :title, "Информация по #{params['catalog_number']} - #{params['manufacturer']}"
-      # TODO тут надо как-то понять, что если нет информации, то отдавать 404
-      # иначе давать 200
-    rescue Exception => exc
-      if exc.instance_of? Errno::ENOENT
-        require 'redis'
-        redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
-    
-        Juggernaut.publish(
-        nil, {
-          :command => 'info',
-          :catalog_number => params["catalog_number"],
-          :manufacturer => params["manufacturer"],
-        }, {}, "custom")  
 
-        # TODO ! render 503
+    case @item_status = item_status(params['catalog_number'], params['manufacturer'])
 
-      end
+      # Если данные доступны
+      when 'avaliable'
+        # TODO SECURITY!
+        File.open("#{Rails.root}/system/parts_info/s:#{params['catalog_number']}:#{params['manufacturer']}", "r") do |file|
+          @static = file.read
+        end
+        content_for :title, "Информация по #{params['catalog_number']} - #{params['manufacturer']}"
+
+      # Если не доступны
+      when 'unavaliable'
+        render :status => 410 and return
+
+      # Если неизвестно
+      when 'unknown'
+       require 'redis'
+       redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+       
+       Juggernaut.publish(
+       nil, {
+         :command => 'info',
+         :catalog_number => params["catalog_number"],
+         :manufacturer => params["manufacturer"].present? ? params["manufacturer"] : "",
+         :channel => 'server'
+       }, {}, "custom")  
+
+       render :status => 503 and return
     end
   end
 end

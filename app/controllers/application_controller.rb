@@ -10,6 +10,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :user_search_histories
 
+  helper_method :item_status
+
+  def item_status(catalog_number, manufacturer)
+
+    # TODO Security
+    begin
+      File.open("#{Rails.root}/system/parts_info/f:#{catalog_number}:#{manufacturer}", "r") do |file|
+        return file.read
+      end
+    rescue Exception => exc
+      if exc.instance_of? Errno::ENOENT
+        return 'unknown'
+      end
+    end
+  end
+
   def upcase_token
     if params[:user]
       params[:user][:confirmation_token].upcase! if params[:user][:confirmation_token]

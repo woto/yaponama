@@ -1,6 +1,7 @@
 require 'net/http'
 
 class SearchesController < ApplicationController
+
   def index
 
     @parsed_json = { "result_prices" => [] }
@@ -82,7 +83,14 @@ class SearchesController < ApplicationController
       #require 'redis'
       #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
 
+      iconv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'UTF-8//IGNORE//TRANSLIT') 
+
       @parsed_json["result_prices"].each do |item|
+        # Криво режется на стороне сервера прайсов, в результате тут не валидная кодировка
+        # (если все правильно понимаю, то режется по байту, и как раз второй выпадает)
+        # касается названий типа ПЕЧАТНАЯ П%^&*
+        item['manufacturer'] = iconv.iconv(item['manufacturer'].to_s + " ")[0..-2]
+
         next if item["job_import_job_country_short"].include?("avtorif.ru")
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
@@ -128,14 +136,8 @@ class SearchesController < ApplicationController
         #  item['info'] = 'unknown'
         #end
 
-        begin
-          file = File.open("#{Rails.root}/system/parts_info/f:#{item['catalog_number']}:#{item['manufacturer']}", "rb")
-          item['info'] = file.read
-        rescue Exception => exc
-          if exc.instance_of? Errno::ENOENT
-            item['info'] = 'unknown'
-          end
-        end
+        item['info'] = item_status(item['catalog_number'], item['manufacturer'])
+
 
       end
 
