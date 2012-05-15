@@ -26,3 +26,4 @@ vendor/cache
 node_modules
 price_requests
 parts_info
+system/dump.rdb

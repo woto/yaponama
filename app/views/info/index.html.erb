@@ -1,10 +1,7 @@
 <% case item_status(params[:catalog_number], params[:manufacturer]) %>
-
   <% when 'avaliable' %>
     <div id='info' class='static'><%= @static.html_safe %></div>
-
   <% when 'unknown' %>
-
     <script>
       <% catalog_number = params[:catalog_number] %>
       <% manufacturer = params[:manufacturer] %>
@@ -13,9 +10,7 @@
         Application.publish('info', "<%= catalog_number %>", "<%= manufacturer %>");
       });
     </script>
-
     <div id='info' class='dynamic'></div>
-
 <% end %>
 
 <!-- <%= tag("img", :src => "/static/#{params[:catalog_number]}.png", :alt => "#{params[:catalog_number]} (#{params[:manufacturer]})", :width => "921", :height => "686", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer} ) %> -->
