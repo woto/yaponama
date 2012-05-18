@@ -16,7 +16,7 @@
     <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'title'}) %>
   </title>
 
-  <link rel="shortcut icon" href="http://www.yaponama.ru/favicon.ico" />
+  <link rel="shortcut icon" href="/favicon.ico" />
 
   <% if content_for?(:keywords) %>
     <meta name="Keywords" content="<%= yield(:keywords)%>"/>
@@ -24,7 +24,7 @@
 
   <% if content_for?(:description) %>
     <meta name="Description" content="<%= seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:description).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:description).to_s %>"/>
-  <% elsif Block.where(:block_name => "meta_description_default").present? %>
+  <% elsif Block.where(:block_name => "meta_description_default").first.content.present? %>
     <meta name="Description" content="<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
 
