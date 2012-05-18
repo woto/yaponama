@@ -71,14 +71,15 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
                     console.log(err);
                   }
                   else {
-                    console.log('Удаляем t');
-                    redis.del('t:' + key_part);
-                    console.log('Удаляем l');
-                    redis.del('l:' + key_part);
-                    console.log('Удаляем c');
-                    redis.del('c:' + key_part);
-                    console.log('Удаляем i');
-                    redis.del('i:' + key_part);
+                    // Данные сами удалятся в соответствии с ttl redis'a
+                    //console.log('Удаляем t');
+                    //redis.del('t:' + key_part);
+                    //console.log('Удаляем l');
+                    //redis.del('l:' + key_part);
+                    //console.log('Удаляем c');
+                    //redis.del('c:' + key_part);
+                    //console.log('Удаляем i');
+                    //redis.del('i:' + key_part);
 
                     fs.writeFile('./parts_info/f:' + key_part , data_status.toString(), function(err) {
                       console.log('f written')
