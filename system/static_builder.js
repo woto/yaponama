@@ -64,16 +64,17 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
                 console.log('Последний элемент')
                 var fs = require('fs');
                 //console.log(window.$('#info').html());
-                fs.writeFile('./parts_info/s:' + key_part , window.$('#info').html().toString(), function(err) {
+                fs.writeFile('./parts_info/s:' + key_part.replace(/[^а-яА-Яa-zA-z0-9]/gi, '_'), window.$('#info').html().toString(), function(err) {
                   console.log('s written');
                   if(err) {
                     console.log('Ошибка записи')
                     console.log(err);
                   }
                   else {
+                    console.log('Удаляем t');
+                    redis.del('t:' + key_part);
+
                     // Данные сами удалятся в соответствии с ttl redis'a
-                    //console.log('Удаляем t');
-                    //redis.del('t:' + key_part);
                     //console.log('Удаляем l');
                     //redis.del('l:' + key_part);
                     //console.log('Удаляем c');
@@ -81,7 +82,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
                     //console.log('Удаляем i');
                     //redis.del('i:' + key_part);
 
-                    fs.writeFile('./parts_info/f:' + key_part , data_status.toString(), function(err) {
+                    fs.writeFile('./parts_info/f:' + key_part.replace(/[^а-яА-Яa-zA-z0-9]/gi, '_') , data_status.toString(), function(err) {
                       console.log('f written')
                       if(err){
                         console.log('Ошибка записи');

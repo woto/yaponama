@@ -14,9 +14,10 @@ class ApplicationController < ActionController::Base
 
   def item_status(catalog_number, manufacturer)
 
-    # TODO Security
+    key_part = "#{catalog_number}:#{manufacturer}".mb_chars.gsub(/[^а-яА-Яa-zA-z0-9]/,'_')
+
     begin
-      File.open("#{Rails.root}/system/parts_info/f:#{catalog_number}:#{manufacturer}", "r") do |file|
+      File.open("#{Rails.root}/system/parts_info/f:#{key_part}", "r") do |file|
         return file.read
       end
     rescue Exception => exc

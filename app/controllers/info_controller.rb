@@ -5,8 +5,8 @@ class InfoController < ApplicationController
 
       # Если данные доступны
       when 'avaliable'
-        # TODO SECURITY!
-        File.open("#{Rails.root}/system/parts_info/s:#{params['catalog_number']}:#{params['manufacturer']}", "r") do |file|
+        key_part = "#{params['catalog_number']}:#{params['manufacturer']}".mb_chars.gsub(/[^а-яА-Яa-zA-z0-9]/,'_')
+        File.open("#{Rails.root}/system/parts_info/s:#{key_part}", "r") do |file|
           @static = file.read
         end
         content_for :title, "Информация по #{params['catalog_number']} - #{params['manufacturer']}"
