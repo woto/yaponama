@@ -77,6 +77,7 @@
               <% end %>
               <% if current_user.admin? %>
                 <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Переменные", blocks_path %></li>
+                <li<%= params[:controller] == 'pages' ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path %></li>

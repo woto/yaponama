@@ -1,0 +1,32 @@
+<% require 'uri' %>
+
+<h1>Список страниц</h1>
+<table>
+  <tr>
+    <th>Путь</th>
+    <th>Содержание</th>
+    <th>Мобильное содержание</th>
+    <th>Ключевые слова SEO</th>
+    <th>Описание SEO</th>
+    <th>Управление</th>
+  </tr>
+
+<% @pages.each do |page| %>
+  <tr>
+    <td><%= page.path %></td>
+    <td><%= truncate(page.default_content) %></td>
+    <td><%= truncate(page.mobile_content) %></td>
+    <td><%= truncate(page.keyword) %></td>
+    <td><%= truncate(page.description) %></td>
+    <td>
+      <%= link_to "<p class='icons icons-sprite icons-view'>Просмотр</p>".html_safe, "/#{page.path}", :target => "_blank" %>
+      <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать</p>".html_safe, edit_page_path(page) %>
+      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить</p>".html_safe, page, :confirm => "Вы увереные, что хотите удалить страницу?", :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Создать страницу', new_page_path, :class => "btn primary" %>

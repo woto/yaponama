@@ -1,0 +1,5 @@
+<% if @content.mobile_content.present? %>
+  <%= @content.mobile_content.html_safe %>
+<% else %> 
+  <%= @content.default_content.html_safe %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120424194806) do
+ActiveRecord::Schema.define(:version => 20120519203821) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -221,6 +221,16 @@ ActiveRecord::Schema.define(:version => 20120424194806) do
     t.text     "notes"
     t.boolean  "notified",   :default => false
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pages", :force => true do |t|
+    t.string   "path"
+    t.text     "default_content"
+    t.text     "mobile_content"
+    t.text     "keyword"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

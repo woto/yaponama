@@ -13,9 +13,9 @@
   <div class="inputs">
     
     <div class="input">
-      Номер телефона: +7<%= f.object.phone %> <br /> <br /> <br />    
+      Номер телефона: +7 <%= f.object.phone.gsub(/(\d{3})(\d{3})(\d{2})(\d{2})/, '(\1) \2-\3-\4') %> <br /> <br /> <br />    
     </div>
-        
+      
     <%= f.input :user_name, :required => true %>
     <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов', :input_html => {:autocomplete => "off"} %>
     <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль', :input_html => {:autocomplete => "off"} %>

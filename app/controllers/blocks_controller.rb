@@ -3,12 +3,6 @@ class BlocksController < ApplicationController
   before_filter :authenticate_user!
   before_filter :is_admin?
 
-  def is_admin?
-    unless current_user && current_user.admin?
-      redirect_to root_path, :notice => "Вы не администратор"
-    end
-  end
-
   # GET /blocks
   # GET /blocks.json
   def index

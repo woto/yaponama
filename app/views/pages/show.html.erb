@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Path:</b>
+  <%= @page.path %>
+</p>
+
+<p>
+  <b>Default content:</b>
+  <%= @page.default_content %>
+</p>
+
+<p>
+  <b>Mobile content:</b>
+  <%= @page.mobile_content %>
+</p>
+
+<p>
+  <b>Keyword:</b>
+  <%= @page.keyword %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @page.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_page_path(@page) %> |
+<%= link_to 'Back', pages_path %>

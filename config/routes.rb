@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  resources :pages
+
   match 'admin' => redirect('/blocks')
   resources :blocks, :only => ['edit', 'update', 'index']
 
@@ -130,5 +132,7 @@ Yaponama::Application.routes.draw do
 
   #match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
   match '/info/:catalog_number(/:manufacturer)' => "info#index", :as => :info, :via => :get
+
+  match "*path" => "pages#render_page", :constraints => PageConstraint.new
 
 end

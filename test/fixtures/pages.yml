@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  path: MyString
+  default_content: MyText
+  mobile_content: MyText
+  keyword: MyText
+  description: MyText
+
+two:
+  path: MyString
+  default_content: MyText
+  mobile_content: MyText
+  keyword: MyText
+  description: MyText

@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :item_status
 
+  def is_admin?
+    unless current_user && current_user.admin?
+      redirect_to root_path, :notice => "Вы не администратор"
+    end
+  end
+
   def item_status(catalog_number, manufacturer)
 
     key_part = "#{catalog_number}:#{manufacturer}".mb_chars.gsub(/[^а-яА-Яa-zA-z0-9]/,'_')
