@@ -2,4 +2,5 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-  $("#page_path").filter_input regex: "[a-zа-я0-9_/-]"
+  if $("#page_path").length > 0
+    $("#page_path").filter_input regex: "[a-zа-я0-9_/-]"
