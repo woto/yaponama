@@ -134,6 +134,7 @@
 
   <h3>
     <%= "Повторить поиск #{ link_to 'с учетом замен', search_searches_path(params[:catalog_number], params[:manufacturer], '1', :anchor => 'jump') } <br />".html_safe if (params[:replacements].to_i != 1) %>
+    <%= "Повторить поиск #{ link_to 'без указания производителя', search_searches_path(params[:catalog_number], "", params[:replacements], :anchor => 'jump') } <br />".html_safe if params[:manufacturer].present? %></h3>
   </h3>
 <% else %>
   <% unless params.key? :skip %>
