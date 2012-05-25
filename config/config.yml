@@ -1,17 +1,13 @@
 defaults: &defaults
   price_request_cache: '10'
-  juggernaut_address: '5.214.159.2'
-  redis_address: '5.214.159.2'
+  redis_address: 'localhost'
   redis_port: 6379
+  juggernaut_address: 'www.yaponama.ru'
   price_address: '188.64.170.156:85'
-  #price_address: 'kaprika.ru:81'
   request_emex: true
-  #emex_income_rate: 1.0
-  #avtorif_income_rate: 1.0
-  #retail_rate: 1.0
   emex_income_rate: 1.07
-  avtorif_income_rate: 1.13
-  retail_rate: 1.10
+  avtorif_income_rate: 1.10
+  retail_rate: 1.17
 
 development:
   <<: *defaults
