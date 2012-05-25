@@ -4,6 +4,8 @@ colors = require("colors");
 jsdom = require("jsdom");
 redis = redis.createClient();
 var window = jsdom.jsdom().createWindow();
+var _ = require('underscore')._;
+
 
 function asyncForEach(array, iterator, then) {
   function loop(i) {
@@ -56,7 +58,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
               }
               console.log('data');
               console.log(data)
-              common.toyota_epc_part_number_application_to_models(parsed_data, window.$);
+              common.toyota_epc_part_number_application_to_models(parsed_data, window.$, _);
               next_data();
               //console.log(new Date());
             }, function(){

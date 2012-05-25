@@ -73,7 +73,7 @@ Application.connect = ->
         $(element).attr('src', '/assets/information.png')
 
     if ($("#info").length > 0 && $("#info").attr('class') != 'static')
-      window.common.toyota_epc_part_number_application_to_models(data, $)
+      window.common.toyota_epc_part_number_application_to_models(data, $, _)
 
   Application.jug.on 'connect', ->
     Application.juggernaut_connected = true
