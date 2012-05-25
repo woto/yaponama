@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sitemap_generator'
 
-SitemapGenerator::Sitemap.default_host = 'http://yaponama.ru'
+SitemapGenerator::Sitemap.default_host = 'http://www.yaponama.ru'
 SitemapGenerator::Sitemap.create do
     add '/searches', :changefreq => 'daily'
     add '/searches/MN158596/MITSUBISHI/1', :changefreq => 'weekly'
