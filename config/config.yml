@@ -4,7 +4,7 @@ defaults: &defaults
   #retail_rate: 1.0
   emex_income_rate: 1.07
   avtorif_income_rate: 1.15
-  retail_rate: 1.10
+  retail_rate: 1.17
 
 development:
   <<: *defaults
