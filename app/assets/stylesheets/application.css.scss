@@ -110,3 +110,8 @@ label {
 footer {
   margin-top: 25px;
 }
+
+/* Не знаю почему по-умолчанию gray. В следующей версии нормальный цвет */
+li {
+  color: inherit !important;
+}
