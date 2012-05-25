@@ -12,10 +12,10 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: yaponama_development
+  database: bs_site_development
   pool: 5
   username: root
-  password:
+  password: vjqgfhjkm
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -25,18 +25,18 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: yaponama_test
+  database: bs_site_test
   pool: 5
   username: root
-  password:
+  password: vjqgfhjkm
   socket: /tmp/mysql.sock
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: yaponama_production
+  database: bs_site_production
   pool: 5
   username: root
-  password:
+  password: vjqgfhjkm
   socket: /tmp/mysql.sock

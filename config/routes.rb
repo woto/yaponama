@@ -13,7 +13,7 @@ Yaponama::Application.routes.draw do
   #  match '/*path', :to => redirect {|params| "http://www.yaponama.ru/#{params[:path]}"}
   #end
   
-  match '(/(*path))' => redirect{ |params| "http://www.yaponama.ru/#{params[:path].gsub(' ', '%20')}"}, :constraints => lambda { |req| !req.host.include?("www.yaponama.ru") && !req.host.include?("localhost") && !(req.host =~ /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/) }, :defaults => { :path => '' }
+  match '(/(*path))' => redirect{ |params| "http://kaprika.ru/#{params[:path].gsub(' ', '%20')}"}, :constraints => lambda { |req| req.subdomain != '' && !req.host.include?("localhost") && !(req.host =~ /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/) }, :defaults => { :path => '' }
 
   resources :orders do
     get 'page/:page', :action => :index, :on => :collection
