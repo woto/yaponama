@@ -5,6 +5,10 @@
     <%= f.input :notes, :label => "Результат обработки", :as => :text, :input_html => {:rows => 10, :style => "width: 80%"} %>
   </div>
 
+  <div class="inputs">
+    <%= f.input :delivery_cost, :label => "Стоимость доставки" %>
+  </div>
+
   <div class="actions">
     <%= f.button :submit, "Сохранить статус заказа", :class => "primary" %>
   </div>

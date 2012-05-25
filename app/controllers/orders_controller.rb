@@ -94,6 +94,8 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, :notice => 'Изменения по заказу сохранены.' }
         format.mobile { redirect_to order_path(@order, :anchor => "jump"), :notice => 'Изменения по заказу сохранены.' }
         format.json { head :ok }
+      else
+        render "edit" and return
       end
     end
   end

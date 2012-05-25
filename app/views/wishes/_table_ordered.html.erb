@@ -37,6 +37,17 @@
       </tr>
     <% end %>
   <% end %>
+
+  <tr>
+    <td colspan="11">
+      Стоимость доставки:
+    </td>
+    <td>
+     <% sum += @order.delivery_cost.to_i %>
+      <%= @order.delivery_cost.to_i %> руб.
+    </td>
+  </tr>
+
   <tr>
     <td colspan="7">
 
@@ -58,7 +69,7 @@
       <% end %>
 
     </td>
-    <td colspan="7" style="text-align: right">
+    <td colspan="5" style="text-align: right">
       <strong>Итого: <%= number_to_currency(sum).gsub(' ', '&nbsp;').html_safe %></strong>
     </td>
   </tr>

@@ -95,6 +95,7 @@ body {font-size: 10pt;}
         <% @order.wishes.each do |wish| %>
           <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
         <% end %>
+        <% sum += @order.delivery_cost.to_i %>
         <td>Сумма платежа&nbsp;&nbsp;<font style="text-decoration:underline;">&nbsp;<%= sum %>&nbsp;</font>&nbsp;руб.&nbsp;<font style="text-decoration:underline;">&nbsp;00&nbsp;</font>&nbsp;коп.</td>
 				<td align="right">&nbsp;&nbsp;Сумма платы за услуги&nbsp;&nbsp;_____&nbsp;руб.&nbsp;____&nbsp;коп.</td>
 			</tr>
