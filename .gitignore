@@ -28,3 +28,5 @@ price_requests
 parts_info
 system/dump.rdb
 public/sitemap*
+config/config.yml
+config/database.yml
