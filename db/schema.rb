@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525004452) do
+ActiveRecord::Schema.define(:version => 20120526004058) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -232,6 +232,12 @@ ActiveRecord::Schema.define(:version => 20120525004452) do
     t.text     "mobile_content"
     t.text     "keyword"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "parts_images", :force => true do |t|
+    t.string   "part_image"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

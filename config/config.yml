@@ -1,4 +1,5 @@
 defaults: &defaults
+  site_address: 'www.yaponama.ru'
   price_request_cache: '10'
   redis_address: 'localhost'
   redis_port: 6379

@@ -1,6 +1,10 @@
 Yaponama::Application.routes.draw do
 
+  post 'parts_images' => 'parts_images#create'
+
   resources :pages
+
+  get 'robots.txt' => "robots_txt#index"
 
   match 'admin' => redirect('/blocks')
   resources :blocks, :only => ['edit', 'update', 'index']

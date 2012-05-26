@@ -4,10 +4,8 @@
     if (data['caps'] == 'Tecdoc') {
       if (data['command'] == 'specifically_number_info')
       {
-        if(data['data'] && data['data'].length > 0) {
-          _.each((data['data']).reverse(), function(item) {
-            $("#info").prepend('<img style="width: 1024px; height: 768px;" id="item_' + item + '" src="http://www.yaponama.ru:7379/GET/' + encodeURIComponent(data['catalog_number'] + ":" + data['manufacturer'] + ":" + item) + '.png" /><br /><br />');
-          });
+        if(data['data']) {
+          $("#info").prepend('<img style="width: 1024px; height: 768px;" src="' + data['data'] + '" /><br /><br />');
         }
       }
     }
