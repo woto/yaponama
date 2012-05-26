@@ -13,7 +13,7 @@ class SearchesController < ApplicationController
     if params[:catalog_number].present? and (params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase).present?
 
       seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
-      if request.fullpath != seo_url 
+      if request.fullpath.upcase != seo_url.upcase
         redirect_to seo_url + "#jump" and return
       end
 
