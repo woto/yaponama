@@ -89,6 +89,10 @@
 			function renderTable(table,rows) {
 				
 				var c = table.config;
+        if(c.totalPages == 1)
+        {
+          c.container.remove();
+        }
 				var l = rows.length;
 				var s = (c.page * c.size);
 				var e = (s + c.size);
