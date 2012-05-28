@@ -72,7 +72,7 @@ class SearchesController < ApplicationController
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
       #tree_block = lambda{|h,k| h[k] = Hash.new(&tree_block) }
-      tree_block = lambda{|h,k| h[k] = Hash.new {|h, k| h[k] = 0} }
+      tree_block = lambda{|h,k| h[k] = {:titles => Hash.new {|h, k| h[k] = 0} } }
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
       if @parsed_json["result_prices"].size == 0
@@ -95,7 +95,9 @@ class SearchesController < ApplicationController
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
           hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
-          seo_counter[hh][item["title"]] += 1
+          seo_counter[hh][:titles][item["title"]] += 1
+          seo_counter[hh][:catalog_number] = item["catalog_number"]
+          seo_counter[hh][:manufacturer] = item["manufacturer"]
         end
 
         item["title"].to_s.split.each do |keyword|
@@ -143,10 +145,18 @@ class SearchesController < ApplicationController
 
       seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}
       seo_keywords = seo_keywords[-seo_keywords.size/2, 1000].to_a.collect{|e| e[0].mb_chars.upcase.gsub(',', ' ').to_s if e[0].mb_chars.size > 2}.uniq.compact.reverse.join(', ')
-      seo_counter.each{|catalog_number, arr| seo_counter[catalog_number] = arr.sort_by { |k,v| v.to_i  }}
+
+      seo_counter.each do |catalog_number, arr|
+        seo_counter[catalog_number] = { 
+          :titles => arr[:titles].sort_by { |k,v| v.to_i  },
+          :catalog_number => arr[:catalog_number],
+          :manufacturer => arr[:manufacturer]
+        }
+      end
 
       @parsed_json["result_prices"] = new_array
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| i["retail_cost"].to_i }
+
 
       # SEO
       response.last_modified = Time.now.utc
@@ -156,14 +166,18 @@ class SearchesController < ApplicationController
       seo_counter.each do |catalog_number, arr|
         counter += 1
         if arr.size > 0
-          header << catalog_number + " " + arr.last[0].to_s
+          header << catalog_number + " " + arr[:titles].last[0].to_s
           if counter != seo_counter.size
             header << ", "
           end
-          header2 << catalog_number + " " + arr.last[0].to_s
+          header2 << "Посмотреть " 
+          header2 << view_context.link_to("аналоги #{catalog_number}", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
+          header2 << " #{arr[:titles].last[0].to_s}"
           header2 << "<br />".html_safe 
         end
       end
+
+      @seo_counter_length = seo_counter.length
 
       content_for :title2, header2
       content_for :title, header

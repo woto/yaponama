@@ -101,6 +101,7 @@ Application.publish = (command, catalog_number, manufacturer) ->
   
 $ ->
 
+  $('a.days').popover({placement: 'left'})
   $('a.bill').popover()
   $(".alert-message").alert()
   $('.dropdown').dropdown()
