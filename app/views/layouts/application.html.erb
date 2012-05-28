@@ -55,18 +55,12 @@
       <%= link_to render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'header'}), root_path, :class => 'brand' %>
       <ul class="nav">
         <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Консультация", requests_path %></li>
-        <li>
-          <%= form_tag searches_path(:anchor => "jump"), :method => :get, :class => 'pull-left' do %>
-            <%= text_field_tag :catalog_number, nil, :placeholder => "Каталожный номер", :style => "width: 140px" %>
-            <%= hidden_field_tag :rnd, rand(), :id => nil %>          
-            <%= submit_tag "Искать", :class => "btn primary", :disable_with => "Пожалуйста подождите...", :id => "poisk" %>
-          <% end %>
-        </li>
+        <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск", skip_search_searches_path %></li>
         <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path, :id => "wishes-link" %></li>
         <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", orders_path %></li>
       </ul>
       <ul class="nav secondary-nav">
-        <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О Магазине", about_path %></li>                
+        <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "Контакты", about_path %></li>                
         <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
@@ -121,7 +115,7 @@
   <% end %>
   
   <% if @show_sidebar || 
-      !(["searches", "wishes"].include? params[:controller]) && 
+      !(["wishes"].include? params[:controller]) && 
       !(params[:controller] == "confirmations" && params[:action] == "variants") &&
       !(params[:controller] == "orders" && params[:action] == "show") %>
     <div class="sidebar">
