@@ -62,7 +62,7 @@
         <h4>Посмотреть <%= link_to 'аналоги всех найденных номеров', search_searches_path(params[:catalog_number], "", "1", :anchor => 'jump') %></h4>
       <% end %>
     <% else %>
-      <h4>Посмотреть <%= link_to("только номер #{params[:catalog_number]} без аналогов", search_searches_path(params[:catalog_number], "", :anchor => 'jump')) %></h4>
+      <h4>Посмотреть <%= link_to("только номер #{params[:catalog_number]} без аналогов", search_searches_path(params[:catalog_number], nil, :anchor => 'jump')) %></h4>
     <% end %>
   <% else %>
     <h4> Мы не смогли найти запрашиваемый номер, но нашли аналоги </h4>
