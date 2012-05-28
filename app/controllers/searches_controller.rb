@@ -155,7 +155,8 @@ class SearchesController < ApplicationController
       end
 
       @parsed_json["result_prices"] = new_array
-      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| i["retail_cost"].to_i }
+      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
+      debugger
 
 
       # SEO
