@@ -3,7 +3,7 @@ class WishesController < ApplicationController
   # GET /wishes.json
   def index
     
-    @wishes = user_wishes
+    @wishes = user_wishes.order("id DESC")
     content_for :title, "Корзина"
 
     respond_to do |format|
