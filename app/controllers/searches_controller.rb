@@ -156,8 +156,6 @@ class SearchesController < ApplicationController
 
       @parsed_json["result_prices"] = new_array
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
-      debugger
-
 
       # SEO
       response.last_modified = Time.now.utc
