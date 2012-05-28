@@ -26,7 +26,7 @@
  #end
 
  every 10.minute do
-   command "cd #{path}/system/ && $(which node) ./static_builder.js >> #{path}/log/static_builder.log"
+   command "cd #{path}/system/ && $(lockfile -r 0 ./static_builder.lock) || exit 1 && $(which node) ./static_builder.js >> #{path}/log/static_builder.log && $(rm -f ./static_builder.lock)"
  end
 
 # Learn more: http://github.com/javan/whenever
