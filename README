@@ -1,5 +1,8 @@
 Время на машине bee должно быть установелно корректно, иначе дата в ключ t: будет записываться некорректно, нужно было сделать относительным через expire
 
-123
+sudo apt-get install procmail (Для установки lockfile, при вызову static_builder)
+
+На i386 столкнулся с проблемой - получал не экранированный урл. (в отличие от amd64 версии), в итоге установил как описано тут http://www.modrails.com/install.html (через passenger-install-apache2-module)
+
 http://expressorder.ru
 ferio
