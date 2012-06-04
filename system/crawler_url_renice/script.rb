@@ -12,7 +12,7 @@ def make_request(raw_url, file_name, line_no)
   res = Net::HTTP.start(url.host, url.port) do |http|
       http.request(req)
   end
-  puts file_name, line_no
+  puts raw_url, file_name, line_no
 end
 
 file = File.new('yandex.csv', 'r')
