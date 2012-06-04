@@ -175,9 +175,7 @@ body {font-size: 10pt;}
 		</table>
 		<table border="0" cellspacing="0" cellpadding="0" style="width:122mm; margin-top:3pt;">
 			<tr>
-				<td style="width:60mm; border-bottom:1pt solid #000000;">Оплата заказа № 
-	  1	  от 
-	  05.05.2012</td>
+				<td style="width:60mm; border-bottom:1pt solid #000000;">Оплата заказа № <%= @order.id %> от <%= l(@order.created_at.to_date, :format => :long) %> </td>
 				<td style="width:2mm;">&nbsp;</td>
 				<td style="border-bottom:1pt solid #000000;">&nbsp;<%= params["checkout"] ? params["checkout"]["account"] : "" %></td>
 			</tr>
