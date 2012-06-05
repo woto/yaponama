@@ -13,25 +13,11 @@
 </div>
 
 <ul class="media-grid" style="margin-left: 0">
-	<li style="float: left;">
-    <a href="#">
-      <%= image_tag "3.png", :class => "thumbnail" %>
-    </a>
-  </li>
   
-  <li style="float: left;">
-    <a href="#">
-      <%= image_tag "2.png", :class => "thumbnail" %>
-    </a>
-  </li>
-  <li style="float: left;">
-    <a href="#">
-      <%= image_tag "4.png", :class => "thumbnail" %>
-    </a>
-  </li>
-  <li style="float: left;">
-    <a href="#">
-      <%= image_tag "1.png", :class => "thumbnail" %>
-    </a>
-  </li>
+  <% @four_parts_images.each do |part_image| %>
+    <li style="float: left;">
+      <%= link_to(image_tag(part_image.part_image.thumb.url, :class => "thumbnail"), search_searches_path(part_image.catalog_number, part_image.manufacturer)) %>
+    </li>
+  <% end %>
+
 </ul>
