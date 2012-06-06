@@ -61,7 +61,7 @@
       </ul>
       <ul class="nav secondary-nav">
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "Контакты", about_path %></li>                
-        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks'].include? params[:controller])  ? 'active' : ''%>">
+        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
