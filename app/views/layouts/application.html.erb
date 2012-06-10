@@ -13,7 +13,7 @@
         <%= yield(:title).to_s + " - " %>
       <% end %>
     <% end %>
-    <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'title'}) %>
+    <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %>
   </title>
 
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -25,7 +25,7 @@
   <% if content_for?(:description) %>
     <meta name="Description" content="<%= seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:description).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:description).to_s %>"/>
   <% elsif Block.where(:block_name => "meta_description_default").first.content.present? %>
-    <meta name="Description" content="<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
+    <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
 
   <% if content_for? :canonical %>
@@ -52,16 +52,16 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="container-fluid">
-      <%= link_to render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'header'}), root_path, :class => 'brand' %>
+      <%= link_to render(:partial => "blocks/show.erb", :locals => {:block_name => 'header'}), root_path, :class => 'brand' %>
       <ul class="nav">
-        <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Консультация", requests_path %></li>
-        <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск", skip_search_searches_path %></li>
+        <li<%= (['requests', 'cars'].include? params[:controller]) ? ' class="active"'.html_safe : ''%>><%= link_to "Помощь в подборе", requests_path %></li>
+        <li<%= params[:controller] == 'searches' ? ' class="active"'.html_safe : ''%>><%= link_to "Поиск по номеру", skip_search_searches_path %></li>
         <li<%= params[:controller] == 'wishes' ? ' class="active"'.html_safe : ''%>><%= link_to "Корзина", wishes_path, :id => "wishes-link" %></li>
         <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", orders_path %></li>
       </ul>
       <ul class="nav secondary-nav">
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "Контакты", about_path %></li>                
-        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages'].include? params[:controller])  ? 'active' : ''%>">
+        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages', 'callback_requests'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
@@ -72,6 +72,7 @@
               <% if current_user.admin? %>
                 <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Переменные", blocks_path %></li>
                 <li<%= params[:controller] == 'pages' ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
+                <li<%= params[:controller] == 'callback_requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Обратные вызовы", callback_requests_path %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path %></li>
@@ -120,13 +121,13 @@
       !(params[:controller] == "orders" && params[:action] == "show") %>
     <div class="sidebar">
 
-      <div class="well">
-        <%= render :partial => "blocks/show.html.erb", :locals => {:block_name => 'sideblock_1'}  %>
+      <div id="callback_request_block" class="well">
+        <%= render :partial => "callback_requests/call_me" %>
       </div>
 
-    <%= render :partial => "blocks/show.html.erb", :locals => {:block_name => 'sideblock_1'}  %>
-
-    <%= render :partial => "blocks/show.html.erb", :locals => {:block_name => 'sideblock_2'}  %>
+    <%= render :partial => "blocks/show.erb", :locals => {:block_name => 'sideblock_1'}  %>
+  
+    <%= render :partial => "blocks/show.erb", :locals => {:block_name => 'sideblock_2'}  %>
 
     </div>
   <% else %>
@@ -145,16 +146,16 @@
       <div class="row">
         <div class="span5">
           <address>
-            <strong><%= link_to(render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'copyright'}), about_path) %></strong> <br />
+            <strong><%= link_to(render(:partial => "blocks/show.erb", :locals => {:block_name => 'copyright'}), about_path) %></strong> <br />
         
             <%= render :partial => 'layouts/mobile_switch' %>
           </address>
         </div>
         <div style="float: right">
-          <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'rambler_top100'}) %>
-          <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'openstat'}) %>
-          <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'mail_raiting'}) %>
-          <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'live_internet'}) %>
+          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'rambler_top100'}) %>
+          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'openstat'}) %>
+          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'mail_raiting'}) %>
+          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'live_internet'}) %>
         </div>
       </div>
     </footer>
@@ -164,8 +165,8 @@
 <%= tag :div, :id => "data", :data => {:sent => session[:sent].to_s, :remote_ip => request.remote_ip, :screen_width => session[:screen_width], :screen_height => session[:screen_height]} %>
 
 
-<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'google_analytics'}) %>
-<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'yandex_metrika'}) %>
+<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'google_analytics'}) %>
+<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'yandex_metrika'}) %>
 
 </body>
 </html>

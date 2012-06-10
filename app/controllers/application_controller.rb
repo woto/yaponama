@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :item_status
 
+  before_filter :set_user_is_session_admin_workaround
+
+  def set_user_is_session_admin_workaround
+    User.is_session_admin_workaround  = session[:admin_id] || (current_user && current_user.admin?)
+  end
+
   def is_admin?
     unless current_user && current_user.admin?
       redirect_to root_path, :notice => "Вы не администратор"

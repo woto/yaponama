@@ -157,6 +157,11 @@ class SearchesController < ApplicationController
       @parsed_json["result_prices"] = new_array
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
 
+      # Скидка
+      if current_user
+        @parsed_json["result_prices"].map{|result_price| result_price["retail_cost"] = result_price["retail_cost"] - (result_price["retail_cost"] * current_user["discount"] / 100)}
+      end
+
       # SEO
       response.last_modified = Time.now.utc
       header = "".html_safe
@@ -169,8 +174,8 @@ class SearchesController < ApplicationController
           if counter != seo_counter.size
             header << ", "
           end
-          header2 << "Посмотреть " 
-          header2 << view_context.link_to("аналоги #{catalog_number}", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
+          header2 << "Посмотреть аналоги "
+          header2 << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
           header2 << " #{arr[:titles].last[0].to_s}"
           header2 << "<br />".html_safe 
         end

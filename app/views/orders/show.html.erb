@@ -11,7 +11,7 @@
 
 <% if current_user.admin? %>
   <h3>Покупатель:</h3>
-  <p><%= link_to "#{h(@order.user.user_name)}<br />+7#{h(@order.user.phone)}".html_safe, show_become_path(@order.user_id, :anchor => "jump") %></p><br />
+  <p><%= link_to "#{h(@order.user.user_name)}<br />+7 #{phone_decorator(h(@order.user.phone))}".html_safe, show_become_path(@order.user_id, :anchor => "jump") %></p><br />
 <% end %>
 
 <div style="clear: both"></div>

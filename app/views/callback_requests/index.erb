@@ -1,0 +1,29 @@
+<h1>Заявки обратных вызовов</h1>
+
+<%= paginate @callback_requests %>
+<br />
+
+<table>
+  <tr>
+    <th>Номер телефона</th>
+    <th>Заметки</th>
+    <th>Создана</th>
+    <th>Изменена</th>
+    <th></th>
+  </tr>
+
+<% @callback_requests.each do |callback_request| %>
+  <tr>
+    <td>+7 <%= phone_decorator(callback_request.phone) %></td>
+    <td><%= truncate(callback_request.notes) %></td>
+    <td> <%= l(callback_request.created_at, :format => :short) %> </td>
+    <td> <%= l(callback_request.updated_at, :format => :short) %> </td>
+    <td>
+      <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать</p>".html_safe, edit_callback_request_path(callback_request) %>
+      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить</p>".html_safe, callback_request, :confirm => "Вы увереные, что хотите удалить эту заявку обратного вызова?", :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @callback_requests %>

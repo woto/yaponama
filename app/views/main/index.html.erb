@@ -1,11 +1,11 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
-  <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'hero_unit'}) %>
+  <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'hero_unit'}) %>
   <p><%= link_to "Искать &raquo;".html_safe, skip_search_searches_path, :class => "btn primary large" %> <%= link_to "Консультация менеджера &raquo;".html_safe, requests_path, :class => "btn primary large" %></p>
 </div>
 
 <div class="row" style="margin-left: 0; margin-bottom: 0px">
-    <%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'blockquote'}) %>
+    <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'blockquote'}) %>
 </div>
 
 <div class="row" style="margin-left: 5px; margin-bottom: 20px">

@@ -1,5 +1,14 @@
 Yaponama::Application.routes.draw do
 
+  resources :callback_requests, :path_names => {:create => "asdf"} do
+    collection do 
+      match 'please'
+      match 'call_me'
+      match 'thanks'
+      match 'sorrow'
+    end
+  end
+
   post 'parts_images' => 'parts_images#create'
 
   resources :pages

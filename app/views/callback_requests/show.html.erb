@@ -1,0 +1,14 @@
+<h1>Просмотр заявки обратного вызова</h1>
+<p>
+  <b>Номер телефона:</b>
+  <%= phone_decorator(@callback_request.phone) %>
+</p>
+
+<p>
+  <b>Заметки:</b>
+  <%= @callback_request.notes %>
+</p>
+
+
+<%= link_to 'К заявкам обратного вызова', callback_requests_path, :class => "btn primary" %>&nbsp;&nbsp;или&nbsp;&nbsp;
+<%= link_to 'Редактировать', edit_callback_request_path(@callback_request), :class => "btn" %>

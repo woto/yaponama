@@ -8,7 +8,7 @@
 
     <% @orders.each do |order| %>
       <% if current_user.admin? %>
-        <%= link_to h(order.user.user_name) + "<br />".html_safe + "+7" + order.user.phone, show_become_path(order.user_id, :anchor => "jump") %><br />
+        <%= link_to h(order.user.user_name) + "<br />".html_safe + "+7 " + phone_decorator(order.user.phone), show_become_path(order.user_id, :anchor => "jump") %><br />
       <% end %>
       №<%= order.id %>,
       От: <%= l(order.created_at, :format => :short) %><br />

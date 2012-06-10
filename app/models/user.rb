@@ -1,9 +1,13 @@
 class User < ActiveRecord::Base
 
+  cattr_accessor :is_session_admin_workaround 
+
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :authentication_keys => [:phone]
+
+  attr_accessible :balance, :discount, :as => :admin
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name
@@ -57,7 +61,7 @@ class User < ActiveRecord::Base
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
 
-    update_attributes(params)
+    update_attributes(params, :as => is_session_admin_workaround ? :admin : nil)
   end
 
   def email_required?

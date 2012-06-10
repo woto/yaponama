@@ -3,7 +3,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <head>
   <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Японама</title>
-  <meta name="robots" content="noindex, nofollow">
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -27,11 +26,17 @@
   	}
   </style>
   
-  <%= link_to "Yaponama.ru", root_path %>
-  <p><%= link_to "Поиск запчастей", searches_path(:skip => true, :anchor => "jump") %></p>
+  <p><%= link_to "Yaponama.ru", root_path %></p>
+  <br />
+  <p><%= link_to "Поиск запчастей по номеру", searches_path(:skip => true, :anchor => "jump") %></p>
+  <p><%= link_to "Помощь в подборе автозапчасти", requests_path(:anchor => "jump") %></p>
+  <p><%= link_to "Закажите звонок и мы вам перезвоним", call_me_callback_requests_path(:anchor => "jump") %></p>
+  <br />
   <p><%= link_to "Корзина", wishes_path(:anchor => "jump"), :id => "wishes-link" %></p>
-  <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
-  <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
+  <% if current_user %>
+    <p><%= link_to "Заказы", orders_path(:anchor => "jump") %></p>
+  <% end %>
+  <br />
   <% if user_signed_in? %>
     <p><%= link_to "Профиль", edit_user_registration_path(:anchor => "jump") %></p>  
     <% if session[:admin_id] %>
@@ -43,6 +48,14 @@
     <p><%= link_to "Регистрация", new_user_registration_path(:anchor => "jump") %></p>
     <p><%= link_to "Забыли пароль?", new_user_password_path(:anchor => "jump") %></p>
   <% end %>
+  <br />
+  <% if current_user && current_user.admin? %>
+    <p><%= link_to "Переменные", blocks_path(:anchor => "jump") %></p>
+    <p><%= link_to "Страницы", pages_path(:anchor => "jump") %></p>
+    <p><%= link_to "Обратные вызовы", callback_requests_path(:anchor => "jump") %></p>
+  <% end %>
+  <br />
+  <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>
   
   <br id="jump" />
   
@@ -62,8 +75,8 @@
 
 <%= render :partial => 'layouts/mobile_switch.html.erb' %>
 
-<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'google_analytics'}) %>
-<%= render(:partial => "blocks/show.html.erb", :locals => {:block_name => 'yandex_metrika'}) %>
+<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'google_analytics'}) %>
+<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'yandex_metrika'}) %>
 
 
 </body>

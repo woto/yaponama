@@ -10,12 +10,16 @@
   <div class="inputs">
     
     <div class="input">
-      Номер телефона: +7 <%= f.object.phone.gsub(/(\d{3})(\d{3})(\d{2})(\d{2})/, '(\1) \2-\3-\4') %> <br /> <br /> <br />    
+      <p>Номер телефона: +7 <%= phone_decorator(f.object.phone) %> </p><br />
     </div>
+
     
     <%= f.input :user_name, :required => true %>
     <%= f.input :password, :hint => "Придумайте себе новый пароль не менее 6-и символов", :required => false, :input_html => {:autocomplete => "off"} %>
     <%= f.input :password_confirmation, :hint => "Повторите введенный пароль", :required => false, :input_html => {:autocomplete => "off"} %>
+    <%= f.input :discount, :label => "Скидка", :hint => "процентов от гостевой цены", :as => :string, :disabled => session[:admin_id] || current_user.admin? ? false : true %>
+    <%= f.input :balance, :label => "Баланс", :hint => "рублей", :as => :string, :disabled => session[:admin_id] || current_user.admin? ? false : true %>
+
   </div>
 
   <div class="actions">
@@ -23,4 +27,4 @@
   </div>
 <% end %>
 
-<p>Вы можете удалить свой профиль, если больше не хотите быть зарегистрированным на нашем сайте. Внимание, эта процедура не обратима, вся история связанная с вашим профилем (скидки, история покупок, история переписки) будут стёрты. <%= link_to "Удалить мой профиль.", registration_path(resource_name), :confirm => "Вы уверены, что вы хотите удалить свой профиль на этом сайте?", :method => :delete %></p>
+<p>Вы можете удалить свой профиль, если больше не хотите быть зарегистрированным на нашем сайте. Внимание, эта процедура не обратима, вся история связанная с вашим профилем (скидки, баланс, история покупок, история переписки и т.д.) будут стёрты. <%= link_to "Удалить мой профиль.", registration_path(resource_name), :confirm => "Вы уверены, что вы хотите удалить свой профиль на этом сайте?", :method => :delete %></p>

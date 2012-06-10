@@ -1,0 +1,12 @@
+<%= simple_form_for(@callback_request, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :phone %>
+    <%= f.input :notes, :label => "Заметки", :input_html => {:style => "width: 270px", :rows => 8} %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, "Обновить", :class => "primary" %> или назад к <%= link_to 'заявкам обратного вызова', callback_requests_path %>
+  </div>
+<% end %>

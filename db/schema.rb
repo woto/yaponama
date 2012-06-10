@@ -10,11 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120605230449) do
+ActiveRecord::Schema.define(:version => 20120609215702) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
     t.string   "block_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "callback_request_as", :force => true do |t|
+    t.string   "phone"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "callback_requests", :force => true do |t|
+    t.string   "phone"
+    t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -304,6 +318,8 @@ ActiveRecord::Schema.define(:version => 20120605230449) do
     t.string   "name"
     t.string   "user_name"
     t.boolean  "admin"
+    t.integer  "balance",                               :default => 0
+    t.integer  "discount",                              :default => 0
   end
 
   add_index "users", ["admin"], :name => "index_users_on_admin"

@@ -15,6 +15,10 @@
   <br />
   <%= f.input :password_confirmation, :label => "Повторите введенный пароль", :required => false, :input_html => {:size => 20, :autocomplete => "off"} %>
   <br />
+  <%= f.input :discount, :label => "Скидка", :hint => "процентов от гостевой цены", :as => :string, :input_html => {:size => 20}, :disabled => session[:admin_id] || current_user.admin? ? false : true %>
+  <br />
+  <%= f.input :balance, :label => "Баланс", :hint => "рублей", :as => :string, :input_html => {:size => 20}, :disabled => session[:admin_id] || current_user.admin? ? false : true %>
+  <br />
   <br />
   <%= f.button :submit, "Обновить", :class => "primary" %>
 <% end %>
