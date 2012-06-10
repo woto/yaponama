@@ -1,7 +1,7 @@
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'call_me'}) %>
 
 <div class="clearfix tel required hint-hack">
-  <%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path, :html => {:id => "callback_request"} do |callback| %>
+  <%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path, :html => {:id => "callback_request", :style => "margin: 0"} do |callback| %>
     <div class="input" style="margin-left: 0">
       <div class="input-prepend">
         <span class="add-on">+7</span>
@@ -23,6 +23,6 @@
     #errors_list = ""
     #errors_list << @callback_request.errors.full_messages.map { |message| content_tag(:li, message) }.join("\n")
     #content_tag(:ul, errors_list.html_safe, :class => "error-recap round-border")
-    content_tag(:span, "Неправильно указан номер телефона, введите просто десять цифр вашего телефона без \"+7\" или \"8\"", :style => 'color: #B94A48')
+    content_tag(:div, "Неправильно указан номер телефона, введите просто десять цифр вашего телефона без \"+7\" или \"8\"", :style => 'color: #B94A48; margin-top: 18px')
   end
 %>
