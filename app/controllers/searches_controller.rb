@@ -17,6 +17,12 @@ class SearchesController < ApplicationController
         redirect_to seo_url + "#jump" and return
       end
 
+      if params[:manufacturer] || params[:replacements]
+        @meta_robots = '<meta name="robots" content="noindex, follow">'.html_safe
+      else
+        @meta_robots = '<meta name="robots" content="index, follow">'.html_safe
+      end
+
       if current_user.present?
         condition = { :user_id => current_user.id }
       else

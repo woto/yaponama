@@ -28,6 +28,8 @@
     <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
 
+  <%= @meta_robots %>
+
   <% if content_for? :canonical %>
     <%= yield :canonical %>
   <% end %>
@@ -41,11 +43,6 @@
   <!-- <script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js" type="text/javascript" charset="utf-8"></script> -->
   
   <%= csrf_meta_tags %>
-  <% if params[:commit] == "Искать" %>
-    <meta name="robots" content="noindex, follow">
-  <% else %>
-    <meta name="robots" content="index, follow">
-  <% end %>
 </head>
 <body>
 
