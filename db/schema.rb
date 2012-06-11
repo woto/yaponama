@@ -19,13 +19,6 @@ ActiveRecord::Schema.define(:version => 20120609215702) do
     t.datetime "updated_at"
   end
 
-  create_table "callback_request_as", :force => true do |t|
-    t.string   "phone"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "callback_requests", :force => true do |t|
     t.string   "phone"
     t.text     "notes"
