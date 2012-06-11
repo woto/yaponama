@@ -31,3 +31,4 @@ public/sitemap*
 config/config.yml
 config/database.yml
 system/dump.rdb
+Gemfile.lock
