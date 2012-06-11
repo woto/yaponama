@@ -87,6 +87,14 @@ class CallbackRequestsController < ApplicationController
       respond_to do |format|
         format.js { render :js => "$('#callback_request_block').html('#{view_context.escape_javascript(render_to_string(:partial => 'common_thanks'))}');" }
         format.mobile {render "thanks"}
+
+        User.where(:admin => true).each do |admin|
+          data = {
+            :destinationAddress => admin.phone,
+            :messageData => "Обратный вызов №#{@callback_request.id} на тел. +7#{@callback_request.phone}"
+          }
+          SmsSender.new.notify(data)
+        end
       end
     else
       call_me
