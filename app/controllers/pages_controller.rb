@@ -5,7 +5,12 @@ class PagesController < ApplicationController
 
 
   def render_page
-    @content = Page.where(:path => params[:path]).first
+    @page = Page.where(:path => params[:path]).first
+    @meta_title = @page.title
+    @meta_description = @page.description
+    @meta_keywords = @page.keyword
+    @meta_robots = @page.robots
+
   end
 
   # GET /pages

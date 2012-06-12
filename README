@@ -8,3 +8,11 @@ http://expressorder.ru
 ferio
 
 Надо расширить границу поиска текста (на примере этого номера в текдоке) 0001335107
+
+
+Link Check
+1. http://www.avito.ru/items/moskva_zapchasti_i_aksessuary_poisk_postavschikov_avtozapchastej_na_inomarki_81878658 
+   doc.css("h1.p_i_ex_title.p_i_ex_title_small").text.include? "авто"
+2. http://localhost:3000/searches/0446505221а
+   doc.xpath('html/body/div[@class="container-fluid"]/div[@class="content"]/div/h4/a').attr('href').value == '/searches/0446505221/TOYOTA/1'
+

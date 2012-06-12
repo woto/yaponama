@@ -1,7 +1,7 @@
 <!-- Main hero unit for a primary marketing message or call to action -->
 <div class="hero-unit">
   <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'hero_unit'}) %>
-  <p><%= link_to "Искать &raquo;".html_safe, skip_search_searches_path, :class => "btn primary large" %> <%= link_to "Консультация менеджера &raquo;".html_safe, requests_path, :class => "btn primary large" %></p>
+  <p><%= link_to "Помощь в подборе &raquo;".html_safe, requests_path, :class => "btn primary large" %> <%= link_to "Поиск по номеру &raquo;".html_safe, skip_search_searches_path, :class => "btn primary large" %></p>
 </div>
 
 <div class="row" style="margin-left: 0; margin-bottom: 0px">

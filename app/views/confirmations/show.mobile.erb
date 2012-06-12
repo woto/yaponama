@@ -1,5 +1,4 @@
-<%= content_for :title, "Один шаг до входа" %>
-<h1><%= yield(:title) %></h1>
+<h1><%= @meta_title = "Один шаг до входа" %></h1>
 <br />
 
 <%= simple_form_for(resource, :wrapper => :prepend, :as => resource_name, :url => update_confirmation_path(:anchor => "jump"), :html => { :method => :put }) do |f| %>

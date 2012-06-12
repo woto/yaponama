@@ -1,5 +1,11 @@
 Yaponama::Application.routes.draw do
 
+  resources :links do
+    member do
+      match 'check'
+    end
+  end
+
   resources :callback_requests, :path_names => {:create => "asdf"} do
     collection do 
       match 'please'

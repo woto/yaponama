@@ -1,5 +1,5 @@
 class AboutController < ApplicationController
   def index
-    #content_for :title, "О магазине"
+    @meta_title = "Контактная информация"
   end
 end

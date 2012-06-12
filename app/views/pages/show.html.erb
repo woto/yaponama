@@ -1,30 +1,43 @@
+<h1><%= @meta_title = "Просмотр страницы" %></h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Path:</b>
+  <b>Заголовок:</b>
+  <%= @page.title %>
+</p>
+
+<p>
+  <b>Путь:</b>
   <%= @page.path %>
 </p>
 
 <p>
-  <b>Default content:</b>
-  <%= @page.default_content %>
+  <b>Запрет индексации и следования:</b>
+  <%= @page.robots %>
 </p>
 
 <p>
-  <b>Mobile content:</b>
-  <%= @page.mobile_content %>
-</p>
-
-<p>
-  <b>Keyword:</b>
+  <b>Ключевые слова SEO:</b>
   <%= @page.keyword %>
 </p>
 
 <p>
-  <b>Description:</b>
+  <b>Описание SEO:</b>
   <%= @page.description %>
 </p>
 
+<p>
+  <b>Содержание:</b>
+  <%= @page.default_content %>
+</p>
 
-<%= link_to 'Edit', edit_page_path(@page) %> |
-<%= link_to 'Back', pages_path %>
+<p>
+  <b>Мобильное содержание:</b>
+  <%= @page.mobile_content %>
+</p>
+
+
+<%= link_to "Просмотр".html_safe, "/#{@page.path}", :target => "_blank" %> | 
+<%= link_to 'Редактировать', edit_page_path(@page) %> |
+<%= link_to 'К списку страниц', pages_path %>

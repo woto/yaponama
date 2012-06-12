@@ -4,7 +4,7 @@ class WishesController < ApplicationController
   def index
     
     @wishes = user_wishes.order("id DESC")
-    content_for :title, "Корзина"
+    @meta_title = "Корзина"
 
     respond_to do |format|
       format.html # index.html.erb

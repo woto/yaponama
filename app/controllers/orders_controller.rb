@@ -23,8 +23,7 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     @orders = Order.user_or_admin(current_user).order("id desc").page(params[:page])
-
-    content_for :title, "Список заказов"
+    @meta_title = "Список заказов"
 
     respond_to do |format|
       format.html # index.html.erb

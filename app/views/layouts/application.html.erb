@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% 
-    seo_description_array = ["У нас вы можете купить %s", "Вы можете сделать заказать %s", "Купите %s у нас", "Закажите у нас %s", "Купить %s в москве", "Купите в интернет магазине %s", "Приобретите %s", "Аналоги деталей %s в магазине", "Замены детали %s", "У нас есть не дорогие замены детали %s", "Кроссы детали %s", "Доставка по россии %s", "Купите в Москве %s", "Замены деталей %s", "Неоригинальные замены %s", "Оригинальные замены %s", "Оригинал %s", "Оригинальные запчасти %s", "Отправим почтой %s", "Отправим почтой России %s", "Отправим в регионы %s", "Проконсультируйтесь по поводу %s", "Консультация по %s", "Китайские аналоги для %s", "Цены на %s", "Цена %s", "Стоимость %s"]
-  %>
-  <title>
-    <% if content_for? :title %>
-      <% if content_for? :description %>
-        <% md5_desc_hash = Digest::MD5.hexdigest(yield(:title)).to_s %>
-        <%= seo_description_array[md5_desc_hash[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:title).to_s + " - " %> 
-      <% else %>
-        <%= yield(:title).to_s + " - " %>
-      <% end %>
-    <% end %>
-    <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %>
-  </title>
-
-  <link rel="shortcut icon" href="/favicon.ico" />
-
-  <% if content_for?(:keywords) %>
-    <meta name="Keywords" content="<%= yield(:keywords)%>"/>
+  <% if @meta_title %>
+    <title><%= @meta_title %> - <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %></title>
   <% end %>
 
-  <% if content_for?(:description) %>
-    <meta name="Description" content="<%= seo_description_array[( md5_desc_hash = Digest::MD5.hexdigest(yield(:description).to_s))[-1...md5_desc_hash.size].to_i(16) % seo_description_array.size] % yield(:description).to_s %>"/>
-  <% elsif Block.where(:block_name => "meta_description_default").first.content.present? %>
+  <% if @meta_keywords %>
+    <meta name="Keywords" content="<%= @meta_keywords %>"/>
+  <% else %>
+    <meta name="Keywords" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_keywords_default'}) %>"/>
+  <% end %>
+
+  <% if @meta_description %>
+    <meta name="Description" content="<%= @meta_description %>"/>
+  <% else %>
     <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
 
-  <%= @meta_robots %>
+  <% if @meta_robots %>
+    <meta name="robots" content="<%= @meta_robots %>">
+  <% end %>
+
+  <link rel="shortcut icon" href="/favicon.ico" />
 
   <% if content_for? :canonical %>
     <%= yield :canonical %>
@@ -36,11 +29,12 @@
 
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
+
   <script src="http://<%= APP_CONFIG["juggernaut_address"] %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
-  <!-- <script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js" type="text/javascript" charset="utf-8"></script> -->
   
   <%= csrf_meta_tags %>
 </head>
@@ -58,7 +52,7 @@
       </ul>
       <ul class="nav secondary-nav">
         <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "Контакты", about_path %></li>                
-        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages', 'callback_requests'].include? params[:controller])  ? 'active' : ''%>">
+        <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages', 'callback_requests', 'links'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
             <ul class="dropdown-menu">
@@ -67,9 +61,10 @@
                 <li><%= link_to "Стать администратором", become_path(:referer => url_for(Rails.application.routes.recognize_path(request.url.to_s).merge(:page => nil))) %></li>
               <% end %>
               <% if current_user.admin? %>
-                <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Переменные", blocks_path %></li>
+                <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Блоки", blocks_path %></li>
                 <li<%= params[:controller] == 'pages' ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
                 <li<%= params[:controller] == 'callback_requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Обратные вызовы", callback_requests_path %></li>
+                <li<%= params[:controller] == 'links' ? ' class="active"'.html_safe : ''%>><%= link_to "Ссылки", links_path %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path %></li>

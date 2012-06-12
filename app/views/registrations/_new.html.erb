@@ -1,4 +1,5 @@
-<h1>Регистрация</h1>
+<h1><%= "Регистрация" if @meta_title != "Регистрация" %></h1>
+
 <p><span class="label">К сведению</span> <%= notice_text || "Для регистрации на нашем сайте просто укажите номер своего телефона." %></p>
 <hr>
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => registration_path(resource_name)) do |f| %>

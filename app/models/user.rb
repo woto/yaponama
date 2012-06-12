@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   
   has_many :cars, :dependent => :destroy
   has_many :wishes, :dependent => :destroy
+  has_many :links, :dependent => :destroy
 
   def confirmation_token_setted
     # Если уже выставлен confirmation_token (на insert не 

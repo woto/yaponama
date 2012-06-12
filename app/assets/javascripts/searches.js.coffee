@@ -43,6 +43,7 @@ $ ->
       8:
         sorter: "clipper"
     widthFixed: true
+    sortList: [[5,0]]
   )
 
   # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info

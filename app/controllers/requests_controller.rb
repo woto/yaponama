@@ -34,7 +34,7 @@ class RequestsController < ApplicationController
       redirect_to root_path(:anchor => "jump"), :notice => "Сообщение было удалено." and return
     end
 
-    content_for :title, "Просмотр запроса №#{@request.id}"
+    @meta_title = "Просмотр запроса №#{@request.id}"
 
     respond_to do |format|
       format.html # show.html.erb

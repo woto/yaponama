@@ -44,7 +44,7 @@
           <% user_search_histories.limit(2).each do |ush| %>
             <%= link_to(ush.catalog_number + (ush.manufacturer? ?  " - " + ush.manufacturer : ""), search_searches_path(ush.catalog_number, ush.manufacturer, :anchor => "jump")) + ", " %>
           <% end %>
-          <%= link_to "вся история поиска...", search_histories_path, :id => "jump" %>
+          <%= link_to "вся история поиска...", search_histories_path(:anchor => "jump"), :id => "jump" %>
         <% end %>
       </div>
     </div>
@@ -54,10 +54,9 @@
 <% if @parsed_json["result_prices"].count > 0 %>
 
 <div style="background: #F9F9F9;" class="simple">
-  <% if content_for? :title2 %>
-
+  <% if @division_blocks %>
     <% if params[:replacements].blank? %>
-      <h4><%= content_for?(:title2) ? "#{yield(:title2)}".html_safe : "" %></h4>
+      <h4><%= @division_blocks %></h4>
       <% if @seo_counter_length > 1 %>
         <h4><%= link_to 'Посмотреть аналоги всех найденных номеров', search_searches_path(params[:catalog_number], "", "1", :anchor => 'jump') %></h4>
       <% end %>
@@ -69,6 +68,7 @@
   <% end %>
 </div>
 
+  <br />
   <br />
 
   <table id="result-prices" class="zebra-striped">

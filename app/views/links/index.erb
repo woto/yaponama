@@ -1,0 +1,37 @@
+<h1><%= @meta_title = "Ссылки" %></h1>
+
+<table>
+  <tr>
+    <th>Адрес страницы с ссылкой</th>
+    <th>Инструкция поиска страницы</th>
+    <th>Инструкция проверки материала</th>
+    <th>Дата последней проверки</th>
+    <th>Дата последней успешной проверки</th>
+    <th>Кол-во неудачных попыток подряд</th>
+    <th>Заметки</th>
+    <th></th>
+  </tr>
+
+<% @links.each do |link| %>
+  <tr>
+    <td><%= link_to truncate(link.url), link.url %></td>
+    <td><%= truncate(link.search_address_logic) %></td>
+    <td><%= truncate(link.template_to_search) %></td>
+    <td><%= l(link.last_date_check, :format => :short) if link.last_date_check.present? %></td>
+    <td><%= l(link.last_successful_date_check, :format => :short) if link.last_successful_date_check.present? %></td>
+    <td><%= link.fail_sequence_counter %></td>
+    <td><%= truncate(link.notes) %></td>
+    <td>
+      <%= link_to "<p class='icons icons-sprite icons-magick'>Старт</p>".html_safe, check_link_path(link) %>
+      <%= link_to "<p class='icons icons-sprite icons-view'>Просмотр</p>".html_safe, link %>
+      <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать</p>".html_safe, edit_link_path(link) %>
+      <%= link_to "<p class='icons icons-sprite icons-delete'>Удалить</p>".html_safe, link, :confirm => "Вы увереные, что хотите удалить эту ссылку?", :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Новая ссылка', new_link_path, :class => "btn primary" %>
+

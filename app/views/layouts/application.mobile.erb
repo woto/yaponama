@@ -2,7 +2,7 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <head>
-  <title><%= content_for?(:title) ? "#{yield(:title)} - " : "" %> Японама</title>
+  <title><%= @meta_title %> - Японама</title>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -53,6 +53,7 @@
     <p><%= link_to "Переменные", blocks_path(:anchor => "jump") %></p>
     <p><%= link_to "Страницы", pages_path(:anchor => "jump") %></p>
     <p><%= link_to "Обратные вызовы", callback_requests_path(:anchor => "jump") %></p>
+    <p><%= link_to "Ссылки", links_path(:anchor => "jump") %></p>
   <% end %>
   <br />
   <p><%= link_to "О Магазине", about_path(:anchor => "jump") %></p>

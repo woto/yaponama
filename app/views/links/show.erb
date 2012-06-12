@@ -1,0 +1,45 @@
+<h1><%= @meta_title = "Просмотр ссылки" %></h1>
+
+<p>
+  <b>Пользователь:</b>
+  <%= @link.user_id %>
+</p>
+
+<p>
+  <b>Адрес страницы с ссылкой:</b>
+  <%= @link.url %>
+</p>
+
+<p>
+  <b>Инструкция поиска страницы:</b>
+  <%= @link.search_address_logic %>
+</p>
+
+<p>
+  <b>Инструкция проверки материала:</b>
+  <%= @link.template_to_search %>
+</p>
+
+<p>
+  <b>Дата последней проверки:</b>
+  <%= @link.last_date_check %>
+</p>
+
+<p>
+  <b>Дата последней успешной проверки:</b>
+  <%= @link.last_successful_date_check %>
+</p>
+
+<p>
+  <b>Кол-во неудачных попыток подряд:</b>
+  <%= @link.fail_sequence_counter %>
+</p>
+
+<p>
+  <b>Заметки:</b>
+  <%= @link.notes %>
+</p>
+
+<%= link_to 'Старт', check_link_path(@link) %> |
+<%= link_to 'Редактировать', edit_link_path(@link) %> |
+<%= link_to 'К списку ссылок', links_path %>

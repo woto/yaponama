@@ -18,9 +18,9 @@ class SearchesController < ApplicationController
       end
 
       if params[:manufacturer] || params[:replacements]
-        @meta_robots = '<meta name="robots" content="noindex, follow">'.html_safe
+        @meta_robots = '<meta name="robots" content="noindex, follow">'
       else
-        @meta_robots = '<meta name="robots" content="index, follow">'.html_safe
+        @meta_robots = '<meta name="robots" content="index, follow">'
       end
 
       if current_user.present?
@@ -170,32 +170,37 @@ class SearchesController < ApplicationController
 
       # SEO
       response.last_modified = Time.now.utc
-      header = "".html_safe
-      header2 = "".html_safe
+      header = (params[:replacements].present? ? "Аналоги " : "").html_safe
+      header << "#{params[:catalog_number]} ".html_safe
+      tmp = "".html_safe
       counter = 0
+
       seo_counter.each do |catalog_number, arr|
+
         counter += 1
+
         if arr.size > 0
-          header << catalog_number + " " + arr[:titles].last[0].to_s
+          header << "(" + arr[:manufacturer] + ") " + arr[:titles].last[0].to_s
           if counter != seo_counter.size
             header << ", "
           end
-          header2 << "Посмотреть аналоги "
-          header2 << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
-          header2 << " #{arr[:titles].last[0].to_s}"
-          header2 << "<br />".html_safe 
+
+          tmp << "Посмотреть аналоги "
+          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
+          tmp << " #{arr[:titles].last[0].to_s}"
+          tmp << "<br />".html_safe 
         end
       end
 
       @seo_counter_length = seo_counter.length
 
-      content_for :title2, header2
-      content_for :title, header
-      content_for :description, header
+      @division_blocks = tmp
+      @meta_title = header
+      @meta_description = header
     else
-      content_for :title, " Поиск запчастей"
+      @meta_title = "Поиск запчастей по номеру"
     end
     
-    content_for :keywords, seo_keywords
+    @meta_keywords = seo_keywords
   end
 end

@@ -1,23 +1,28 @@
 <% require 'uri' %>
 
-<h1>Список страниц</h1>
+<h1><%= @meta_title = "Страницы" %></h1>
+
 <table>
   <tr>
+    <th>Заголовок</th>
     <th>Путь</th>
-    <th>Содержание</th>
-    <th>Мобильное содержание</th>
+    <th>Запрет индексации и следования</th>
     <th>Ключевые слова SEO</th>
     <th>Описание SEO</th>
+    <th>Содержание</th>
+    <th>Мобильное содержание</th>
     <th>Управление</th>
   </tr>
 
 <% @pages.each do |page| %>
   <tr>
-    <td><%= page.path %></td>
-    <td><%= truncate(page.default_content) %></td>
-    <td><%= truncate(page.mobile_content) %></td>
+    <td><%= truncate(page.title) %></td>
+    <td><%= truncate(page.path) %></td>
+    <td><%= truncate(page.robots) %></td>
     <td><%= truncate(page.keyword) %></td>
     <td><%= truncate(page.description) %></td>
+    <td><%= truncate(page.default_content) %></td>
+    <td><%= truncate(page.mobile_content) %></td>
     <td>
       <%= link_to "<p class='icons icons-sprite icons-view'>Просмотр</p>".html_safe, "/#{page.path}", :target => "_blank" %>
       <%= link_to "<p class='icons icons-sprite icons-edit'>Редактировать</p>".html_safe, edit_page_path(page) %>

@@ -1,0 +1,37 @@
+<%= simple_form_for(@link, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.association :user, :label_method => lambda { |user| "#{user.user_name} - #{user.phone}" }, :label => "Пользователь"%>
+    <%= f.input :url, :label => "Адрес страницы с ссылкой" %>
+    <%= f.input :search_address_logic, :label => "Инструкция поиска страницы", :input_html => {:rows => 10, :style => "width: 270px"}, :hint => "Заполняется только если у проверяемой страницы может измениться адрес (например в случае с постраничной навигацией). Естественная ссылка должна перемещаться вместе с контентом.", :disabled => true %>
+    <%= f.input :template_to_search, :label => "Инструкция проверки материала", :input_html => {:rows => 10, :style => "width: 270px"}, :hint => "Задача считается успешно выполненой если в результате выполнения инструкции возрващается true (используется язык Ruby)" %>
+    <%= f.input :notes, :label => "Заметки" %>
+
+    <div class="clearfix string url optional">
+      <label for="link_url" class="url optional">Дата последней проверки:</label>
+      <div class="input">
+        <%= l(@link.last_date_check, :format => :long) if  @link.last_date_check.present? %>
+      </div>
+    </div>
+
+    <div class="clearfix string url optional">
+      <label for="link_url" class="url optional">Дата последней успешной проверки:</label>
+      <div class="input">
+        <%= l(@link.last_successful_date_check, :format => :long) if  @link.last_successful_date_check.present? %>
+      </div>
+    </div>
+
+    <div class="clearfix string url optional">
+      <label for="link_url" class="url optional">Кол-во неудачных попыток подряд:</label>
+      <div class="input">
+        <%= @link.fail_sequence_counter %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit, :class => "primary" %> или <%= link_to ' назад', links_path %>
+  </div>
+<% end %>

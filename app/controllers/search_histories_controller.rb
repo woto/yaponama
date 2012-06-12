@@ -3,6 +3,8 @@ class SearchHistoriesController < ApplicationController
   # GET /search_histories.json
   def index
 
+    @meta_robots = '<meta name="robots" content="noindex, follow">'
+
     @search_histories = user_search_histories.page params[:page]
 
     respond_to do |format|

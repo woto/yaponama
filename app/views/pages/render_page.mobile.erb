@@ -1,5 +1,5 @@
-<% if @content.mobile_content.present? %>
-  <%= @content.mobile_content.html_safe %>
+<% if @page.mobile_content.present? %>
+  <%= @page.mobile_content.html_safe %>
 <% else %> 
-  <%= @content.default_content.html_safe %>
+  <%= @page.default_content.html_safe %>
 <% end %>

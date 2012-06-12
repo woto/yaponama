@@ -88,3 +88,5 @@ case RUBY_PLATFORM
   when /linux/
     gem 'rb-inotify'
 end
+
+gem 'nokogiri'

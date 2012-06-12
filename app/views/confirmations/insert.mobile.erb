@@ -1,5 +1,4 @@
-<%= content_for :title, "Ввод кода подтверждения" %>
-<h1><%= yield(:title) %></h1>
+<h1><%= @meta_title = "Ввод кода подтверждения" %></h1>
 <br />
 <%= simple_form_for(resource, :wrapper => :append, :as => resource_name, :url => confirmation_path(resource_name, :anchor => "jump")) do |f| %>
 
