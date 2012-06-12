@@ -33,7 +33,7 @@ class CallbackRequestsController < ApplicationController
 
     respond_to do |format|
       if @callback_request.update_attributes(params[:callback_request])
-        format.html { redirect_to @callback_request, :notice => 'Заявка обратного вызова успешно обновлена' }
+        format.html { redirect_to callback_requests(@callback_request, :anchor => "jump"), :notice => 'Заявка обратного вызова успешно обновлена' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -48,7 +48,7 @@ class CallbackRequestsController < ApplicationController
     @callback_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to callback_requests_url }
+      format.html { redirect_to callback_requests_url(:anchor => "jump") }
       format.json { head :ok }
     end
   end

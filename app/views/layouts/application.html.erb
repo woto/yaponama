@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <% if @meta_title %>
     <title><%= "#{@meta_title} - " if @meta_title.present? %> <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %></title>
   <% end %>
@@ -24,7 +25,7 @@
   <link rel="shortcut icon" href="/favicon.ico" />
 
   <% if @meta_canonical %>
-  <link rel="canonical" href="<%= @meta_canonical %>" />
+    <link rel="canonical" href="<%= @meta_canonical %>" />
   <% end %>
 
   <%= stylesheet_link_tag    "application" %>

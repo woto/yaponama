@@ -2,7 +2,33 @@
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>  
 <head>
-  <title><%= @meta_title %> - Японама</title>
+
+  <% if @meta_title %>
+    <title><%= "#{@meta_title} - " if @meta_title.present? %> <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %></title>
+  <% end %>
+
+  <% if @meta_keywords %>
+    <meta name="Keywords" content="<%= @meta_keywords %>"/>
+  <% else %>
+    <meta name="Keywords" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_keywords_default'}) %>"/>
+  <% end %>
+
+  <% if @meta_description %>
+    <meta name="Description" content="<%= @meta_description %>"/>
+  <% else %>
+    <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
+  <% end %>
+
+  <% if @meta_robots %>
+    <meta name="robots" content="<%= @meta_robots %>">
+  <% end %>
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <% if @meta_canonical %>
+    <link rel="canonical" href="<%= @meta_canonical %>" />
+  <% end %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>

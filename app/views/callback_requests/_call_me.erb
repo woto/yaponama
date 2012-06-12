@@ -1,7 +1,7 @@
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'call_me'}) %>
 
 <div class="clearfix tel required hint-hack">
-  <%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path, :html => {:id => "callback_request", :style => "margin: 0"} do |callback| %>
+  <%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path(:anchor => "jump"), :html => {:id => "callback_request", :style => "margin: 0"} do |callback| %>
     <div class="input" style="margin-left: 0">
       <div class="input-prepend">
         <span class="add-on">+7</span>

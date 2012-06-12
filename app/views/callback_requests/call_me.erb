@@ -1,7 +1,7 @@
 <h1>Заказ звонка</h1>
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'call_me'}) %>
 
-  <%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path, :html => {:id => "callback_request"} do |callback| %>
+<%= simple_form_for CallbackRequest.new, :remote => true, :url => please_callback_requests_path(:anchor => "jump"), :html => {:id => "callback_request"} do |callback| %>
 
     <%= content_tag :span, "+7" %>
     <%= callback.text_field :phone, :value => (params[:callback_request][:phone] if params[:callback_request] && params[:callback_request][:phone]) || '', :size => "18", :type => "tel", :style => "margin-right: 20px", :maxlength => 10 %>
