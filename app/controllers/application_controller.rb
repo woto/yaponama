@@ -26,6 +26,16 @@ class ApplicationController < ActionController::Base
 
   def item_status(catalog_number, manufacturer)
 
+    status = {
+      :own => nil, 
+      :their => nil
+    }
+
+    page = Page.where(:path => info_path(catalog_number, manufacturer)[1..-1]).first
+    if page.present?
+      status[:own] = 'avaliable'
+    end
+
     key_part = "#{catalog_number}:#{manufacturer}".mb_chars.gsub(/[^а-яА-Яa-zA-z0-9]/,'_')
 
     begin
@@ -34,9 +44,12 @@ class ApplicationController < ActionController::Base
       end
     rescue Exception => exc
       if exc.instance_of? Errno::ENOENT
-        return 'unknown'
+        status[:their] = 'unknown'
       end
     end
+
+    return status
+
   end
 
   def upcase_token

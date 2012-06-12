@@ -48,3 +48,7 @@
     <% end %>
   <% end %>
 <% end %>
+
+<br />
+
+<%= raw(@page.mobile_content.presence || @page.default_content) if @page %>

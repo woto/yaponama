@@ -144,10 +144,15 @@ class SearchesController < ApplicationController
         #  item['info'] = 'unknown'
         #end
 
-        item['info'] = item_status(item['catalog_number'], item['manufacturer'])
-
+        item_status = item_status(item['catalog_number'], item['manufacturer'])
+        if item_status[:own] == 'avaliable'
+          item['info'] = 'avaliable'
+        else
+          item['info'] = item_status[:their]
+        end
 
       end
+
 
       seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}
       seo_keywords = seo_keywords[-seo_keywords.size/2, 1000].to_a.collect{|e| e[0].mb_chars.upcase.gsub(',', ' ').to_s if e[0].mb_chars.size > 2}.uniq.compact.reverse.join(', ')
@@ -192,6 +197,8 @@ class SearchesController < ApplicationController
         end
       end
 
+      @meta_canonical = search_searches_path(params[:catalog_number], params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
+
       @seo_counter_length = seo_counter.length
 
       @division_blocks = tmp
@@ -202,5 +209,13 @@ class SearchesController < ApplicationController
     end
     
     @meta_keywords = seo_keywords
+
+    @page = Page.where(:path => search_searches_path(params[:catalog_number], params[:manufacturer], params[:replacements]).gsub(/^\/+/, '')).first
+    if @page
+      @meta_title = @page.title
+      @meta_description = @page.description
+      @meta_keywords = @page.keyword
+      @meta_robots = @page.robots
+    end
   end
 end
