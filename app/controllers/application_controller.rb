@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
     begin
       File.open("#{Rails.root}/system/parts_info/f:#{key_part}", "r") do |file|
-        return file.read
+        status[:their] = file.read
       end
     rescue Exception => exc
       if exc.instance_of? Errno::ENOENT
