@@ -90,4 +90,5 @@ case RUBY_PLATFORM
 end
 
 gem 'nokogiri'
-gem 'robokassa', :git => 'https://github.com/shaggyone/robokassa', :branch => 'rails_3_0_x'
+#gem 'robokassa', :git => 'https://github.com/shaggyone/robokassa', :branch => 'rails_3_0_x'
+gem 'robokassa', :path => '../robokassa/', :branch => 'rails_3_0_x'
