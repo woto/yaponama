@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  get 'robokassa' => 'robokassa#index'
+
   resources :links do
     member do
       match 'check'
