@@ -14,7 +14,6 @@ gem 'rdoc', '3.11'
 gem 'coffee-script-source', '1.1.3'
 gem 'columnize', '0.3.5'
 gem 'daemons', '1.1.4'
-gem 'rack', '1.3.5'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -38,7 +37,7 @@ gem 'jquery-rails'
 # To use debugger
 gem 'ruby-debug'
 
-gem 'bootstrap-sass', '1.4.0'
+gem 'bootstrap-sass', '2.0.3.1'
 gem 'compass', '0.12.alpha.0'
 #gem 'formtastic'
 #gem 'formtastic-bootstrap'
@@ -62,21 +61,17 @@ gem 'whenever', '0.7.0'
 gem 'mobylette', '1.5.0'
 gem 'content_for_in_controllers', :git => 'https://github.com/clmntlxndr/content_for_in_controllers.git', :ref => '7f652d5847'
 gem 'sitemap_generator', '3.0.0'
-gem 'arel', '2.2.1'
 gem 'chronic', '0.6.6'
 gem 'fssm', '0.2.7'
-gem 'mail', '2.3.0'
 gem 'mime-types', '1.17.2'
 gem 'mini_magick', '3.3'
 gem 'rbx-require-relative', '0.0.5'
 gem 'orm_adapter', '0.0.6'
-gem 'rack-cache', '1.1'
 gem 'subexec', '0.1.0'
 gem 'tzinfo', '0.3.31'
 gem 'warden', '1.1.0'
 gem "ckeditor", '3.7.1'
 gem 'backbone-rails', '0.9.2'
-gem 'sprockets', '2.0.4'
 gem 'active_attr'
 gem "hiredis", "~> 0.3.1"
 gem "redis", "~> 2.2.0", :require => ["redis/connection/hiredis", "redis"]
@@ -90,3 +85,5 @@ case RUBY_PLATFORM
 end
 
 gem 'nokogiri'
+gem 'robokassa', :git => 'https://github.com/shaggyone/robokassa.git', :branch => 'rails_3_2'
+

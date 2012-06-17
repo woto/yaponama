@@ -15,15 +15,15 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
   create_table "blocks", :force => true do |t|
     t.text     "content"
     t.string   "block_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "callback_requests", :force => true do |t|
     t.string   "phone"
     t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "car_assets", :force => true do |t|
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "attachable_type"
     t.integer  "user_id"
     t.integer  "car_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "cars", :force => true do |t|
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "frame"
     t.string   "komplektaciya"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ckeditor_assets", :force => true do |t|
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.integer  "assetable_id"
     t.string   "assetable_type",    :limit => 30
     t.string   "type",              :limit => 30
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
@@ -81,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.datetime "failed_at"
     t.string   "locked_by"
     t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.datetime "last_successful_date_check"
     t.integer  "fail_sequence_counter",      :default => 0
     t.string   "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
   end
 
   create_table "message_assets", :force => true do |t|
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "attachable_type"
     t.integer  "message_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "messages", :force => true do |t|
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.boolean  "notified",   :default => false
     t.integer  "request_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   create_table "orders", :force => true do |t|
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.text     "notes"
     t.boolean  "notified",      :default => false
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "delivery_cost"
   end
 
@@ -135,16 +135,16 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.text     "mobile_content"
     t.text     "keyword"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.string   "title"
     t.string   "robots"
   end
 
   create_table "parts_images", :force => true do |t|
     t.string   "part_image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "catalog_number"
     t.string   "manufacturer"
   end
@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
   create_table "requests", :force => true do |t|
     t.integer  "car_id"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "search_histories", :force => true do |t|
@@ -161,20 +161,20 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "session_id"
     t.string   "catalog_number"
     t.string   "manufacturer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "searches", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -183,8 +183,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
@@ -203,8 +203,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "phone"
     t.string   "name"
     t.string   "user_name"
@@ -232,8 +232,8 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "status",          :default => "active"
     t.integer  "order_id"
     t.integer  "count_in_wishes", :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
 end
