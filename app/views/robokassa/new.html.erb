@@ -1,3 +1,4 @@
+<% debugger %>
 <% payment_service_for @order.id, 'woto7',
   :amount => @order.price, :currency => 'QiwiR', :secret => 'qwer3322',
         :service => :robokassa do |service|

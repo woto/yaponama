@@ -1,8 +1,6 @@
 class RobokassaController < ApplicationController
-  require 'money'
-  require 'active_merchant'
+
   require 'active_merchant/billing/integrations/action_view_helper'
-  
   ActionView::Base.send(:include, ActiveMerchant::Billing::Integrations::ActionViewHelper)
 
   Order = Struct.new(:id, :price, :name, :items_summary)     #=> Customer

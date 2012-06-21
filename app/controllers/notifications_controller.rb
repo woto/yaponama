@@ -21,6 +21,7 @@ class NotificationsController < ApplicationController
     @order = Order.unpaid.find(notify.item_id)
 
     if notify.acknowledge
+    begin
       # Make sure you received the expected payment!
       if notify.complete? and @order.price == BigDecimal.new( params[:mc_gross] )
         # All your bussiness logic goes here
