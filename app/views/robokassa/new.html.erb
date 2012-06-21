@@ -1,0 +1,19 @@
+<% payment_service_for @order.id, 'woto7',
+  :amount => @order.price, :currency => 'QiwiR', :secret => 'qwer3322',
+        :service => :robokassa do |service|
+
+    service.customer :first_name => @current_paypal_user.name,
+        :last_name => @current_paypal_user.surname,
+        :email => @current_paypal_user.email
+
+    service.item_name @order.items_summary
+
+    # PayPal will POST a callback here when the payment is done
+    service.notify_url notifications_url(@order)
+    # PayPal will take your user here with a POST after he pays
+    service.return_url paypal_return_notifications_url(@order)
+    # PayPal will redirect your user here if he cancels the payment
+    service.cancel_return_url paypal_cancel_notifications_url(@order) %>
+
+    <%= submit_tag 'Pay this order' %>
+<% end %>

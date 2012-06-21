@@ -91,4 +91,7 @@ end
 
 gem 'nokogiri'
 #gem 'robokassa', :git => 'https://github.com/shaggyone/robokassa', :branch => 'rails_3_0_x'
-gem 'robokassa', :path => '../robokassa/', :branch => 'rails_3_0_x'
+#gem 'robokassa', :path => '../robokassa/', :branch => 'rails_3_0_x'
+#gem 'robokassa', :git => 'https://github.com/glebtv/robokassa.git'
+gem 'activemerchant', :require => 'active_merchant', :git => 'https://github.com/Shopify/active_merchant'
+

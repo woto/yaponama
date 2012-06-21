@@ -1,2 +1,12 @@
-<% pay_url = Robokassa.client.init_payment_url('1', 10, "Заказ бла", '', 'ru', 'my@mail.ru', {}) %>
-<%= link_to "Оплатить через сервис ROBOX", pay_url %>
+<% debugger %>
+<%
+  require 'money'
+  require 'active_merchant'
+  require 'active_merchant/billing/integrations/action_view_helper'
+
+  ActionView::Base.send(:include, ActiveMerchant::Billing::Integrations::ActionViewHelper)
+%>
+
+<% payment_service_for('1', '2') do %>
+    <%= 'e' %>
+<% end %>
