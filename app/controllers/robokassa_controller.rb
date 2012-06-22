@@ -3,7 +3,7 @@ class RobokassaController < ApplicationController
   require 'active_merchant/billing/integrations/action_view_helper'
   ActionView::Base.send(:include, ActiveMerchant::Billing::Integrations::ActionViewHelper)
 
-  Order = Struct.new(:id, :price, :name, :items_summary)     #=> Customer
+  Order = Struct.new(:id, :price, :name, :items_summary, :description)     #=> Customer
   CurrentUser = Struct.new(:name, :surname, :email)
 
   def new
@@ -13,7 +13,7 @@ class RobokassaController < ApplicationController
 
     # Create a structure named by its constant
     #Customer.new("Dave", "123 Main")           #=> #<Customer name="Dave", address="123 Main">
-    @order = Order.new(1, 100, 'woto', 1)
+    @order = Order.new(1, 100, 'woto', 1, 'Описание')
     @current_paypal_user = CurrentUser.new('woto', 'Kornev', 'oganer@gmail.com')
   end
 end
