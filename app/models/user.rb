@@ -10,12 +10,15 @@ class User < ActiveRecord::Base
   attr_accessible :balance, :discount, :as => :admin
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name
-  attr_accessible :humanizer_question_id, :humanizer_answer
-  attr_accessible :confirmation_token
+  attr_accessible :phone, :password, :password_confirmation, :remember_me, :name, :email, :user_name, :as => [:default, :admin]
+  attr_accessible :humanizer_question_id, :humanizer_answer, :as => [:default, :admin]
+
+  attr_accessible :confirmation_token, :as => [:default, :admin]
+
 
   #TODO!
-  attr_accessible :captcha, :captcha_key
+  attr_accessible :captcha, :captcha_key, :as => [:default, :admin]
+
   
   # Проверка телефона
   validates :phone, :numericality => { :only_integer => true }, :length => { :within => 10..10 }, :uniqueness => true
@@ -62,7 +65,7 @@ class User < ActiveRecord::Base
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
     end
 
-    update_attributes(params, :as => is_session_admin_workaround ? :admin : nil)
+    update_attributes(params, :as => is_session_admin_workaround ? :admin : :default)
   end
 
   def email_required?
