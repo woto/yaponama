@@ -1,5 +1,1 @@
-if Rails.env.production? 
-  ActiveMerchant::Billing::Base.mode = :prodution
-else
-  ActiveMerchant::Billing::Base.mode = :test
-end
+ActiveMerchant::Billing::Base.integration_mode = APP_CONFIG['robokassa_integration_mode'].to_sym

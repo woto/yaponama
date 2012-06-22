@@ -1,6 +1,5 @@
-<% debugger %>
-<% payment_service_for @order.id, 'woto7',
-  :amount => @order.price, :currency => 'QiwiR', :secret => 'qwer3322',
+<% payment_service_for @order.id, APP_CONFIG['robokassa_user'],
+  :amount => @order.price, :currency => 'QiwiR', :secret => APP_CONFIG['robokassa_pass_1'],
         :service => :robokassa do |service|
 
     service.customer :first_name => @current_paypal_user.name,

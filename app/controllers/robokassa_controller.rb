@@ -6,9 +6,6 @@ class RobokassaController < ApplicationController
   Order = Struct.new(:id, :price, :name, :items_summary)     #=> Customer
   CurrentUser = Struct.new(:name, :surname, :email)
 
-  def index
-  end
-
   def new
     # Create a structure with a name in Struct
     #Struct.new("Customer", :name, :address)    #=> Struct::Customer
