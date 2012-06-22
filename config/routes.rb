@@ -1,9 +1,9 @@
 Yaponama::Application.routes.draw do
 
   get 'robokassa/new' => 'robokassa#new'
-  post 'notifications' => 'notifications#create', :as => :notifications
-  post 'notifications/paypal_return' => 'notifications#paypal_return', :as => :paypal_return_notifications
-  post 'notifications/paypal_cancel' => 'notifications#paypal_cancel', :as => :paypal_cancel_notifications
+  get 'robokassa/result' => 'robokassa#result'
+  get 'robokassa/success' => 'robokassa#success'
+  get 'robokassa/fail' => 'robokassa#fail'
 
   resources :links do
     member do
