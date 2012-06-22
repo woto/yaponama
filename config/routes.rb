@@ -1,9 +1,9 @@
 Yaponama::Application.routes.draw do
 
   get 'robokassa/new' => 'robokassa#new'
-  get 'robokassa/result' => 'robokassa#result'
-  get 'robokassa/success' => 'robokassa#success'
-  get 'robokassa/fail' => 'robokassa#fail'
+  post 'robokassa/result' => 'robokassa#result'
+  post 'robokassa/success' => 'robokassa#success'
+  post 'robokassa/fail' => 'robokassa#fail'
 
   resources :links do
     member do

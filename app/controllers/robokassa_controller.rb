@@ -24,7 +24,7 @@ class RobokassaController < ApplicationController
     redirect_to root_path
   end
 
-  def create
+  def result
     Rails.logger.debug(params.inspect)
     # You maybe want to log this notification
     notify = Robokassa.notification request.raw_post, :secret => APP_CONFIG['robokassa_pass_2']
