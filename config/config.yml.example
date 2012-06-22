@@ -1,0 +1,21 @@
+defaults: &defaults
+  site_address: 'www.yaponama.ru'
+  price_request_cache: '10'
+  redis_address: 'localhost'
+  redis_port: 6379
+  juggernaut_address: 'www.yaponama.ru'
+  price_address: '188.64.170.156:85'
+  request_emex: true
+  emex_income_rate: 1.05
+  avtorif_income_rate: 1.10
+  retail_rate: 1.21
+  robokassa_integration_mode: 'test'
+  robokassa_pass_1: 'Qwer3322'
+  robokassa_pass_2: 'Qwer2233'
+  robokassa_user: 'woto7'
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
