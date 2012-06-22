@@ -1,0 +1,31 @@
+<%= simple_form_for(@user, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :email %>
+    <%= f.input :encrypted_password %>
+    <%= f.input :reset_password_token %>
+    <%= f.input :reset_password_sent_at %>
+    <%= f.input :remember_created_at %>
+    <%= f.input :sign_in_count %>
+    <%= f.input :current_sign_in_at %>
+    <%= f.input :last_sign_in_at %>
+    <%= f.input :current_sign_in_ip %>
+    <%= f.input :last_sign_in_ip %>
+    <%= f.input :confirmation_token %>
+    <%= f.input :confirmed_at %>
+    <%= f.input :confirmation_sent_at %>
+    <%= f.input :created_at %>
+    <%= f.input :updated_at %>
+    <%= f.input :phone %>
+    <%= f.input :name %>
+    <%= f.input :user_name %>
+    <%= f.input :admin %>
+    <%= f.input :balance %>
+    <%= f.input :discount %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

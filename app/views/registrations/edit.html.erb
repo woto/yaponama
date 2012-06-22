@@ -4,7 +4,12 @@
 <hr>
 
 <%= simple_form_for(resource, :as => resource_name, :wrapper => :inline, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= f.error_notification %>
+
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
 
   <div class="inputs">
     
@@ -14,6 +19,7 @@
 
     
     <%= f.input :user_name, :required => true %>
+    <%= f.input :email, :hint => "Адрес электронной почты" %>
     <%= f.input :password, :hint => "Придумайте себе новый пароль не менее 6-и символов", :required => false, :input_html => {:autocomplete => "off"} %>
     <%= f.input :password_confirmation, :hint => "Повторите введенный пароль", :required => false, :input_html => {:autocomplete => "off"} %>
     <%= f.input :discount, :label => "Скидка", :hint => "процентов от гостевой цены", :as => :string, :disabled => session[:admin_id] || current_user.admin? ? false : true %>

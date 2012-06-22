@@ -52,7 +52,9 @@
         <li<%= params[:controller] == 'orders' ? ' class="active"'.html_safe : ''%>><%= link_to "Заказы", orders_path %></li>
       </ul>
       <ul class="nav secondary-nav">
-        <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "Контакты", about_path %></li>                
+        <li<%= params[:controller] == 'delivery' ? ' class="active"'.html_safe : ''%>><%= link_to "Доставка", delivery_path %></li>                
+        <li<%= params[:controller] == 'payment' ? ' class="active"'.html_safe : ''%>><%= link_to "Оплата", payment_path %></li>                
+        <li<%= params[:controller] == 'about' ? ' class="active"'.html_safe : ''%>><%= link_to "О магазине", about_path %></li>                
         <li class="dropdown <%= (['sessions', 'registrations', 'passwords', 'confirmations', 'blocks', 'pages', 'callback_requests', 'links'].include? params[:controller])  ? 'active' : ''%>">
           <% if user_signed_in? %>
             <%= link_to "" + current_user.user_name, "#", :class => "dropdown-toggle", :style => "white-space:nowrap; z-index: 10; position: relative; display: block; max-width: 120px; overflow:hidden; text-overflow:ellipsis;" %>
@@ -66,6 +68,7 @@
                 <li<%= params[:controller] == 'pages' ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
                 <li<%= params[:controller] == 'callback_requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Обратные вызовы", callback_requests_path %></li>
                 <li<%= params[:controller] == 'links' ? ' class="active"'.html_safe : ''%>><%= link_to "Ссылки", links_path %></li>
+                <li<%= params[:controller] == 'users' && params[:action] == 'index' ? ' class="active"'.html_safe : ''%>><%= link_to "Пользователи", users_path %></li>
               <% end %>
               <li class="divider"></li>
               <li><%= link_to "Выход", destroy_user_session_path %></li>

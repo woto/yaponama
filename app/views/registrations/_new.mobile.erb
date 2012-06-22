@@ -14,7 +14,7 @@
     <%= content_tag :span, "+7" %>
     <%= f.text_field :phone, :size => "18", :type => "tel", :style => "margin-right: 20px", :maxlength => 10 %>
   <% end %><br />
-  
+
   <%= f.label "Введите код", :required => true %><br />
   <%= show_simple_captcha %><br />
   <%= f.error :captcha %><br /><br />

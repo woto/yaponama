@@ -1,1 +1,7 @@
-<%= Block.where(:block_name => block_name).first.content.html_safe %>
+<%= 
+  begin 
+    Block.where(:block_name => block_name).first.content.html_safe
+  rescue Exception => e
+    raise "Block \"#{block_name}\" not exists"
+  end
+%>

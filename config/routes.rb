@@ -54,6 +54,8 @@ Yaponama::Application.routes.draw do
   end
 
   get 'about' => "about#index"
+  get 'delivery' => "delivery#index"
+  get 'payment' => "payment#index"
   
   post 'data' => 'data#index'
 
@@ -101,6 +103,11 @@ Yaponama::Application.routes.draw do
           :passwords => "passwords",
           :sessions => "sessions"
   }
+
+  #get 'users' => 'users#index'
+
+  resources :users
+
   #devise_for :users
 
   # The priority is based upon order of creation:

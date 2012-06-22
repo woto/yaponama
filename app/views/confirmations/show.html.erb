@@ -1,6 +1,6 @@
 <h1><%= @meta_title = "Один шаг до входа" %></h1>
 
-<p><span class="label">К сведению</span> Вы почти вошли, укажите ваше имя и придумайте себе новый пароль.</p>
+<p><span class="label">К сведению</span> Вы почти вошли, укажите ваше имя, e-mail и придумайте себе новый пароль.</p>
 <hr>
 
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => update_confirmation_path, :html => { :method => :put }) do |f| %>
@@ -17,6 +17,9 @@
     </div>
       
     <%= f.input :user_name, :required => true %>
+
+    <%= f.input :email, :hint => "Адрес электронной почты" %>
+
     <%= f.input :password, :required => true, :hint => 'Придумайте пароль не менее 6-и символов', :input_html => {:autocomplete => "off"} %>
     <%= f.input :password_confirmation, :required => true, :hint => 'Повторите введенный пароль', :input_html => {:autocomplete => "off"} %>
     <%= hidden_field_tag "user[confirmation_token]", @confirmation_token %>

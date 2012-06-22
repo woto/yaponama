@@ -1,0 +1,63 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Encrypted password</th>
+    <th>Reset password token</th>
+    <th>Reset password sent at</th>
+    <th>Remember created at</th>
+    <th>Sign in count</th>
+    <th>Current sign in at</th>
+    <th>Last sign in at</th>
+    <th>Current sign in ip</th>
+    <th>Last sign in ip</th>
+    <th>Confirmation token</th>
+    <th>Confirmed at</th>
+    <th>Confirmation sent at</th>
+    <th>Created at</th>
+    <th>Updated at</th>
+    <th>Phone</th>
+    <th>Name</th>
+    <th>User name</th>
+    <th>Admin</th>
+    <th>Balance</th>
+    <th>Discount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.encrypted_password %></td>
+    <td><%= user.reset_password_token %></td>
+    <td><%= l(user.reset_password_sent_at, :format => :short) if user.reset_password_sent_at.present? %></td>
+    <td><%= l(user.remember_created_at, :format => :short) if user.remember_created_at.present? %></td>
+    <td><%= user.sign_in_count %></td>
+    <td><%= l(user.current_sign_in_at, :format => :short) if user.current_sign_in_at.present? %></td>
+    <td><%= l(user.last_sign_in_at, :format => :short) if user.last_sign_in_at.present? %></td>
+    <td><%= user.current_sign_in_ip %></td>
+    <td><%= user.last_sign_in_ip %></td>
+    <td><%= user.confirmation_token %></td>
+    <td><%= l(user.confirmed_at, :format => :short) if user.confirmed_at.present? %></td>
+    <td><%= l(user.confirmation_sent_at, :format => :short) if user.confirmation_sent_at.present? %></td>
+    <td><%= l(user.created_at, :format => :short) if user.created_at.present? %></td>
+    <td><%= l(user.updated_at, :format => :short) if user.updated_at.present? %></td>
+    <td><%= user.phone %></td>
+    <td><%= user.name %></td>
+    <td><%= user.user_name %></td>
+    <td><%= user.admin %></td>
+    <td><%= user.balance %></td>
+    <td><%= user.discount %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User', new_user_path %>

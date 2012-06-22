@@ -1,6 +1,6 @@
 <h1><%= "Регистрация" if @meta_title != "Регистрация" %></h1>
 
-<p><span class="label">К сведению</span> <%= notice_text || "Для регистрации на нашем сайте просто укажите номер своего телефона." %></p>
+<p><span class="label">К сведению</span> <%= notice_text || "Для регистрации на нашем сайте просто укажите номер своего телефона и мы вышлем Вам код подтверждения." %></p>
 <hr>
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
@@ -27,6 +27,7 @@
         <%= f.hint "Мы должны убедиться, что вы человек" %>        
       </div>
     </div>
+
   </div>
 
   <div class="actions">

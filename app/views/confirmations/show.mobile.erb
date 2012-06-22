@@ -12,6 +12,8 @@
   
   <%= f.input :user_name, :error => true, :hint => false, :label => "Как к вам обращаться? (Имя)", :input_html => {:size => 20, :autocomplete => "off"}, :required => true %>
   <br />
+  <%= f.input :email, :label => "Адрес электронной почты (E-mail)", :input_html => {:size => 20} %>
+  <br />
   <%= f.input :password, :required => true, :input_html => {:size => 20} %>
   <br />
   <%= f.input :password_confirmation, :required => true, :input_html => {:size => 20} %>
