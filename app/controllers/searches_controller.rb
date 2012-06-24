@@ -10,18 +10,26 @@ class SearchesController < ApplicationController
       render :status => 410 and return
     end
 
-    if params[:catalog_number].present? and (params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase).present?
+    if params[:catalog_number].present?
+
+      # Нужно для того чтобы если например набрали исключительно из символов, которые не попадают в допустимые и образуется пустая строка
+      params[:catalog_number] = params[:catalog_number].gsub(/[^a-zA-Z0-9]/, '').upcase
+      if params[:catalog_number].blank?
+        render :status => 410 and return
+      end
 
       seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
       if request.fullpath.upcase != seo_url.upcase
         redirect_to seo_url + "#jump" and return
       end
 
-      if params[:manufacturer] || params[:replacements]
-        @meta_robots = '<meta name="robots" content="noindex, follow">'
-      else
-        @meta_robots = '<meta name="robots" content="index, follow">'
-      end
+      # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
+      #if params[:manufacturer] || params[:replacements]
+      #  @meta_robots = 'noindex, follow'
+      #else
+      #  @meta_robots = 'index, follow'
+      #end
+      @meta_robots = 'index, follow'
 
       if current_user.present?
         condition = { :user_id => current_user.id }
