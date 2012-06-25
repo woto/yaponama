@@ -11,6 +11,14 @@ SitemapGenerator::Sitemap.create do
     Page.all do |page|
       add "/#{page.path}", :changefreq => 'monthly'
     end
+
+    # Популярные запросы
+    input = File.new("#{Rails.root}/system/popular_parts_requests/output.csv", 'r')
+    input.each_line("\n") do |row|
+      add '/searches/' + row[0...-1]
+    end
+
+    # Прайсы наличия
     Net::HTTP.start('188.64.170.156', '85') do |http|
       prices_urls = [
       '/suppliers/77/price_settings/154/download',
