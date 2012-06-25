@@ -1,7 +1,7 @@
 <% payment_service_for @order.id, APP_CONFIG['robokassa_user'], :amount => @order.price, :currency => 'QiwiR', :secret => APP_CONFIG['robokassa_pass_1'], :service => :robokassa do |service| %>
 
     <% service.description 'Описание заказа до 100 символов' %>
-    <% service.email @current_paypal_user.email %>
+    <% service.email current_user.presence %>
 
     <%= submit_tag 'Оплатить с помощью Qiwi кошелька', :class => "btn primary" %>
 <% end %>

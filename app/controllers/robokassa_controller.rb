@@ -8,6 +8,9 @@ class RobokassaController < ApplicationController
   Order = Struct.new(:id, :price, :name, :items_summary, :description)     #=> Customer
   CurrentUser = Struct.new(:name, :surname, :email)
 
+  def new
+    @order = Order.new(1, 100, 'woto', 1, 'Описание')
+  end
 
   def success
     Rails.logger.debug(params.inspect)
