@@ -2,29 +2,29 @@
 <html>
 <head>
 
-  <% if @meta_title %>
+  <% if @meta_title.present? %>
     <title><%= "#{@meta_title} - " if @meta_title.present? %> <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'title'}) %></title>
   <% end %>
 
-  <% if @meta_keywords %>
+  <% if @meta_keywords.present? %>
     <meta name="Keywords" content="<%= @meta_keywords %>"/>
   <% else %>
     <meta name="Keywords" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_keywords_default'}) %>"/>
   <% end %>
 
-  <% if @meta_description %>
+  <% if @meta_description.present? %>
     <meta name="Description" content="<%= @meta_description %>"/>
   <% else %>
     <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
 
-  <% if @meta_robots %>
+  <% if @meta_robots.present? %>
     <meta name="robots" content="<%= @meta_robots %>">
   <% end %>
 
   <link rel="shortcut icon" href="/favicon.ico" />
 
-  <% if @meta_canonical %>
+  <% if @meta_canonical.present? %>
     <link rel="canonical" href="<%= @meta_canonical %>" />
   <% end %>
 
