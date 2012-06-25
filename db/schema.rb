@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120611215829) do
+ActiveRecord::Schema.define(:version => 20120625203040) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -266,6 +266,13 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "manufacturer"
   end
 
+  create_table "posts", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "requests", :force => true do |t|
     t.integer  "car_id"
     t.integer  "user_id"
@@ -346,11 +353,12 @@ ActiveRecord::Schema.define(:version => 20120611215829) do
     t.string   "average"
     t.string   "country"
     t.string   "session_id"
-    t.string   "status",          :default => "active"
+    t.string   "status",              :default => "active"
     t.integer  "order_id"
-    t.integer  "count_in_wishes", :default => 0
+    t.integer  "count_in_wishes",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "hide_catalog_number"
   end
 
 end

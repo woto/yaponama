@@ -36,6 +36,11 @@ class OrdersController < ApplicationController
   def show
     @order = Order.user_or_admin(current_user).find(params[:id])
     @wishes = @order.wishes.where(:status => :ordered)
+
+    @wishes.each do |wish|
+      hide_or_show_catalog_number(wish)
+    end
+
     content_for :title, "Просмотр заказа №#{@order.id}"
 
     respond_to do |format|

@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
     User.is_session_admin_workaround  = session[:admin_id] || (current_user && current_user.admin?)
   end
 
+  def hide_or_show_catalog_number(item)
+    if item['hide_catalog_number'] && !session[:admin_id] && !(current_user && current_user.admin?)
+      item['catalog_number'] = view_context.link_to("Скрыт", "#", :rel => 'twipsy', :title => 'Каталожный номер скрыт, т.к. подбор осущствлял менеджер, цена (и в случае наличия скидки) сохранены')
+    else
+      item['catalog_number'] = view_context.link_to(item.catalog_number, search_searches_path(item.catalog_number, item.manufacturer, :anchor => "jump"))
+    end
+  end
+
   def is_admin?
     unless current_user && current_user.admin?
       redirect_to root_path, :notice => "Вы не администратор"

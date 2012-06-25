@@ -24,7 +24,7 @@
       <tr>
         <td><%= check_box_tag "wishes_ids[]", wish.id, false, :id => "wish_#{wish.id}" %></td>
         <td><%= wish.manufacturer %></td>    
-        <td><%= link_to wish.catalog_number, search_searches_path(wish.catalog_number, wish.manufacturer, :anchor => "jump") %></td>
+        <td><%= wish.catalog_number %></td>
         <td><%= wish.title %></td>
         <td><%= count_decorator(wish.count) %></td>
         <td><%= days_decorator(wish.declared) %></td>

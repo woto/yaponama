@@ -103,6 +103,7 @@ $ ->
 
   $('a.days').popover({placement: 'left'})
   $('a.bill').popover()
+  $('a[rel=twipsy]').twipsy()
   $(".alert-message").alert()
   $('.dropdown').dropdown()
 
@@ -128,4 +129,3 @@ $ ->
     once(20)
 
   once(0)
-  

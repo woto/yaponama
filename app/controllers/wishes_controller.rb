@@ -4,6 +4,9 @@ class WishesController < ApplicationController
   def index
     
     @wishes = user_wishes.order("id DESC")
+    @wishes.each do |wish|
+      hide_or_show_catalog_number(wish)
+    end
     @meta_title = "Корзина"
 
     respond_to do |format|
@@ -42,6 +45,7 @@ class WishesController < ApplicationController
   # POST /wishes
   # POST /wishes.json
   def create
+    hide_catalog_number = session[:admin_id].present? ? 1 : 0
     @wish = Wish.guest_or_user(current_user, request.session_options[:id]).where(
       :cost => params[:wish][:cost],
       :catalog_number => params[:wish][:catalog_number],
@@ -54,7 +58,7 @@ class WishesController < ApplicationController
     ).where("status = 'active'").first
     
     unless @wish.present?
-      @wish = Wish.new(params[:wish])
+      @wish = Wish.new(params[:wish].merge({:hide_catalog_number => hide_catalog_number}))
     end
     
     @wish.increment!(:count_in_wishes)    

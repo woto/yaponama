@@ -39,15 +39,4 @@ class RobokassaController < ApplicationController
       render :text => 'Error'
     end
   end
-
-  def new
-    # Create a structure with a name in Struct
-    #Struct.new("Customer", :name, :address)    #=> Struct::Customer
-    #Struct::Customer.new("Dave", "123 Main")   #=> #<Struct::Customer name="Dave", address="123 Main">
-
-    # Create a structure named by its constant
-    #Customer.new("Dave", "123 Main")           #=> #<Customer name="Dave", address="123 Main">
-    @order = Order.new(1, 100, 'woto', 1, 'Описание')
-    @current_paypal_user = CurrentUser.new('woto', 'Kornev', 'oganer@gmail.com')
-  end
 end
