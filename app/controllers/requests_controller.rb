@@ -28,7 +28,7 @@ class RequestsController < ApplicationController
   # GET /requests/1.json
   def show
     scope = Request.user_or_admin(current_user)    
-    @request = scope.where(:id => params[:id]).includes(:messages => [:user, :message_assets]).first
+    @request = scope.where(:id => params[:id]).includes(:messages => [:user, :message_assets]).order(:'messages.id').first
 
     unless @request.present?
       redirect_to root_path(:anchor => "jump"), :notice => "Сообщение было удалено." and return
