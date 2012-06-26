@@ -1,9 +1,9 @@
 <h1>Listing users</h1>
 
-<table>
+<table class='zebra-striped'>
   <tr>
+    <th>id</th>
     <th>Email</th>
-    <th>Encrypted password</th>
     <th>Reset password token</th>
     <th>Reset password sent at</th>
     <th>Remember created at</th>
@@ -30,8 +30,8 @@
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= link_to user.id, show_become_path(user.id) %></td>
     <td><%= user.email %></td>
-    <td><%= user.encrypted_password %></td>
     <td><%= user.reset_password_token %></td>
     <td><%= l(user.reset_password_sent_at, :format => :short) if user.reset_password_sent_at.present? %></td>
     <td><%= l(user.remember_created_at, :format => :short) if user.remember_created_at.present? %></td>
@@ -45,7 +45,7 @@
     <td><%= l(user.confirmation_sent_at, :format => :short) if user.confirmation_sent_at.present? %></td>
     <td><%= l(user.created_at, :format => :short) if user.created_at.present? %></td>
     <td><%= l(user.updated_at, :format => :short) if user.updated_at.present? %></td>
-    <td><%= user.phone %></td>
+    <td>+7 <%= phone_decorator(user.phone) %></td>
     <td><%= user.name %></td>
     <td><%= user.user_name %></td>
     <td><%= user.admin %></td>
