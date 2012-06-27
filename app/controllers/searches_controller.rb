@@ -24,12 +24,13 @@ class SearchesController < ApplicationController
       end
 
       # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
-      #if params[:manufacturer] || params[:replacements]
-      #  @meta_robots = 'noindex, follow'
-      #else
-      #  @meta_robots = 'index, follow'
-      #end
-      @meta_robots = 'index, follow'
+      # @meta_robots = 'index, follow'
+      #
+      if params[:manufacturer] || params[:replacements]
+        @meta_robots = 'noindex, follow'
+      else
+        @meta_robots = 'index, follow'
+      end
 
       if current_user.present?
         condition = { :user_id => current_user.id }
@@ -107,7 +108,7 @@ class SearchesController < ApplicationController
 
         next if item["job_import_job_country_short"].include?("avtorif.ru")
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
-        if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present?
+        if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present? && (params[:manufacturer].present? ? params[:manufacturer] == item["manufacturer"] : true)
           hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
           seo_counter[hh][:titles][item["title"]] += 1
           seo_counter[hh][:catalog_number] = item["catalog_number"]
@@ -173,6 +174,8 @@ class SearchesController < ApplicationController
         }
       end
 
+      seo_counter = seo_counter.sort_by{|k, v| k.mb_chars}
+
       @parsed_json["result_prices"] = new_array
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
 
@@ -183,8 +186,9 @@ class SearchesController < ApplicationController
 
       # SEO
       response.last_modified = Time.now.utc
-      header = (params[:replacements].present? ? "Аналоги " : "").html_safe
-      header << "#{params[:catalog_number]} ".html_safe
+      title = (params[:replacements].present? ? "Аналоги " : "").html_safe
+      title << "#{params[:catalog_number]} ".html_safe
+      description = ''
       tmp = "".html_safe
       counter = 0
 
@@ -193,9 +197,18 @@ class SearchesController < ApplicationController
         counter += 1
 
         if arr.size > 0
-          header << "(" + arr[:manufacturer] + ") " + arr[:titles].last[0].to_s
-          if counter != seo_counter.size
-            header << ", "
+          if arr[:manufacturer].present?
+            title << arr[:manufacturer]
+            if counter != seo_counter.size
+              title << ", "
+            end
+          end
+
+          if arr[:titles].last[0].to_s.present?
+            description << arr[:titles].last[0].to_s
+            if counter != seo_counter.size
+              description << ", "
+            end
           end
 
           tmp << "Посмотреть аналоги "
@@ -210,8 +223,9 @@ class SearchesController < ApplicationController
       @seo_counter_length = seo_counter.length
 
       @division_blocks = tmp
-      @meta_title = header
-      @meta_description = header
+      @meta_title = title
+      @h1_title = view_context.truncate(title, :length => 40)
+      @meta_description = description
     else
       @meta_title = "Поиск запчастей по номеру"
     end
