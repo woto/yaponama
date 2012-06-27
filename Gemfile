@@ -38,7 +38,7 @@ gem 'jquery-rails'
 # To use debugger
 gem 'ruby-debug'
 
-gem 'bootstrap-sass', '1.4.0'
+gem 'bootstrap-sass', '1.4.4'
 gem 'compass', '0.12.alpha.0'
 #gem 'formtastic'
 #gem 'formtastic-bootstrap'
@@ -95,4 +95,4 @@ gem 'nokogiri'
 #gem 'robokassa', :git => 'https://github.com/glebtv/robokassa.git'
 gem 'activemerchant', :require => 'active_merchant', :git => 'https://github.com/Shopify/active_merchant', :ref => 'b14e285774e599697653325c471e1c85a7163d64'
 gem 'fastercsv'
-
+gem 'yandex_mystem'
