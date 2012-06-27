@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class ClientsController < ApplicationController
 
   before_filter :authenticate_user!
   before_filter :is_admin?

@@ -53,9 +53,9 @@ Yaponama::Application.routes.draw do
     end
   end
 
-  get 'about' => "about#index"
-  get 'delivery' => "delivery#index"
-  get 'payment' => "payment#index"
+  get 'contacts' => "pages#render_page", :defaults => {:path => 'contacts'}
+  get 'delivery' => "pages#render_page", :defaults => {:path => 'delivery'}
+  get 'payment' => "pages#render_page", :defaults => {:path => 'payment'}
   
   post 'data' => 'data#index'
 
@@ -104,9 +104,8 @@ Yaponama::Application.routes.draw do
           :sessions => "sessions"
   }
 
-  #get 'users' => 'users#index'
+  resources :clients
 
-  resources :users
 
   #devise_for :users
 
