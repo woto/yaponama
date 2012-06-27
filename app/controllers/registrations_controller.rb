@@ -1,6 +1,15 @@
 class RegistrationsController < Devise::RegistrationsController
   include SimpleCaptcha::ControllerHelpers
 
+  def new
+    # Chrome отправляет дополнительный запрос HEAD, который перегенеровывает капчу
+    if request.method == 'GET'
+      super
+    else
+      render :nothing => true
+    end
+
+  end
 
   # Делаем админом первого зарегистрировавшегося (копия оригинала без 2-х строк)
   def create
