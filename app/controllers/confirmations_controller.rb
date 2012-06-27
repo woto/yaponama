@@ -6,7 +6,12 @@ class ConfirmationsController < Devise::PasswordsController
   skip_before_filter :authenticate_user!
 
   def variants
-    build_resource({})
+    # Chrome отправляет дополнительный запрос HEAD, который перегенеровывает капчу
+    if request.method == 'GET'
+      build_resource({})
+    else
+      render :nothing => true
+    end
   end
   
   def create
