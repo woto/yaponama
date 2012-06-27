@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     if item['hide_catalog_number'] && !session[:admin_id] && !(current_user && current_user.admin?)
       item['catalog_number'] = view_context.link_to("Скрыт", "#", :rel => 'twipsy', :title => 'Каталожный номер скрыт, т.к. подбор осущствлял менеджер, цена (и в случае наличия скидки) сохранены')
     else
-      item['catalog_number'] = view_context.link_to(item.catalog_number, search_searches_path(item.catalog_number, item.manufacturer, :anchor => "jump"))
+      item['catalog_number'] = view_context.link_to(item.catalog_number, search_searches_path(item.catalog_number, nil, :anchor => "jump"))
     end
   end
 
