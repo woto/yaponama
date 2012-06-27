@@ -65,7 +65,17 @@
               <% end %>
               <% if current_user.admin? %>
                 <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Блоки", blocks_path %></li>
+                <li class="divider"></li>
                 <li<%= params[:controller] == 'pages' && (params[:action] == 'index' || params[:action] == 'edit' || params[:action] == 'new') ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
+
+                <% path = request.fullpath.gsub(/^\/+/, '') %>
+                <% if (page = Page.where(:path => path).first).present? %>
+                  <li><%= link_to "Редактировать", edit_page_path(page) %> </li>
+                <% elsif params[:controller] == 'searches' %>
+                  <li><%= link_to "Создать", new_predefined_page_path(CGI::escape(path)) %> </li>
+                <% end %>
+
+                <li class="divider"></li>
                 <li<%= params[:controller] == 'callback_requests' ? ' class="active"'.html_safe : ''%>><%= link_to "Обратные вызовы", callback_requests_path %></li>
                 <li<%= params[:controller] == 'links' ? ' class="active"'.html_safe : ''%>><%= link_to "Ссылки", links_path %></li>
                 <li<%= params[:controller] == 'clients' && params[:action] == 'index' ? ' class="active"'.html_safe : ''%>><%= link_to "Пользователи", clients_path %></li>
