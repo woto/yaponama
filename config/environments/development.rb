@@ -27,7 +27,4 @@ Yaponama::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  # Судя по советам эта строчка не позволит загружать precompiled assets из public
-  config.serve_static_assets = false
 end
