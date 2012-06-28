@@ -72,7 +72,7 @@
                 <% if (page = Page.where(:path => path).first).present? %>
                   <li><%= link_to "Редактировать", edit_page_path(page) %> </li>
                 <% elsif params[:controller] == 'searches' %>
-                  <li><%= link_to "Создать", new_predefined_page_path(CGI::escape(path)) %> </li>
+                  <li><%= link_to "Создать", new_predefined_page_path(CGI::escape(CGI::escape(path))) %> </li>
                 <% end %>
 
                 <li class="divider"></li>
