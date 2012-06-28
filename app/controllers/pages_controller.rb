@@ -38,7 +38,7 @@ class PagesController < ApplicationController
   # GET /pages/new
   # GET /pages/new.json
   def new
-    @page = Page.new(:path => CGI::unescape(params[:path]))
+    @page = Page.new(:path => params[:path].present? ? CGI::unescape(params[:path]) : nil)
 
     respond_to do |format|
       format.html # new.html.erb
