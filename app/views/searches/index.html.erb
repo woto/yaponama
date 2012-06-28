@@ -94,6 +94,21 @@
               <% when 'unavaliable' %>
                 <%= tag("img", :src => "/assets/1x1.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация") %>
               <% when 'unknown' %>
+                <% if APP_CONFIG['send_request_from_search_page'] %>
+                  <% 
+                   require 'redis'
+                   redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+
+                   Juggernaut.publish(
+                   nil, {
+                     :command => 'info',
+                     :catalog_number => catalog_number,
+                     :manufacturer => manufacturer.presence || "WRONG_MANUFACTURER",
+                     :channel => 'server'
+                   }, {}, "custom")  
+                  %>
+                <% end %>
+
                 <%= link_to(tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация"), info_path(catalog_number, manufacturer) ) %>
             <% end %>
           </td>
