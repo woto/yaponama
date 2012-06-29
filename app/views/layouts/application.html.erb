@@ -148,24 +148,29 @@
     <!-- <article> -->
     <%= yield %>
     <!-- </article> -->
-    <footer>
-      <div class="row">
-        <div class="span5">
-          <address>
-            <strong><%= link_to(render(:partial => "blocks/show.erb", :locals => {:block_name => 'copyright'}), contacts_path) %></strong> <br />
-        
-            <%= render :partial => 'layouts/mobile_switch' %>
-          </address>
-        </div>
-        <div style="float: right">
-          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'rambler_top100'}) %>
-          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'openstat'}) %>
-          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'mail_raiting'}) %>
-          <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'live_internet'}) %>
-        </div>
-      </div>
-    </footer>
   </div>
+  <footer>
+    <div class="row">
+      <div class="span5">
+        <address>
+          <strong><%= link_to(render(:partial => "blocks/show.erb", :locals => {:block_name => 'copyright'}), contacts_path) %></strong> <br />
+      
+          <%= render :partial => 'layouts/mobile_switch' %>
+        </address>
+      </div>
+      <div class="span6" style="display: table">
+        <div style="vertical-align: middle; display: table-cell">Совсем скоро:</div>&nbsp;
+        <a href="http://www.webmoney.ru/" target="_blank"><img src="http://www.webmoney.ru/img/icons/88x31_wm_blue_on_transparent_ru.png" alt="Мы принимаем Webmoney" title="Мы принимаем Webmoney" border="0" width="88" height="31" /></a>&nbsp;
+        <a href="https://money.yandex.ru" target="_blank"><img src="https://money.yandex.ru/img/yamoney_logo88x31.gif" alt="Я принимаю Яндекс.Деньги" title="Я принимаю Яндекс.Деньги" border="0" width="88" height="31"/></a>
+      </div>
+      <div style="float: right">
+        <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'rambler_top100'}) %>
+        <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'openstat'}) %>
+        <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'mail_raiting'}) %>
+        <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'live_internet'}) %>
+      </div>
+    </div>
+  </footer>
 </div>
 
 <%= tag :div, :id => "data", :data => {:sent => session[:sent].to_s, :remote_ip => request.remote_ip, :screen_width => session[:screen_width], :screen_height => session[:screen_height]} %>
