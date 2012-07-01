@@ -17,10 +17,4 @@
 
 <br />
 
-<% if status[:own] %>
-  <% if @page.mobile_content.present? %>
-    <%= @page.mobile_content.html_safe %>
-  <% else %> 
-    <%= @page.default_content.html_safe %>
-  <% end %>
-<% end %>
+<%= raw(@page.mobile_content.presence || @page.default_content) if @page %>

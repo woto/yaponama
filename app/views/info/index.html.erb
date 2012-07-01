@@ -15,4 +15,4 @@
     <div id='info' class='dynamic'></div>
 <% end %>
 
-<%= @page.default_content.html_safe if status[:own] == 'avaliable' %>
+<%= raw @page.default_content if @page %>
