@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
   def item_status(catalog_number, manufacturer)
 
     status = {
-      :own => nil, 
-      :their => nil
+      :own => 'unavaliable', 
+      :their => 'unavaliable'
     }
 
     page = Page.where(:path => info_path(catalog_number, manufacturer)[1..-1]).first
