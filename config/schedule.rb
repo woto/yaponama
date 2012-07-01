@@ -29,4 +29,8 @@
    command "cd #{path}/system/ && $(lockfile -r 0 ./static_builder.lock) || exit 1 && $(which node) ./static_builder.js >> #{path}/log/static_builder.log && $(rm -f ./static_builder.lock)"
  end
 
+ every 1.day do
+  rake "app:clear_old_sessions"
+ end
+
 # Learn more: http://github.com/javan/whenever
