@@ -2,6 +2,7 @@ class InfoController < ApplicationController
   def index
 
     @item_status = item_status(params['catalog_number'], params['manufacturer'])
+    @meta_canonical = info_path(params[:catalog_number], params[:manufacturer])
 
     case @item_status[:their]
 
