@@ -25,6 +25,10 @@
 #    end
 #  end
 # end
+bottom_right = Block.find_or_initialize_by_block_name('bottom_right')
+bottom_right.update_attributes({
+:content => '<a href="/обмен-статьями-и-ссылками">Вебмастерам</a><br /><a href="/поставщикам-автозапчастей">Поставщикам автозапчастей</a'})
+
 blockquote = Block.find_or_initialize_by_block_name('blockquote')
 blockquote.update_attributes({
 :content => '<blockquote> <p>Спасибо коллективу компании. Заказанные запчасти на японца получил в срок и дешево, в следующий раз обязательно вернусь именно к вам.</p> <small>Андрей Иванов, покупатель</small> </blockquote>'})
@@ -39,15 +43,15 @@ yandex_metrika.update_attributes({
 
 live_internet = Block.find_or_initialize_by_block_name('live_internet')
 live_internet.update_attributes({
-:content => "<!--LiveInternet counter--><script type=\"text/javascript\"><!--\r\n document.write(\"<a href='http://www.liveinternet.ru/click' \"+\r\n \"target=_blank><img src='//counter.yadro.ru/hit?t16.3;r\"+\r\n escape(document.referrer)+((typeof(screen)==\"undefined\")?\"\":\r\n \";s\"+screen.width+\"*\"+screen.height+\"*\"+(screen.colorDepth?\r\n screen.colorDepth:screen.pixelDepth))+\";u\"+escape(document.URL)+\r\n \";\"+Math.random()+\r\n \"' alt='' title='LiveInternet: показано число просмотров за 24\"+\r\n \" часа, посетителей за 24 часа и за сегодня' \"+\r\n \"border='0' width='88' height='31'><\/a>\")\r\n //--></script><!--/LiveInternet-->\r\n"})
+:content => ""})
 
 rambler_top100 = Block.find_or_initialize_by_block_name('rambler_top100')
 rambler_top100.update_attributes({
-:content => "<!-- begin of Top100 code -->\r\n <script id=\"top100Counter\" type=\"text/javascript\" src=\"http://counter.rambler.ru/top100.jcn?2696075\"></script>\r\n <noscript>\r\n <img src=\"http://counter.rambler.ru/top100.cnt?2696075\" alt=\"\" width=\"1\" height=\"1\" border=\"0\" />\r\n </noscript>\r\n <!-- end of Top100 code -->\r\n"})
+:content => ""})
 
 mail_raiting = Block.find_or_initialize_by_block_name('mail_raiting')
 mail_raiting.update_attributes({
-:content => "<!-- Rating@Mail.ru counter -->\r\n <script type=\"text/javascript\">//<![CDATA[\r\n var a='';js=10;d=document;\r\n try{a+=';r='+escape(d.referrer);}catch(e){}try{a+=';j='+navigator.javaEnabled();js=11;}catch(e){}\r\n try{s=screen;a+=';s='+s.width+'*'+s.height;a+=';d='+(s.colorDepth?s.colorDepth:s.pixelDepth);js=12;}catch(e){}\r\n try{if(typeof((new Array).push('t'))===\"number\")js=13;}catch(e){}\r\n try{d.write('<a href=\"http://top.mail.ru/jump?from=2156928\"><img src=\"http://d9.ce.b0.a2.top.mail.ru/counter?id=2156928;t=49;js='+js+\r\n a+';rand='+Math.random()+'\" alt=\"Рейтинг@Mail.ru\" style=\"border:0;\" height=\"31\" width=\"88\" \/><\/a>');}catch(e){}//]]></script>\r\n <noscript><p><a href=\"http://top.mail.ru/jump?from=2156928\"><img src=\"http://d9.ce.b0.a2.top.mail.ru/counter?js=na;id=2156928;t=49\" \r\n style=\"border:0;\" height=\"31\" width=\"88\" alt=\"Рейтинг@Mail.ru\" /></a></p></noscript>\r\n <!-- //Rating@Mail.ru counter -->\r\n"})
+:content => ""})
 
 openstat = Block.find_or_initialize_by_block_name('openstat')
 openstat.update_attributes({
@@ -55,7 +59,25 @@ openstat.update_attributes({
 
 sideblock_1 = Block.find_or_initialize_by_block_name('sideblock_1')
 sideblock_1.update_attributes({
-:content => '<div class="well"> <p> <a href="http://www.yaponama.ru/обмен-статьями-и-ссылками">Вебмастерам</a></p> <p> <a href="http://www.yaponama.ru/поставщикам-автозапчастей">Поставщикам автозапчастей</a></p> </div>'})
+:content => '    <h6> Доставляем:</h6>
+<p style="text-align: center; ">
+<img alt="" src="/assets/delivery/ems.png" style="width: 200px; height: 50px; " /></p>
+<p style="text-align: center; ">
+<img alt="" src="/assets/delivery/russian_post.png" style="width: 200px; height: 50px; " /></p>
+<h6>
+Принимаем оплату:</h6>
+<p style="text-align: center; ">
+<img alt="" src="/assets/payment/PCR.gif" style="width: 135px; height: 80px; " /><br />
+<img alt="" src="/assets/payment/WMRM.gif" style="width: 135px; height: 80px; " /></p>
+<p style="text-align: center; ">
+<img alt="" src="/assets/payment/RapidaOceanSvyaznoyR.gif" style="cursor: default; width: 135px; height: 80px; " /></p>
+<p style="text-align: center; ">
+<img alt="alt" src="/assets/payment/RapidaOceanEurosetR.gif" style="cursor: default; width: 135px; height: 80px; " /></p>
+<p style="text-align: center; ">
+<img alt="" src="/assets/payment/QiwiR.gif" style="width: 135px; height: 80px; " /></p>
+<p style="text-align: center; ">
+<img alt="" src="/assets/payment/BANKOCEANMR.gif" style="width: 135px; height: 80px; " /></p>
+'})
 
 sideblock_2 = Block.find_or_initialize_by_block_name('sideblock_2')
 sideblock_2.update_attributes({

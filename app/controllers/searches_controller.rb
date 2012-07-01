@@ -121,7 +121,7 @@ class SearchesController < ApplicationController
 
         counter[h] += 1
 
-        if counter[h] <= 3
+        if counter[h] <= 5
           if params[:show].present?
             item["css_class"] = "shout"
           end

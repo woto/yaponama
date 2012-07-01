@@ -12,6 +12,7 @@
       (От <%= days_decorator(wish.declared) %>
       До <%= days_decorator(wish.average) %>) <br />
       Расположение: <%= wish.country %> <br />
+      Вероятность: <%= probability_decorator(wish.probability) %> <br />
       Цена: <%= cost_decorator(wish.cost) %>
       x
       <%= wish.count_in_wishes %>

@@ -13,7 +13,7 @@ Application.connect = ->
   Application.jug = new Juggernaut
 
   $.cookie('channel', Application.channel_key, {path: '/'})
-  console.log(Application.channel_key)
+  #console.log(Application.channel_key)
 
   #jug.meta = {
   #  random: random
@@ -25,7 +25,7 @@ Application.connect = ->
 
   Application.jug.subscribe Application.channel_key, (data) ->
 
-    console.log(data)
+    #console.log(data)
 
     key = data['catalog_number'] + " - " + data['manufacturer']
 

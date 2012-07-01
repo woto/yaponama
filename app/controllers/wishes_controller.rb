@@ -54,7 +54,8 @@ class WishesController < ApplicationController
       :count => params[:wish][:count],
       :declared => params[:wish][:declared],
       :average => params[:wish][:average],
-      :country => params[:wish][:country]
+      :country => params[:wish][:country],
+      :probability => params[:wish][:probability]
     ).where("status = 'active'").first
     
     unless @wish.present?

@@ -10,6 +10,7 @@
       <th>От</th>
       <th>До</th>
       <th>Расп.</th>       
+      <th>Вер.</th>   
       <th>Цена</th>
       <th></th>
       <th>Штук</th>
@@ -28,6 +29,7 @@
         <td><%= days_decorator(wish.declared) %></td>
         <td><%= days_decorator(wish.average) %></td>
         <td><%= wish.country %></td>
+        <td><%= probability_decorator(wish.probability) %></td>
         <td><%= cost_decorator(wish.cost) %></td>
         <td>x</td>    
         <td><%= wish.count_in_wishes %></td>        
@@ -39,7 +41,7 @@
   <% end %>
 
   <tr>
-    <td colspan="11">
+    <td colspan="12">
       Стоимость доставки:
     </td>
     <td>
@@ -49,11 +51,11 @@
   </tr>
 
   <tr>
-    <td colspan="7">
+    <td colspan="8">
 
       <% if current_user.admin? %>
         <%= link_to "Сменить статус", edit_order_path(@order), :class => "btn primary" %>
-        &nbsp;&nbsp;<span>или</span>&nbsp;&nbsp;
+        &nbsp;<span>или</span>&nbsp;
       <% end %>
 
       <% unless @order.status == :processed %>
@@ -64,8 +66,8 @@
       <%= link_to "Получить квитанцию", fill_order_path(@order.id), :class => "btn primary bill #{css_class}", "data-content" => data_content, :target => "_blank", :rel => 'popover' %>
 
       <% if @order.status != :processed %>
-        <span>&nbsp;&nbsp;или&nbsp;&nbsp;</span>
-        <%= link_to "Отменить заказ и вернуть товары в корзину", @order, :class => "btn", :confirm => "Вы уверены, что хотите отменить заказ? Все товары из заказа переместятся в корзину.", :method => :delete %>
+        &nbsp;<span>или</span>&nbsp;
+        <%= link_to "Отменить заказ и вернуть товары в корзину", @order, :confirm => "Вы уверены, что хотите отменить заказ? Все товары из заказа переместятся в корзину.", :method => :delete %>
       <% end %>
 
     </td>

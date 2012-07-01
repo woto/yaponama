@@ -43,7 +43,7 @@ $ ->
       8:
         sorter: "clipper"
     widthFixed: true
-    sortList: [[5,0]]
+    sortList: [[0, 0], [1, 0], [5,0]]
   )
 
   # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
@@ -79,7 +79,7 @@ $ ->
   $("table#result-prices").tablesorterPager 
     container: $("#pager")
 		# Не забыть, что это в 2-х местах
-    size: 8
+    size: 35
 
 
   # Кнопки очистки полей ввода

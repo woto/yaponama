@@ -53,6 +53,15 @@
 
 <% if @parsed_json["result_prices"].count > 0 %>
 
+<% content_for(:pages_controller) do %>
+  <% path = CGI::unescape(request.fullpath).gsub(/^\/+/, '') %>
+  <% if (page = Page.where(:path => path).first).present? %>
+    <li><%= link_to "Редактировать", edit_page_path(page) %> </li>
+  <% else %>
+    <li><%= link_to "Создать", new_predefined_page_path(CGI::escape(CGI::escape(path))) %> </li>
+  <% end %>
+<% end %>
+
 <div style="background: #F9F9F9;" class="simple">
   <% if @division_blocks %>
     <% if params[:replacements].blank? %>
@@ -69,7 +78,7 @@
 </div>
 
   <br />
-  <br />
+  <img src="/assets/order.png" style="float: right" />
 
   <table id="result-prices" class="zebra-striped">
     <thead>
@@ -140,6 +149,7 @@
               <%= f.hidden_field :declared, :value => result_price['job_import_job_delivery_days_declared'], :id => nil %>
               <%= f.hidden_field :average, :value => result_price["job_import_job_delivery_days_average"], :id => nil %>
               <%= f.hidden_field :country, :value => result_price['job_import_job_country_short'], :id => nil %>
+              <%= f.hidden_field :probability, :value => result_price["success_percent"], :id => nil %>
 
               <%= f.submit raw("Купить #{retail_cost}"), :class => "btn buy-button primary", :style=>"width: 140px" %>
             <% end %>
@@ -157,7 +167,7 @@
 
     <select class="pagesize" style="display: none">
       <!-- Не забыть, что это в 2-х местах -->
-      <option selected="selected"  value="8">8</option>
+      <option selected="selected"  value="35">35</option>
       <option value="20">20</option>
       <option value="30">30</option>
       <option  value="40">40</option>
@@ -165,12 +175,6 @@
 
     <input type="text" class="pagedisplay" style="display: none" />
   </div>
-
-  <br />
-
-  <noindex><p><span class="label notice">Подсказка</span> Используйте сортировку щелкая по заголовку таблицы</p></noindex>
-
-  <br />
 
   <%= image_tag "spare_parts.png", :style => "z-index: 11; position: absolute; display: none", :id => "wishes-logo" %>
 

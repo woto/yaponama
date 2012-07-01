@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625172103) do
+ActiveRecord::Schema.define(:version => 20120629225313) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(:version => 20120625172103) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "hide_catalog_number"
+    t.string   "probability"
   end
 
 end

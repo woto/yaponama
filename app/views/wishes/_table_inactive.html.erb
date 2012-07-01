@@ -11,6 +11,7 @@
       <th>От</th>
       <th>До</th>
       <th>Расп.</th>
+      <th>Вер.</th>   
       <th>Цена</th>
       <th></th>
       <th>Штук</th>
@@ -30,6 +31,7 @@
         <td><%= days_decorator(wish.declared) %></td>
         <td><%= days_decorator(wish.average) %></td>
         <td><%= wish.country %></td>
+        <td><%= probability_decorator(wish.probability) %></td>
         <td><%= cost_decorator(wish.cost) %></td>
         <td>x</td>    
         <td><%= wish.count_in_wishes %></td>        
