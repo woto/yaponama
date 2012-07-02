@@ -16,3 +16,15 @@ Link Check
 2. http://localhost:3000/searches/0446505221а
    doc.xpath('html/body/div[@class="container-fluid"]/div[@class="content"]/div/h4/a').attr('href').value == '/searches/0446505221/TOYOTA/1'
 
+
+
+
+
+-----------
+Сайты
+zzap.ru
+stap.ru
+autosup.ru
+amp.su
+plentycar.ru
+
