@@ -18,7 +18,7 @@ end
 file = File.new('yandex.csv', 'r')
 
 file.each_line("\n") do |row|
-  next if file.lineno <= 5
+  next if file.lineno <= 4
   columns = row.split(";")
   make_request('http://www.yaponama.ru/' + columns[0], file.path, file.lineno)
 end
