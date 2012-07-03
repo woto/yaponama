@@ -91,12 +91,7 @@ body {font-size: 10pt;}
 		</table>
 		<table border="0" cellspacing="0" cellpadding="0" style="width:122mm; margin-top:3pt;">
 			<tr>
-        <% sum = 0 %>
-        <% @order.wishes.each do |wish| %>
-          <% sum += (multiply = wish.cost * wish.count_in_wishes) %>
-        <% end %>
-        <% sum += @order.delivery_cost.to_i %>
-        <td>Сумма платежа&nbsp;&nbsp;<font style="text-decoration:underline;">&nbsp;<%= sum %>&nbsp;</font>&nbsp;руб.&nbsp;<font style="text-decoration:underline;">&nbsp;00&nbsp;</font>&nbsp;коп.</td>
+        <td>Сумма платежа&nbsp;&nbsp;<font style="text-decoration:underline;">&nbsp;<%= @order.sum %>&nbsp;</font>&nbsp;руб.&nbsp;<font style="text-decoration:underline;">&nbsp;00&nbsp;</font>&nbsp;коп.</td>
 				<td align="right">&nbsp;&nbsp;Сумма платы за услуги&nbsp;&nbsp;_____&nbsp;руб.&nbsp;____&nbsp;коп.</td>
 			</tr>
 		</table>
@@ -198,9 +193,8 @@ body {font-size: 10pt;}
 			</tr>
 		</table>
 		<table border="0" cellspacing="0" cellpadding="0" style="width:122mm; margin-top:3pt;">
-
 			<tr>
-				<td>Сумма платежа&nbsp;&nbsp;<font style="text-decoration:underline;">&nbsp;<%= sum %>&nbsp;</font>&nbsp;руб.&nbsp;<font style="text-decoration:underline;">&nbsp;00&nbsp;</font>&nbsp;коп.</td>
+				<td>Сумма платежа&nbsp;&nbsp;<font style="text-decoration:underline;">&nbsp;<%= @order.sum %>&nbsp;</font>&nbsp;руб.&nbsp;<font style="text-decoration:underline;">&nbsp;00&nbsp;</font>&nbsp;коп.</td>
 				<td align="right">&nbsp;&nbsp;Сумма платы за услуги&nbsp;&nbsp;_____&nbsp;руб.&nbsp;____&nbsp;коп.</td>
 			</tr>
 		</table>

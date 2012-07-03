@@ -1,7 +1,7 @@
 <p>Укажите пожалуйста дополнительные данные, необходимые для оплаты. Если у вас нет принтера и вы будете заполнять квитанцию вручную, то можете пропустить этот шаг. </p>
 <hr>
 
-<%= simple_form_for(@checkout, :wrapper => :inline, :url => fill_order_path) do |f| %>
+<%= simple_form_for(@checkout, :wrapper => :inline, :url => print_order_path) do |f| %>
   
   <% content_for :form_error do %>
     <% if f.error_notification %>

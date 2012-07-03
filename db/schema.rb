@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629225313) do
+ActiveRecord::Schema.define(:version => 20120702190248) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20120629225313) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "delivery_cost"
+    t.boolean  "paid1"
+    t.boolean  "paid2"
   end
 
   create_table "pages", :force => true do |t|

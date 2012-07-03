@@ -1,24 +1,43 @@
 class OrdersController < ApplicationController
   respond_to :html, :mobile
+
   before_filter :authenticate_user!
-  
-  def fill
-    @checkout = Checkout.new(params)
+  before_filter :fetch_checkout
+  before_filter :is_admin?, :only => [:edit, :update]
+  before_filter :fetch_order, :except => [:index, :create]
+
+  def fetch_order
     @order = Order.user_or_admin(current_user).find(params[:id])
-    if @order
-      if @order.status != :processed
-        render :text => 'Статус вашего заказа "Ожидает обработки". Вы сможете распечатать квитанцию только после рассмотрения заказа менеджером и перехода заказа в стаус "Обработан"', :layout => true and return
-      else
-        if request.post?
-          respond_with do |format|
-            format.html { render 'print.erb', :layout => false if @checkout.valid? }
-            format.mobile { render 'print.erb', :layout => false if @checkout.valid? }
-          end
-        end
+  end
+
+  def fetch_checkout
+    @checkout = Checkout.new(params)
+  end
+
+  # DONE
+  def choose
+    if @order.status != :processed
+      render :text => "Уважаемый покупатель, статус вашего заказа \"Ожидает обработки\". Вы сможете оплатить заказ только после рассмотрения заказа менеджером и перехода заказа в стаус \"Обработан\", а пока что Вы можете ознакомиться с способами оплаты на странице #{view_context.link_to "Оплата", payment_path}.", :layout => true and return
+    else
+      respond_to do |format|
+        format.html
+        format.mobile
       end
     end
   end
 
+  # DONE
+  def print
+    if @checkout.valid? 
+      respond_with do |format|
+        format.html { render 'print.erb', :layout => false }
+        format.mobile { render 'print.erb', :layout => false }
+      end
+    end
+  end
+
+  
+  # DONE
   # GET /orders
   # GET /orders.json
   def index
@@ -31,17 +50,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  # DONE
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @order = Order.user_or_admin(current_user).find(params[:id])
     @wishes = @order.wishes.where(:status => :ordered)
 
     @wishes.each do |wish|
       hide_or_show_catalog_number(wish)
     end
 
-    content_for :title, "Просмотр заказа №#{@order.id}"
+    @meta_title = "Просмотр заказа № #{@order.id}"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -61,11 +80,14 @@ class OrdersController < ApplicationController
   #   end
   # end
 
-  # GET /orders/1/edit
-  def edit
-    @order = Order.find(params[:id])
-  end
 
+  # DONE
+  # GET /orders/1/edit
+  #def edit
+  #  @order = Order.find(params[:id])
+  #end
+
+  # DONE
   # POST /orders
   # POST /orders.json
   def create
@@ -90,8 +112,6 @@ class OrdersController < ApplicationController
   # PUT /orders/1
   # PUT /orders/1.json
   def update
-    @order = Order.find(params[:id])
-  
     respond_to do |format|
       @order.status = :processed
       if @order.update_attributes(params[:order])
@@ -104,6 +124,7 @@ class OrdersController < ApplicationController
     end
   end
 
+  # DONE
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy

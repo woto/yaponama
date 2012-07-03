@@ -1,8 +1,5 @@
-<h1><%= yield(:title) %></h1>
+<h1><%= @meta_title %><small> от <%= l(@order.created_at, :format => :short) %></small></h1>
 <br />
-
-<h2>Дата заказа:</h2>
-<p><%= l(@order.created_at, :format => :short) %></p><br />
 
 <h2>Статус заказа:</h2>
 <p><%= t(@order.status) %></p><br />

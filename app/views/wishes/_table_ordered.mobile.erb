@@ -35,7 +35,7 @@
     <% data_content = "Кнопка станет доступна после того как мендежер обработает заказ и свяжется с вами." %>
     <% css_class = "disabled" %>
   <% end %>
-  <%= link_to "Получить квитанцию", fill_order_path(@order.id), :class => "btn primary bill #{css_class}", "data-content" => data_content, :target => "_blank", :rel => 'popover' %>
+  <%= link_to "Оплатить", choose_order_path(@order.id), :class => "btn primary bill #{css_class}", "data-content" => data_content, :rel => 'popover' %>
   <% if @order.status != :processed %>
     <br />  <br />  <br />  
     <%= submit_tag "Отменить заказ и вернуть товары в корзину" %><br /><br />

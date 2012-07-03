@@ -1,0 +1,14 @@
+<h1> <%= @meta_title = "Выбор способа оплаты" %> </h1>
+
+<%= button_to "Оплатить в Сбербанке", fill_order_path(@order.id), :class => "btn primary" %>
+
+<% payment_service_for @order.id, APP_CONFIG['robokassa_user'], :amount => @order.sum, :secret => APP_CONFIG['robokassa_pass_1'], :service => :robokassa do |service| %>
+
+    <% service.description truncate(@order.robokassa_summary, :length => 100, :omission => '...') %>
+    <% service.email current_user.email %>
+
+    <%= submit_tag 'Оплатить с помощью Робокассы', :class => "btn primary" %>
+<% end %>
+
+:currency => 'QiwiR'
+

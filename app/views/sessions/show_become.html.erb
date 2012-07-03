@@ -1,9 +1,11 @@
 <h1><%= @meta_title = "Имперсонализация" %></h1>
 
+<p><span class="label">К сведению</span> Имперсонализация позволяет вам стать на время пользователем и выполнить действия от его лица. Чтобы вернуть свои права воспользуйтесь сылкой в меню Стать администратором. Все действтия будут выполняться как будто это сделал пользователь, за исключением одного факта. Если вы добавите в корзину товар, то пользователь не увидит каталожный номер этого товара. Вы по-прежнему будете его видеть. Права, в которых нет необходимости для выполнения от лица пользователя урезаются.</p>
+
 <p><%= @user.user_name %></p>
 <p><%= "+7 #{phone_decorator(@user.phone)}" %></p>
 
 <%= form_tag(become_path(params[:id]), :method => :get) do %>
   <%= submit_tag "Стать пользователем", :class => "btn primary" %>
-  <%= hidden_field_tag :referer, url_for(Rails.application.routes.recognize_path(request.referer.to_s).merge(:page => nil)) %> или <%= link_to "Назад", :back %>
+  <%= hidden_field_tag :referer, url_for(Rails.application.routes.recognize_path(request.referer.to_s).merge(:page => nil)) %>&nbsp;&nbsp;или&nbsp;&nbsp;<%= link_to "Назад", :back %>
 <% end %>

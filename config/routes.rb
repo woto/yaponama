@@ -1,6 +1,5 @@
 Yaponama::Application.routes.draw do
 
-  get 'robokassa/new' => 'robokassa#new'
   post 'robokassa/result' => 'robokassa#result'
   post 'robokassa/success' => 'robokassa#success'
   post 'robokassa/fail' => 'robokassa#fail'
@@ -49,6 +48,7 @@ Yaponama::Application.routes.draw do
   resources :orders do
     get 'page/:page', :action => :index, :on => :collection
     member do
+      match 'choose', :path => 'checkout/choose'
       match 'fill', :path => 'checkout/fill'
       match 'print', :path => 'checkout/print'
     end

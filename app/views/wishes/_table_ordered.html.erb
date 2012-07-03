@@ -63,7 +63,7 @@
         <% css_class = "disabled" %>
       <% end %>
       
-      <%= link_to "Получить квитанцию", fill_order_path(@order.id), :class => "btn primary bill #{css_class}", "data-content" => data_content, :target => "_blank", :rel => 'popover' %>
+      <%= link_to "Оплатить", choose_order_path(@order.id), :class => "btn primary bill #{css_class}", "data-content" => data_content, :rel => 'popover' %>
 
       <% if @order.status != :processed %>
         &nbsp;<span>или</span>&nbsp;

@@ -1,4 +1,4 @@
-<%= simple_form_for(@user, :wrapper => :inline) do |f| %>
+<%= simple_form_for(@user, :wrapper => :inline, :url => client_path(@user)) do |f| %>
   <%= f.error_notification %>
 
   <div class="inputs">
