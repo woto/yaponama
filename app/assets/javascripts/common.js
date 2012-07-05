@@ -8,6 +8,11 @@
           $("#info").prepend('<img style="width: 1024px; height: 768px;" src="' + data['data'] + '" /><br /><br />');
         }
       }
+      if(data['command'] == 'specifically_number_info_text') {
+        if(data['data']) {
+          $("#info").prepend(data['data']);
+        }
+      }
     }
     else if (data['caps'] == 'Toyota EPC') {
       if (data['command'] = 'part_number_application_to_models') {
