@@ -3,9 +3,7 @@ namespace :app do
   desc "Очистить идентификаторы сессий более двух недель"
   task :clear_old_sessions => :environment do
 
-    debugger
     removed = ActiveRecord::SessionStore::Session.delete_all([ "updated_at <= ?", 2.weeks.ago.to_s(:db)])
-    puts removed
   end
 
   desc "Разослать смс с новыми сообщениями"
