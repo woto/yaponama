@@ -27,4 +27,8 @@ module ApplicationHelper
     raw "<p><span class=\"label #{add_class}\">К сведению</span> #{value}</p>"
   end
 
+  def brands_decorator brand
+    link_to Brands::BRANDS[brand][:title].html_safe, "/brands/#{Brands::BRANDS[brand][:file]}", :class => "brands-#{Brands::BRANDS[brand][:file]}"
+  end
+
 end

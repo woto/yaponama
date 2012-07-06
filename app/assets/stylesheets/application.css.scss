@@ -115,3 +115,27 @@ footer {
 li {
   color: inherit !important;
 }
+
+@import "compass/utilities/general/clearfix";
+
+.clearfix {
+  @include clearfix;
+}
+
+/* BRANDS */
+
+$brands-sprite-dimensions: true;
+@import "brands/*.png";
+@include all-brands-sprites;
+
+.brands a {
+
+  display: block;
+  text-align: center;
+  line-height: 180px;
+  float: left;
+}
+
+//.itunes   { @include icons-sprite(itunes); }
+
+/* /BRANDS */

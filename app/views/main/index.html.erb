@@ -8,8 +8,11 @@
     <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'blockquote'}) %>
 </div>
 
-<div class="row" style="margin-left: 5px; margin-bottom: 20px">
-  <h4><a href="/catalog">Автомобильные каталоги</a></h4>
+<div class="row" style="margin-left: 5px;">
+
+  <div class="brands clearfix" style="margin-bottom: 20px">
+    <%= raw Brands::BRANDS.map{|a, b| brands_decorator a}.join %>
+  </div>
 </div>
 
 <ul class="media-grid" style="margin-left: 0">
