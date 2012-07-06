@@ -224,7 +224,6 @@ class SearchesController < ApplicationController
 
       @division_blocks = tmp
       @meta_title = title
-      @h1_title = view_context.truncate(title, :length => 40)
       @meta_description = description
     else
       @meta_title = "Поиск запчастей по номеру"
