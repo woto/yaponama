@@ -1,0 +1,21 @@
+<h1><%= @meta_title = "Поиск по PNC" %></h1>
+<%= hint_decorator("Зная номер PNC (Part Name Catalog) вы можете найти схожие по функционалу детали, применимые для других марок автомобилей Toyota.") %>
+<br />
+
+<%= simple_form_for(@pnc, :url => toyota_epc_search_pnc_path, :wrapper => :inline ) do |f| %>
+
+  <% content_for :form_error do %>
+    <% if f.error_notification %>
+        <p><%= f.error_notification %></p>
+    <% end %>
+  <% end %>
+
+  <%= f.input :pnc, :as => :string %> 
+  <%= f.input :part_number, :as => :string %> 
+  <%= f.input :catalog, :as => :string %> 
+  <%= f.input :model_name, :as => :string %> 
+  <%= f.input :fr_to, :as => :string %> 
+  <%= f.input :models_description, :as => :string %> 
+
+  <%= f.button :submit, 'Поиск', :class => "primary" %>
+<% end %>
