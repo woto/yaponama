@@ -2,9 +2,9 @@
 <br />
 
 <% if @request.car.present? %>
-  <p><span class="label important">К сведению</span> Вы составляете запрос на поиск автозапчасти для <strong>"<%= car_identity(@request) %>"</strong></p>
+  <%= hint_decorator("Вы составляете запрос на поиск автозапчасти для <strong>\"#{car_identity(@request)}\"</strong>", 'important') %>
 <% else %>
-  <p><span class="label important">К сведению</span> Вы составляете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>.</p>
+  <%= hint_decorator('Вы составляете запрос на поиск автозапчасти <strong>без указания автомобиля</strong>.', 'important') %>
 <% end %>
 
 <br /><br />

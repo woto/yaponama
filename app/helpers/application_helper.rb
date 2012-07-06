@@ -23,4 +23,8 @@ module ApplicationHelper
     value.present? ? "#{value.to_i}%" : ""
   end
 
+  def hint_decorator value, add_class=''
+    raw "<p><span class=\"label #{add_class}\">К сведению</span> #{value}</p>"
+  end
+
 end

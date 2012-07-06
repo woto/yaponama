@@ -1,6 +1,6 @@
 <h1><%= @meta_title = "Редактирование профиля" %></h1>
 
-<p><span class="label">К сведению</span> Не заполняйте поля "Пароль" и "Подтверждение пароля", если не хотите их менять.</p>
+<%= hint_decorator('Не заполняйте поля "Пароль" и "Подтверждение пароля", если не хотите их менять.') %>
 <hr>
 
 <%= simple_form_for(resource, :as => resource_name, :wrapper => :inline, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
