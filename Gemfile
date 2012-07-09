@@ -96,3 +96,5 @@ gem 'nokogiri'
 gem 'activemerchant', :require => 'active_merchant', :git => 'https://github.com/Shopify/active_merchant', :ref => 'b14e285774e599697653325c471e1c85a7163d64'
 gem 'fastercsv'
 gem 'yandex_mystem'
+gem "historyjs-rails"
+
