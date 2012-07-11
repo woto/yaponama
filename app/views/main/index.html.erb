@@ -18,8 +18,8 @@
 
 
   <h3>Случайные описания деталей из нашей базы</h3>
-<ul class="media-grid" style="margin-left: 0">
-  
+<ul class="media-grid" style="margin-left: 0; margin-top: 20px;">
+
   <% @four_parts_images.each do |part_image| %>
     <li style="float: left;">
       <%= link_to(image_tag(part_image.part_image.thumb.url, :class => "thumbnail"), search_searches_path(part_image.catalog_number, part_image.manufacturer)) %>
