@@ -118,7 +118,8 @@ li {
 
 @import "compass/utilities/general/clearfix";
 
-.clearfix {
+/* Не хочу делать clearfix, т.к. предыдущие элементы системы как оказалось не обоснованно используют этот класс */
+.force-clearfix {
   @include clearfix;
 }
 
