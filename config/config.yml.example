@@ -1,6 +1,7 @@
 defaults: &defaults
   site_address: 'www.yaponama.ru'
-  price_request_cache: 100
+  price_request_cache_with_replacements_in_seconds: 10000000
+  price_request_cache_without_replacements_in_seconds: 10000000
   redis_address: 'localhost'
   redis_port: 6379
   juggernaut_address: 'www.yaponama.ru'

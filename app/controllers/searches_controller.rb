@@ -54,12 +54,10 @@ class SearchesController < ApplicationController
 
       require 'digest/md5'
       price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1"
-      file_name = 'system/price_requests/'
-      file_name << Digest::MD5.hexdigest(price_request_url)
-
       result = ''
-      if(File.exist?(file_name) && (File.ctime(file_name) > Time.now - APP_CONFIG['price_request_cache'].to_i.minutes))
-        result = File.read(file_name)
+
+      if Rails.cache.exist? price_request_url
+        result = Rails.cache.read price_request_url
       else
         parsed_price_request_url = URI.parse(price_request_url)
         begin
@@ -72,18 +70,22 @@ class SearchesController < ApplicationController
           render :status => 503 and return
         end
 
-        file = File.new(file_name, "w")
         result = resp.body
-        file.write(result)
-        file.close
+
+        if params[:replacements]
+          expires_in = APP_CONFIG["price_request_cache_with_replacements_in_seconds"]
+        else
+          expires_in = APP_CONFIG["price_request_cache_without_replacements_in_seconds"]
+        end
+
+        Rails.cache.write (price_request_url, result, :expires_in => expires_in)
       end
 
       @parsed_json = ActiveSupport::JSON.decode(result)
+
       #@parsed_json["result_prices"].shuffle!
-      
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
 
-      #@parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + (a["job_import_job_delivery_days_declared"].to_f + a["job_import_job_delivery_days_declared"].to_f / 100 * 30))/2/( (fast = params[:fast]).present? ? fast.to_f : (a["retail_cost"].to_i**1.3)/500) ) +  a["price_goodness"].to_f }
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
       #tree_block = lambda{|h,k| h[k] = Hash.new(&tree_block) }
