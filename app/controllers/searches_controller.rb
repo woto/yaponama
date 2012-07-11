@@ -56,7 +56,7 @@ class SearchesController < ApplicationController
       price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1"
 
       if Rails.cache.exist? price_request_url
-        result = Rails.cache.read price_request_url
+        @parsed_json = (Rails.cache.read(price_request_url)).dup
       else
         parsed_price_request_url = URI.parse(price_request_url)
         begin
@@ -69,7 +69,7 @@ class SearchesController < ApplicationController
           render :status => 503 and return
         end
 
-        result = resp.body
+        @parsed_json = ActiveSupport::JSON.decode(resp.body)
 
         if params[:replacements]
           expires_in = APP_CONFIG["price_request_cache_with_replacements_in_seconds"]
@@ -77,13 +77,12 @@ class SearchesController < ApplicationController
           expires_in = APP_CONFIG["price_request_cache_without_replacements_in_seconds"]
         end
 
-        Rails.cache.write (price_request_url, result, :expires_in => expires_in)
+
+        #@parsed_json["result_prices"].shuffle!
+        @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
+
+        Rails.cache.write (price_request_url, @parsed_json, :expires_in => expires_in)
       end
-
-      @parsed_json = ActiveSupport::JSON.decode(result)
-
-      #@parsed_json["result_prices"].shuffle!
-      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
 
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
