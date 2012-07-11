@@ -26,7 +26,7 @@ Yaponama::Application.routes.draw do
 
   post 'parts_images' => 'parts_images#create'
 
-  match 'pages/new/:path' => "pages#new", :as => 'new_predefined_page'
+  match 'pages/new/:path' => "pages#new", :as => 'new_predefined_page', :constraints => {:path => /.*/}
   resources :pages
 
   get 'robots.txt' => "robots_txt#index"
