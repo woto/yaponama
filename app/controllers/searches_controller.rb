@@ -54,7 +54,6 @@ class SearchesController < ApplicationController
 
       require 'digest/md5'
       price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1"
-      result = ''
 
       if Rails.cache.exist? price_request_url
         result = Rails.cache.read price_request_url
@@ -123,7 +122,13 @@ class SearchesController < ApplicationController
 
         counter[h] += 1
 
-        if counter[h] <= 5
+        if params[:replacements]
+          offers_to_display = 1
+        else
+          offers_to_display = 5
+        end
+
+        if counter[h] <= offers_to_display
           if params[:show].present?
             item["css_class"] = "shout"
           end

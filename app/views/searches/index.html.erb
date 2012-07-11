@@ -80,7 +80,14 @@
 </div>
 
   <br />
-  <img src="/assets/order.png" style="float: right" />
+
+  <% if params[:replacements] == '1' %>
+    <%= hint_decorator "Перед вами отображается список замен детали с <em>каталожным номером #{params[:catalog_number]}#{params[:replacements].to_i > 0 ? ", выпущенную производителем " + params[:manufacturer] : ""}</em>. Сроки и цены в данном списке являются ориентировочными. Чтобы посмотреть актуальные предложения по интересующей вас замене перейдите по ссылке, содержащей каталожный номер детали." %>
+  <% else %>
+    <%= hint_decorator "Перед вами отображается список предложений по детали с <em>каталожным номером #{params[:catalog_number]}</em>. На сегодняшний день существует много компаний, которые занимаются выпуском аналогов оригинальных деталей по более низким ценам, не уступающим по качеству оригинальным деталям. А так же часто бывает так, что производитель вносит конструкционное улучшение в выпускаемую им деталь и не исключено, что вы ищете старый номер, по которому мало предложений и соответственно необоснованно завышена цена. Перейдите по ссылке выше если хотите посмотреть замены и аналоги интересующей вас детали." %>
+  <% end %>
+
+  <img src="/assets/order.png" style="float: right; height: 47px; width: 130px" />
 
   <table id="result-prices" class="zebra-striped">
     <thead>
@@ -97,7 +104,14 @@
       <% @parsed_json["result_prices"].each_with_index do |result_price, i| %>
         <tr class="<%= result_price["css_class"]%>">
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
-          <td> <%= catalog_number = result_price["catalog_number"] %> </td>
+          <td> 
+          <% catalog_number = result_price["catalog_number"] %>
+          <% if params[:replacements].to_i > 0 %>
+            <%= link_to catalog_number, search_searches_path(catalog_number) %>
+          <% else %>
+            <%= catalog_number %>
+          <% end %>
+          </td> 
           <td>
             <% case (result_price['info']) %>
               <% when 'avaliable' %>

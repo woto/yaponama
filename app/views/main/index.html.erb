@@ -10,11 +10,14 @@
 
 <div class="row" style="margin-left: 5px;">
 
+  <h3>Каталоги автозапчастей</h3>
   <div class="brands force-clearfix" style="margin-bottom: 20px">
     <%= raw Brands::BRANDS.map{|a, b| brands_decorator a}.join %>
   </div>
 </div>
 
+
+  <h3>Случайные описания деталей из нашей базы</h3>
 <ul class="media-grid" style="margin-left: 0">
   
   <% @four_parts_images.each do |part_image| %>
