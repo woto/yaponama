@@ -2,16 +2,6 @@ require 'net/http'
 
 class SearchesController < ApplicationController
 
-  caches_action :index, 
-    :if => Proc.new { |c| params[:replacements].present?}, 
-    :cache_path => Proc.new { |c| c.params.merge(:user => current_user ? current_user.id : -1) },
-    :expires_in => 1.year
-  
-  caches_action :index, 
-    :if => Proc.new { |c| params[:replacements].blank?}, 
-    :cache_path => Proc.new { |c| c.params.merge(:user => current_user ? current_user.id : -1) },
-    :expires_in => 30.minutes
-
   def index
 
     @parsed_json = { "result_prices" => [] }
