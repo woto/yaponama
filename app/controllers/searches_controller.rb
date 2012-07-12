@@ -73,6 +73,92 @@ class SearchesController < ApplicationController
         end
 
         @parsed_json = ActiveSupport::JSON.decode(resp.body)
+        @parsed_json.delete("result_replacements")
+        @parsed_json.delete("result_message")
+        @parsed_json["result_prices"].map do |item|
+          item.delete "retail_cost"
+          item.delete "job_import_job_delivery_summary"
+          item.delete "supplier_title_full"
+          item.delete "job_title"
+          item.delete "ij_income_rate"
+          item.delete "ps_retail_rate"
+          item.delete "supplier_title_en"
+          item.delete "income_cost_in_currency_with_weight"
+          item.delete "supplier_inn"
+          item.delete "logo"
+          item.delete "job_import_job_destination_logo"
+          item.delete "retail_cost_with_discounts"
+          item.delete "job_import_job_kilo_price"
+          item.delete "bit_original"
+          item.delete "price_cost"
+          item.delete "supplier_kpp"
+          item.delete "c_weight_value"
+          item.delete "ps_absolute_weight_rate"
+          item.delete "manufacturer_short"
+          item.delete "price_logo_emex"
+          item.delete "price_group"
+          item.delete "ps_weight_unavailable_rate"
+          item.delete "c_buy_value"
+          item.delete "currency"
+          item.delete "manufacturer_orig"
+          item.delete "supplier_title"
+          item.delete "ps_relative_weight_rate"
+          item.delete "ps_kilo_price"
+          item.delete "ps_absolute_buy_rate"
+          item.delete "ps_relative_buy_rate"
+          item.delete "income_cost_in_currency_without_weight"
+          item.delete "catalog_number_orig"
+          item.delete "image_url"
+          item.delete "retail_cost"
+          item.delete "created_at"
+          item.delete "job_import_job_delivery_summary"
+          item.delete "parts_group"
+          item.delete "price_setting_id"
+          item.delete "image_url"
+          item.delete "supplier_title_full"
+          item.delete "job_title"
+          item.delete "ij_income_rate"
+          item.delete "ps_retail_rate"
+          item.delete "min_order"
+          item.delete "updated_at"
+          item.delete "supplier_title_en"
+          item.delete "income_cost_in_currency_with_weight"
+          item.delete "external_id"
+          item.delete "unit_package"
+          item.delete "supplier_inn"
+          item.delete "retail_cost_with_discounts"
+          item.delete "id"
+          item.delete "price_cost"
+          item.delete "processed"
+          item.delete "job_import_job_kilo_price"
+          item.delete "bit_original"
+          item.delete "unit"
+          item.delete "supplier_kpp"
+          item.delete "c_weight_value"
+          item.delete "supplier_id"
+          item.delete "ps_absolute_weight_rate"
+          item.delete "manufacturer_orig"
+          item.delete "external_supplier_id"
+          item.delete "currency"
+          item.delete "c_buy_value"
+          item.delete "ps_weight_unavailable_rate"
+          item.delete "md5"
+          item.delete "job_id"
+          item.delete "minimal_income_cost"
+          item.delete "income_cost_in_currency_without_weight"
+          item.delete "ps_relative_buy_rate"
+          item.delete "ps_absolute_buy_rate"
+          item.delete "ps_kilo_price"
+          item.delete "ps_relative_weight_rate"
+          item.delete "catalog_number_orig"
+          item.delete "multiply_factor"
+          item.delete "job_import_job_presence"
+          item.delete "job_import_job_output_order"
+          item.delete "real_job_id"
+          #debugger
+          #puts 1
+        end
+
 
         if params[:replacements]
           expires_in = APP_CONFIG["price_request_cache_with_replacements_in_seconds"]
@@ -80,12 +166,13 @@ class SearchesController < ApplicationController
           expires_in = APP_CONFIG["price_request_cache_without_replacements_in_seconds"]
         end
 
-
         #@parsed_json["result_prices"].shuffle!
         @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
 
         Rails.cache.write(price_request_url, @parsed_json, :expires_in => expires_in)
       end
+
+      debugger
 
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
