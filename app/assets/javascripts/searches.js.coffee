@@ -5,82 +5,90 @@ window.Application ||= {}
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
 
-  $.tablesorter.addParser
-    id: "from_link_extractor"
-    is: (s) ->
-      false
+  Application.reinit_search = ->
+    $('a.days').popover({placement: 'left'})
+    $('a.bill').popover()
+    $('a[rel=twipsy]').twipsy()
+    $(".alert-message").alert()
+    $('.dropdown').dropdown()
 
-    format: (s) ->
-      s 
+    $.tablesorter.addParser
+      id: "from_link_extractor"
+      is: (s) ->
+        false
 
-    type: "text"
+      format: (s) ->
+        s 
 
-  $.tablesorter.addParser
-    id: "clipper"
-    is: (s) ->
-      false
+      type: "text"
 
-    format: (s) ->
-      a = parseInt(s, 10)
-      if a >= 0 
-        a
-      else
-        100000
+    $.tablesorter.addParser
+      id: "clipper"
+      is: (s) ->
+        false
 
-    type: "numeric"
+      format: (s) ->
+        a = parseInt(s, 10)
+        if a >= 0 
+          a
+        else
+          100000
 
-
-  $("table#result-prices").tablesorter(
-    headers:
-      1:
-        sorter: "from_link_extractor"
-      4:
-        sorter: "clipper"
-      5:
-        sorter: "clipper"
-      6:
-        sorter: "clipper"
-      8:
-        sorter: "clipper"
-    widthFixed: true
-    sortList: [[0, 0], [1, 0], [5,0]]
-  )
-
-  # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
-  # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
-  # его узнавать это по щелчку
- 
-  $("table#result-prices").bind "applyWidgets", ->
-
-    Application.connect()
-
-    for element in $(this).find("tr .info")
-      catalog_number = $(element).attr('data-catalog-number')
-      manufacturer = $(element).attr('data-manufacturer')
-
-      # DEBUG Закомментировать для отладки
-      # Этот (оптимальный способ пока не будет работать)
-      # т.к. если быстро пробежаться по всем страницам и прийти на последнюю
-      # то на предыдущих статус не обновится, т.к. в момент получения данных
-      # таблица не содержит этих элементов, которые ищатся в момент получения.
-      # По идее их надо как-то регистрировать для получения просто
-      #if($(element).attr('src') == '/assets/init.gif')
-      #  $(element).attr('src', '/assets/loading.gif')
-      #  Application.publish('info', catalog_number, manufacturer)
-
-      # Отправляем запрос только если статус не (unavaliable) 1x1.gif и не (avaliable) informagion.png
-      # Т.е. либо (unknown) loading.gif либо (unknown) init.gif
-      if($(element).attr('src') == '/assets/init.gif' or 
-      $(element).attr('src') == '/assets/loading.gif')
-        $(element).attr('src', '/assets/loading.gif')
-        Application.publish('info', catalog_number, manufacturer)
+      type: "numeric"
 
 
-  $("table#result-prices").tablesorterPager 
-    container: $("#pager")
-		# Не забыть, что это в 2-х местах
-    size: 35
+    $("table#result-prices").tablesorter(
+      headers:
+        1:
+          sorter: "from_link_extractor"
+        4:
+          sorter: "clipper"
+        5:
+          sorter: "clipper"
+        6:
+          sorter: "clipper"
+        8:
+          sorter: "clipper"
+      widthFixed: true
+      sortList: [[0, 0], [1, 0], [5,0]]
+    )
 
+    # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
+    # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
+    # его узнавать это по щелчку
+   
+    $("table#result-prices").bind "applyWidgets", ->
+
+      Application.connect()
+
+      for element in $(this).find("tr .info")
+        catalog_number = $(element).attr('data-catalog-number')
+        manufacturer = $(element).attr('data-manufacturer')
+
+        # DEBUG Закомментировать для отладки
+        # Этот (оптимальный способ пока не будет работать)
+        # т.к. если быстро пробежаться по всем страницам и прийти на последнюю
+        # то на предыдущих статус не обновится, т.к. в момент получения данных
+        # таблица не содержит этих элементов, которые ищатся в момент получения.
+        # По идее их надо как-то регистрировать для получения просто
+        #if($(element).attr('src') == '/assets/init.gif')
+        #  $(element).attr('src', '/assets/loading.gif')
+        #  Application.publish('info', catalog_number, manufacturer)
+
+        # Отправляем запрос только если статус не (unavaliable) 1x1.gif и не (avaliable) informagion.png
+        # Т.е. либо (unknown) loading.gif либо (unknown) init.gif
+        if($(element).attr('src') == '/assets/init.gif' or 
+        $(element).attr('src') == '/assets/loading.gif')
+          $(element).attr('src', '/assets/loading.gif')
+          Application.publish('info', catalog_number, manufacturer)
+
+
+    $("table#result-prices").tablesorterPager 
+      container: $("#pager")
+      # Не забыть, что это в 2-х местах
+      size: 15
+
+  Application.reinit_search()
 
   # Кнопки очистки полей ввода
   $("#clear-manufacturer").click ->
@@ -152,3 +160,29 @@ $ ->
 
   $("#replacements-close").live "click", ->
     replacementsModal.modal('hide')
+
+Application.toTop = ->
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+
+Application.showLoading = ->
+  Application.toTop();
+  $("#loading").css "top", parseInt(($(window).height() - $("#loading").innerHeight())/2, 10) + "px"
+  $("#loading").css "left", parseInt(($(window).width() - $("#loading").innerWidth())/2, 10) + "px"
+  $("#loading").show()
+
+Application.hideLoading = ->
+  $("#loading").hide()
+
+$(window).bind "statechange", ->
+  unless Application.not_back_forward
+    State = History.getState()
+    Application.showLoading()
+    $.getScript(location.href);
+
+  Application.back_forward = false
+
+
+$(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
+  Application.showLoading()
+  Application.back_forward = true
+  History.pushState(null, '', settings.url);

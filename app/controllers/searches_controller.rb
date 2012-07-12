@@ -20,7 +20,10 @@ class SearchesController < ApplicationController
 
       seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
       if request.fullpath.upcase != seo_url.upcase
-        redirect_to seo_url + "#jump" and return
+        respond_to do |format|
+          format.html { redirect_to seo_url and return }
+          format.mobile { redirect_to seo_url + "#jump" and return }
+        end
       end
 
       # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
@@ -218,7 +221,7 @@ class SearchesController < ApplicationController
           end
 
           tmp << "Посмотреть аналоги "
-          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1))
+          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :remote => true, :class => 'ajax-search')
           tmp << " #{arr[:titles].last[0].to_s}"
           tmp << "<br />".html_safe 
         end
@@ -244,5 +247,12 @@ class SearchesController < ApplicationController
       @meta_keywords = @page.keyword
       @meta_robots = @page.robots
     end
+
+    respond_to do |format|
+      format.html { render "index" }
+      format.js { render "index" }
+      format.mobile
+    end
+
   end
 end

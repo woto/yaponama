@@ -101,12 +101,6 @@ Application.publish = (command, catalog_number, manufacturer) ->
   
 $ ->
 
-  $('a.days').popover({placement: 'left'})
-  $('a.bill').popover()
-  $('a[rel=twipsy]').twipsy()
-  $(".alert-message").alert()
-  $('.dropdown').dropdown()
-
   delay = (->
     timer = 0
     (callback, ms) ->

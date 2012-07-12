@@ -1,0 +1,5 @@
+$(function() {
+  $("#search-area").html('<%= escape_javascript(render(:file => "searches/index.html.erb")) %>');
+  Application.hideLoading();
+  Application.reinit_search();
+});

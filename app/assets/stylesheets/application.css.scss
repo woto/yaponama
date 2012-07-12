@@ -140,3 +140,7 @@ $brands-sprite-dimensions: true;
 //.itunes   { @include icons-sprite(itunes); }
 
 /* /BRANDS */
+
+#search-area a:visited {
+  color: DarkBlue;
+}
