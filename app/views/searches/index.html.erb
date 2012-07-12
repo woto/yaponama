@@ -1,7 +1,12 @@
 <div id="search-area">
 
 
-  <div id="loading" style="display: none; position: absolute; background: #DDD; border: 1px solid #999; padding: 100px; z-index: 1000">Загрузка...</div>
+  <div id="loading" style="display: none; position: absolute; background: #FFF; border: 1px solid #999; padding: 50px; z-index: 500">
+    <p style="text-align: center">Пожалуйста ожидайте, идет поиск по базе</p>
+    <p style="margin: 0 auto; text-align: center"><img src="/assets/loading-wide.gif" /></p>
+    <br />
+  
+  </div>
 
   <h1><%= truncate(@meta_title, :length => 40) %></h1>
 

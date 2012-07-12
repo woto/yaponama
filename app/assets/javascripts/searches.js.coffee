@@ -162,7 +162,7 @@ $ ->
     replacementsModal.modal('hide')
 
 Application.toTop = ->
-  $("html, body").animate({ scrollTop: 0 }, "slow");
+  $("html, body").scrollTop(0)
 
 Application.showLoading = ->
   Application.toTop();

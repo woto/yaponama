@@ -144,3 +144,7 @@ $brands-sprite-dimensions: true;
 #search-area a:visited {
   color: DarkBlue;
 }
+
+.container-fluid {
+  z-index: 10;
+}

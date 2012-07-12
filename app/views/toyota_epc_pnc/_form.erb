@@ -10,12 +10,16 @@
     <% end %>
   <% end %>
 
-  <%= f.input :pnc, :as => :string %> 
-  <%= f.input :part_number, :as => :string %> 
-  <%= f.input :catalog, :as => :string %> 
-  <%= f.input :model_name, :as => :string %> 
-  <%= f.input :fr_to, :as => :string %> 
-  <%= f.input :models_description, :as => :string %> 
+  <div class="inputs">
+    <%= f.input :pnc, :as => :string %> 
+    <%= f.input :part_number, :as => :string %> 
+    <%= f.input :catalog, :as => :string %> 
+    <%= f.input :model_name, :as => :string %> 
+    <%= f.input :fr_to, :as => :string %> 
+    <%= f.input :models_description, :as => :string %> 
+  </div>
 
-  <%= f.button :submit, 'Поиск', :class => "primary" %>
+  <div class="actions">
+    <%= f.button :submit, 'Поиск', :class => "primary" %>
+  </div>
 <% end %>

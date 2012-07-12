@@ -172,7 +172,7 @@ class SearchesController < ApplicationController
         Rails.cache.write(price_request_url, @parsed_json, :expires_in => expires_in)
       end
 
-      debugger
+      #debugger
 
       new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
