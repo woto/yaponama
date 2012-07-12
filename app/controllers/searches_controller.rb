@@ -84,7 +84,7 @@ class SearchesController < ApplicationController
         #@parsed_json["result_prices"].shuffle!
         @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
 
-        Rails.cache.write (price_request_url, @parsed_json, :expires_in => expires_in)
+        Rails.cache.write(price_request_url, @parsed_json, :expires_in => expires_in)
       end
 
       new_array = []
