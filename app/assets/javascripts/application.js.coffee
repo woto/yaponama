@@ -5,4 +5,4 @@
 //= require cocoon
 //= require ckeditor/init
 //= require backbone-rails
-//= require history_jquery_html5
+//= require history_jquery

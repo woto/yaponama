@@ -162,7 +162,7 @@ $ ->
     replacementsModal.modal('hide')
 
 Application.toTop = ->
-  $("html, body").scrollTop(0)
+  $("html, body").animate({scrollTop: 0}, 'slow')
 
 Application.showLoading = ->
   Application.toTop();
@@ -174,15 +174,11 @@ Application.hideLoading = ->
   $("#loading").hide()
 
 $(window).bind "statechange", ->
-  unless Application.not_back_forward
-    State = History.getState()
-    Application.showLoading()
-    $.getScript(location.href);
-
-  Application.back_forward = false
-
+  State = History.getState()
+  Application.showLoading()
+  $.getScript(location.href);
 
 $(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
   Application.showLoading()
-  Application.back_forward = true
   History.pushState(null, '', settings.url);
+  return false
