@@ -180,5 +180,6 @@ $(window).bind "statechange", ->
 
 $(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
   Application.showLoading()
-  History.pushState(null, '', settings.url);
-  return false
+  if History.enabled
+    History.pushState(null, '', settings.url);
+    return false
