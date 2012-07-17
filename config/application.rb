@@ -50,9 +50,11 @@ module Yaponama
     config.assets.enabled = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0.2'
+    config.assets.version = '1.0.3'
 
-    config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    ::APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
+
+    config.action_mailer.default_url_options = { :host => APP_CONFIG['site_address'] }
 
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
 
