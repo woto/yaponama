@@ -18,11 +18,13 @@ class SearchesController < ApplicationController
         render :status => 410 and return
       end
 
-      seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
-      if request.fullpath.upcase != seo_url.upcase
-        respond_to do |format|
-          format.html { redirect_to seo_url and return }
-          format.mobile { redirect_to seo_url + "#jump" and return }
+      unless request.xhr?
+        seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
+        if request.fullpath.upcase != seo_url.upcase
+          respond_to do |format|
+            format.html { redirect_to seo_url and return }
+            format.mobile { redirect_to seo_url + "#jump" and return }
+          end
         end
       end
 
@@ -334,6 +336,8 @@ class SearchesController < ApplicationController
       @meta_keywords = @page.keyword
       @meta_robots = @page.robots
     end
+
+    expires_in 20.minutes
 
     respond_to do |format|
       format.html { render "index" }
