@@ -5,6 +5,10 @@ window.Application ||= {}
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
 
+  $('#random-catalog-number').click ->
+    $('input#catalog-number').val($(this).html())
+
+
   Application.reinit_search = ->
     $('a.days').popover({placement: 'left'})
     $('a.bill').popover()

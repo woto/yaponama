@@ -23,7 +23,7 @@
           </label>
           <div class="input">
             <%= text_field_tag :catalog_number, params[:catalog_number], :id => "catalog-number" %> <div id="clear-catalog-number" class='icons icons-sprite icons-delete'></div>
-            <span class="help-block">Например: <%= TemplateData::CATALOG_NUMBERS.sample %></span>
+            <span class="help-block">Например: <span id="random-catalog-number"><%= TemplateData::CATALOG_NUMBERS.sample %></span></span>
           </div>
         </div>
         
