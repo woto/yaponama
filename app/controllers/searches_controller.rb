@@ -337,7 +337,7 @@ class SearchesController < ApplicationController
       @meta_robots = @page.robots
     end
 
-    expires_in 20.minutes
+    #expires_in 20.minutes
 
     respond_to do |format|
       format.html { render "index" }
