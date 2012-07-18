@@ -38,6 +38,7 @@
   <script src="http://<%= APP_CONFIG["juggernaut_address"] %>:8080/application.js" type="text/javascript" charset="utf-8"></script>
   
   <%= csrf_meta_tags %>
+
 </head>
 <body id="jump">
 
@@ -169,6 +170,7 @@
 
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'google_analytics'}) %>
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'yandex_metrika'}) %>
+
 
 </body>
 </html>

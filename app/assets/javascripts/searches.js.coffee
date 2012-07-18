@@ -170,11 +170,13 @@ Application.toTop = ->
 
 Application.showLoading = ->
   Application.toTop();
-  $("#loading").css "top", parseInt(($(window).height() - $("#loading").innerHeight())/2, 10) + "px"
+  $("#loading").css "top", (parseInt(($(window).height() - $("#loading").innerHeight() - $(window).height()/2 )/2, 10)) + "px"
   $("#loading").css "left", parseInt(($(window).width() - $("#loading").innerWidth())/2, 10) + "px"
   $("#loading").show()
+  $("#search-area-parent").animate({ opacity: 0 })
 
 Application.hideLoading = ->
+  $("#search-area-parent").animate({ opacity: 100 })
   $("#loading").hide()
 
 $(window).bind "statechange", ->
