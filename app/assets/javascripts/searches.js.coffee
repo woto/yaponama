@@ -168,9 +168,10 @@ $ ->
 Application.toTop = ->
   $("html, body").animate({scrollTop: 0}, 'slow')
 
-Application.showLoading = ->
+Application.showLoading = (social_href) ->
   # Google +
-  gapi.plusone.render('google-plus', {href: '/searches/2102/'}) 
+  $('#google-plus-placeholder').html('<div id="google-plus"></div>')
+  gapi.plusone.render('google-plus', {'href': social_href}) 
   # /Google +
   Application.toTop();
   $("#loading").css "top", (parseInt(($(window).height() - $("#loading").innerHeight() - $(window).height()/2 )/2, 10)) + "px"
@@ -184,11 +185,11 @@ Application.hideLoading = ->
 
 $(window).bind "statechange", ->
   State = History.getState()
-  Application.showLoading()
+  #Application.showLoading()
   $.getScript(location.href);
 
 $(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
-  Application.showLoading()
+  Application.showLoading(settings.url)
   if History.enabled
     History.pushState(null, '', settings.url);
     return false
