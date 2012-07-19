@@ -166,7 +166,7 @@ $ ->
     replacementsModal.modal('hide')
 
 Application.toTop = ->
-  $("html, body").animate({scrollTop: 0}, 'slow')
+  $("html, body").animate({scrollTop: 0}, 'fast')
 
 Application.showLoading = (social_href) ->
   # Google +

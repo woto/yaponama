@@ -84,6 +84,7 @@
 				}
 
 				renderTable(table,c.rowsCopy);
+        Application.toTop();
 			}
 			
 			function renderTable(table,rows) {
@@ -114,8 +115,10 @@
 					var o = rows[i];
 					var l = o.length;
 					for(var j=0; j < l; j++) {
-						
-						tableBody[0].appendChild(o[j]);
+						if(tableBody[0] != undefined)
+            {
+              tableBody[0].appendChild(o[j]);
+            }
 
 					}
 				}
@@ -176,33 +179,27 @@
 					
 					$(config.cssFirst,pager).live("click", (function() {
 						moveToFirstPage(table);
-            Application.toTop();
 						return false;
 					}));
           
 					$(config.relative,pager).live("click", (function() {
 						moveToRelativePage(this, table);
-            Application.toTop();
 						return false;
 					}));
 					$(config.cssNext,pager).live("click", (function() {
 						moveToNextPage(table);
-            Application.toTop();
 						return false;
 					}));
 					$(config.cssPrev,pager).live("click", (function() {
 						moveToPrevPage(table);
-            Application.toTop();
 						return false;
 					}));
 					$(config.cssLast,pager).live("click", (function() {
 						moveToLastPage(table);
-            Application.toTop();
 						return false;
 					}));
 					$(config.cssPageSize,pager).live("change", (function() {
 						setPageSize(table,parseInt($(this).val()));
-            Application.toTop();
 						return false;
 					}));
 				});
