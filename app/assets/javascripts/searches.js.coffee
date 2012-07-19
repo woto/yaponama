@@ -8,13 +8,13 @@ $ ->
   $('#random-catalog-number').click ->
     $('input#catalog-number').val($(this).html())
 
+  $('.dropdown').dropdown()
+  $(".alert-message").alert()
+  $('a.bill').popover()
 
   Application.reinit_search = ->
     $('a.days').popover({placement: 'left'})
-    $('a.bill').popover()
     $('a[rel=twipsy]').twipsy()
-    $(".alert-message").alert()
-    $('.dropdown').dropdown()
 
     $.tablesorter.addParser
       id: "from_link_extractor"
@@ -185,7 +185,6 @@ Application.hideLoading = ->
 
 $(window).bind "statechange", ->
   State = History.getState()
-  #Application.showLoading()
   $.getScript(location.href);
 
 $(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
