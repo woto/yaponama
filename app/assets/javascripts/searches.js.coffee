@@ -169,6 +169,9 @@ Application.toTop = ->
   $("html, body").animate({scrollTop: 0}, 'slow')
 
 Application.showLoading = ->
+  # Google +
+  gapi.plusone.render('google-plus', {href: '/searches/2102/'}) 
+  # /Google +
   Application.toTop();
   $("#loading").css "top", (parseInt(($(window).height() - $("#loading").innerHeight() - $(window).height()/2 )/2, 10)) + "px"
   $("#loading").css "left", parseInt(($(window).width() - $("#loading").innerWidth())/2, 10) + "px"
