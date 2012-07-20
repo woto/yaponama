@@ -184,11 +184,14 @@ Application.hideLoading = ->
   $("#loading").hide()
 
 $(window).bind "statechange", ->
+  Application.showLoading(location.href)
   State = History.getState()
   $.getScript(location.href);
 
 $(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
-  Application.showLoading(settings.url)
+  # Если History активен, то showLoading вызовется из statechange
   if History.enabled
     History.pushState(null, '', settings.url);
     return false
+  else
+    Application.showLoading(settings.url)
