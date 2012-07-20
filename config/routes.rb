@@ -175,6 +175,6 @@ Yaponama::Application.routes.draw do
   #match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
   match '/info/:catalog_number(/:manufacturer)' => "info#index", :as => :info, :via => :get
 
-  match "*path" => "pages#render_page", :constraints => PageConstraint.new
+  match "*path" => "pages#render_page"
 
 end
