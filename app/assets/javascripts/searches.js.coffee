@@ -168,30 +168,17 @@ $ ->
 Application.toTop = ->
   $("html, body").animate({scrollTop: 0}, 'fast')
 
-Application.showLoading = (social_href) ->
-  # Google +
-  $('#google-plus-placeholder').html('<div id="google-plus"></div>')
-  gapi.plusone.render('google-plus', {'href': social_href}) 
-  # /Google +
+Application.showLoading = ->
   Application.toTop();
   $("#loading").css "top", (parseInt(($(window).height() - $("#loading").innerHeight() - $(window).height()/2 )/2, 10)) + "px"
   $("#loading").css "left", parseInt(($(window).width() - $("#loading").innerWidth())/2, 10) + "px"
   $("#loading").show()
   $("#search-area-parent").animate({ opacity: 0 })
 
-Application.hideLoading = ->
-  $("#search-area-parent").animate({ opacity: 100 })
-  $("#loading").hide()
-
 $(window).bind "statechange", ->
   Application.showLoading(location.href)
   State = History.getState()
   $.getScript(location.href);
 
-$(".ajax-search").live "ajax:beforeSend", (e, xhr, settings) ->
-  # Если History активен, то showLoading вызовется из statechange
-  if History.enabled
-    History.pushState(null, '', settings.url);
-    return false
-  else
-    Application.showLoading(settings.url)
+$(".ajax-search").live "click", ->
+  Application.showLoading()

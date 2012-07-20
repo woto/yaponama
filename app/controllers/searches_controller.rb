@@ -18,13 +18,11 @@ class SearchesController < ApplicationController
         render :status => 410 and return
       end
 
-      unless request.xhr?
-        seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
-        if request.fullpath.upcase != seo_url.upcase
-          respond_to do |format|
-            format.html { redirect_to seo_url and return }
-            format.mobile { redirect_to seo_url + "#jump" and return }
-          end
+      seo_url = search_searches_path(params[:catalog_number].present? ? params[:catalog_number] : nil, params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
+      if request.fullpath.upcase != seo_url.upcase
+        respond_to do |format|
+          format.html { redirect_to seo_url and return }
+          format.mobile { redirect_to seo_url + "#jump" and return }
         end
       end
 
@@ -310,7 +308,7 @@ class SearchesController < ApplicationController
           end
 
           tmp << "Посмотреть аналоги "
-          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :remote => true, :class => 'ajax-search')
+          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :class => 'ajax-search')
           tmp << " #{arr[:titles].last[0].to_s}"
           tmp << "<br />".html_safe 
         end
