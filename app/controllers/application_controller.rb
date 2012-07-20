@@ -1,18 +1,21 @@
 class ApplicationController < ActionController::Base
   
   before_filter :force_change_mobile
-  
   protect_from_forgery
-
   respond_to_mobile_requests
-  
   before_filter :upcase_token
-
   helper_method :user_search_histories
-
   helper_method :item_status
-
   before_filter :set_user_is_session_admin_workaround
+
+  unless Rails.application.config.consider_all_requests_local
+    rescue_from Exception, :with => :render_500
+    rescue_from ActionController::RoutingError, :with => :render_404
+    rescue_from ActionController::UnknownController, :with => :render_404
+    rescue_from ActionController::UnknownAction, :with => :render_404
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  end
+
 
   def set_user_is_session_admin_workaround
     User.is_session_admin_workaround  = session[:admin_id] || (current_user && current_user.admin?)
@@ -124,5 +127,23 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     root_path(:anchor => "jump")
   end  
-  
+
+  private
+
+  def render_404(exception)
+    @show_sidebar = true
+    Rails.logger.error(exception)
+    respond_to do |format|
+      format.all { render :template => 'errors/error_404', :layout => 'layouts/application', :status => 404 }
+    end
+  end
+
+  def render_500(exception)
+    @show_sidebar = true
+    Rails.logger.error(exception)
+    respond_to do |format|
+      format.all { render :template => 'errors/error_500', :layout => 'layouts/application', :status => 500 }
+    end
+  end
+
 end

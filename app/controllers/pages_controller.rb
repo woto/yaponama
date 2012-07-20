@@ -6,11 +6,14 @@ class PagesController < ApplicationController
 
   def render_page
     @page = Page.where(:path => params[:path]).first
-    @meta_title = @page.title
-    @meta_description = @page.description
-    @meta_keywords = @page.keyword
-    @meta_robots = @page.robots
-
+    if @page
+      @meta_title = @page.title
+      @meta_description = @page.description
+      @meta_keywords = @page.keyword
+      @meta_robots = @page.robots
+    else
+      raise ActionController::RoutingError, "Page #{params[:path]} doesn't exists"
+    end
   end
 
   # GET /pages
