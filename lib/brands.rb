@@ -1,11 +1,15 @@
 class Brands
   BRANDS = ActiveSupport::OrderedHash[
+    "ALFA ROMEO", { :file => "alfa_romeo", :title => "ALFA ROMEO" },
     "AUDI", { :file => "audi", :title => "AUDI" },
     "BMW", { :file => "bmw", :title => "BMW" },
     "CHERY", { :file => "chery", :title => "CHERY" },
     "CHEVROLET", { :file => "chevrolet", :title => "CHEVROLET" },
     "CHRYSLER", { :file => "chrysler", :title => "CHRYSLER" },
     "CITROEN", { :file => "citroen", :title => "CITROEN" },
+    "DAEWOO", { :file => "daewoo", :title => "DAEWOO" },
+    "DAIHATSU", { :file => "daihatsu", :title => "DAIHATSU" },
+    "DODGE", { :file => "dodge", :title => "DODGE" },
     "FIAT", { :file => "fiat", :title => "FIAT" },
     "FORD", { :file => "ford", :title => "FORD" },
     "HONDA", { :file => "honda", :title => "HONDA" },
