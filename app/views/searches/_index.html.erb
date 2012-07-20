@@ -91,14 +91,7 @@
 
 <% if @parsed_json["result_prices"].count > 0 %>
 
-<% content_for(:pages_controller) do %>
-  <% path = CGI::unescape(request.fullpath).gsub(/^\/+/, '') %>
-  <% if (page = Page.where(:path => path).first).present? %>
-    <li><%= link_to "Редактировать", edit_page_path(page) %> </li>
-  <% else %>
-    <li><%= link_to "Создать", new_predefined_page_path(CGI::escape(CGI::escape(path))) %> </li>
-  <% end %>
-<% end %>
+<% render :partial => "pages/add_menu_elements" %>
 
 <div style="background: #F9F9F9;" class="simple">
   <% if @division_blocks %>

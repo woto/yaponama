@@ -132,6 +132,7 @@ class ApplicationController < ActionController::Base
 
   def render_404(exception)
     @show_sidebar = true
+    @exception = exception
     Rails.logger.error(exception)
     respond_to do |format|
       format.all { render :template => 'errors/error_404', :layout => 'layouts/application', :status => 404 }
@@ -140,6 +141,7 @@ class ApplicationController < ActionController::Base
 
   def render_500(exception)
     @show_sidebar = true
+    @exception = exception
     Rails.logger.error(exception)
     respond_to do |format|
       format.all { render :template => 'errors/error_500', :layout => 'layouts/application', :status => 500 }
