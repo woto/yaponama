@@ -7,6 +7,8 @@ class PagesController < ApplicationController
   def render_page
     @page = Page.where(:path => params[:path]).first
     if @page
+
+      @meta_canonical = '/' + params[:path]
       @meta_title = @page.title
       @meta_description = @page.description
       @meta_keywords = @page.keyword
