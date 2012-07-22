@@ -13,7 +13,7 @@ SitemapGenerator::Sitemap.create do
 
   add '/searches', :changefreq => 'daily'
   add '/contacts', :changefreq => 'weekly'
-  Page.all do |page|
+  Page.all.each do |page|
     add "/#{page.path}", :changefreq => 'monthly'
   end
 end

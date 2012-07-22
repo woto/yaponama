@@ -33,4 +33,8 @@
   rake "app:clear_old_sessions"
  end
 
+ every 1.day do
+  rake "sitemap:refresh"
+ end
+
 # Learn more: http://github.com/javan/whenever
