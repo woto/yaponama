@@ -190,22 +190,29 @@ class SearchesController < ApplicationController
       tree_block = lambda{|h,k| h[k] = {:titles => Hash.new {|h, k| h[k] = 0} } }
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
-      if @parsed_json["result_prices"].size == 0
-        render :status => 404 and return
-      end
 
       #require 'redis'
       #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
 
       iconv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'UTF-8//IGNORE//TRANSLIT') 
 
+      any_found = false
+
       @parsed_json["result_prices"].each do |item|
         # Криво режется на стороне сервера прайсов, в результате тут не валидная кодировка
         # (если все правильно понимаю, то режется по байту, и как раз второй выпадает)
         # касается названий типа ПЕЧАТНАЯ П%^&*
+
         item['manufacturer'] = iconv.iconv(item['manufacturer'].to_s + " ")[0..-2]
 
         next if item["job_import_job_country_short"].include?("avtorif.ru")
+
+        # Необходимо поступать так, т.к. только в момент разбора можем понять есть если ли что-нибудь или нет
+        # т.к. необходимо игнорировать точки
+        unless any_found
+          any_found = true
+        end
+
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
         if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present? && (params[:manufacturer].present? ? params[:manufacturer] == item["manufacturer"] : true)
           hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
@@ -287,6 +294,11 @@ class SearchesController < ApplicationController
       # Скидка
       if current_user
         @parsed_json["result_prices"].map{|result_price| result_price["retail_cost"] = result_price["retail_cost"] - (result_price["retail_cost"] * current_user["discount"] / 100)}
+      end
+
+      # Вверху в цикле прохода по массиву выставляется значение any_found (из-за точек)
+      unless any_found
+        render :status => 404 and return
       end
 
       # SEO
