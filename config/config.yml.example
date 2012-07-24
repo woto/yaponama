@@ -9,12 +9,15 @@ defaults: &defaults
   request_emex: true
   emex_income_rate: 1.05
   avtorif_income_rate: 1.12
-  retail_rate: 1.20
-  robokassa_integration_mode: 'test'
+  retail_rate: 1.15
+  robokassa_integration_mode: 'production'
   robokassa_pass_1: 'Qwer3322'
   robokassa_pass_2: 'Qwer2233'
   robokassa_user: 'woto7'
-  send_request_from_search_page: false
+  send_request_from_search_page: true
+  cached_ip:
+    - 66.249.64.0/19
+    - 95.108.248.0/23
 
 development:
   <<: *defaults
