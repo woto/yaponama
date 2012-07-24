@@ -123,9 +123,11 @@
       !(params[:controller] == "orders" && params[:action] == "show") %>
     <div class="sidebar">
 
-      <div id="callback_request_block" class="well">
-        <%= render :partial => "callback_requests/call_me" %>
-      </div>
+      <% if params[:controller] != "callback_requests" %>
+        <div id="callback_request_block" class="well">
+          <%= render :partial => "callback_requests/call_me" %>
+        </div>
+      <% end %>
 
     <%= render :partial => "blocks/show.erb", :locals => {:block_name => 'sideblock_1'}  %>
   
