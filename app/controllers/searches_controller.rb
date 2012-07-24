@@ -1,5 +1,3 @@
-require 'net/http'
-
 class SearchesController < ApplicationController
 
   def index
@@ -54,12 +52,25 @@ class SearchesController < ApplicationController
         request_emex = "&ext_ws=1"
       end
 
+      # Если поисковые системы, то кешируем
+      require 'netaddr'
+      cached = ''
+      APP_CONFIG['cached_ip'].each do |cidr_string|
+        cidr = NetAddr::CIDR.create(cidr_string)
+        if cidr.contains? request.remote_ip or cidr == request.remote_ip
+          cached = '&cached=1'
+          break
+        end
+      end
 
       require 'digest/md5'
-      price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1"
+      require 'net/http'
 
-      if Rails.cache.exist? price_request_url
-        @parsed_json = (Rails.cache.read(price_request_url)).dup
+      price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1#{cached}"
+      price_request_cache_key = "#{params[:catalog_number]}-#{params[:manufacturer]}-#{params[:replacements]}-#{request_emex}"
+
+      if Rails.cache.exist? price_request_cache_key
+        @parsed_json = (Rails.cache.read(price_request_cache_key)).dup
       else
         parsed_price_request_url = URI.parse(price_request_url)
         begin
@@ -155,8 +166,6 @@ class SearchesController < ApplicationController
           item.delete "job_import_job_presence"
           item.delete "job_import_job_output_order"
           item.delete "real_job_id"
-          #debugger
-          #puts 1
         end
 
 
@@ -167,9 +176,10 @@ class SearchesController < ApplicationController
         end
 
         #@parsed_json["result_prices"].shuffle!
+         
         @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |a|  ( ( (a["job_import_job_delivery_days_average"].present? ? a["job_import_job_delivery_days_average"] : a["job_import_job_delivery_days_declared"]).to_f + a["job_import_job_delivery_days_declared"].to_f)/2/( (fast = params[:fast]).present? ? fast.to_f : 100) ) +  a["price_goodness"].to_f }
 
-        Rails.cache.write(price_request_url, @parsed_json, :expires_in => expires_in)
+        Rails.cache.write(price_request_cache_key, @parsed_json, :expires_in => expires_in)
       end
 
       #debugger
@@ -181,8 +191,7 @@ class SearchesController < ApplicationController
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
       if @parsed_json["result_prices"].size == 0
-        # TODO Когда ссылки устаканятся вернуть 404
-        render :status => 410 and return
+        render :status => 404 and return
       end
 
       #require 'redis'
