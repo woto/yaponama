@@ -47,33 +47,33 @@ class SearchesController < ApplicationController
       end
 
       request_emex = ''
-
       if APP_CONFIG["request_emex"]
         request_emex = "&ext_ws=1"
       end
 
-      # Если поисковые системы, то кешируем
-      require 'netaddr'
-      cached = ''
-      APP_CONFIG['cached_ip'].each do |cidr_string|
-        cidr = NetAddr::CIDR.create(cidr_string)
-        if cidr.contains? request.remote_ip or cidr == request.remote_ip
-          cached = '&cached=1'
-          break
-        end
-      end
-
-      require 'digest/md5'
-      require 'net/http'
-
-      price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1#{cached}"
       price_request_cache_key = "#{params[:catalog_number]}-#{params[:manufacturer]}-#{params[:replacements]}"
 
       if Rails.cache.exist? price_request_cache_key
         @parsed_json = (Rails.cache.read(price_request_cache_key)).dup
       else
+
+        # Если поисковые системы, то согласны взять и закешированную версию
+        require 'netaddr'
+        cached = ''
+        APP_CONFIG['cached_ip'].each do |cidr_string|
+          cidr = NetAddr::CIDR.create(cidr_string)
+          if cidr.contains? request.remote_ip or cidr == request.remote_ip
+            cached = '&cached=1'
+            break
+          end
+        end
+
+        price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1#{cached}"
+
         parsed_price_request_url = URI.parse(price_request_url)
+
         begin
+          require 'net/http'
           resp = Net::HTTP.get_response(parsed_price_request_url)
         rescue Exception => e
           response.headers["Retry-After"] = (Time.now + 1.day).httpdate.to_s
