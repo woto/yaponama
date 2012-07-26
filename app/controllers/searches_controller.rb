@@ -67,7 +67,7 @@ class SearchesController < ApplicationController
       require 'net/http'
 
       price_request_url = "http://#{APP_CONFIG['price_address']}/prices/search?catalog_number=#{params[:catalog_number]}&manufacturer=#{CGI::escape(params[:manufacturer] || '')}&replacements=#{params[:replacements]}#{request_emex}&format=json&for_site=1#{cached}"
-      price_request_cache_key = "#{params[:catalog_number]}-#{params[:manufacturer]}-#{params[:replacements]}-#{request_emex}"
+      price_request_cache_key = "#{params[:catalog_number]}-#{params[:manufacturer]}-#{params[:replacements]}"
 
       if Rails.cache.exist? price_request_cache_key
         @parsed_json = (Rails.cache.read(price_request_cache_key)).dup
