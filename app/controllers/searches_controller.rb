@@ -218,8 +218,8 @@ class SearchesController < ApplicationController
         end
 
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
-        if item["catalog_number"].to_s == params[:catalog_number].to_s && item["manufacturer"].present? && (params[:manufacturer].present? ? params[:manufacturer] == item["manufacturer"] : true)
-          hh = item["catalog_number"].to_s + " (" + item["manufacturer"].to_s + ")"
+        if item["catalog_number"].to_s == params[:catalog_number].to_s && (params[:manufacturer].present? ? params[:manufacturer] == item["manufacturer"] : true)
+          hh = item["catalog_number"].to_s + (item["manufacturer"].present? ? " (" + item["manufacturer"].to_s + ")" : "")
           seo_counter[hh][:titles][item["title"]] += 1
           seo_counter[hh][:catalog_number] = item["catalog_number"]
           seo_counter[hh][:manufacturer] = item["manufacturer"]
@@ -278,7 +278,6 @@ class SearchesController < ApplicationController
 
       end
 
-
       seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}
       seo_keywords = seo_keywords[-seo_keywords.size/2, 1000].to_a.collect{|e| e[0].mb_chars.upcase.gsub(',', ' ').to_s if e[0].mb_chars.size > 2}.uniq.compact.reverse.join(', ')
 
@@ -333,7 +332,14 @@ class SearchesController < ApplicationController
           end
 
           tmp << "Посмотреть аналоги "
-          tmp << view_context.link_to("#{arr[:catalog_number]} (#{arr[:manufacturer]})", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :class => 'ajax-search')
+          man_link = ''
+          if arr[:manufacturer].present?
+            man_link = "(" + arr[:manufacturer] + ")"
+          else
+            man_link = ''
+          end
+
+          tmp << view_context.link_to("#{arr[:catalog_number]} #{man_link}", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :class => 'ajax-search')
           tmp << " #{arr[:titles].last[0].to_s}"
           tmp << "<br />".html_safe 
         end
