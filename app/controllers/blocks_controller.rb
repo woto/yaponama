@@ -6,7 +6,7 @@ class BlocksController < ApplicationController
   # GET /blocks
   # GET /blocks.json
   def index
-    @blocks = Block.all
+    @blocks = Block.order(:block_name).all
 
     respond_to do |format|
       format.html # index.html.erb
