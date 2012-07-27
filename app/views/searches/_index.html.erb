@@ -1,4 +1,4 @@
-<% techs = ["supplier_title_full", "price_logo_emex", "job_title", "supplier_title_en"] %>
+<% techs = ["supplier_title_full", "price_logo_emex", "job_title", "supplier_title_en", "income_cost"] %>
 
 <h1><%= truncate(@meta_title, :length => 40) %></h1>
 
@@ -201,11 +201,13 @@
             <% if Block.where(:block_name => "tech").first.content.present? %>
               <% tech_add += ", Служебная информация - " %>
               <% techs.each do |tech| %>
-                <% tech_add += result_price[tech].to_s + " " %>
+                <% tech_add += result_price[tech].to_s + ", " %>
               <% end %>
-            <% end %>
+            <% end %> 
           <% end %>
 
+          <% tech_add = tech_add[0...-2] %>
+          
 
 
           <td> <%= link_to days_decorator(result_price['job_import_job_delivery_days_declared']), "#", :class => 'days', :data => {:content => "Минимальный срок поставки на наш склад - #{result_price['job_import_job_delivery_days_declared']} дн. #{max_days}#{country}#{count}#{success_percent}#{tech_add}"}, :title => 'Статистика заказов', :rel => 'popover' %> </td>

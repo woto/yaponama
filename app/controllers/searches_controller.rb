@@ -36,7 +36,7 @@ class SearchesController < ApplicationController
   end
 
   def set_retail_cost item
-    retail_cost = APP_CONFIG["retail_rate"] * case
+    income_cost = case
       when item["supplier_title"] == "emex"
         APP_CONFIG["emex_income_rate"] * item["income_cost"]
       when item["supplier_title"] == "АВТОРИФ"
@@ -45,12 +45,15 @@ class SearchesController < ApplicationController
         APP_CONFIG["avtorif_income_rate"] * item["retail_cost"]
       end
 
+    retail_cost = APP_CONFIG["retail_rate"] * income_cost
+
     # Скидка
     if current_user
       retail_cost = retail_cost - (retail_cost * current_user["discount"] / 100)
     end
 
     item["retail_cost"] = retail_cost.round
+    item["income_cost"] = income_cost.round
   end
 
 
