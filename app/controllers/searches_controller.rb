@@ -1,12 +1,106 @@
 class SearchesController < ApplicationController
 
+  def set_item_status item
+
+    # Другая техника получения статуса наличия информации о детали
+    #require 'redis'
+    #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+    #if (data_array = redis.lrange("i:#{item['catalog_number']}:#{item['manufacturer']}", 0, -1)).present?
+    #  if data_array.map{|unparsed| JSON.parse(unparsed)}.any? {|json| json['data']}
+    #    item['info'] = 'avaliable'
+    #  else
+    #    item['info'] = 'unavaliable'
+    #  end
+    #else
+    #  item['info'] = 'unknown'
+    #end
+
+    item_status = item_status(item['catalog_number'], item['manufacturer'])
+    if item_status[:own] == 'avaliable'
+      item['info'] = 'avaliable'
+    else
+      item['info'] = item_status[:their]
+    end
+  end
+
+  def set_brand_rating item
+    Brands::BRANDS.key?(item["manufacturer"]) ? item["rating"] = Brands::BRANDS[item["manufacturer"]][:rating] : item["rating"] = 0
+  end
+
+  def correct_manufacturer item
+    # Криво режется на стороне сервера прайсов, в результате тут не валидная кодировка
+    # (если все правильно понимаю, то режется по байту, и как раз второй выпадает)
+    # касается названий типа ПЕЧАТНАЯ П%^&*
+    iconv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'UTF-8//IGNORE//TRANSLIT')
+    item['manufacturer'] = iconv.iconv(item['manufacturer'].to_s + " ")[0..-2]
+  end
+
+  def set_retail_cost item
+    retail_cost = APP_CONFIG["retail_rate"] * case
+      when item["supplier_title"] == "emex"
+        APP_CONFIG["emex_income_rate"] * item["income_cost"]
+      when item["supplier_title"] == "АВТОРИФ"
+        item["income_cost"]
+      else
+        APP_CONFIG["avtorif_income_rate"] * item["retail_cost"]
+      end
+
+    # Скидка
+    if current_user
+      retail_cost = retail_cost - (retail_cost * current_user["discount"] / 100)
+    end
+
+    item["retail_cost"] = retail_cost.round
+  end
+
+
+  def remember_search
+    if current_user.present?
+      condition = { :user_id => current_user.id }
+    else
+      condition = { :session_id => request.session_options[:id] }
+    end
+
+   last_by_detail = SearchHistory.where(condition.merge( :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present?) ? manufacturer : nil ) ).order("created_at DESC").limit(1)
+    last_by_user = SearchHistory.where(condition).order("created_at DESC").limit(1)
+
+    if !( last_by_detail.present? && last_by_user.present? ) || ( last_by_detail.first.id  != last_by_user.first.id)
+      SearchHistory.create(:user_id => current_user.try(:id), :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present? ? manufacturer : nil))
+    end
+  end
+
+  def set_meta_robots
+    # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
+    # @meta_robots = 'index, follow'
+    #
+    if params[:manufacturer] || params[:replacements]
+      @meta_robots = 'noindex, follow'
+    else
+      @meta_robots = 'index, follow'
+    end
+  end
+
+  def forbidden_old_parameters
+    if params[:fast].present? or params[:show].present?
+      render :status => 410 and return
+    end
+  end
+
+  def search_page_content
+    @page = Page.where(:path => search_searches_path(params[:catalog_number], params[:manufacturer], params[:replacements]).gsub(/^\/+/, '')).first
+    if @page
+      @meta_title = @page.title
+      @meta_description = @page.description
+      @meta_keywords = @page.keyword
+      @meta_robots = @page.robots
+    end
+  end
+
   def index
 
     @parsed_json = { "result_prices" => [] }
 
-    if params[:fast].present? or params[:show].present?
-      render :status => 410 and return
-    end
+    forbidden_old_parameters
 
     if params[:catalog_number].present?
 
@@ -24,27 +118,9 @@ class SearchesController < ApplicationController
         end
       end
 
-      # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
-      # @meta_robots = 'index, follow'
-      #
-      if params[:manufacturer] || params[:replacements]
-        @meta_robots = 'noindex, follow'
-      else
-        @meta_robots = 'index, follow'
-      end
+      set_meta_robots
 
-      if current_user.present?
-        condition = { :user_id => current_user.id }
-      else
-        condition = { :session_id => request.session_options[:id] }
-      end
-
-      last_by_detail = SearchHistory.where(condition.merge( :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present?) ? manufacturer : nil ) ).order("created_at DESC").limit(1)
-      last_by_user = SearchHistory.where(condition).order("created_at DESC").limit(1)
-
-      if !( last_by_detail.present? && last_by_user.present? ) || ( last_by_detail.first.id  != last_by_user.first.id)
-        SearchHistory.create(:user_id => current_user.try(:id), :session_id => request.session_options[:id], :catalog_number => params[:catalog_number], :manufacturer => ((manufacturer = params[:manufacturer]).present? ? manufacturer : nil))
-      end
+      remember_search
 
       request_emex = ''
       if APP_CONFIG["request_emex"]
@@ -91,13 +167,9 @@ class SearchesController < ApplicationController
         @parsed_json.delete("result_replacements")
         @parsed_json.delete("result_message")
         @parsed_json["result_prices"].map do |item|
-          item.delete "retail_cost"
           item.delete "job_import_job_delivery_summary"
-          item.delete "supplier_title_full"
-          item.delete "job_title"
           item.delete "ij_income_rate"
           item.delete "ps_retail_rate"
-          item.delete "supplier_title_en"
           item.delete "income_cost_in_currency_with_weight"
           item.delete "supplier_inn"
           item.delete "logo"
@@ -110,13 +182,11 @@ class SearchesController < ApplicationController
           item.delete "c_weight_value"
           item.delete "ps_absolute_weight_rate"
           item.delete "manufacturer_short"
-          item.delete "price_logo_emex"
           item.delete "price_group"
           item.delete "ps_weight_unavailable_rate"
           item.delete "c_buy_value"
           item.delete "currency"
           item.delete "manufacturer_orig"
-          item.delete "supplier_title"
           item.delete "ps_relative_weight_rate"
           item.delete "ps_kilo_price"
           item.delete "ps_absolute_buy_rate"
@@ -124,20 +194,15 @@ class SearchesController < ApplicationController
           item.delete "income_cost_in_currency_without_weight"
           item.delete "catalog_number_orig"
           item.delete "image_url"
-          item.delete "retail_cost"
           item.delete "created_at"
           item.delete "job_import_job_delivery_summary"
           item.delete "parts_group"
           item.delete "price_setting_id"
           item.delete "image_url"
-          item.delete "supplier_title_full"
-          item.delete "job_title"
           item.delete "ij_income_rate"
           item.delete "ps_retail_rate"
           item.delete "min_order"
           item.delete "updated_at"
-          item.delete "supplier_title_en"
-          item.delete "income_cost_in_currency_with_weight"
           item.delete "external_id"
           item.delete "unit_package"
           item.delete "supplier_inn"
@@ -195,19 +260,10 @@ class SearchesController < ApplicationController
       seo_counter = Hash.new(&tree_block)
       seo_keywords = Hash.new{|h, k| h[k] = 0}
 
-      #require 'redis'
-      #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
-
-      iconv = Iconv.new('UTF-8//IGNORE//TRANSLIT', 'UTF-8//IGNORE//TRANSLIT') 
-
       any_found = false
 
       @parsed_json["result_prices"].each do |item|
-        # Криво режется на стороне сервера прайсов, в результате тут не валидная кодировка
-        # (если все правильно понимаю, то режется по байту, и как раз второй выпадает)
-        # касается названий типа ПЕЧАТНАЯ П%^&*
-
-        item['manufacturer'] = iconv.iconv(item['manufacturer'].to_s + " ")[0..-2]
+        correct_manufacturer(item)
 
         next if item["job_import_job_country_short"].include?("avtorif.ru")
 
@@ -231,6 +287,9 @@ class SearchesController < ApplicationController
 
         counter[h] += 1
 
+        set_brand_rating item
+        set_retail_cost item
+
         if params[:replacements]
           offers_to_display = 1
         else
@@ -247,33 +306,6 @@ class SearchesController < ApplicationController
             item["css_class"] = "loud"
             new_array << item            
           end
-        end
-
-        item["retail_cost"] = APP_CONFIG["retail_rate"] * item["income_cost"] * case
-          when item["supplier_title"] == "emex" 
-            APP_CONFIG["emex_income_rate"]
-          when item["supplier_title"] == "АВТОРИФ"
-            1
-          else
-            APP_CONFIG["avtorif_income_rate"]
-          end
-
-        # Другая техника получения статуса наличия информации о детали
-        #if (data_array = redis.lrange("i:#{item['catalog_number']}:#{item['manufacturer']}", 0, -1)).present?
-        #  if data_array.map{|unparsed| JSON.parse(unparsed)}.any? {|json| json['data']}
-        #    item['info'] = 'avaliable'
-        #  else
-        #    item['info'] = 'unavaliable'
-        #  end
-        #else
-        #  item['info'] = 'unknown'
-        #end
-
-        item_status = item_status(item['catalog_number'], item['manufacturer'])
-        if item_status[:own] == 'avaliable'
-          item['info'] = 'avaliable'
-        else
-          item['info'] = item_status[:their]
         end
 
       end
@@ -294,10 +326,6 @@ class SearchesController < ApplicationController
       @parsed_json["result_prices"] = new_array
       @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
 
-      # Скидка
-      if current_user
-        @parsed_json["result_prices"].map{|result_price| result_price["retail_cost"] = result_price["retail_cost"] - (result_price["retail_cost"] * current_user["discount"] / 100)}
-      end
 
       # Вверху в цикле прохода по массиву выставляется значение any_found (из-за точек)
       unless any_found
@@ -358,13 +386,7 @@ class SearchesController < ApplicationController
     
     @meta_keywords = seo_keywords
 
-    @page = Page.where(:path => search_searches_path(params[:catalog_number], params[:manufacturer], params[:replacements]).gsub(/^\/+/, '')).first
-    if @page
-      @meta_title = @page.title
-      @meta_description = @page.description
-      @meta_keywords = @page.keyword
-      @meta_robots = @page.robots
-    end
+    search_page_content
 
     #expires_in 20.minutes
 

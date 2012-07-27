@@ -1,3 +1,5 @@
+<% techs = ["supplier_title_full", "price_logo_emex", "job_title", "supplier_title_en"] %>
+
 <h1><%= truncate(@meta_title, :length => 40) %></h1>
 
 <% if @parsed_json["result_prices"].count == 0 %>
@@ -123,6 +125,11 @@
   <table id="result-prices" class="zebra-striped">
     <thead>
       <tr>
+
+        <% if params[:replacements] == '1' %>
+          <th style="width: 80px">  <a href="#">Рейт.</a> </th>
+        <% end %>
+
         <th style="width: 80px">  <a href="#">Произв.</a> </th>
         <th style="width: 80px"> <a href="#">Кат.&nbsp;ном.</a> </th>
         <th style="width: 55px">  <a href="#">Инфо</a> </th>
@@ -134,6 +141,11 @@
     <tbody>
       <% @parsed_json["result_prices"].each_with_index do |result_price, i| %>
         <tr class="<%= result_price["css_class"]%>">
+
+          <% if params[:replacements] == '1' %>
+            <td> <%= result_price["rating"] %> </td>
+          <% end %>
+
           <td> <%= manufacturer = result_price["manufacturer"] %> </td>
           <td> 
           <% catalog_number = result_price["catalog_number"] %>
@@ -183,8 +195,20 @@
           <% success_percent = '' %>
           <% success_percent = "Вероятность выполнения заказа: #{result_price["success_percent"].to_i}%" if result_price["success_percent"].present? %>
 
+          <% tech_add = '' %>
 
-          <td> <%= link_to days_decorator(result_price['job_import_job_delivery_days_declared']), "#", :class => 'days', :data => {:content => "Минимальный срок поставки на наш склад - #{result_price['job_import_job_delivery_days_declared']} дн. #{max_days}#{country}#{count}#{success_percent}"}, :title => 'Статистика заказов', :rel => 'popover' %> </td>
+          <% if current_user && current_user.admin? %>
+            <% if Block.where(:block_name => "tech").first.content.present? %>
+              <% tech_add += ", Служебная информация - " %>
+              <% techs.each do |tech| %>
+                <% tech_add += result_price[tech].to_s + " " %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+
+
+          <td> <%= link_to days_decorator(result_price['job_import_job_delivery_days_declared']), "#", :class => 'days', :data => {:content => "Минимальный срок поставки на наш склад - #{result_price['job_import_job_delivery_days_declared']} дн. #{max_days}#{country}#{count}#{success_percent}#{tech_add}"}, :title => 'Статистика заказов', :rel => 'popover' %> </td>
           <td>
             <span style="visibility: hidden; display:none"><%= retail_cost = cost_decorator(result_price["retail_cost"]) %></span>
             <%= form_for(:wish, :remote => true, :format => :json, :url => wishes_path, :method => :post, :html => {:style=>"margin: 0"}) do |f| %>

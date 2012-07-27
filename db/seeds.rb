@@ -119,7 +119,7 @@ checkout_correspondent.update_attributes({
 
 call_me = Block.find_or_initialize_by_block_name('call_me')
 call_me.update_attributes({
-:content => '<p>Выбились из сил в поисках нужных деталей? Просто введите номер телефона и ожидайте звонка оператора магазина.</p>'})
+:content => '<p style="text-align: center; "> <span style="font-family:verdana,geneva,sans-serif;"><span style="color: rgb(169, 169, 169); "><span style="font-size: 14px; ">звоните</span></span></span></p> <div> <p style="text-align: center; font-family:tahoma,geneva,sans-serif;"> <span style="font-size:14px;"><span style="vertical-align: middle;">8 (499)</span></span> <strong><span style="font-size:20px; vertical-align: middle">704-22-07</span></strong></p> </div> <p style="text-align: center;"> <span style="font-family:verdana,geneva,sans-serif;"><span style="color: rgb(169, 169, 169); "><span style="font-size: 14px; ">или закажите звонок</span></span></span></p>'})
 
 manager_free_time = Block.find_or_initialize_by_block_name('manager_free_time')
 manager_free_time.update_attributes({

@@ -175,10 +175,5 @@ Application.showLoading = ->
   $("#loading").show()
   $("#search-area-parent").animate({ opacity: 0 })
 
-$(window).bind "statechange", ->
-  Application.showLoading(location.href)
-  State = History.getState()
-  $.getScript(location.href);
-
 $(".ajax-search").live "click", ->
   Application.showLoading()

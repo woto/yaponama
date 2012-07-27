@@ -116,7 +116,7 @@
       <p><%= yield :form_error %></p>
     </div>
   <% end %>
-  
+
   <% if @show_sidebar || 
       !(["wishes"].include? params[:controller]) && 
       !(params[:controller] == "confirmations" && params[:action] == "variants") &&
