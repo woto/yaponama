@@ -3,6 +3,7 @@ class RobotsTxtController < ApplicationController
     render :text => <<EOF
 User-Agent: *
 Allow: /
+Disallow: /info/
 Crawl-delay: 3
 
 Sitemap: http://#{APP_CONFIG['site_address']}/sitemap_index.xml.gz
