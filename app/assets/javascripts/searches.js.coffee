@@ -16,6 +16,10 @@ $ ->
     $('a.days').popover({placement: 'left'})
     $('a[rel=twipsy]').twipsy()
 
+    $("table#result-prices tr").live "click", ->
+      Application.showLoading()
+      window.location = $(this).children().eq(2).children().attr('href')
+
     $.tablesorter.addParser
       id: "from_link_extractor"
       is: (s) ->
@@ -54,7 +58,7 @@ $ ->
         8:
           sorter: "clipper"
       widthFixed: true
-      sortList: [[0, 0], [1, 0], [5,0]]
+      sortList: [[0, 1], [6, 0]]
     )
 
     # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
