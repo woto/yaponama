@@ -73,7 +73,7 @@ module Brands
     "TOYOTA",             {:rating => 5500, :brand => true,  :catalog => true },
     "VOLKSWAGEN",         {:rating => 5000, :brand => true,  :catalog => true },
     "VOLVO",              {:rating => 5000, :brand => true,  :catalog => true },
-    "AKEBONO",            {:rating => 4000 },
+    "AKEBONO",            {:rating => 4700 },
     "NIBK",               {:rating => 4000 },
     "ALLIED NIPPON",      {:rating => 3000 },
     "SIDEM",              {:rating => 3000 },
@@ -175,7 +175,7 @@ module Brands
     "AKS",                {:rating => 1100 },
     "TERMAL",             {:rating => 1100 },
     "RAVENOL",            {:rating => 1100 },
-    "TRW",                {:rating => 1100 },
+    "TRW",                {:rating => 4000, :ref => ["LUCAS", "TRW"] },
     "VEMA",               {:rating => 1100 },
     "NACHI",              {:rating => 4500 },
     "555",                {:rating => 4500 },
@@ -314,14 +314,25 @@ module Brands
     "AUGER",              {:rating => 1100 },
     "NSK",                {:rating => 4700 },
     "MANNOL",             {:rating => 1100 },
-
-
-
-
+    "FBL",                {:rating => 1100 },
+    "LUCAS",              {:rating => 4000, :ref => ["LUCAS", "TRW"] },
+    "MORSE",              {:rating => 1100 },
+    "ADVICS",             {:rating => 4700 },
+    "AISIN",              {:rating => 4700 },
+    "AL-KO",              {:rating => 3000, :ref => ["ALKO", "AL-KO"] },
+    "ALKO",               {:rating => 3000, :ref => ["ALKO", "AL-KO"] },
+    "CEVAM",              {:rating => 1100 },
+    "SUMITOMO",           {:rating => 4700 },
+    "STONE",              {:rating => 4500 },
+    "SIGNEDA",            {:rating => 3000 },
+    "SEIWA",              {:rating => 4500 },
+    "SHINKAI",            {:rating => 2500 },
+    "XYG",                {:rating => 3500 },
+    "WIX",                {:rating => 3500 },
+    "WAHLER",             {:rating => 4000 },
+    "VTR",                {:rating => 2500 },
+    "VIC",                {:rating => 4500 },
+    "VDO",                {:rating => 4500 },
+    "JURID",              {:rating => 4500 },
   ]
-
-    # CHECK не знаю где это используется, вроде не надо
-    #def self.is_brand? brand
-    #  BRANDS.include? brand
-    #end
 end
