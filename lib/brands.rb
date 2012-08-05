@@ -296,6 +296,7 @@ module Brands
     "BILSTEIN",           {:rating => 4000 },
     "REMSA",              {:rating => 4000 },
     "QUICK BRAKE",        {:rating => 1100 },
+    "OJD-QUICK BRAKE",    {:rating => 1100 },
     "OCAP",               {:rating => 1100 },
     "NAC",                {:rating => 1100 },
     "SIMER",              {:rating => 1100 },
@@ -340,5 +341,9 @@ module Brands
     "NGN",                {:rating => 1100 },
     "3F QUALITY",         {:rating => 1100 },
     "WINMAX",             {:rating => 1100 },
+    "ALLIEDSIGNAL",       {:rating => 1100, :ref => ["ALLIEDSIGNAL", "ALLIED SIGNAL"] },
+    "ALLIED SIGNAL",      {:rating => 1100, :ref => ["ALLIEDSIGNAL", "ALLIED SIGNAL"] },
+    "BERU",               {:rating => 4000 },
+    "WEEN",               {:rating => 1100 },
   ]
 end
