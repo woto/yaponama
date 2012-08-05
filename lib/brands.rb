@@ -335,5 +335,10 @@ module Brands
     "VDO",                {:rating => 4500 },
     "JURID",              {:rating => 4500 },
     "NGK",                {:rating => 4500 },
+    "AE",                 {:rating => 4000 },
+    "PEX",                {:rating => 1100 },
+    "NGN",                {:rating => 1100 },
+    "3F QUALITY",         {:rating => 1100 },
+    "WINMAX",             {:rating => 1100 },
   ]
 end
