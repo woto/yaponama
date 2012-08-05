@@ -334,5 +334,6 @@ module Brands
     "VIC",                {:rating => 4500 },
     "VDO",                {:rating => 4500 },
     "JURID",              {:rating => 4500 },
+    "NGK",                {:rating => 4500 },
   ]
 end
