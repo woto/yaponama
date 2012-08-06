@@ -12,6 +12,35 @@ $ ->
   $(".alert-message").alert()
   $('a.bill').popover()
 
+  Application.init_info = (roo) ->
+
+    Application.connect()
+
+    for element in roo.find(".info")
+      catalog_number = $(element).attr('data-catalog-number')
+      manufacturer = $(element).attr('data-manufacturer')
+
+      # DEBUG Закомментировать для отладки
+      # Этот (оптимальный способ пока не будет работать)
+      # т.к. если быстро пробежаться по всем страницам и прийти на последнюю
+      # то на предыдущих статус не обновится, т.к. в момент получения данных
+      # таблица не содержит этих элементов, которые ищатся в момент получения.
+      # По идее их надо как-то регистрировать для получения просто
+      #if($(element).attr('src') == '/assets/init.gif')
+      #  $(element).attr('src', '/assets/loading.gif')
+      #  Application.publish('info', catalog_number, manufacturer)
+
+      # Отправляем запрос только если статус не (unavaliable) 1x1.gif и не (avaliable) informagion.png
+      # Т.е. либо (unknown) loading.gif либо (unknown) init.gif
+      if($(element).attr('src') == '/assets/init.gif' or
+      $(element).attr('src') == '/assets/loading.gif')
+        $(element).attr('src', '/assets/loading.gif')
+        Application.publish('info', catalog_number, manufacturer)
+
+  # Было вырезано из applyWidgets
+  Application.init_info($('body'))
+
+
   Application.reinit_search = ->
     $('a.days').popover({placement: 'left'})
     $('a[rel=twipsy]').twipsy()
@@ -61,34 +90,16 @@ $ ->
       sortList: [[0, 1], [6, 0]]
     )
 
+
+
     # TODO Здесь должен быть какой-то механизм дублирующий функционал страницы info
     # позволяющий пользователю заведомо узнать имеется или нет информация по детали, не заставляя
     # его узнавать это по щелчку
    
     $("table#result-prices").bind "applyWidgets", ->
 
-      Application.connect()
+      Application.init_info($(this))
 
-      for element in $(this).find("tr .info")
-        catalog_number = $(element).attr('data-catalog-number')
-        manufacturer = $(element).attr('data-manufacturer')
-
-        # DEBUG Закомментировать для отладки
-        # Этот (оптимальный способ пока не будет работать)
-        # т.к. если быстро пробежаться по всем страницам и прийти на последнюю
-        # то на предыдущих статус не обновится, т.к. в момент получения данных
-        # таблица не содержит этих элементов, которые ищатся в момент получения.
-        # По идее их надо как-то регистрировать для получения просто
-        #if($(element).attr('src') == '/assets/init.gif')
-        #  $(element).attr('src', '/assets/loading.gif')
-        #  Application.publish('info', catalog_number, manufacturer)
-
-        # Отправляем запрос только если статус не (unavaliable) 1x1.gif и не (avaliable) informagion.png
-        # Т.е. либо (unknown) loading.gif либо (unknown) init.gif
-        if($(element).attr('src') == '/assets/init.gif' or 
-        $(element).attr('src') == '/assets/loading.gif')
-          $(element).attr('src', '/assets/loading.gif')
-          Application.publish('info', catalog_number, manufacturer)
 
 
     $("table#result-prices").tablesorterPager 
