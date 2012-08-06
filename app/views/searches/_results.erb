@@ -94,7 +94,7 @@
     <!-- TODO ЭТО КОПИПАСТ переписывается -->
       <% # Если есть Их информация, то показываем, что есть информация %>
       <% if mf_scope[1][:info][:their][:status] == 'avaliable' %>
-        <%= link_to(tag("img", :src => "/assets/information.png", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => mf_scope[0]}, :alt => "Информация", :title => "Информация", :rel => "nofollow"), info_path(catalog_number, mf_scope[0]) ) %>
+        <%= tag("img", :src => "/assets/information.png", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => mf_scope[0]}, :alt => "Информация", :title => "Информация", :rel => "nofollow")  %>
         <div class="static"> <%= mf_scope[1][:info][:their][:data].html_safe %> </div>
       <% end %>
 
@@ -106,7 +106,7 @@
 
       <% # Если неизвестно об Их информации, то показываем init, который подхыватывается Javascript'ом %>
       <% if mf_scope[1][:info][:their][:status] == 'unknown' %>
-        <%= link_to(tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => mf_scope[0]}, :rel => "nofollow", :alt => "Информация", :title => "Информация"), info_path(catalog_number, mf_scope[0]) ) %>
+        <%= tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => mf_scope[0]}, :rel => "nofollow", :alt => "Информация", :title => "Информация") %>
       <% end %>
       <div class="dynamic"></div>
     <!-- /TODO ЭТО КОПИПАСТ -->

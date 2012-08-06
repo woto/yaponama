@@ -23,7 +23,7 @@
 
             <% # Если есть хотя бы какая-то информация, то показываем, что есть информация %>
             <% if mf_scope[:info].any?{|key, value| value[:status] == 'avaliable'} %>
-              <%= link_to(tag("img", :src => "/assets/information.png", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация", :rel => "nofollow"), info_path(catalog_number, manufacturer) ) %>
+              <%= tag("img", :src => "/assets/information.png", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :alt => "Информация", :title => "Информация", :rel => "nofollow") %>
             <% end %>
 
             <% # Если Их информация отсутсвует то показываем 1x1 %>
@@ -33,7 +33,7 @@
 
             <% # Если неизвестно об Их информации, то показываем init, который подхыватывается Javascript'ом %>
             <% if mf_scope[:info][:their][:status] == 'unknown' %>
-              <%= link_to(tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :rel => "nofollow", :alt => "Информация", :title => "Информация"), info_path(catalog_number, manufacturer) ) %>
+              <%= tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info_#{i}", :data => {:catalog_number => catalog_number, :manufacturer => manufacturer}, :rel => "nofollow", :alt => "Информация", :title => "Информация") %>
             <% end %>
 
           </td>
