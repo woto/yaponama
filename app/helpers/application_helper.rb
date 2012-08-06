@@ -8,7 +8,7 @@ module ApplicationHelper
   end 
   
   def count_decorator value
-    html_escape("#{((value = (value.to_s.gsub(/\D/, '').to_i)) > 0) ? value : '*'}") + "&nbsp;шт.".html_safe
+    html_escape("#{((value = (value.to_s.gsub(/\D/, '').to_i)) > 0) ? "#{value} шт." : 'Скрыто'}")
   end
   
   def cost_decorator value

@@ -291,7 +291,7 @@ class SearchesController < ApplicationController
             :retail_cost => item["retail_cost"],
             :count => item["count"],
             :title => item["title"],
-            :tech => techs.map {|tech| item[tech].to_s + ", "}
+            :tech => techs.map {|tech| item[tech].to_s + ", "}.to_s
           })
 
           # Мин. кол-во дней
