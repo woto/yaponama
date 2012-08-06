@@ -355,5 +355,7 @@ module Brands
     "MUSASHI",            {:rating => 4500 },
     "ПРАМО",              {:rating => 1100 },
     "BAW",                {:rating => 1100 },
+    "MALO",               {:rating => 1100 },
+    "SASIC",              {:rating => 1100 },
   ]
 end
