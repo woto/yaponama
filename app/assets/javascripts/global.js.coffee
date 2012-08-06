@@ -72,8 +72,10 @@ Application.connect = ->
       if _.any(_.values(Application.full_response_checker[key]), (value) => (value == true))
         $(element).attr('src', '/assets/information.png')
 
-    if ($("#info").length > 0 && $("#info").attr('class') != 'static')
-      window.common.toyota_epc_part_number_application_to_models(data, $, _)
+      # TODO Это обязательно сломается если я забуду и начну менять верстку
+      workaround_next_div = $(element).parent().next()
+      if (workaround_next_div.attr('class') == 'dynamic')
+        window.common.toyota_epc_part_number_application_to_models(workaround_next_div, data, $, _)
 
   Application.jug.on 'connect', ->
     Application.juggernaut_connected = true

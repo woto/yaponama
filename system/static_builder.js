@@ -31,7 +31,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
     console.log(keys);
     asyncForEach(keys, function(key, next_key) {
       console.log('^^')
-      window.$('body').html('<div id="info"></div>');
+      where = window.$(window.$('body').html('<div class="static"></div>'));
       console.log('key')
       console.log(key);
       key_part = key.slice(2);
@@ -58,7 +58,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
               }
               console.log('data');
               console.log(data)
-              common.toyota_epc_part_number_application_to_models(parsed_data, window.$, _);
+              common.toyota_epc_part_number_application_to_models(where, parsed_data, window.$, _);
               next_data();
               //console.log(new Date());
             }, function(){
@@ -66,7 +66,7 @@ jsdom.jQueryify(window, "jquery-1.7.2.min.js", function() {
                 console.log('Последний элемент')
                 var fs = require('fs');
                 //console.log(window.$('#info').html());
-                fs.writeFile('./parts_info/s:' + key_part.replace(/[^а-яА-Яa-zA-z0-9]/gi, '_'), window.$('#info').html().toString(), function(err) {
+                fs.writeFile('./parts_info/s:' + key_part.replace(/[^а-яА-Яa-zA-z0-9]/gi, '_'), where.html().toString(), function(err) {
                   console.log('s written');
                   if(err) {
                     console.log('Ошибка записи')
