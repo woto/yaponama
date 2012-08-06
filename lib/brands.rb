@@ -345,5 +345,12 @@ module Brands
     "ALLIED SIGNAL",      {:rating => 1100, :ref => ["ALLIEDSIGNAL", "ALLIED SIGNAL"] },
     "BERU",               {:rating => 4000 },
     "WEEN",               {:rating => 1100 },
+    "LUCID",              {:rating => 1100 },
+    "YIH SHENG",          {:rating => 1100 },
+    "API",                {:rating => 1100 },
+    "BODY PARTS",         {:rating => 1100 },
+    "MOUNTAIN",           {:rating => 1100 },
+    "KORTEX",             {:rating => 1100 },
+    "MUSASHI",            {:rating => 4500 },
   ]
 end
