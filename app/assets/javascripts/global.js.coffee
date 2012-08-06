@@ -73,7 +73,7 @@ Application.connect = ->
         $(element).attr('src', '/assets/information.png')
 
       # TODO Это обязательно сломается если я забуду и начну менять верстку
-      workaround_next_div = $(element).parent().next()
+      workaround_next_div = $(element).next()
       if (workaround_next_div.attr('class') == 'dynamic')
         window.common.toyota_epc_part_number_application_to_models(workaround_next_div, data, $, _)
 
