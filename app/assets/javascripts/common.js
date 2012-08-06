@@ -15,7 +15,7 @@
       }
     }
     else if (data['caps'] == 'Toyota EPC') {
-      if (data['command'] = 'part_number_application_to_models') {
+      if (data['command'] == 'part_number_application_to_models') {
         if ($("#toyota_epc_part_number_application_to_models").length <= 0) {
           content = "<h1> Информация по " + data['catalog_number']+ " - " + data['manufacturer'] +  "</h1>                      <p><span class='label important'>К сведению</span> Перед вами отображена таблица применимости детали. Эти сведения используют профессиональные служащие концерна Toyota. Если вы боитесь ошибиться при выборе нужной автозапчасти, то настоятельно рекомендуем воспользоваться <a href='/users/variants#jump'>Консультацией на сайте</a>.</p>                      <br />                      <table class='zebra-striped' id='toyota_epc_part_number_application_to_models'>                        <tr>                          <th>№</th>                          <th>Кат. номер</th>                          <th>PNC</th>                          <th>Кол-во</th>                          <th>Catalog</th>                          <th>Модель</th>                          <th>Период пр-ва</th>                          <th>Описание</th>                          <th>Регион</th>                        </tr>                      </table> ";
           $("#info").append(content);
