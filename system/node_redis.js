@@ -69,6 +69,24 @@ sub.on("pmessage", function(channel, msg, data){
                     pub.expire('l:' + data['data']['catalog_number'] + ":" + data['data']['manufacturer'], 86400, function(err, reply){
 
                       switch(data["data"]["manufacturer"]) {
+                        case "TOYOTA:PNC":
+                          areas = ['Europe', 'General', 'USA, Canada', 'Japan']
+                          for (var i=0; i<areas.length; i++){
+
+                            asdfjkhadsfv = JSON.stringify({
+                              'caps': 'Toyota EPC',
+                              'manufacturer': data['data']['manufacturer'],
+                              'area': areas[i],
+                              'command': 'part_number_list',
+                              'catalog_number': data['data']['catalog_number']
+                            })
+                            console.log('publish')
+                            console.log(asdfjkhadsfv)
+                            console.log('');
+                            pub.publish('bee', asdfjkhadsfv)
+
+                          }
+                          break;
                         case "TOYOTA":
                           areas = ['Europe', 'General', 'USA, Canada', 'Japan']
                           for (var i=0; i<areas.length; i++){

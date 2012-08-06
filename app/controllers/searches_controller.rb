@@ -1,30 +1,8 @@
 class SearchesController < ApplicationController
 
-  def set_item_status item
-
-    # Другая техника получения статуса наличия информации о детали
-    #require 'redis'
-    #redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
-    #if (data_array = redis.lrange("i:#{item['catalog_number']}:#{item['manufacturer']}", 0, -1)).present?
-    #  if data_array.map{|unparsed| JSON.parse(unparsed)}.any? {|json| json['data']}
-    #    item['info'] = 'avaliable'
-    #  else
-    #    item['info'] = 'unavaliable'
-    #  end
-    #else
-    #  item['info'] = 'unknown'
-    #end
-
-    item_status = item_status(item['catalog_number'], item['manufacturer'])
-    if item_status[:own] == 'avaliable'
-      item['info'] = 'avaliable'
-    else
-      item['info'] = item_status[:their]
-    end
-  end
-
-  def set_brand_rating item
-    Brands::BRANDS.key?(item["manufacturer"]) ? item["rating"] = Brands::BRANDS[item["manufacturer"]][:rating] : item["rating"] = 0
+  def initialize
+    @status = {:offers => false, :page => false}
+    super
   end
 
   def correct_manufacturer item
@@ -96,6 +74,7 @@ class SearchesController < ApplicationController
       @meta_description = @page.description
       @meta_keywords = @page.keyword
       @meta_robots = @page.robots
+      @status[:page] = true
     end
   end
 
@@ -189,13 +168,11 @@ class SearchesController < ApplicationController
           item.delete "ps_weight_unavailable_rate"
           item.delete "c_buy_value"
           item.delete "currency"
-          item.delete "manufacturer_orig"
           item.delete "ps_relative_weight_rate"
           item.delete "ps_kilo_price"
           item.delete "ps_absolute_buy_rate"
           item.delete "ps_relative_buy_rate"
           item.delete "income_cost_in_currency_without_weight"
-          item.delete "catalog_number_orig"
           item.delete "image_url"
           item.delete "created_at"
           item.delete "job_import_job_delivery_summary"
@@ -220,7 +197,6 @@ class SearchesController < ApplicationController
           item.delete "c_weight_value"
           item.delete "supplier_id"
           item.delete "ps_absolute_weight_rate"
-          item.delete "manufacturer_orig"
           item.delete "external_supplier_id"
           item.delete "currency"
           item.delete "c_buy_value"
@@ -233,7 +209,6 @@ class SearchesController < ApplicationController
           item.delete "ps_absolute_buy_rate"
           item.delete "ps_kilo_price"
           item.delete "ps_relative_weight_rate"
-          item.delete "catalog_number_orig"
           item.delete "multiply_factor"
           item.delete "job_import_job_presence"
           item.delete "job_import_job_output_order"
@@ -256,142 +231,164 @@ class SearchesController < ApplicationController
 
       #debugger
 
-      new_array = []
       counter = Hash.new{|h, k| h[k] = 0}
-      #tree_block = lambda{|h,k| h[k] = Hash.new(&tree_block) }
-      tree_block = lambda{|h,k| h[k] = {:titles => Hash.new {|h, k| h[k] = 0} } }
-      seo_counter = Hash.new(&tree_block)
-      seo_keywords = Hash.new{|h, k| h[k] = 0}
 
-      any_found = false
+      @formatted_data = {}
 
       @parsed_json["result_prices"].each do |item|
+        next if item["job_import_job_country_short"].include?("avtorif.ru")
         correct_manufacturer(item)
 
-        next if item["job_import_job_country_short"].include?("avtorif.ru")
-
         # Необходимо поступать так, т.к. только в момент разбора можем понять есть если ли что-нибудь или нет
-        # т.к. необходимо игнорировать точки
-        unless any_found
-          any_found = true
+        # т.к. необходимо игнорировать точки и не нулевая длина массива еще не показатель, что есть что отображать
+        unless @status[:offers]
+          @status[:offers] = true
         end
 
         h = item["catalog_number"].to_s + " - " + item["manufacturer"].to_s
-        if item["catalog_number"].to_s == params[:catalog_number].to_s && (params[:manufacturer].present? ? params[:manufacturer] == item["manufacturer"] : true)
-          hh = item["catalog_number"].to_s + (item["manufacturer"].present? ? " (" + item["manufacturer"].to_s + ")" : "")
-          seo_counter[hh][:titles][item["title"]] += 1
-          seo_counter[hh][:catalog_number] = item["catalog_number"]
-          seo_counter[hh][:manufacturer] = item["manufacturer"]
-        end
-
-        item["title"].to_s.split.each do |keyword|
-          seo_keywords[keyword] += 1
-        end
-
         counter[h] += 1
 
-        set_brand_rating item
-        set_retail_cost item
+        cn = item["catalog_number"].to_s
+        mf = item["manufacturer"].to_s
 
-        if params[:replacements]
-          offers_to_display = 1
-        else
-          offers_to_display = 5
+        if counter[h] <= 5
+          set_retail_cost item
+
+          # Если нет такого каталожника, создаем
+          unless @formatted_data.include?(cn)
+            @formatted_data[cn] = {}
+          end
+
+          # Если нет такого производителя, создаем производителя и внутри него структуру
+          unless @formatted_data[cn].include? mf
+
+            @formatted_data[cn][mf] = {
+              :titles => {},
+              :manufacturer_origs => {},
+              :catalog_number_origs => {},
+              :weights => {},
+              :min_days => nil,
+              :max_days => nil,
+              :min_cost => nil,
+              :max_cost => nil,
+              :offers => [],
+              :brand => Brands::BRANDS[mf],
+              :info => item_status(item['catalog_number'], item['manufacturer']),
+            }
+
+            @manufacturers = mf
+
+          end
+
+
+          techs = ["supplier_title", "supplier_title_full", "price_logo_emex", "job_title", "supplier_title_en", "income_cost"]
+
+          @formatted_data[cn][mf][:offers].push({
+            :country => item["job_import_job_country_short"],
+            :min_days => [ item["job_import_job_delivery_days_declared"], item["job_import_job_delivery_days_average"] ].compact.min,
+            :max_days => [ item["job_import_job_delivery_days_declared"], item["job_import_job_delivery_days_average"] ].compact.max,
+            :probability => item["success_percent"],
+            :retail_cost => item["retail_cost"],
+            :count => item["count"],
+            :title => item["title"],
+            :tech => techs.map {|tech| item[tech].to_s + ", "}
+          })
+
+          # Мин. кол-во дней
+          comparsion = @formatted_data[cn][mf][:min_days].nil? ? [] : [@formatted_data[cn][mf][:min_days]]
+          if item["job_import_job_delivery_days_average"].present?
+            comparsion.push item["job_import_job_delivery_days_average"]
+          end
+          if item["job_import_job_delivery_days_declared"].present?
+            comparsion.push item["job_import_job_delivery_days_declared"]
+          end
+          @formatted_data[cn][mf][:min_days] = comparsion.min
+
+          # Макс. кол-во дней
+          comparsion = @formatted_data[cn][mf][:max_days].nil? ? [] : [@formatted_data[cn][mf][:max_days]]
+          if item["job_import_job_delivery_days_average"].present?
+            comparsion.push item["job_import_job_delivery_days_average"]
+          end
+          if item["job_import_job_delivery_days_declared"].present?
+            comparsion.push item["job_import_job_delivery_days_declared"]
+          end
+          @formatted_data[cn][mf][:max_days] = comparsion.max
+
+          # Мин. цена
+          comparsion = @formatted_data[cn][mf][:min_cost].nil? ? [] : [@formatted_data[cn][mf][:min_cost]]
+          comparsion.push item["retail_cost"]
+          @formatted_data[cn][mf][:min_cost] = comparsion.min
+
+          # Макс. цена
+          comparsion = @formatted_data[cn][mf][:max_cost].nil? ? [] : [@formatted_data[cn][mf][:max_cost]]
+          comparsion.push item["retail_cost"]
+          @formatted_data[cn][mf][:max_cost] = comparsion.max
+
         end
 
-        if counter[h] <= offers_to_display
-          if params[:show].present?
-            item["css_class"] = "shout"
-          end
-          new_array << item          
-        else
-          if params[:show] == '1'
-            item["css_class"] = "loud"
-            new_array << item            
+        ["title", "title_en", "description", "applicability", "parts_group"].each do |field_title|
+          if item[field_title].present?
+            title = item[field_title].to_s.mb_chars.upcase.to_s
+            unless @formatted_data[cn][mf][:titles][title]
+              @formatted_data[cn][mf][:titles][title] = 1
+            else
+              @formatted_data[cn][mf][:titles][title] += 1
+            end
           end
         end
 
-      end
+        manufacturer_orig = item["manufacturer_orig"].to_s.mb_chars.upcase.to_s
+        catalog_number_orig = item["catalog_number_orig"].to_s.mb_chars.upcase.to_s
+        weight = ((tmp = item["weight_grams"].to_f) > 0 ? ((tmp + 100) / 1000).round(1) : nil)
 
-      seo_keywords = seo_keywords.sort_by{|k,v| v.to_i}
-      seo_keywords = seo_keywords[-seo_keywords.size/2, 1000].to_a.collect{|e| e[0].mb_chars.upcase.gsub(',', ' ').to_s if e[0].mb_chars.size > 2}.uniq.compact.reverse.join(', ')
-
-      seo_counter.each do |catalog_number, arr|
-        seo_counter[catalog_number] = { 
-          :titles => arr[:titles].sort_by { |k,v| v.to_i  },
-          :catalog_number => arr[:catalog_number],
-          :manufacturer => arr[:manufacturer]
-        }
-      end
-
-      seo_counter = seo_counter.sort_by{|k, v| k.mb_chars}
-
-      @parsed_json["result_prices"] = new_array
-      @parsed_json["result_prices"] = @parsed_json["result_prices"].sort_by { |i| (i["retail_cost"]).round }
-
-
-      # Вверху в цикле прохода по массиву выставляется значение any_found (из-за точек)
-      unless any_found
-        render :status => 404 and return
-      end
-
-      # SEO
-      response.last_modified = Time.now.utc
-      title = (params[:replacements].present? ? "Аналоги " : "").html_safe
-      title << "#{params[:catalog_number]} ".html_safe
-      description = ''
-      tmp = "".html_safe
-      counter = 0
-
-      seo_counter.each do |catalog_number, arr|
-
-        counter += 1
-
-        if arr.size > 0
-          if arr[:manufacturer].present?
-            title << arr[:manufacturer]
-            if counter != seo_counter.size
-              title << ", "
-            end
-          end
-
-          if arr[:titles].last[0].to_s.present?
-            description << arr[:titles].last[0].to_s
-            if counter != seo_counter.size
-              description << ", "
-            end
-          end
-
-          tmp << "Посмотреть аналоги "
-          man_link = ''
-          if arr[:manufacturer].present?
-            man_link = "(" + arr[:manufacturer] + ")"
+        # Запоминаем количество повторений одного и того же оригинального написания кат. номера
+        if catalog_number_orig.present? && catalog_number_orig != item["catalog_number"]
+          unless @formatted_data[cn][mf][:catalog_number_origs][catalog_number_orig]
+            @formatted_data[cn][mf][:catalog_number_origs][catalog_number_orig] = 1
           else
-            man_link = ''
+            @formatted_data[cn][mf][:catalog_number_origs][catalog_number_orig] += 1
           end
-
-          tmp << view_context.link_to("#{arr[:catalog_number]} #{man_link}", search_searches_path(arr[:catalog_number], arr[:manufacturer], 1), :class => 'ajax-search')
-          tmp << " #{arr[:titles].last[0].to_s}"
-          tmp << "<br />".html_safe 
         end
+
+        # Запоминаем количество повторений одного и того же оригинального производителя
+        if manufacturer_orig.present? && manufacturer_orig != item["manufacturer"]
+          unless @formatted_data[cn][mf][:manufacturer_origs][manufacturer_orig]
+            @formatted_data[cn][mf][:manufacturer_origs][manufacturer_orig] = 1
+          else
+            @formatted_data[cn][mf][:manufacturer_origs][manufacturer_orig] += 1
+          end
+        end
+
+        # Запоминаем количество повторений одного и того же веса
+        if weight.present?
+          unless @formatted_data[cn][mf][:weights][weight]
+            @formatted_data[cn][mf][:weights][weight] = 1
+          else
+            @formatted_data[cn][mf][:weights][weight] += 1
+          end
+        end
+
+      end
+
+      @formatted_data = @formatted_data.map do |catalog_number, cn_scope|
+        [ catalog_number,
+          (cn_scope.sort do |a, b|
+          -a[1][:brand][:rating].to_i <=> -b[1][:brand][:rating].to_i
+          end).map do |manufacturer, mf_scope|
+            [manufacturer, mf_scope.merge(:offers => mf_scope[:offers].sort do |c, d|
+              c[:retail_cost] <=> d[:retail_cost]
+            end)]
+         end
+        ]
       end
 
       @meta_canonical = search_searches_path(params[:catalog_number], params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
 
-      @seo_counter_length = seo_counter.length
-
-      @division_blocks = tmp
-      @meta_title = title
-      @meta_description = description
     else
       @meta_title = "Поиск запчастей по номеру"
     end
-    
-    @meta_keywords = seo_keywords
 
     search_page_content
-
-    #expires_in 20.minutes
 
     respond_to do |format|
       format.html { render "index" }

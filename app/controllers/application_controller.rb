@@ -42,25 +42,47 @@ class ApplicationController < ActionController::Base
   def item_status(catalog_number, manufacturer)
 
     status = {
-      :own => 'unavaliable', 
-      :their => 'unavaliable'
+      :own => {:status => 'unavaliable', :data => nil},
+      :their => {:status => 'unavaliable', :data => nil}
     }
 
+    # Наши данные
     page = Page.where(:path => info_path(catalog_number, manufacturer)[1..-1]).first
+
     if page.present?
-      status[:own] = 'avaliable'
+      status[:own][:status] = 'avaliable'
+      status[:own][:data] = page
     end
 
     key_part = "#{catalog_number}:#{manufacturer}".mb_chars.gsub(/[^а-яА-Яa-zA-z0-9]/,'_')
 
+    # Их данные
     begin
       File.open("#{Rails.root}/system/parts_info/f:#{key_part}", "r") do |file|
-        status[:their] = file.read
+        if (status[:their][:status] = file.read) == 'avaliable'
+          File.open("#{Rails.root}/system/parts_info/s:#{key_part}", "r") do |file|
+            status[:their][:data] = file.read
+          end
+        end
       end
     rescue Exception => exc
       if exc.instance_of? Errno::ENOENT
-        status[:their] = 'unknown'
+        status[:their][:status] = 'unknown'
       end
+
+     if APP_CONFIG['send_request_from_search_page']
+       require 'redis'
+       redis = Redis.new(:host => APP_CONFIG["redis_address"], :port => APP_CONFIG["redis_port"])
+
+       Juggernaut.publish(
+       nil, {
+         :command => 'info',
+         :catalog_number => catalog_number,
+         :manufacturer => manufacturer.presence || "WRONG_MANUFACTURER",
+         :channel => 'server'
+       }, {}, "custom")
+      end
+
     end
 
     return status
@@ -112,6 +134,15 @@ class ApplicationController < ActionController::Base
   end
 
   def force_change_mobile
+
+    # Проверить работоспособность TODO
+    Rails.logger.debug('--------------------')
+    Rails.logger.debug("OLD: #{@meta_canonical}")
+    @meta_canonical = url_for :only_path => true
+    Rails.logger.debug("NEW: #{@meta_canonical}")
+    Rails.logger.debug('--------------------')
+    # /Проверить работоспособность
+
     if params[:skip_mobile] == 'false'
       session[:mobylette_override] = :force_mobile
     elsif params[:skip_mobile] == 'true'

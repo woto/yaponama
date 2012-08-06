@@ -2,7 +2,7 @@
 <%= hint_decorator("Зная номер PNC (Part Name Catalog) вы можете найти схожие по функционалу детали, применимые для других марок автомобилей Toyota.") %>
 <br />
 
-<%= simple_form_for(@pnc, :url => toyota_epc_search_pnc_path, :wrapper => :inline ) do |f| %>
+<%= simple_form_for(@pnc, :url => toyota_epc_search_pnc_path, :wrapper => :inline, :method => :get ) do |f| %>
 
   <% content_for :form_error do %>
     <% if f.error_notification %>

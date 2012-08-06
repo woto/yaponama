@@ -15,6 +15,11 @@ module ApplicationHelper
     html_escape("#{(value).round.to_s}") + "&nbsp;руб.".html_safe
   end
 
+  def country_decorator value
+    value.presence || "Скрыто"
+  end
+
+
   def phone_decorator value
     value.gsub(/(\d{3})(\d{3})(\d{2})(\d{2})/, '(\1) \2-\3-\4')
   end
@@ -27,8 +32,17 @@ module ApplicationHelper
     raw "<p><span class=\"label #{add_class}\">К сведению</span> #{value}</p>"
   end
 
-  def brands_decorator brand
-    link_to Brands::BRANDS[brand][:title].html_safe, "/brands/#{Brands::BRANDS[brand][:file]}", :class => "brands-#{Brands::BRANDS[brand][:file]}"
+  def brands_decorator brand, options
+    if Brands::BRANDS[brand].key? :ref
+      return raw Brands::BRANDS[brand][:ref].map{|ref| brands_decorator(ref, options)}
+    end
+
+    title = ""
+    if options[:title] == true
+      title = Brands::BRANDS[brand][:title].html_safe
+    end
+
+    link_to title, "/brands/#{Brands::BRANDS[brand][:file]}", :class => "brands-#{Brands::BRANDS[brand][:file]}"
   end
 
 end

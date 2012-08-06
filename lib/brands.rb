@@ -352,5 +352,7 @@ module Brands
     "MOUNTAIN",           {:rating => 1100 },
     "KORTEX",             {:rating => 1100 },
     "MUSASHI",            {:rating => 4500 },
+    "ПРАМО",              {:rating => 1100 },
+    "BAW",                {:rating => 1100 },
   ]
 end

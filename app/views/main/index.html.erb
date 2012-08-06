@@ -12,7 +12,7 @@
 
   <h3>Каталоги автозапчастей</h3>
   <div class="brands force-clearfix" style="margin-bottom: 20px">
-    <%= raw Brands::BRANDS.map{|a, b| brands_decorator a}.join %>
+    <%= raw Brands::BRANDS.select{|a, b| b[:catalog] == true}.map{|a, b| brands_decorator(a, {:title => true})}.join %>
   </div>
 </div>
 

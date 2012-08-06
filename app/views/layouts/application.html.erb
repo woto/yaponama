@@ -8,15 +8,15 @@
 
   <% if @meta_keywords.present? %>
     <meta name="Keywords" content="<%= @meta_keywords %>"/>
-  <% else %>
-    <meta name="Keywords" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_keywords_default'}) %>"/>
   <% end %>
+
+  <% # Удалить ключ 'meta_keywords_default' %>
 
   <% if @meta_description.present? %>
     <meta name="Description" content="<%= @meta_description %>"/>
-  <% else %>
-    <meta name="Description" content="<%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'meta_description_default'}) %>"/>
   <% end %>
+
+  <% # Удалить ключ 'meta_description_default %>
 
   <% if @meta_robots.present? %>
     <meta name="robots" content="<%= @meta_robots %>">

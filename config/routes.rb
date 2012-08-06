@@ -1,8 +1,8 @@
 Yaponama::Application.routes.draw do
 
   scope "/toyota/epc" do
-    get 'pnc' => 'toyota_epc_pnc#index'
-    post 'pnc' => 'toyota_epc_pnc#search', :as => :toyota_epc_search_pnc 
+    get 'pnc/index' => 'toyota_epc_pnc#index'
+    get 'pnc/search' => 'toyota_epc_pnc#search', :as => :toyota_epc_search_pnc
   end
 
   post 'robokassa/result' => 'robokassa#result'
