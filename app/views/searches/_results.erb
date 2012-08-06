@@ -48,19 +48,21 @@
 
     <table style="width: 100%" class="zebra-striped">
       <tr>
-        <th> Расп. </th>
-        <th> Мин. </th>
-        <th> Макс. </th>
-        <th> Вер. </th>
-        <th> Кол-во. </th>
-        <th> Цена </th>
+        <th> <a href="#" rel="twipsy" title="Расположение склада поставщика">Расп.</a></th>
+        <th> <a href="#" rel="twipsy" title="Способ доставки на наш склад">Дост.</a></th>
+        <th> <a href="#" rel="twipsy" title="Минимальный срок поставки на наш склад">Мин.</a></th>
+        <th> <a href="#" rel="twipsy" title="Максимальный срок поставки на наш склад">Макс.</a></th>
+        <th> <a href="#" rel="twipsy" title="Вероятность наличия детали у поставщика">Вер.</a></th>
+        <th> <a href="#" rel="twipsy" title="Количество на складе поставщика">Кол-во</a></th>
+        <th> <a href="#" rel="twipsy" title="Зайдите на сайт под своим аккаунтом, чтобы увидеть вашу цену со скидками, если таковые имеются">Цена</a></th>
         <% if current_user && current_user.admin? %>
-          <th> Служ. </th>
+          <th> <a href="#" rel="twipsy" title="Служебная информация, отображается только менеджеру сайта">Служ.</a></th>
         <% end %>
       </tr>
       <% mf_scope[:offers].each do |offer| %>
         <tr>
           <td> <%= country_decorator offer[:country] %> </td>
+          <td> <%= offer[:delivery] %> </td>
           <td> <%= days_decorator offer[:min_days] %> </td>
           <td> <%= days_decorator offer[:max_days] %> </td>
           <td> <%= offer[:probability] %>% </td>
@@ -87,9 +89,7 @@
       <% end %>
     </table>
 
-    <br /><br />
-
-    <h3>Информация с каталогов</h3>
+    <h5>Информация с каталогов</h5>
 
     <!-- TODO ЭТО КОПИПАСТ переписывается -->
       <% # Если есть Их информация, то показываем, что есть информация %>
@@ -111,8 +111,13 @@
       <div class="dynamic"></div>
     <!-- /TODO ЭТО КОПИПАСТ -->
 
-    <h3>Информация написанная нами</h3>
+    <h5>Информация написанная нами</h5>
     <%= raw mf_scope[:info][:own][:data].default_content if mf_scope[:info][:own][:status] == 'avaliable'  %>
+
+    <% #  Показываем разделитель только если не последний элемент %>
+    <% if i != cn_scope.size-1 %>
+      <hr />
+    <% end %>
 
   <% end %>
 <% end %>

@@ -149,7 +149,6 @@ class SearchesController < ApplicationController
         @parsed_json.delete("result_replacements")
         @parsed_json.delete("result_message")
         @parsed_json["result_prices"].map do |item|
-          item.delete "job_import_job_delivery_summary"
           item.delete "ij_income_rate"
           item.delete "ps_retail_rate"
           item.delete "income_cost_in_currency_with_weight"
@@ -175,7 +174,6 @@ class SearchesController < ApplicationController
           item.delete "income_cost_in_currency_without_weight"
           item.delete "image_url"
           item.delete "created_at"
-          item.delete "job_import_job_delivery_summary"
           item.delete "parts_group"
           item.delete "price_setting_id"
           item.delete "image_url"
@@ -291,6 +289,7 @@ class SearchesController < ApplicationController
             :retail_cost => item["retail_cost"],
             :count => item["count"],
             :title => item["title"],
+            :delivery => item["job_import_job_delivery_summary"],
             :tech => techs.map {|tech| item[tech].to_s + ", "}.to_s
           })
 
