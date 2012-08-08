@@ -288,7 +288,7 @@ class SearchesController < ApplicationController
             :probability => item["success_percent"],
             :retail_cost => item["retail_cost"],
             :count => item["count"],
-            :title => item["title"],
+            :title => '',
             :delivery => item["job_import_job_delivery_summary"],
             :tech => techs.map {|tech| item[tech].to_s + ", "}.to_s
           })
@@ -369,6 +369,7 @@ class SearchesController < ApplicationController
 
       end
 
+      # Сортируем в конце по цене
       @formatted_data = @formatted_data.map do |catalog_number, cn_scope|
         [ catalog_number,
           (cn_scope.sort do |a, b|
@@ -380,6 +381,14 @@ class SearchesController < ApplicationController
          end
         ]
       end
+
+      # Получаем общее для связки каталожный номер + производитель имя
+      @formatted_data.each do |catalog_number, cn_scope|
+        cn_scope.each do |manufacturer, mf_scope|
+          mf_scope[:title] = (mf_scope[:titles].sort_by{|a, b| -b} + ([["", 0]]))[0][0]
+        end
+      end
+
 
       @meta_canonical = search_searches_path(params[:catalog_number], params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
 

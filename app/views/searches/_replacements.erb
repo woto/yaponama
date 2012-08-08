@@ -38,7 +38,7 @@
 
           </td>
 
-          <td> <%= (mf_scope[:titles].sort_by{|a, b| -b} + ([["", 0]]))[0][0] %> </td>
+          <td> <%= mf_scope[:title] %> </td>
           <td> <%= mf_scope[:min_days]%> - <%= mf_scope[:max_days] %> дн. </td>
           <td> <%= mf_scope[:min_cost] %> - <%= mf_scope[:max_cost] %> руб. </td>
         </tr>

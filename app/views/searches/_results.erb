@@ -1,10 +1,11 @@
 <% @formatted_data.each do |catalog_number, cn_scope| %>
   <% cn_scope.each_with_index do |(manufacturer, mf_scope), i| %>
-    <h1> <%= manufacturer %> <small> <%= catalog_number %> </small> </h1> 
+    <h1> <%= manufacturer %> <small> <%= catalog_number %> </small> </h1>
     
     <div style="width: 200px; height: 200px; background: #999; float: left; margin: 0 20px 20px 0"> </div>
 
     <div style="width: 600px; float: left">
+      <h3><%= mf_scope[:title] %></h3>
 
       <p><%= raw mf_scope[:titles].keys.map{|val| h(val)}.join(', ') %></p>
       <% if mf_scope[:manufacturer_origs].size > 0 %>
