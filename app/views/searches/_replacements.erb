@@ -16,7 +16,7 @@
     <% @formatted_data.each do |catalog_number, cn_scope| %>
       <% cn_scope.each_with_index do |(manufacturer, mf_scope), i| %>
         <tr> 
-          <td> <%= mf_scope[:brand][:rating].to_i %> </td>
+          <td> <div class="stars-rating-<%= mf_scope[:brand][:rating].to_i / 1000 %>"></div> </td>
           <td> <%= manufacturer %> </td>
           <td> <%= link_to catalog_number, search_searches_path(catalog_number), :class => 'ajax-search' %> </td> 
           <td>

@@ -43,6 +43,8 @@
 
       <p> А так же рекомендуем <%= link_to 'посмотреть аналоги этой детали', search_searches_path(catalog_number, manufacturer, '1'), :class => 'ajax-search' %>, т.к. возможно существуют детали по более низкой цене и не хуже качеством.</p>
 
+      <p> Наша оценка качества производителя: <div class="stars-rating-<%= mf_scope[:brand][:rating].to_i / 1000 %>"></div> </p>
+
       <div class="brands"> <%= brands_decorator manufacturer, {:title => false} %> </div>
 
     </div>

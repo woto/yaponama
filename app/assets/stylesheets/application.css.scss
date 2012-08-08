@@ -140,6 +140,14 @@ $brands-sprite-dimensions: true;
 
 /* /BRANDS */
 
+/* STARS */
+
+$stars-sprite-dimensions: true;
+@import "stars/*.png";
+@include all-stars-sprites;
+
+/* /STARS */
+
 #search-area a:visited {
   color: DarkBlue;
 }
