@@ -174,7 +174,6 @@ class SearchesController < ApplicationController
           item.delete "income_cost_in_currency_without_weight"
           item.delete "image_url"
           item.delete "created_at"
-          item.delete "parts_group"
           item.delete "price_setting_id"
           item.delete "image_url"
           item.delete "ij_income_rate"
