@@ -397,6 +397,10 @@ class SearchesController < ApplicationController
 
     search_page_content
 
+    unless @status.any?{|k, v| v}
+      render :status => 404 and return
+    end
+
     respond_to do |format|
       format.html { render "index" }
       format.js { render "index" }
