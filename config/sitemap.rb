@@ -25,20 +25,6 @@ SitemapGenerator::Sitemap.create do
     sitemap.sitemaps_namer.next
   end
 
-  # Популярные запросы
-  input = File.new("#{Rails.root}/system/popular_parts_requests/output.csv", 'r')
-  input.each_line("\n") do |row|
-    add '/searches/' + row[0...-1]
-  end
-end
-
-
-SitemapGenerator::Sitemap.create do
-  2.times do
-    add_to_index sitemap.sitemaps_namer.to_s
-    sitemap.sitemaps_namer.next
-  end
-
   # Прайсы наличия
   Net::HTTP.start('188.64.170.156', '85') do |http|
     prices_urls = [
@@ -70,5 +56,33 @@ SitemapGenerator::Sitemap.create do
         add "/searches/#{row[1]}", :changefreq => 'weekly'
       end
     end
+  end
+end
+
+
+SitemapGenerator::Sitemap.create do
+  2.times do
+    add_to_index sitemap.sitemaps_namer.to_s
+    sitemap.sitemaps_namer.next
+  end
+
+  # Популярные запросы
+  input = File.new("#{Rails.root}/system/popular_parts_requests/output_2.csv", 'r')
+  input.each_line("\n") do |row|
+    add '/searches/' + row[0...-1]
+  end
+end
+
+
+SitemapGenerator::Sitemap.create do
+  3.times do
+    add_to_index sitemap.sitemaps_namer.to_s
+    sitemap.sitemaps_namer.next
+  end
+
+  # Популярные запросы
+  input = File.new("#{Rails.root}/system/popular_parts_requests/output_3.csv", 'r')
+  input.each_line("\n") do |row|
+    add '/searches/' + row[0...-1]
   end
 end
