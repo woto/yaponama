@@ -1,6 +1,7 @@
 <% @formatted_data.each do |catalog_number, cn_scope| %>
   <% cn_scope.each_with_index do |(manufacturer, mf_scope), i| %>
-    <h1> <%= manufacturer %> <small> <%= catalog_number %> </small> </h1>
+    <%= link_to('&nbsp;'.html_safe, '', :name => manufacturer)  %>
+    <h1 style="margin-top: 30px"> <%= manufacturer %> <small> <%= catalog_number %> </small> </h1>
     
     <div style="width: 200px; height: 200px; background: #999; float: left; margin: 0 20px 20px 0"> </div>
 
