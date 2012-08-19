@@ -397,7 +397,7 @@ class SearchesController < ApplicationController
 
     search_page_content
 
-    unless @status.any?{|k, v| v}
+    unless params.include?(:skip) || @status.any?{|k, v| v}
       render :status => 404 and return
     end
 
