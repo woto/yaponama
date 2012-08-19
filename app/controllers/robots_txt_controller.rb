@@ -4,7 +4,7 @@ class RobotsTxtController < ApplicationController
 User-Agent: *
 Allow: /
 Disallow: /info/
-Crawl-delay: 10
+Crawl-delay: 5
 
 Sitemap: http://#{APP_CONFIG['site_address']}/sitemap_index.xml.gz
 Sitemap: http://#{APP_CONFIG['site_address']}/sitemap1.xml.gz
