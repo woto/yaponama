@@ -4,13 +4,11 @@ class RobotsTxtController < ApplicationController
 User-Agent: *
 Allow: /
 Disallow: /info/
-Crawl-delay: 5
+Disallow: /*?skip_mobile=true
+Disallow: /*?skip_mobile=false
+Crawl-delay: 10
 
 Sitemap: http://#{APP_CONFIG['site_address']}/sitemap_index.xml.gz
-Sitemap: http://#{APP_CONFIG['site_address']}/sitemap1.xml.gz
-Sitemap: http://#{APP_CONFIG['site_address']}/sitemap2.xml.gz
-Sitemap: http://#{APP_CONFIG['site_address']}/sitemap3.xml.gz
-
 
 Host: #{APP_CONFIG['site_address']}
 EOF
