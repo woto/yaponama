@@ -2,8 +2,12 @@ namespace :app do
 
   desc "Очистить идентификаторы сессий более двух недель"
   task :clear_old_sessions => :environment do
-
     removed = ActiveRecord::SessionStore::Session.delete_all([ "updated_at <= ?", 1.weeks.ago.to_s(:db)])
+  end
+
+  desc "Удалить очень старую историю поиска"
+  task :clear_old_search_histories => :environment do
+    removed = SearchHistory.delete_all([ "updated_at <= ?", 2.weeks.ago.to_s(:db)])
   end
 
   desc "Разослать смс с новыми сообщениями"
