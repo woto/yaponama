@@ -34,6 +34,10 @@
  end
 
  every 1.day do
+   rake "app:clear_old_search_histories"
+ end
+
+ every 1.day do
   rake "sitemap:refresh"
  end
 

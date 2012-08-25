@@ -54,11 +54,11 @@ class SearchesController < ApplicationController
     # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
     # @meta_robots = 'index, follow'
     #
-    #if params[:manufacturer] || params[:replacements]
-    #  @meta_robots = 'noindex, follow'
-    #else
-    #  @meta_robots = 'index, follow'
-    #end
+    if params[:manufacturer] || params[:replacements]
+      @meta_robots = 'noindex, follow'
+    else
+      @meta_robots = 'index, follow'
+    end
   end
 
   def forbidden_old_parameters
