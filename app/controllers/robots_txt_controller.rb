@@ -6,7 +6,6 @@ Allow: /
 Disallow: /info/
 Disallow: /*?skip_mobile=true
 Disallow: /*?skip_mobile=false
-Crawl-delay: 5
 
 Sitemap: http://#{APP_CONFIG['site_address']}/sitemap_index.xml.gz
 
