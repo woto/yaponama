@@ -148,11 +148,9 @@
     <!-- </article> -->
     <footer>
       <div class="row">
-        <div class="span3">
+        <div class="span8">
           <address>
-            <strong><%= link_to(render(:partial => "blocks/show.erb", :locals => {:block_name => 'copyright'}), contacts_path) %></strong> <br />
-        
-            <%= render :partial => 'layouts/mobile_switch' %>
+            <%= link_to(render(:partial => "blocks/show.erb", :locals => {:block_name => 'copyright'}), contacts_path) %>
           </address>
         </div>
         <div style="float: right">
@@ -161,6 +159,7 @@
           <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'mail_raiting'}) %>
           <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'live_internet'}) %>
           <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'bottom_right'}) %>
+          <%= render :partial => 'layouts/mobile_switch' %>
         </div>
       </div>
     </footer>
