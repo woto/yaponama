@@ -97,3 +97,4 @@ gem 'activemerchant', :require => 'active_merchant', :git => 'https://github.com
 gem 'fastercsv'
 gem 'yandex_mystem'
 gem 'netaddr'
+gem 'ipgeobase'
