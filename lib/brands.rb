@@ -141,8 +141,8 @@ module Brands
     "SNR",                {:rating => 9000 },
     "KOYO",               {:rating => 9400 },
     "SKF",                {:rating => 9000 },
-    "LUK",                {:rating => 9000 },
-    "INA",                {:rating => 9000 },
+    "LUK",                {:rating => 9000, :catalog => true },
+    "INA",                {:rating => 9000, :catalog => true },
     "RUVILLE",            {:rating => 8000 },
     "DAYCO",              {:rating => 8000 },
     "ACDELCO",            {:rating => 9400 },
@@ -172,7 +172,7 @@ module Brands
     "JNBK",               {:rating => 6000 },
     "FRICTIONMASTER",     {:rating => 8000 },
     "ATE",                {:rating => 9000, :catalog => true },
-    "NTN",                {:rating => 9400 },
+    "NTN",                {:rating => 9400, :catalog => true },
     "ASVA",               {:rating => 5000 },
     "ORIPARTS",           {:rating => 7600 },
     "ALCO FILTERS",       {:rating => 7000 },
@@ -249,7 +249,8 @@ module Brands
     "TOKAI",              {:catalog => true },
     "NISSIN",             {:catalog => true },
     "SHINKO",             {:catalog => true },
-    "AUTOLITE",           {:catalog => true }
+    "AUTOLITE",           {:catalog => true },
+    "FAG",                {:catalog => true }
 
   ]
 end
