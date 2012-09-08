@@ -122,7 +122,7 @@ module Brands
     "DELTA",              {:rating => 8000 },
     "LYNXAUTO",           {:rating => 7000 },
     "VTR",                {:rating => 5000 },
-    "CTR",                {:rating => 7000 },
+    "CTR",                {:rating => 7000, :catalog => true },
     "HANSE",              {:rating => 5000 },
     "STELLOX",            {:rating => 6000 },
     "SWAG",               {:rating => 8000 },
@@ -170,7 +170,7 @@ module Brands
     "PAGID",              {:rating => 9000 },
     "FERODO",             {:rating => 8000 },
     "GIRLING",            {:rating => 8000 },
-    "NISSHINBO",          {:rating => 9000 },
+    "NISSHINBO",          {:rating => 9000, :catalog => true },
     "JNBK",               {:rating => 6000 },
     "FRICTIONMASTER",     {:rating => 8000 },
     "ATE",                {:rating => 9000, :catalog => true },
@@ -192,7 +192,7 @@ module Brands
     "DEPO",               {:rating => 8000 },
     "RAYBESTOS",          {:rating => 7000 },
     "LPR",                {:rating => 7000 },
-    "BREMBO",             {:rating => 9000 },
+    "BREMBO",             {:rating => 9000, :catalog => true },
     "FACET",              {:rating => 8000 },
     "FAE",                {:rating => 8000 },
     "HANS PRIES",         {:rating => 7400 },
@@ -219,7 +219,7 @@ module Brands
     "REMSA",              {:rating => 8000 },
     "FENOX",              {:rating => 5000 },
     "ROADHOUSE",          {:rating => 8000 },
-    "TOKICO",             {:rating => 9000 },
+    "TOKICO",             {:rating => 9000, :catalog => true },
     "MONROE",             {:rating => 8000 },
     "METELLI",            {:rating => 8000 },
     "ZIMMERMANN",          {:rating => 9000 },
@@ -229,7 +229,7 @@ module Brands
     "AISIN",              {:rating => 9400 },
     "AL-KO",              {:rating => 6000 },
     "ALKO",               {:rating => 6000, :ref => ["AL-KO"] },
-    "SUMITOMO",           {:rating => 9400 },
+    "SUMITOMO",           {:rating => 9400, :catalog => true },
     "STONE",              {:rating => 9000 },
     "SIGNEDA",            {:rating => 6000 },
     "SEIWA",              {:rating => 9000 },
@@ -246,6 +246,11 @@ module Brands
     "BERU",               {:rating => 8000 },
     "MUSASHI",            {:rating => 9000 },
     "API",                {:catalog => true, :title => "AP / API" },
-    "AP",                 {:ref => ["API"] }
+    "AP",                 {:ref => ["API"] },
+    "MOUNTAIN",           {:catalog => true },
+    "TOKAI",              {:catalog => true },
+    "NISSIN",             {:catalog => true },
+    "SHINKO",             {:catalog => true }
+
   ]
 end
