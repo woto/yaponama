@@ -101,7 +101,6 @@ module Brands
     "HENGST",             {:rating => 8000 },
     "HERTH+BUSS",         {:rating => 7400 },
     "JAPAN CARS",         {:rating => 7400 },
-    "JS ASAKASHI",        {:rating => 7000 },
     "SCT",                {:rating => 6000 },
     "VAICO",              {:rating => 7000 },
     "VEMO",               {:rating => 7000 },
