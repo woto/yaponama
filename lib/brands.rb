@@ -138,8 +138,8 @@ module Brands
     "MAPCO",              {:rating => 6000 },
     "GMB",                {:rating => 8000 },
     "IMPERGOM",           {:rating => 7000 },
-    "SNR",                {:rating => 9000 },
-    "KOYO",               {:rating => 9400 },
+    "SNR",                {:rating => 9000, :catalog => true },
+    "KOYO",               {:rating => 9400, :catalog => true },
     "SKF",                {:rating => 9000, :catalog => true },
     "LUK",                {:rating => 9000, :catalog => true },
     "INA",                {:rating => 9000, :catalog => true },
@@ -205,7 +205,7 @@ module Brands
     "JP GROUP",           {:rating => 8000 },
     "PURFLUX",            {:rating => 8000 },
     "PIERBURG",           {:rating => 9000 },
-    "SACHS",              {:rating => 9000 },
+    "SACHS",              {:rating => 9000, :catalog => true },
     "BEHR",               {:rating => 9000 },
     "BANDO",              {:rating => 9000 },
     "CONTITECH",          {:rating => 9000 },
@@ -250,7 +250,9 @@ module Brands
     "NISSIN",             {:catalog => true },
     "SHINKO",             {:catalog => false },
     "AUTOLITE",           {:catalog => true },
-    "FAG",                {:catalog => true }
+    "FAG",                {:catalog => true },
+    "ASAHI",              {:catalog => true }
+
 
   ]
 end

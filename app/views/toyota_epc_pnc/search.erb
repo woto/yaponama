@@ -1,11 +1,7 @@
 <%= render :partial => "form" %>
 
-<script>
-  <% # TODO пересмотреть в свете изменений за последний месяц. Необходима единая точка запроса информации. info и searches уже объединены в application.rb (если не ошибаюсь) %>
-  $(document).ready(function(){
-    Application.connect();
-    Application.publish('info', "<%= params[:pnc][:pnc] %>", "TOYOTA:PNC");
-  });
-</script>
+<!-- Копипапст со страницы результата поиска -->
+<%= tag("img", :src => "/assets/init.gif", :width => "35", :height => "32", :class => "info", :id => "info", :data => {:catalog_number => params[:pnc][:pnc], :manufacturer => "TOYOTA:PNC"}, :rel => "nofollow", :alt => "Информация", :title => "Информация") %>
+<!-- /Копипапст со страницы результата поиска -->
 
-    <div id='info' class='dynamic'></div>
+    <div id='info' class='dynamic' style="width: 1768px"></div>
