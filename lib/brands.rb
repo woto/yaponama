@@ -84,6 +84,7 @@ module Brands
     "MOBIS",              {:rating => 10000, :brand => true },
     "GENERAL MOTORS",     {:rating => 10000, :brand => true, :ref => ["CADILLAC", "CHEVROLET", "OPEL"] }, 
     "KYB",                {:rating => 9000, :catalog => true },
+    "KAYABA",             {:rating => 9000, :catalog => false, :ref => ["KYB"] },
     "AIKO",               {:rating => 7000 },
     "ASHIKA",             {:rating => 7000 },
     "AVANTECH",           {:rating => 7000 },
@@ -244,5 +245,7 @@ module Brands
     "AE",                 {:rating => 8000 },
     "BERU",               {:rating => 8000 },
     "MUSASHI",            {:rating => 9000 },
+    "API",                {:catalog => true },
+    "AP",                 {:ref => ["API"] }
   ]
 end

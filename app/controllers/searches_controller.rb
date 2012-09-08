@@ -273,7 +273,7 @@ class SearchesController < ApplicationController
               :info => item_status(item['catalog_number'], item['manufacturer']),
             }
 
-            @manufacturers = mf
+            #@manufacturers = mf
 
           end
 
@@ -390,7 +390,6 @@ class SearchesController < ApplicationController
 
 
       @meta_canonical = search_searches_path(params[:catalog_number], params[:manufacturer].present? ? params[:manufacturer] : nil, params[:replacements].to_i > 0 ? '1' : nil)
-
     else
       @meta_title = "Поиск запчастей по номеру"
     end
