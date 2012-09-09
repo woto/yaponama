@@ -135,7 +135,7 @@ module Brands
     "DELPHI",             {:rating => 8000 },
     "BLUE PRINT",         {:rating => 7000 },
     "NK",                 {:rating => 6000 },
-    "MAPCO",              {:rating => 6000 },
+    "MAPCO",              {:rating => 6000, :catalog => true },
     "GMB",                {:rating => 8000, :catalog => true },
     "IMPERGOM",           {:rating => 7000 },
     "SNR",                {:rating => 9000, :catalog => true },
