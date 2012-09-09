@@ -189,7 +189,7 @@ module Brands
     "FLENNOR",            {:rating => 7000, :catalog => true },
     "TYG",                {:rating => 6000 },
     "TYC",                {:rating => 6000, :catalog => true },
-    "DEPO",               {:rating => 8000 },
+    "DEPO",               {:rating => 8000, :catalog => true },
     "RAYBESTOS",          {:rating => 7000, :catalog => true },
     "LPR",                {:rating => 7000 },
     "BREMBO",             {:rating => 9000, :catalog => true },
