@@ -257,6 +257,8 @@ module Brands
     "DORMAN",             {:catalog => true },
     "BESTF1TS",           {:catalog => true },
     "BLUE PRINT",         {:catalog => true },
-    "MOTGUM",             {:catalog => true }
+    "MOTGUM",             {:catalog => true },
+    "WP",                 {:catalog => true }
+
   ]
 end
