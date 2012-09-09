@@ -175,7 +175,7 @@ module Brands
     "FRICTIONMASTER",     {:rating => 8000 },
     "ATE",                {:rating => 9000, :catalog => true },
     "NTN",                {:rating => 9400, :catalog => true },
-    "ASVA",               {:rating => 5000 },
+    "ASVA",               {:rating => 5000, :catalog => true },
     "ORIPARTS",           {:rating => 7600 },
     "ALCO FILTERS",       {:rating => 7000 },
     "BREMI",              {:rating => 8000 },
