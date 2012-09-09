@@ -115,7 +115,7 @@ module Brands
     "UNION",              {:rating => 8000 },
     "MICRO",              {:rating => 9000 },
     "VIC",                {:rating => 9000, :catalog => true },
-    "VALEO",              {:rating => 8000 },
+    "VALEO",              {:rating => 8000, :catalog => true },
     "RBI",                {:rating => 5000 },
     "DELTA",              {:rating => 8000 },
     "LYNXAUTO",           {:rating => 7000 },
