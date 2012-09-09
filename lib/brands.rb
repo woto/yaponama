@@ -259,6 +259,7 @@ module Brands
     "BLUE PRINT",         {:catalog => true },
     "MOTGUM",             {:catalog => true },
     "ZF",                 {:catalog => true },
+    "PHILIPS",            {:catalog => true },
     "WP",                 {:catalog => true }
 
   ]
