@@ -241,7 +241,7 @@ module Brands
     "VDO",                {:rating => 9000 },
     "JURID",              {:rating => 9000 },
     "NGK",                {:rating => 9000, :catalog => true },
-    "AE",                 {:rating => 8000 },
+    "AE",                 {:rating => 8000, :catalog => true },
     "BERU",               {:rating => 8000, :catalog => true },
     "MUSASHI",            {:rating => 9000 },
     "API",                {:catalog => true, :title => "AP/API" },
