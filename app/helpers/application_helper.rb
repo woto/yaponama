@@ -42,7 +42,7 @@ module ApplicationHelper
       title = Brands::BRANDS[brand][:title].html_safe
     end
 
-    link_to title, "/brands/#{Brands::BRANDS[brand][:file]}", :class => "brands-#{Brands::BRANDS[brand][:file]}"
+    link_to title, "/brands/#{Brands::BRANDS[brand][:file]}", :style => "background-image: url(#{asset_path 'brands/' + Brands::BRANDS[brand][:file]}.png)", :class => "brands-#{Brands::BRANDS[brand][:file]}"
   end
 
 end
