@@ -125,7 +125,7 @@ module Brands
     "HANSE",              {:rating => 5000 },
     "STELLOX",            {:rating => 6000 },
     "SWAG",               {:rating => 8000, :catalog => true },
-    "AKITAKA",            {:rating => 5000 },
+    "AKITAKA",            {:rating => 5000, :catalog => true },
     "FEBI",               {:rating => 7000, :catalog => true },
     "MEYLE",              {:rating => 8000, :catalog => true },
     "OPTIMAL",            {:rating => 7000, :catalog => true },
