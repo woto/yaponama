@@ -256,6 +256,7 @@ module Brands
     "ASAHI",              {:catalog => true },
     "DORMAN",             {:catalog => true },
     "BESTF1TS",           {:catalog => true },
-    "BLUE PRINT",         {:catalog => true }
+    "BLUE PRINT",         {:catalog => true },
+    "MOTGUM",             {:catalog => true }
   ]
 end
