@@ -185,7 +185,7 @@ module Brands
     "ТОЧКА ОПОРЫ",        {:rating => 7000 },
     "HELLA",              {:rating => 9000 },
     "STARMANN",           {:rating => 6000 },
-    "FLENNOR",            {:rating => 7000 },
+    "FLENNOR",            {:rating => 7000, :catalog => true },
     "TYG",                {:rating => 6000 },
     "TYC",                {:rating => 6000, :catalog => true },
     "DEPO",               {:rating => 8000 },
