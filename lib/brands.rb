@@ -134,7 +134,7 @@ module Brands
     "ABS",                {:rating => 7000, :catalog => true },
     "DELPHI",             {:rating => 8000 },
     "BLUE PRINT",         {:rating => 7000 },
-    "NK",                 {:rating => 6000 },
+    "NK",                 {:rating => 6000, :catalog => true },
     "MAPCO",              {:rating => 6000, :catalog => true },
     "GMB",                {:rating => 8000, :catalog => true },
     "IMPERGOM",           {:rating => 7000 },
