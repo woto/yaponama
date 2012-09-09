@@ -78,7 +78,7 @@ module Brands
     "ALLIED NIPPON",      {:rating => 6000 },
     "SIDEM",              {:rating => 6000 },
     "FEBEST",             {:rating => 6000, :catalog => true },
-    "NIPPARTS",           {:rating => 7400 },
+    "NIPPARTS",           {:rating => 7400, :catalog => true },
     "JAPAN CARS",         {:rating => 2000 },
     "CHAMPION",           {:rating => 2000, :catalog => true },
     "MOBIS",              {:rating => 10000, :brand => true },
@@ -89,7 +89,7 @@ module Brands
     "ASHIKA",             {:rating => 7000, :catalog => true },
     "AVANTECH",           {:rating => 7000 },
     "BOSCH",              {:rating => 9000, :catalog => true },
-    "TSN",                {:rating => 3000 },
+    "TSN",                {:rating => 3000, :title => "TSN/Triston", :catalog => true },
     "PARTS-MALL",         {:rating => 8000 },
     "JS ASAKASHI",        {:rating => 7000 },
     "DENSO",              {:rating => 8000, :catalog => true },
@@ -106,7 +106,7 @@ module Brands
     "VEMO",               {:rating => 7000 },
     "SAKURA",             {:rating => 6000, :catalog => true },
     "KOLBENSCHMIDT",      {:rating => 9400 },
-    "MASUMA",             {:rating => 6400 },
+    "MASUMA",             {:rating => 6400, :catalog => true },
     "MANN",               {:rating => 7000, :catalog => true },
     "JAPANPARTS",         {:rating => 6400 },
     "MAHLE / KNECHT",     {:rating => 9000, :catalog => true, :title => "MAHLE/KNECHT" },
@@ -252,8 +252,8 @@ module Brands
     "AUTOLITE",           {:catalog => true },
     "FAG",                {:catalog => true },
     "ASAHI",              {:catalog => true },
-    "DORMAN",             {:catalog => true }
-
-
+    "DORMAN",             {:catalog => true },
+    "BESTF1TS",           {:catalog => true },
+    "BLUE PRINT",         {:catalog => true }
   ]
 end
