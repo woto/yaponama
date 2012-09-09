@@ -150,7 +150,7 @@ module Brands
     "AC DELCO",           {:rating => 9400, :ref => ["ACDELCO"]},
     "AIKO-SAKURA",        {:rating => 6400 },
     "NISSENS",            {:rating => 8000, :catalog => true },
-    "AVA",                {:rating => 6000 },
+    "AVA",                {:rating => 6000, :catalog => true },
     "LUCAS / TRW",        {:rating => 8000, :catalog => true, :title => "LUCAS/TRW" },
     "TRW",                {:rating => 8000, :ref => ["LUCAS / TRW"] },
     "LUCAS",              {:rating => 8000, :ref => ["LUCAS / TRW"] },
