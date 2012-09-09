@@ -258,6 +258,7 @@ module Brands
     "BESTF1TS",           {:catalog => true },
     "BLUE PRINT",         {:catalog => true },
     "MOTGUM",             {:catalog => true },
+    "ZF",                 {:catalog => true },
     "WP",                 {:catalog => true }
 
   ]
