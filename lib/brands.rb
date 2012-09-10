@@ -367,6 +367,8 @@ module Brands
     "HOLA",               {:catalog => true},
     "NITTO",              {:catalog => true},
     "MITWELL",            {:catalog => true},
+    "PECO",               {:catalog => true},
+    "PEKO",               {:catalog => true},
     "MOTORCRAFT",         {:catalog => true}
 
 
