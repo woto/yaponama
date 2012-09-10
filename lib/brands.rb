@@ -343,6 +343,16 @@ module Brands
     "AKRON",              {},
     "NGN",                {:catalog => true},
     "RAVENOL",            {:catalog => true},
+    "NAKAMOTO",           {:catalog => true},
+    "DIRECT PARTS",       {:catalog => true},
+    "SALERI SIL",         {:catalog => true, :file => "saleri_sil"},
+    "SALERI-SIL",         {:catalog => true, :file => "saleri_sil"},
+    "SALERISIL",          {:catalog => true, :file => "saleri_sil"},
+    "SALERI",             {:catalog => true, :file => "saleri_sil"},
+    "SIL",                {:catalog => true, :file => "saleri_sil"},
+    "NPW",                {:catalog => true},
+    "INTERCARS",          {:catalog => true},
+    "PITWORK",            {:catalog => true},
     "MOTORCRAFT",         {:catalog => true}
   ]
 end
