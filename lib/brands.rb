@@ -166,8 +166,8 @@ module Brands
     "KASHIYAMA",          {:rating => 6000, :catalog => true },
     "TEXTAR",             {:rating => 9000, :catalog => true },
     "ICER",               {:rating => 7000, :catalog => true },
-    "MINTEX",             {:rating => 7000 },
-    "PAGID",              {:rating => 9000 },
+    "MINTEX",             {:rating => 7000, :catalog => true },
+    "PAGID",              {:rating => 9000, :catalog => true },
     "FERODO",             {:rating => 8000, :catalog => true },
     "GIRLING",            {:rating => 8000, :catalog => true },
     "NISSHINBO",          {:rating => 9000, :catalog => true },
@@ -219,7 +219,10 @@ module Brands
     "BILSTEIN",           {:rating => 8000, :catalog => true },
     "REMSA",              {:rating => 8000, :catalog => true },
     "FENOX",              {:rating => 5000, :catalog => true },
-    "ROADHOUSE",          {:rating => 8000 },
+    "ROADHOUSE",          {:rating => 8000, :catalog => true },
+    "ROAD HOUSE",         {:ref => ["ROADHOUSE"]},
+    "RH",                 {:ref => ["ROADHOUSE"]},
+    "R H",                {:ref => ["ROADHOUSE"]},
     "TOKICO",             {:rating => 9000, :catalog => true },
     "MONROE",             {:rating => 8000, :catalog => true },
     "METELLI",            {:rating => 8000, :catalog => true },
@@ -369,7 +372,14 @@ module Brands
     "MITWELL",            {:catalog => true},
     "PECO",               {:catalog => true},
     "PEKO",               {:catalog => true},
-    "MOTORCRAFT",         {:catalog => true}
+    "GLOBAL",             {},
+    "MOTORCRAFT",         {:catalog => true},
+    "EXEDY",              {:catalog => true},
+    "DAIKIN-EXEDY",       {:ref => ["EXEDY"]},
+    "DAIKIN_EXEDY",       {:ref => ["EXEDY"]},
+    "DAIKINEXEDY",        {:ref => ["EXEDY"]},
+    "DAIKIN",             {:ref => ["EXEDY"]},
+    "FBL",                {}
 
 
   ]
