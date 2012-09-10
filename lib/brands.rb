@@ -89,8 +89,8 @@ module Brands
     "ASHIKA",             {:rating => 7000, :catalog => true },
     "AVANTECH",           {:rating => 7000, :catalog => true },
     "BOSCH",              {:rating => 9000, :catalog => true },
-    "TSN",                {:rating => 3000, :title => "TSN/Triston", :catalog => true },
-    "PARTS-MALL",         {:rating => 8000 },
+    "TSN",                {:rating => 3000, :title => "TSN/Tsitron", :catalog => true },
+    "PARTS-MALL",         {:rating => 8000, :catalog => true },
     "JS ASAKASHI",        {:rating => 7000, :catalog => true },
     "DENSO",              {:rating => 8000, :catalog => true },
     "DOLZ",               {:rating => 8000, :catalog => true },
@@ -401,6 +401,13 @@ module Brands
     "SOFIMA",             {:catalog => true},
     "UFI",                {:catalog => true},
     "VIEROL",             {:catalog => true},
+    "SFEC",               {:catalog => true},
+    "SCHONEK",            {:catalog => true},
+    "SCHNEIDER",          {:catalog => true},
+    "RIXSENBERG",         {:catalog => true},
+    "RCL RADIATORS",      {:catalog => true},
+    "RCL",                {:ref => ["RCL RADIATORS"]},
+    "QUINTON HAZSELL",    {:catalog => true},
     "FBL",                {}
   ]
 end
