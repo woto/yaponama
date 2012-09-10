@@ -188,7 +188,7 @@ module Brands
     "HELLA",              {:rating => 9000, :catalog => true },
     "STARMANN",           {:rating => 6000 },
     "FLENNOR",            {:rating => 7000, :catalog => true },
-    "TYG",                {:rating => 6000 },
+    "TYG",                {:rating => 6000, :catalog => true },
     "TYC",                {:rating => 6000, :catalog => true },
     "DEPO",               {:rating => 8000, :catalog => true },
     "RAYBESTOS",          {:rating => 7000, :catalog => true },
@@ -353,6 +353,7 @@ module Brands
     "NPW",                {:catalog => true},
     "INTERCARS",          {:catalog => true},
     "PITWORK",            {:catalog => true},
+    "POLCAR",             {:catalog => true},
     "MOTORCRAFT",         {:catalog => true}
   ]
 end
