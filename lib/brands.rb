@@ -163,7 +163,7 @@ module Brands
     "HEPU",               {:rating => 9000, :catalog => true },
     "MANDO",              {:rating => 8000 },
     "AKYOTO",             {:rating => 5000, :catalog => true },
-    "KASHIYAMA",          {:rating => 6000 },
+    "KASHIYAMA",          {:rating => 6000, :catalog => true },
     "TEXTAR",             {:rating => 9000, :catalog => true },
     "ICER",               {:rating => 7000, :catalog => true },
     "MINTEX",             {:rating => 7000 },
@@ -354,6 +354,17 @@ module Brands
     "INTERCARS",          {:catalog => true},
     "PITWORK",            {:catalog => true},
     "POLCAR",             {:catalog => true},
+    "AMIWA",              {:catalog => true},
+    "FINWHALE",           {:catalog => true},
+    "WEEN",               {:catalog => true},
+    "DORIA",              {:catalog => true, :file => "meat_doria", :title => "MEAT &amp; DORIA"},
+    "MEAT&DORIA",         {:ref => ["DORIA"]},
+    "MEAT-DORIA",         {:ref => ["DORIA"]},
+    "MEAT DORIA",         {:ref => ["DORIA"]},
+    "MEAT_DORIA",         {:ref => ["DORIA"]},
+    "MEATANDDORIA",       {:ref => ["DORIA"]},
+    "MEAT AND DORIA",     {:ref => ["DORIA"]},
     "MOTORCRAFT",         {:catalog => true}
+
   ]
 end
