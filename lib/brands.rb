@@ -364,7 +364,11 @@ module Brands
     "MEAT_DORIA",         {:ref => ["DORIA"]},
     "MEATANDDORIA",       {:ref => ["DORIA"]},
     "MEAT AND DORIA",     {:ref => ["DORIA"]},
+    "HOLA",               {:catalog => true},
+    "NITTO",              {:catalog => true},
+    "MITWELL",            {:catalog => true},
     "MOTORCRAFT",         {:catalog => true}
+
 
   ]
 end
