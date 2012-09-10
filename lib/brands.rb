@@ -380,7 +380,7 @@ module Brands
     "DAIKIN",             {:ref => ["EXEDY"]},
     "SURE FILTER",        {:catalog => true},
     "TERMAL",             {},
-    "AKS",                {:catalog => true, :title => "AKS Dasis", :file => "aks_dasis"},
+    "AKS",                {:catalog => true, :title => "AKS&nbsp;DASIS", :file => "aks_dasis"},
     "AKS DASIS",          {:ref => ["AKS"]},
     "DASIS",              {:ref => ["AKS"]},
     "FRIG AIR",           {},
