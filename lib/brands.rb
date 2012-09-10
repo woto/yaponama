@@ -207,7 +207,7 @@ module Brands
     "JP",                 {:rating => 8000, :catalog => true },
     "JP GROUP",           {:rating => 8000 },
     "PURFLUX",            {:rating => 8000 },
-    "PIERBURG",           {:rating => 9000 },
+    "PIERBURG",           {:rating => 9000, :catalog => true },
     "SACHS",              {:rating => 9000, :catalog => true },
     "BEHR",               {:rating => 9000, :catalog => true },
     "BANDO",              {:rating => 9000, :catalog => true },
@@ -318,7 +318,7 @@ module Brands
     "CARDEX",             {:ref => ["CAR-DEX"]},
     "CAR DEX",            {:ref => ["CAR-DEX"]},
     "CARRYBOY",           {},
-    "CASTROL",            {},
+    "CASTROL",            {:catalog => true},
     "ELASTOGRAN",         {},
     "CIFAM",              {},
     "CONCORD",            {},
@@ -379,6 +379,11 @@ module Brands
     "DAIKIN_EXEDY",       {:ref => ["EXEDY"]},
     "DAIKINEXEDY",        {:ref => ["EXEDY"]},
     "DAIKIN",             {:ref => ["EXEDY"]},
+    "SURE FILTER",        {:catalog => true},
+    "TERMAL",             {},
+    "AKS",                {:catalog => true, :title => "AKS Dasis", :file => "aks_dasis"},
+    "DASIS",              {:ref => ["AKS"]},
+    "AKD DASIS",          {:ref => ["AKS"]},
     "FBL",                {}
 
 
