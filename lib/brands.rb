@@ -254,7 +254,7 @@ module Brands
     "FAG",                {:catalog => true },
     "ASAHI",              {:catalog => true },
     "DORMAN",             {:catalog => true },
-    "BESTF1TS",           {:catalog => true },
+    "BESF1TS",            {:catalog => true },
     "MOTGUM",             {:catalog => true },
     "ZF",                 {:catalog => true },
     "PHILIPS",            {:catalog => true },
