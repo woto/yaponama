@@ -411,8 +411,10 @@ module Brands
     "QUINTON HAZSELL",    {:catalog => true},
     "ARD",                {:catalog => true},
     "ACHR",               {:catalog => true},
-    "AUTOLOG",            {},
-    "AUTO LOG",           {},
+    "AUTLOG",            {:catalog => true},
+    "AUT LOG",           {:ref => ["AUTLOG"]},
+    "AUT_LOG",           {:ref => ["AUTLOG"]},
+    "AUT-LOG",           {:ref => ["AUTLOG"]},
     "AUTOMEGA",           {},
     "DELLO",              {},
     "BENDIX",             {},
@@ -422,6 +424,8 @@ module Brands
     "ALLIED SIGNAL",      {},
     "ASIMCO",             {:catalog => true},
     "ANCO",               {:catalog => true},
+    "SH AUTO PARTS",      {:catalog => true, :title => "SH&nbsp;AUTO&nbsp;PARTS"},
+    "JANMOR",             {:catalog => true}
     "FBL",                {}
   ]
 end
