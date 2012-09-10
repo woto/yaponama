@@ -340,6 +340,9 @@ module Brands
     "ATS",                {:catalog => true},
     "KLAKSON",            {},
     "KILEN",              {},
-    "AKRON",              {}
+    "AKRON",              {},
+    "NGN",                {:catalog => true},
+    "RAVENOL",            {:catalog => true},
+    "MOTORCRAFT",         {:catalog => true}
   ]
 end
