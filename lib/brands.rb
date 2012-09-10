@@ -288,7 +288,7 @@ module Brands
     "AD",                 {},
     "ABT",                {},
     "ADDAX-Q",            {},
-    "FEDERAL MOGUL",      {:catalog => true},
+    "FEDERAL MOGUL",      {:catalog => true, :title => "FEDERAL&nbsp;MOGUL"},
     "AIRTECH",            {:catalog => true},
     "FEL-PRO",            {},
     "ALCA",               {},
