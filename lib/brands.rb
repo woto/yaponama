@@ -425,7 +425,7 @@ module Brands
     "ASIMCO",             {:catalog => true},
     "ANCO",               {:catalog => true},
     "SH AUTO PARTS",      {:catalog => true, :title => "SH&nbsp;AUTO&nbsp;PARTS"},
-    "JANMOR",             {:catalog => true}
+    "JANMOR",             {:catalog => true},
     "FBL",                {}
   ]
 end
