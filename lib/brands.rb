@@ -455,6 +455,7 @@ module Brands
     "TP",                 {:catalog => true},
     "NARVA",              {:catalog => true},
     "GEELY",              {:catalog => true},
+    "HARLEY DAVIDSON",    {:catalog => true},
     "LOGEM",              {}
   ]
 end
