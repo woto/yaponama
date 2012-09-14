@@ -233,7 +233,7 @@ class SearchesController < ApplicationController
       @formatted_data = {}
 
       @parsed_json["result_prices"].each do |item|
-        next if item["job_import_job_country_short"].include?("avtorif.ru")
+        next if item["job_import_job_country_short"].nil? || item["job_import_job_country_short"].include?("avtorif.ru")
         correct_manufacturer(item)
 
         # Необходимо поступать так, т.к. только в момент разбора можем понять есть если ли что-нибудь или нет
@@ -395,6 +395,41 @@ class SearchesController < ApplicationController
     end
 
     search_page_content
+
+    if @formatted_data.present?
+
+      # Keywords
+      keywords = Hash.new {|hash,key| hash[key] = 0}
+      @formatted_data.map{|k, v| v.map{|kk, vv| vv[:titles].map{|kkk, vvv| kkk}}}.flatten.join(', ').split(/[, ]/).reject{|kkk| kkk.size <= 3}.each { |word| keywords[word] += 1 }
+      keywords = keywords.sort{|k, v| k[1] <=> v[1]}.reverse
+      keywords = keywords[0, (keywords.size/4.0).round]
+      @meta_keywords = keywords.map{|k, v| k}.join(', ')
+      # /Keywords
+
+      # Title
+      @meta_title = ''
+      if params[:replacements].present?
+        @meta_title << "Замены #{params[:catalog_number]}"
+      else
+        @meta_title << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ')
+        @meta_title << " ("
+        @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ')
+        @meta_title << ")"
+      end
+      @meta_title << " - "
+      @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ').mb_chars.capitalize
+      # /Title
+      
+      # Description
+      @meta_description = ''
+      @meta_description << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ')
+      @meta_description << " ("
+      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ')
+      @meta_description << ") "
+      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ').mb_chars.capitalize
+      @meta_description << ". Удобная оплата. Отправка в регионы, доставка по Москве, самовывоз м. Динамо, Аэропорт."
+      # /Description
+    end
 
     unless params.include?(:skip) || @status.any?{|k, v| v}
       render :status => 404 and return
