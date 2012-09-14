@@ -459,6 +459,7 @@ module Brands
     "HKT",                {:catalog => true},
     "HDK",                {:catalog => true},
     "K+F",                {:catalog => true},
+    "KLOKKERHOLM",        {:catalog => true},
     "IZUMI",              {},
     "LOGEM",              {}
   ]
