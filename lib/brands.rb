@@ -458,6 +458,7 @@ module Brands
     "LESJOFORS",          {:catalog => true},
     "HKT",                {:catalog => true},
     "HDK",                {:catalog => true},
+    "K+F",                {:catalog => true},
     "IZUMI",              {},
     "LOGEM",              {}
   ]
