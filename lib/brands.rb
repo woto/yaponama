@@ -459,6 +459,7 @@ module Brands
     "KAVO",               {:catalog => true},
     "ZAFFO",              {:catalog => true},
     "FORTECH",            {:catalog => true},
+    "M2",                 {:catalog => true},
     "LOGEM",              {}
   ]
 end
