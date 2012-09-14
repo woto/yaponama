@@ -455,6 +455,7 @@ module Brands
     "FORTECH",            {:catalog => true},
     "M2",                 {:catalog => true},
     "TAMA",               {:catalog => true},
+    "LESJOFORS",          {:catalog => true},
     "LOGEM",              {}
   ]
 end
