@@ -450,12 +450,14 @@ module Brands
     "NARVA",              {:catalog => true},
     "GEELY",              {:catalog => true},
     "HARLEY DAVIDSON",    {:catalog => true},
-    "KAVO",               {:catalog => true},
+    "KAVO PARTS",         {:catalog => true},
     "ZAFFO",              {:catalog => true},
     "FORTECH",            {:catalog => true},
     "M2",                 {:catalog => true},
     "TAMA",               {:catalog => true},
     "LESJOFORS",          {:catalog => true},
+    "HKT",                {},
+    "IZUMI",              {},
     "LOGEM",              {}
   ]
 end
