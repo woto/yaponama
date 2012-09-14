@@ -457,6 +457,7 @@ module Brands
     "TAMA",               {:catalog => true},
     "LESJOFORS",          {:catalog => true},
     "HKT",                {:catalog => true},
+    "HDK",                {:catalog => true},
     "IZUMI",              {},
     "LOGEM",              {}
   ]
