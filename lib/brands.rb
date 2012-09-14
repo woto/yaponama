@@ -453,6 +453,7 @@ module Brands
     "TONG YANG",          {:catalog => true},
     "NOVLINE",            {:catalog => true},
     "TP",                 {:catalog => true},
+    "NARVA",              {:catalog => true},
     "LOGEM",              {}
   ]
 end
