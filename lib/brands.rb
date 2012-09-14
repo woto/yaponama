@@ -457,6 +457,8 @@ module Brands
     "GEELY",              {:catalog => true},
     "HARLEY DAVIDSON",    {:catalog => true},
     "KAVO",               {:catalog => true},
+    "ZAFFO",              {:catalog => true},
+    "FORTECH",            {:catalog => true},
     "LOGEM",              {}
   ]
 end
