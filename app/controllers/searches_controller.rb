@@ -233,7 +233,7 @@ class SearchesController < ApplicationController
       @formatted_data = {}
 
       @parsed_json["result_prices"].each do |item|
-        next if item["job_import_job_country_short"].include?("avtorif.ru")
+        next if item["job_import_job_country_short"].blank? || item["job_import_job_country_short"].include?("avtorif.ru")
         correct_manufacturer(item)
 
         # Необходимо поступать так, т.к. только в момент разбора можем понять есть если ли что-нибудь или нет
