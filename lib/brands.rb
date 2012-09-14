@@ -310,7 +310,6 @@ module Brands
     "AUTOMOTOR FRANCE",   {},
     "AUTOX",              {},
     "ORIGINAL BIRTH",     {},
-    "RIB-TOP",            {},
     "BOMBARDIER",         {},
     "BW",                 {},
     "CAR-DEX",            {:catalog => true, :file => "car_dex"},
@@ -440,6 +439,15 @@ module Brands
     "GOOD YEAR",          {:catalog => true},
     "DONGIL",             {:catalog => true},
     "OPTIBELT",           {:catalog => true},
+    "TOPDRIVE",           {:catalog => true},
+    "TOYOPOWER",          {:catalog => true},
+    "BLACKBELT",          {:catalog => true},
+    "SCHNIEDER",          {:catalog => true},
+    "NEKO",               {:catalog => true},
+    "RIB-TOP",            {},
+    "APR",                {},
+    "NOK",                {:catalog => true},
+    "TEIKIN",             {:catalog => true},
     "LOGEM",              {}
   ]
 end
