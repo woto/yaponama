@@ -454,6 +454,7 @@ module Brands
     "NOVLINE",            {:catalog => true},
     "TP",                 {:catalog => true},
     "NARVA",              {:catalog => true},
+    "GEELY",              {:catalog => true},
     "LOGEM",              {}
   ]
 end
