@@ -448,6 +448,10 @@ module Brands
     "APR",                {},
     "NOK",                {:catalog => true},
     "TEIKIN",             {:catalog => true},
+    "TAIHO",              {:catalog => true},
+    "THO",                {:catalog => true},
+    "TONG YANG",          {:catalog => true},
+    "NOVLINE",            {:catalog => true},
     "LOGEM",              {}
   ]
 end
