@@ -51,7 +51,11 @@ class SearchesController < ApplicationController
   end
 
   def set_meta_robots
-    @meta_robots = 'index, follow'
+    if params[:manufacturer] || params[:replacements]
+      @meta_robots = 'noindex, follow'
+    else
+      @meta_robots = 'index, follow'
+    end
   end
 
   def forbidden_old_parameters
