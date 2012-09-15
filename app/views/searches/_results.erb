@@ -42,7 +42,7 @@
 
       <p> Не устраивает цена или сроки? <a href="#">Взгляните на другие предложения наших поставщиков </a></p>
 
-      <p> А так же рекомендуем <%= link_to 'посмотреть аналоги этой детали', search_searches_path(catalog_number, manufacturer, '1'), :class => 'ajax-search' %>, т.к. возможно существуют детали по более низкой цене и не хуже качеством.</p>
+      <p> А так же рекомендуем посмотреть <%= link_to "аналоги и замены \"#{catalog_number} - #{manufacturer}\"", search_searches_path(catalog_number, manufacturer, '1'), :class => 'ajax-search' %>, т.к. возможно существуют детали по более низкой цене и не хуже качеством.</p>
 
       <p> Наша оценка качества производителя: <div class="stars-rating-<%= mf_scope[:brand][:rating].to_i / 1000 %>"></div> </p>
 
@@ -128,4 +128,4 @@
 
 <br /> <br />
 <h2>Замены артикула</h2>
-Вы так же можете попробовать <%= link_to "посмотреть замены номера без учета производителя", search_searches_path(params[:catalog_number], nil, '1') %>.
+Вы так же можете попробовать посмотреть <%= link_to "замены номера #{params[:catalog_number]} без указания производителя", search_searches_path(params[:catalog_number], nil, '1') %>.

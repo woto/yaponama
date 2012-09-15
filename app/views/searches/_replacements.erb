@@ -18,7 +18,7 @@
         <tr> 
           <td> <div class="stars-rating-<%= mf_scope[:brand][:rating].to_i / 1000 %>"></div> </td>
           <td> <%= manufacturer %> </td>
-          <td> <%= link_to catalog_number, search_searches_path(catalog_number, :anchor => manufacturer), :class => 'ajax-search' %> </td>
+          <td> <%= link_to catalog_number, search_searches_path(catalog_number, manufacturer.present? ? manufacturer : nil), :class => 'ajax-search' %> </td>
           <td>
 
             <% # Если есть хотя бы какая-то информация, то показываем, что есть информация %>

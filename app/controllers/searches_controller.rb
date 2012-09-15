@@ -51,11 +51,11 @@ class SearchesController < ApplicationController
   end
 
   def set_meta_robots
-    if params[:manufacturer] || params[:replacements]
-      @meta_robots = 'noindex, follow'
-    else
-      @meta_robots = 'index, follow'
-    end
+    #if params[:replacements]
+    #  @meta_robots = 'noindex, follow'
+    #else
+    #  @meta_robots = 'index, follow'
+    #end
   end
 
   def forbidden_old_parameters
@@ -403,27 +403,34 @@ class SearchesController < ApplicationController
       @meta_keywords = keywords.map{|k, v| k}.join(', ')
       # /Keywords
 
+
+      titles = @formatted_data.map{|k, v| v.map{|kk, vv| vv[:titles]}}.map{|kkk| kkk.map{|kkkk| kkkk.to_a}}.flatten(2).sort{|kkkkk, vvvvv| kkkkk[1] <=> vvvvv[1]}.reverse.map{|kkkkk| kkkkk[0]}.uniq
+
       # Title
       @meta_title = ''
       if params[:replacements].present?
-        @meta_title << "Замены #{params[:catalog_number]}"
+        @meta_title << "Замены #{params[:catalog_number]} "
+        @meta_title << "#{params[:manufacturer]} " if params[:manufacturer]
       else
-        @meta_title << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ')
+        # Каталожник тут всегда будет 1? TODO
+        @meta_title << @formatted_data.map{|k, v| k}.flatten.uniq.reject{|kk| kk.size < 2}[0, 2].join(', ')
+        # Производители
         @meta_title << " ("
-        @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ')
-        @meta_title << ")"
+        @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.uniq.reject{|kk| kk.size < 2}[0, 5].join(', ')
+        @meta_title << ") "
       end
-      @meta_title << " - "
-      @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ').mb_chars.capitalize
+      @meta_title << titles[0].mb_chars.capitalize
+      
       # /Title
       
       # Description
       @meta_description = ''
-      @meta_description << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ')
-      @meta_description << " ("
-      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ')
-      @meta_description << ") "
-      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ').mb_chars.capitalize
+      # Названия
+      if titles.size > 1
+        @meta_description << titles[1, 3].join(', ').mb_chars.capitalize
+      else
+        @meta_description << titles[0].mb_chars.capitalize
+      end
       @meta_description << ". Удобная оплата. Отправка в регионы, доставка по Москве, самовывоз м. Динамо, Аэропорт."
       # /Description
     end
