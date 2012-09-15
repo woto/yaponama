@@ -51,14 +51,7 @@ class SearchesController < ApplicationController
   end
 
   def set_meta_robots
-    # Буквально на днях перед написанием этой идеи Яндекс добавил в индекс 17 тыс. страниц
-    # @meta_robots = 'index, follow'
-    #
-    if params[:manufacturer] || params[:replacements]
-      @meta_robots = 'noindex, follow'
-    else
-      @meta_robots = 'index, follow'
-    end
+    @meta_robots = 'index, follow'
   end
 
   def forbidden_old_parameters
