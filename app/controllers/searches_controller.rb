@@ -400,7 +400,7 @@ class SearchesController < ApplicationController
 
       # Keywords
       keywords = Hash.new {|hash,key| hash[key] = 0}
-      @formatted_data.map{|k, v| v.map{|kk, vv| vv[:titles].map{|kkk, vvv| kkk}}}.flatten.join(', ').split(/[, ]/).reject{|kkk| kkk.size <= 3}.each { |word| keywords[word] += 1 }
+      @formatted_data.map{|k, v| v.map{|kk, vv| vv[:titles].map{|kkk, vvv| kkk}}}.flatten.join(', ').split(/[, ]/).reject{|kkk| kkk.size < 2}.each { |word| keywords[word] += 1 }
       keywords = keywords.sort{|k, v| k[1] <=> v[1]}.reverse
       keywords = keywords[0, (keywords.size/4.0).round]
       @meta_keywords = keywords.map{|k, v| k}.join(', ')
@@ -411,22 +411,22 @@ class SearchesController < ApplicationController
       if params[:replacements].present?
         @meta_title << "Замены #{params[:catalog_number]}"
       else
-        @meta_title << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ')
+        @meta_title << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ')
         @meta_title << " ("
-        @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ')
+        @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ')
         @meta_title << ")"
       end
       @meta_title << " - "
-      @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size <= 3}[0, 2].join(', ').mb_chars.capitalize
+      @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size < 2}[0, 2].join(', ').mb_chars.capitalize
       # /Title
       
       # Description
       @meta_description = ''
-      @meta_description << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ')
+      @meta_description << @formatted_data.map{|k, v| k}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ')
       @meta_description << " ("
-      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ')
+      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ')
       @meta_description << ") "
-      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size <= 3}[0, 3].join(', ').mb_chars.capitalize
+      @meta_description << @formatted_data.map{|k, v| v.map{|kk, vv| vv[:title]}}.flatten.reject{|kk| kk.size < 2}[0, 3].join(', ').mb_chars.capitalize
       @meta_description << ". Удобная оплата. Отправка в регионы, доставка по Москве, самовывоз м. Динамо, Аэропорт."
       # /Description
     end
