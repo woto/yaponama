@@ -415,9 +415,9 @@ class SearchesController < ApplicationController
         # Каталожник тут всегда будет 1? TODO
         @meta_title << @formatted_data.map{|k, v| k}.flatten.uniq.reject{|kk| kk.size < 2}[0, 2].join(', ')
         # Производители
-        @meta_title << " ("
+        @meta_title << " "
         @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.uniq.reject{|kk| kk.size < 2}[0, 5].join(', ')
-        @meta_title << ") "
+        @meta_title << " "
       end
       @meta_title << titles[0].mb_chars.capitalize
       
