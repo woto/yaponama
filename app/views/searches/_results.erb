@@ -15,7 +15,7 @@
       <% end %>
       <% if mf_scope[:catalog_number_origs].size > 0 %>
         <em>Прочие написания артикула детали:</em><br />
-        <p><%= raw mf_scope[:catalog_number_origs].keys.map{|val| h(val)}.join(', ') %></p>
+        <p><strong><%= raw mf_scope[:catalog_number_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
       <% end %>
       <% if mf_scope[:weights].size > 0 %>
         <em>Веса:</em>
