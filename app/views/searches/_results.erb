@@ -11,7 +11,7 @@
       <p><%= raw mf_scope[:titles].keys.map{|val| h(val)}.join(', ') %></p>
       <% if mf_scope[:manufacturer_origs].size > 0 %>
         <em>Прочие написания производителя детали:</em><br />
-        <p><%= raw mf_scope[:manufacturer_origs].keys.map{|val| h(val)}.join(', ') %></p>
+        <p><strong><%= raw mf_scope[:manufacturer_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
       <% end %>
       <% if mf_scope[:catalog_number_origs].size > 0 %>
         <em>Прочие написания артикула детали:</em><br />
