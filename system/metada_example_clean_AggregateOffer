@@ -1,0 +1,10 @@
+<div itemscope itemtype="http://schema.org/Product">
+  <span itemprop="name">НАЗВАНИЕ</span>
+  <span itemprop="brand">БРЕНД</span>
+  <img itemprop="image" src="КАРТИНКА" alt="КАРТИНКА" />
+  <span itemprop="description">ОПИСАНИЕ</span>
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+    <span itemprop="lowPrice">1 руб.</span> до <span itemprop="highPrice">10 руб.</span>
+    from <span itemprop="offerCount">8</span> sellers
+</div>

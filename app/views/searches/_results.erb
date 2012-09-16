@@ -1,26 +1,29 @@
 <% @formatted_data.each do |catalog_number, cn_scope| %>
   <% cn_scope.each_with_index do |(manufacturer, mf_scope), i| %>
+<div itemscope itemtype="http://schema.org/Product">
     <%= content_tag(:span, raw('&nbsp;'), :id => manufacturer)  %>
-    <h1 style="margin-top: 30px"> <%= manufacturer %> <small> <%= catalog_number %> </small> </h1>
+    <h1 style="margin-top: 30px"> <span itemprop="brand"><%= manufacturer %></span> <small> <%= catalog_number %> </small> </h1>
     
     <div style="width: 200px; height: 200px; background: #999; float: left; margin: 0 20px 20px 0"> </div>
 
     <div style="width: 600px; float: left">
-      <h3><%= mf_scope[:title] %></h3>
+      <h3><span itemprop="name"><span style="display: none"><%= catalog_number %> (<%= manufacturer%>)</span> <%= mf_scope[:title] %></span></h3>
 
-      <p><%= raw mf_scope[:titles].keys.map{|val| h(val)}.join(', ') %></p>
-      <% if mf_scope[:manufacturer_origs].size > 0 %>
-        <em>Прочие написания производителя детали:</em><br />
-        <p><strong><%= raw mf_scope[:manufacturer_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
-      <% end %>
-      <% if mf_scope[:catalog_number_origs].size > 0 %>
-        <em>Прочие написания артикула детали:</em><br />
-        <p><strong><%= raw mf_scope[:catalog_number_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
-      <% end %>
-      <% if mf_scope[:weights].size > 0 %>
-        <em>Веса:</em>
-        <p><%= raw mf_scope[:weights].keys.map{|val| h("#{val} кг.")}.join(', ') %></p>
-      <% end %>
+      <div itemprop="description">
+        <p><%= raw mf_scope[:titles].keys.map{|val| h(val)}.join(', ') %></p>
+        <% if mf_scope[:manufacturer_origs].size > 0 %>
+          <em>Прочие написания производителя детали:</em><br />
+          <p><strong><%= raw mf_scope[:manufacturer_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
+        <% end %>
+        <% if mf_scope[:catalog_number_origs].size > 0 %>
+          <em>Прочие написания артикула детали:</em><br />
+          <p><strong><%= raw mf_scope[:catalog_number_origs].keys.map{|val| h(val)}.join(', ') %></strong></p>
+        <% end %>
+        <% if mf_scope[:weights].size > 0 %>
+          <em>Веса:</em>
+          <p><%= raw mf_scope[:weights].keys.map{|val| h("#{val} кг.")}.join(', ') %></p>
+        <% end %>
+      </div>
 
       <div style="margin: 20px">
         <!-- КОПИПАСТ TODO -->
@@ -40,7 +43,11 @@
         <!-- /КОПИПАСТ TODO -->
       </div>
 
-      <p> Не устраивает цена или сроки? <a href="#">Взгляните на другие предложения наших поставщиков </a></p>
+
+      <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+        <meta itemprop="priceCurrency" content="RUB" />
+        <p>Не устраивают цена или срок доставки? Взгляните на <span itemprop="offerCount"><%= mf_scope[:offers].size %></span> лучших предложений от наших поставщиков с ценами от <span itemprop="lowPrice"><%= number_to_currency(mf_scope[:min_cost]) %></span> до <span itemprop="highPrice"><%= number_to_currency(mf_scope[:max_cost]) %></span>
+      </div>
 
       <p> А так же рекомендуем посмотреть <%= link_to "аналоги и замены \"#{catalog_number} - #{manufacturer}\"", search_searches_path(catalog_number, manufacturer, '1'), :class => 'ajax-search' %>, т.к. возможно существуют детали по более низкой цене и не хуже качеством.</p>
 
@@ -123,6 +130,7 @@
       <hr />
     <% end %>
 
+  </div>
   <% end %>
 <% end %>
 

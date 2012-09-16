@@ -1,0 +1,11 @@
+<div itemscope itemtype="http://schema.org/Product">
+  <span itemprop="name">НАЗВАНИЕ</span>
+  <span itemprop="brand">БРЕНД</span> 
+  <img itemprop="image" src="КАРТИНКА" alt="КАРТИНКА" />
+  <span itemprop="description">ОПИСАНИЕ</span>
+
+  <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+    <meta itemprop="priceCurrency" content="RUB" />
+    <span itemprop="price">1 руб</span>
+  </div>
+</div>
