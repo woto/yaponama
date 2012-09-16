@@ -419,7 +419,7 @@ class SearchesController < ApplicationController
         @meta_title << @formatted_data.map{|k, v| v.map{|kk, vv| kk}}.flatten.uniq.reject{|kk| kk.size < 2}[0, 5].join(', ')
         @meta_title << " "
       end
-      @meta_title << titles[0].mb_chars.capitalize
+      @meta_title << titles[0].to_s.mb_chars.capitalize
       
       # /Title
       
@@ -429,7 +429,7 @@ class SearchesController < ApplicationController
       if titles.size > 1
         @meta_description << titles[1, 3].join(', ').mb_chars.capitalize
       else
-        @meta_description << titles[0].mb_chars.capitalize
+        @meta_description << titles[0].to_s.mb_chars.capitalize
       end
       @meta_description << ". Удобная оплата. Отправка в регионы, доставка по Москве, самовывоз м. Динамо, Аэропорт."
       # /Description
