@@ -1,0 +1,25 @@
+<h1>Listing toyota_epc_part_number_application_to_models_parents</h1>
+
+<table>
+  <tr>
+    <th>Part number</th>
+    <th>Region area</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @toyota_epc_part_number_application_to_models_parents.each do |toyota_epc_part_number_application_to_models_parent| %>
+  <tr>
+    <td><%= toyota_epc_part_number_application_to_models_parent.part_number %></td>
+    <td><%= toyota_epc_part_number_application_to_models_parent.region_area %></td>
+    <td><%= link_to 'Show', toyota_epc_part_number_application_to_models_parent %></td>
+    <td><%= link_to 'Edit', edit_toyota_epc_part_number_application_to_models_parent_path(toyota_epc_part_number_application_to_models_parent) %></td>
+    <td><%= link_to 'Destroy', toyota_epc_part_number_application_to_models_parent, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Part number application to models parent', new_toyota_epc_part_number_application_to_models_parent_path %>

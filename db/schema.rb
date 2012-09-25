@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120702190248) do
+ActiveRecord::Schema.define(:version => 20120923115859) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -190,6 +190,49 @@ ActiveRecord::Schema.define(:version => 20120702190248) do
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
+  create_table "toyota_epc_part_number_application_to_models_children", :force => true do |t|
+    t.string   "region_area"
+    t.string   "part_number"
+    t.string   "part_name_code"
+    t.string   "qty"
+    t.string   "catalog"
+    t.string   "model_name"
+    t.string   "fr_to"
+    t.string   "models_description"
+    t.integer  "part_number_application_to_models_parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "toyota_epc_part_number_application_to_models_parents", :force => true do |t|
+    t.string   "part_number"
+    t.string   "region_area"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "toyota_epc_part_number_list_children", :force => true do |t|
+    t.string   "part_number"
+    t.string   "part_name_code"
+    t.string   "qty"
+    t.string   "catalog"
+    t.string   "model_name"
+    t.string   "fr_to"
+    t.string   "models_description"
+    t.string   "region_area"
+    t.integer  "part_number_list_parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "toyota_epc_part_number_list_parents", :force => true do |t|
+    t.string   "part_name_code"
+    t.string   "part_name"
+    t.string   "region_area"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

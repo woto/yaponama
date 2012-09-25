@@ -1,0 +1,12 @@
+<%= simple_form_for(@toyota_epc_part_number_application_to_models_parent, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :part_number %>
+    <%= f.input :region_area %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

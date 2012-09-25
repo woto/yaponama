@@ -1,0 +1,13 @@
+<%= simple_form_for(@toyota_epc_part_number_list_parent, :wrapper => :inline) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="inputs">
+    <%= f.input :region_area %>
+    <%= f.input :part_name_code %>
+    <%= f.input :part_name %>
+  </div>
+
+  <div class="actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,5 +1,13 @@
 Yaponama::Application.routes.draw do
 
+  namespace :toyota_epc do resources :part_number_application_to_models_children end
+
+  namespace :toyota_epc do resources :part_number_application_to_models_parents end
+
+  namespace :toyota_epc do resources :part_number_list_parents end
+
+  namespace :toyota_epc do resources :part_number_list_children end
+
   scope "/toyota/epc" do
     get 'pnc/index' => 'toyota_epc_pnc#index'
     get 'pnc/search' => 'toyota_epc_pnc#search', :as => :toyota_epc_search_pnc
