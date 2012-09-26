@@ -1,0 +1,35 @@
+<h1>Listing feed_elements</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Robots</th>
+    <th>Keywords</th>
+    <th>Description</th>
+    <th>Default content</th>
+    <th>Mobile content</th>
+    <th>Feed category</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @feed_elements.each do |feed_element| %>
+  <tr>
+    <td><%= feed_element.title %></td>
+    <td><%= feed_element.robots %></td>
+    <td><%= feed_element.keywords %></td>
+    <td><%= feed_element.description %></td>
+    <td><%= feed_element.default_content %></td>
+    <td><%= feed_element.mobile_content %></td>
+    <td><%= feed_element.feed_category %></td>
+    <td><%= link_to 'Show', feed_element %></td>
+    <td><%= link_to 'Edit', edit_feed_element_path(feed_element) %></td>
+    <td><%= link_to 'Destroy', feed_element, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Feed element', new_feed_element_path %>
