@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120923115859) do
+ActiveRecord::Schema.define(:version => 20120925225847) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -86,6 +86,26 @@ ActiveRecord::Schema.define(:version => 20120923115859) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "feed_categories", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feed_elements", :force => true do |t|
+    t.string   "title"
+    t.string   "robots"
+    t.text     "keywords"
+    t.text     "description"
+    t.text     "default_content"
+    t.text     "mobile_content"
+    t.integer  "feed_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feed_elements", ["feed_category_id"], :name => "index_feed_elements_on_feed_category_id"
 
   create_table "links", :force => true do |t|
     t.integer  "user_id"
