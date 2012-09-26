@@ -13,10 +13,10 @@
         <%= f.input :keyword, :input_html => {:style => "width: 80%", :rows => "3"}, :hint => "Список ключевых слов через запятую, используемые в тексте страницы. <meta name=\"Keywords\" content=\"...\" />", :label => "Ключевые слова" %>
         <%= f.input :description, :input_html => {:style => "width: 80%", :rows => "3"}, :hint => "2-3 предложения максимально описывающих содержимое страницы. <meta name=\"Description\" content=\"...\"/>", :label => "Описание" %>
       <div class="unmargin" >
-        <%= f.input :default_content, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Full' } %>
+        <%= f.input :default_content, :as => :ckeditor, :label => false %>
       </div>
       <div class="unmargin" >
-        <%= f.input :mobile_content, :as => :ckeditor, :label => false, :input_html => { :toolbar => 'Full' }, :hint => "Если не заполнять мобильную версию, то будет использована стандартная. Рекомендуется заполнять если используется сложная разметка или крупные картинки" %>
+        <%= f.input :mobile_content, :as => :ckeditor, :label => false, :hint => "Если не заполнять мобильную версию, то будет использована стандартная. Рекомендуется заполнять если используется сложная разметка или крупные картинки" %>
       </div>
   </div>
 
