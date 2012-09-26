@@ -1,3 +1,7 @@
+TODO
+Добавить spellcheck'er Яндекса
+http://api.yandex.ru/speller/doc/dg/tasks/how-to-spellcheck-ckeditor.xml
+
 Время на машине bee должно быть установелно корректно, иначе дата в ключ t: будет записываться некорректно, нужно было сделать относительным через expire
 
 sudo apt-get install procmail (Для установки lockfile, при вызову static_builder)
