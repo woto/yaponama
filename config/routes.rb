@@ -1,5 +1,9 @@
 Yaponama::Application.routes.draw do
 
+  resources :feed_elements
+
+  resources :feed_categories
+
   namespace :toyota_epc do resources :part_number_application_to_models_children end
 
   namespace :toyota_epc do resources :part_number_application_to_models_parents end

@@ -68,6 +68,9 @@
                 <li<%= params[:controller] == 'blocks' ? ' class="active"'.html_safe : ''%>><%= link_to "Блоки", blocks_path %></li>
                 <li class="divider"></li>
                 <li<%= params[:controller] == 'pages' && (params[:action] == 'index' || params[:action] == 'edit' || params[:action] == 'new') ? ' class="active"'.html_safe : ''%>><%= link_to "Страницы", pages_path %></li>
+                <li class="divider"></li>
+                <li<%= params[:controller] == 'feed_categories' && (params[:action] == 'index' || params[:action] == 'edit' || params[:action] == 'new') ? ' class="active"'.html_safe : ''%>><%= link_to "Категории Лент", feed_categories_path %></li>
+                <li<%= params[:controller] == 'feed_elements' && (params[:action] == 'index' || params[:action] == 'edit' || params[:action] == 'new') ? ' class="active"'.html_safe : ''%>><%= link_to "Элементы Лент", feed_elements_path %></li>
                 <% if content_for(:pages_controler) %>
                   <%= yield(:pages_controller) %>
                 <% end %>
