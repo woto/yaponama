@@ -159,6 +159,31 @@ class ApplicationController < ActionController::Base
     root_path(:anchor => "jump")
   end  
 
+
+protected
+
+    # CKEDITOR разграничения файлов
+    def ckeditor_filebrowser_scope(options = {})
+      debugger
+      super({ :assetable_id => current_user.id, :assetable_type => 'User' }.merge(options))
+    end
+
+    def ckeditor_pictures_scope(options = {})
+      ckeditor_filebrowser_scope(options)
+    end
+
+    def ckeditor_attachment_files_scope(options = {})
+      ckeditor_filebrowser_scope(options)
+    end
+
+    # Set current_user as assetable
+    def ckeditor_before_create_asset(asset)
+      asset.assetable = current_user
+      return true
+    end
+    # /CKEDITOR разграничения файлов
+  
+
   private
 
   def render_404(exception)
