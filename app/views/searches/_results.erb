@@ -123,7 +123,14 @@
     <!-- /TODO ЭТО КОПИПАСТ -->
 
     <h5>Информация написанная нами</h5>
+    <%= link_to "Новое описание", new_spare_info_path(:catalog_number => catalog_number, :manufacturer => manufacturer) %>
     <%= raw mf_scope[:info][:own][:data].default_content if mf_scope[:info][:own][:status] == 'avaliable'  %>
+
+    <h5>Хотите оценить качество детали или написать комментарий?</h5>
+    <% si = SpareInfo.new %>
+    <%= simple_form_for si do |f| %>
+      <% f.input :description, :as => :ckeditor, :label => false %>
+    <% end %>
 
     <% #  Показываем разделитель только если не последний элемент %>
     <% if i != cn_scope.size-1 %>
