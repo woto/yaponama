@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120925225847) do
+ActiveRecord::Schema.define(:version => 20120927212918) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -210,6 +210,14 @@ ActiveRecord::Schema.define(:version => 20120925225847) do
   end
 
   add_index "simple_captcha_data", ["key"], :name => "idx_key"
+
+  create_table "spare_infos", :force => true do |t|
+    t.string   "catalog_number"
+    t.string   "manufacturer"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "toyota_epc_part_number_application_to_models_children", :force => true do |t|
     t.string   "region_area"
