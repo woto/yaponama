@@ -1,0 +1,27 @@
+<h1>Listing spare_infos</h1>
+
+<table>
+  <tr>
+    <th>Catalog number</th>
+    <th>Manufacturer</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @spare_infos.each do |spare_info| %>
+  <tr>
+    <td><%= spare_info.catalog_number %></td>
+    <td><%= spare_info.manufacturer %></td>
+    <td><%= spare_info.description %></td>
+    <td><%= link_to 'Show', spare_info %></td>
+    <td><%= link_to 'Edit', edit_spare_info_path(spare_info) %></td>
+    <td><%= link_to 'Destroy', spare_info, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Spare info', new_spare_info_path %>

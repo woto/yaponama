@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Catalog number:</b>
+  <%= @spare_info.catalog_number %>
+</p>
+
+<p>
+  <b>Manufacturer:</b>
+  <%= @spare_info.manufacturer %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @spare_info.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_spare_info_path(@spare_info) %> |
+<%= link_to 'Back', spare_infos_path %>

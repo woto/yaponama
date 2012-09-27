@@ -1,0 +1,2 @@
+module SpareInfosHelper
+end
