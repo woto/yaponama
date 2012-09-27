@@ -1,5 +1,7 @@
 Yaponama::Application.routes.draw do
 
+  resources :spare_infos
+
   resources :feed_elements
 
   resources :feed_categories
