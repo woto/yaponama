@@ -2,10 +2,10 @@ defaults: &defaults
   price_request_cache_with_replacements_in_seconds: 7776000 # 3 мес.
   price_request_cache_without_replacements_in_seconds: 3600 #  1 час.
   redis_port: 6379
-  price_address: '188.64.170.156'
+  price_address: 'price.avtorif.ru:85'
   request_emex: true
-  emex_income_rate: 1.05 # Наценка 5%
-  avtorif_income_rate: 0.8932 # Скидка 10.68%
+  emex_income_rate: 1.025
+  avtorif_income_rate: 0.8932
   retail_rate: 1.10
   robokassa_integration_mode: 'production'
   robokassa_pass_1: 'Qwer3322'
