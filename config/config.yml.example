@@ -3,6 +3,8 @@ defaults: &defaults
   price_request_cache_without_replacements_in_seconds: 3600 #  1 час.
   redis_port: 6379
   price_address: 'price.avtorif.ru:85'
+  price_server_ip: 'price.avtorif.ru'
+  price_server_port: '85'
   request_emex: true
   emex_income_rate: 1.025
   avtorif_income_rate: 0.8932

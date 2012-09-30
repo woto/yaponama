@@ -26,7 +26,7 @@ SitemapGenerator::Sitemap.create do
   end
 
   # Прайсы наличия
-  Net::HTTP.start('188.64.170.156', '85') do |http|
+  Net::HTTP.start(APP_CONFIG["price_server_ip"], APP_CONFIG["price_server_port"]) do |http|
     prices_urls = [
     '/suppliers/77/price_settings/154/download',
     '/suppliers/77/price_settings/153/download',
