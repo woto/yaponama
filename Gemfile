@@ -100,3 +100,5 @@ gem 'netaddr'
 gem 'ipgeobase'
 gem 'cells'
 gem 'mustache'
+gem 'loginza'
+
