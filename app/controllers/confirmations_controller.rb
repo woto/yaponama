@@ -23,14 +23,14 @@ class ConfirmationsController < Devise::PasswordsController
     #if successfully_sent?(resource)
     #  respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
     #else
-    #  respond_with_navigational(resource){ render_with_scope :new }
+    #  respond_with_navigational(resource){ render :new }
     #end
     if successfully_sent?(resource)
       set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
       expire_session_data_after_sign_in!
       respond_with resource, :location => after_inactive_sign_up_path_for(resource)
     else
-      respond_with_navigational(resource){ render_with_scope :new }
+      respond_with_navigational(resource){ render :new }
     end
   end
 
@@ -62,7 +62,7 @@ class ConfirmationsController < Devise::PasswordsController
     end
     unless flag
       if !self.resource.errors.empty?
-        render_with_scope :insert
+        render :insert
       end
     end
   end
@@ -81,7 +81,7 @@ class ConfirmationsController < Devise::PasswordsController
     end
     unless flag
       if !self.resource.errors.empty?
-        render_with_scope :insert
+        render :insert
       end
     end
   end
@@ -117,7 +117,7 @@ class ConfirmationsController < Devise::PasswordsController
     @confirmation_token = params[:user][:confirmation_token]
     @requires_password = true
     #self.resource = @confirmable
-    render_with_scope :show
+    render :show
   end
 
   def do_confirm

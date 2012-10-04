@@ -46,7 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
   
   def try_again
     clean_up_passwords(resource)
-    respond_with_navigational(resource) { render_with_scope :new }
+    respond_with_navigational(resource) { render :new }
   end  
 
   # To change this template use File | Settings | File Templates.
