@@ -21,7 +21,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = Page.order("updated_at DESC").page params[:page]
 
     respond_to do |format|
       format.html # index.html.erb
