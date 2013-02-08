@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
-  include SimpleCaptcha::ControllerHelpers
 
   def new
+
     # Chrome отправляет дополнительный запрос HEAD, который перегенеровывает капчу
     if request.method == 'GET'
       super
@@ -13,21 +13,23 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Делаем админом первого зарегистрировавшегося (копия оригинала без 2-х строк)
   def create
-    build_resource
 
     # Первый зарегистрированный пользователь будет администратором
-    if resource.class.count_by_sql("SELECT COUNT(id) FROM users") == 0
-      resource.admin = true
-    end
+    #if resource.class.count_by_sql("SELECT COUNT(id) FROM users") == 0
+    #  resource.admin = true
+    #end
 
-    if simple_captcha_valid?
+    if captcha_valid? params[:captcha]
+      #debugger
+      build_resource
       if resource.save
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_in(resource_name, resource)
-          respond_with resource, :location => after_sign_up_path_for(resource, :anchor => "jump")
+          debugger
+          respond_with resource, :location => after_sign_up_path_for(resource)
         else
-          set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?
+          set_flash_message :notice, :inactive_signed_up, :reason => "#TODO" if is_navigational_format?
           expire_session_data_after_sign_in!
           respond_with resource, :location => after_inactive_sign_up_path_for(resource)
         end
@@ -35,11 +37,13 @@ class RegistrationsController < Devise::RegistrationsController
         try_again
       end
       
-    else      
+    else
+      build_resource
+      #debugger
       self.resource.errors.add(:captcha, "Неверно введен код")
-      self.resource.errors[:phone].clear
+      #self.resource.errors[:phone].clear
       
-      try_again
+     try_again
     end
     
   end
@@ -57,5 +61,5 @@ class RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     root_path(:anchor => "jump")
   end  
-  
+
 end

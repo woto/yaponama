@@ -12,11 +12,6 @@
 
    <%= render_cell :news_feed, :index, :user => @current_user %>
 
-
-  <h3>Каталоги автозапчастей</h3>
-  <div class="brands force-clearfix" style="margin-bottom: 20px">
-    <%= raw Brands::BRANDS.select{|a, b| b[:catalog] == true}.map{|a, b| brands_decorator(a, {:title => true})}.join %>
-  </div>
 </div>
 
 

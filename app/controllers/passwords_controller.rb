@@ -3,17 +3,29 @@ class PasswordsController < Devise::PasswordsController
   
   def create
   
-    self.resource = User.where(:phone => params[:user][:phone]).first
+    t = User.arel_table
+
+    self.resource = User.where(
+      t[:phone].eq(params[:user][:login]).
+      or(t[:email].eq(params[:user][:login]))
+    ).first
+    
+    debugger
     
     if self.resource.blank?
-      self.resource = resource_class.send_reset_password_instructions(params[resource_name])
+
       unless simple_captcha_valid?
-        self.resource.errors[:phone].clear
+        self.resource = User.new
+        self.resource.errors[:login].clear
         self.resource.errors.add(:captcha, "Неверно введен код")
         try_again and return
+      else
+        self.resource = User.new
+        self.resource.errors[:login] = 'ааа'
       end
     else
       unless simple_captcha_valid?
+        self.resource = User.new
         self.resource.errors[:phone].clear
         self.resource.errors.add(:captcha, "Неверно введен код")
         try_again and return
@@ -22,8 +34,8 @@ class PasswordsController < Devise::PasswordsController
       end
     end
       
-    if successfully_sent?(resource)
-      respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
+    if successfully_sent?(self.resource)
+      respond_with({}, :location => after_sending_reset_password_instructions_path_for(self.resource_name))
     else
       try_again
     end

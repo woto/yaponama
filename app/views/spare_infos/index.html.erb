@@ -4,7 +4,10 @@
   <tr>
     <th>Catalog number</th>
     <th>Manufacturer</th>
-    <th>Description</th>
+    <th>Default content</th>
+    <th>Mobile content</th>
+    <th>Invisible content</th>
+    <th>User</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +17,10 @@
   <tr>
     <td><%= spare_info.catalog_number %></td>
     <td><%= spare_info.manufacturer %></td>
-    <td><%= spare_info.description %></td>
+    <td><%= spare_info.default_content %></td>
+    <td><%= spare_info.mobile_content %></td>
+    <td><%= spare_info.invisible_content %></td>
+    <td><%= spare_info.user %></td>
     <td><%= link_to 'Show', spare_info %></td>
     <td><%= link_to 'Edit', edit_spare_info_path(spare_info) %></td>
     <td><%= link_to 'Destroy', spare_info, :confirm => 'Are you sure?', :method => :delete %></td>

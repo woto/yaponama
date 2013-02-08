@@ -1,6 +1,6 @@
 <h1><%= "Вход" if @meta_title != "Вход" %></h1>
 
-<%= hint_decorator(notice_text || "Если вы уже регистрировались на нашем сайте, то просто укажите ваш номер телефона и пароль. Иначе пожалуйста зарегистрируйтесь, это не займет более 2-х минут.") %>
+<%= hint_decorator(notice_text || "Если вы уже регистрировались на нашем сайте, то просто укажите ваш номер телефона и пароль. Иначе #{link_to "пожалуйста зарегистрируйтесь", new_user_registration_path}, это не займет более 2-х минут.  Данная процедура абсолютно бесплатна.") %>
 
 <hr>
 
@@ -17,10 +17,14 @@
 
   <div class="inputs">
 
+    <!--
     <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
       <%= content_tag :span, "+7", :class => "add-on" %>
       <%= f.input :phone, :autofocus => true, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
+    -->
+
+    <%= f.input :login, :label => "E-mail или Сотовый", :hint => "Укажите электронный адрес почты или номер сотового телефона", :required => true %>
 
     <%= f.input :password, :required => true, :hint => "Пароль от этого сайта" %>
 

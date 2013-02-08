@@ -1,7 +1,0 @@
-<% render :partial => "pages/add_menu_elements" %>
-
-<% if @page.mobile_content.present? %>
-  <%= @page.mobile_content.html_safe %>
-<% else %> 
-  <%= @page.default_content.html_safe %>
-<% end %>

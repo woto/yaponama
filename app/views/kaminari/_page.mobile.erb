@@ -1,1 +1,0 @@
-  <%= link_to page, Rails.application.routes.recognize_path(url).merge(:anchor => "jump", :page => page), opts = {:remote => remote, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>&nbsp;&nbsp;

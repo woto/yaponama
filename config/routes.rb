@@ -40,11 +40,6 @@ Yaponama::Application.routes.draw do
 
   post 'parts_images' => 'parts_images#create'
 
-  match 'pages/new/:path' => "pages#new", :as => 'new_predefined_page', :constraints => {:path => /.*/}
-  resources :pages
-
-  get 'robots.txt' => "robots_txt#index"
-
   match 'admin' => redirect('/blocks')
   resources :blocks, :only => ['edit', 'update', 'index']
 
@@ -117,6 +112,9 @@ Yaponama::Application.routes.draw do
     match '/users/show_become(/:id)' => 'sessions#show_become', :as => :show_become, :via => :get
   end
 
+  debugger
+  captcha_route
+
   devise_for :users, :controllers => {
           :confirmations => "confirmations",
           :registrations => "registrations",
@@ -124,7 +122,9 @@ Yaponama::Application.routes.draw do
           :sessions => "sessions"
   }
 
-  resources :clients
+  resources :clients do
+    match 'create_loginza', :on => :collection
+  end
 
 
   #devise_for :users
@@ -187,8 +187,6 @@ Yaponama::Application.routes.draw do
   # match ':controller(/:action(/:id(.:format)))'
 
   #match '/info/:catalog_number(-:manufacturer)' => "info#index", :catalog_number => /[^-]+/, :as => :info, :via => :get
-  match '/info/:catalog_number(/:manufacturer)' => "info#index", :as => :info, :via => :get
 
-  match "*path" => "pages#render_page"
 
 end

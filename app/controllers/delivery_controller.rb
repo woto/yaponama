@@ -1,2 +1,0 @@
-class DeliveryController < ApplicationController
-end

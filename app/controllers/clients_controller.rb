@@ -1,7 +1,7 @@
 class ClientsController < ApplicationController
 
-  before_filter :authenticate_user!
-  before_filter :is_admin?
+  before_filter :authenticate_user!, :except => :create_loginza
+  before_filter :is_admin?, :except => :create_loginza
 
   # GET /users
   # GET /users.json
@@ -41,9 +41,27 @@ class ClientsController < ApplicationController
     @user = User.find(params[:id])
   end
 
+
+  def create_loginza
+
+    if data = Loginza.user_data(params[:token])
+      client = User.find_or_initialize_by_provider_and_identity(data["provider"], data["identity"])
+      client.user_name = data["identity"]
+      #client.phone = (0...10).map{ ('a'..'z').to_a[rand(26)] }.join
+ 
+      client.save(:validate => false)
+      redirect_to root_path
+    else
+      redirect_to login_path
+    end
+
+  end
+
+
   # POST /users
   # POST /users.json
   def create
+
     @user = User.new(params[:user])
 
     respond_to do |format|

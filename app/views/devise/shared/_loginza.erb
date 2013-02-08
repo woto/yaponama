@@ -1,0 +1,7 @@
+<div style="clear: both"></div>
+<br />
+<div>
+  <h2><%= "или войдите без регистрации с помощью" if @meta_title != "Вход без регистрации" %></h2> 
+
+<%= loginza_frame_tag(create_loginza_clients_url, { :providers => [:google, :facebook, :twitter, :yandex, :mailruapi, :vkontakte, :odnoklassniki, :openid] }, { :style => "width:450px;height:200px;" }) %>
+</div>

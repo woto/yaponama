@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120927212918) do
+ActiveRecord::Schema.define(:version => 20121005123612) do
 
   create_table "blocks", :force => true do |t|
     t.text     "content"
@@ -140,15 +140,16 @@ ActiveRecord::Schema.define(:version => 20120927212918) do
   end
 
   create_table "orders", :force => true do |t|
-    t.string   "status",        :default => "awaiting"
+    t.string   "status",            :default => "awaiting"
     t.text     "notes"
-    t.boolean  "notified",      :default => false
+    t.boolean  "notified",          :default => false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "delivery_cost"
     t.boolean  "paid1"
     t.boolean  "paid2"
+    t.text     "invisible_content"
   end
 
   create_table "pages", :force => true do |t|
@@ -214,10 +215,15 @@ ActiveRecord::Schema.define(:version => 20120927212918) do
   create_table "spare_infos", :force => true do |t|
     t.string   "catalog_number"
     t.string   "manufacturer"
-    t.text     "description"
+    t.text     "default_content"
+    t.text     "mobile_content"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "invisible_content"
   end
+
+  add_index "spare_infos", ["user_id"], :name => "index_spare_infos_on_user_id"
 
   create_table "toyota_epc_part_number_application_to_models_children", :force => true do |t|
     t.string   "region_area"
@@ -263,12 +269,12 @@ ActiveRecord::Schema.define(:version => 20120927212918) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                      :default => "", :null => false
+    t.string   "encrypted_password",                         :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",                              :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -282,13 +288,17 @@ ActiveRecord::Schema.define(:version => 20120927212918) do
     t.string   "name"
     t.string   "user_name"
     t.boolean  "admin"
-    t.integer  "balance",                               :default => 0
-    t.integer  "discount",                              :default => 0
+    t.integer  "balance",                                    :default => 0
+    t.integer  "discount",                                   :default => 0
+    t.string   "provider"
+    t.string   "identity"
+    t.string   "unconfirmed_email"
+    t.string   "second_factor_pass_code",      :limit => 32
+    t.integer  "second_factor_attempts_count",               :default => 0
   end
 
   add_index "users", ["admin"], :name => "index_users_on_admin"
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
-  add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   create_table "wishes", :force => true do |t|

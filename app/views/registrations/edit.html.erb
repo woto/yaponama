@@ -17,6 +17,8 @@
       <p>Номер телефона: +7 <%= phone_decorator(f.object.phone) %> </p><br />
     </div>
 
+    <%= f.input :phone %>
+
     
     <%= f.input :user_name, :required => true %>
     <%= f.input :email, :hint => "Адрес электронной почты" %>

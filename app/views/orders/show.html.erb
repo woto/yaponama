@@ -6,6 +6,9 @@
 <h3>Результат обработки:</h3>
 <%= simple_format(@order.notes || "Изменится после того, как заказ перейдет в статус \"#{t(:processed)}\"") %> <br />
 
+<h3>Служебная информация:</h3>
+<%= simple_format @order.invisible_content %> <br />
+
 <% if current_user.admin? %>
   <h3>Покупатель:</h3>
   <p><%= link_to "#{h(@order.user.user_name)}<br />+7 #{phone_decorator(h(@order.user.phone))}".html_safe, show_become_path(@order.user_id, :anchor => "jump") %></p><br />

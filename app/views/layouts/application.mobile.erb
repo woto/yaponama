@@ -97,13 +97,7 @@
     <p><%= alert %></p><br />
   <% end %>
 
-  <% if content_for?(:form_error) %>
-    <p><%= yield :form_error %></p><br />
-  <% end %>
-
 	  <%= yield %><br /><br /><br />
-
-<%= render :partial => 'layouts/mobile_switch.html.erb' %>
 
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'google_analytics'}) %>
 <%= render(:partial => "blocks/show.erb", :locals => {:block_name => 'yandex_metrika'}) %>

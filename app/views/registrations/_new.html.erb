@@ -1,8 +1,10 @@
 <h1><%= "Регистрация" if @meta_title != "Регистрация" %></h1>
 
-<%= hint_decorator(notice_text || 'Для регистрации на нашем сайте просто укажите номер своего телефона и мы вышлем Вам SMS с кодом подтверждения.') %>
+<%= hint_decorator(notice_text || 'Для регистрации на нашем сайте просто укажите номер своего телефона и мы вышлем Вам SMS с кодом подтверждения. Данная процедура абсолютно бесплатна.') %>
 <hr>
 <%= simple_form_for(resource, :wrapper => :inline, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+  <%= f.object.errors.full_messages %>
 
   <% content_for :form_error do %>
     <% if f.error_notification %>
@@ -14,15 +16,18 @@
 
     <% autofocus = (params[:controller] == 'registrations') %>
 
+    <%= f.input :email, :hint => "Электронный адрес почты", :required => true %>
+
     <%= f.input :phone, :required => true, :wrapper => :prepend, :wrapper_html => {:class => 'hint-hack'} do  %>
       <%= content_tag :span, "+7", :class => "add-on" %>
-      <%= f.input :phone, :autofocus => autofocus, :hint => 'Только цифры', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
+      <%= f.input :phone, :autofocus => autofocus, :hint => '10 цифр без +7 или 8', :input_html => {:class => 'phone-hack'}, :wrapper_html => {:class => 'margin-hack'}, :label => false %>
     <% end %>
-    
+
     <div class="clearfix required <%= resource.errors[:captcha].present? ? "error" : "" %>">
       <%= f.label "Введите код", :required => true %>
       <div class="input">
-        <%= show_simple_captcha %>
+        <%= captcha_tag %>
+        <p><%= text_field_tag :captcha %></p>
         <%= f.error :captcha %>
         <%= f.hint "Мы должны убедиться, что вы человек" %>        
       </div>

@@ -4,7 +4,10 @@
   <div class="inputs">
     <%= f.input :catalog_number %>
     <%= f.input :manufacturer %>
-    <%= f.input :description %>
+    <%= f.input :default_content, :as => :ckeditor %>
+    <%= f.input :mobile_content, :as => :ckeditor %>
+    <%= f.input :invisible_content, :as => :ckeditor %>
+    <%= f.association :user, :label_method => :user_name, :value_method => :id %>
   </div>
 
   <div class="actions">
