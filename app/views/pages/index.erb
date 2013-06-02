@@ -2,6 +2,8 @@
 
 <h1><%= @meta_title = "Страницы" %></h1>
 
+<%= paginate @pages %>
+
 <table>
   <tr>
     <th>Заголовок</th>
@@ -33,5 +35,7 @@
 </table>
 
 <br />
+
+<%= paginate @pages %>
 
 <%= link_to 'Создать страницу', new_page_path, :class => "btn primary" %>
